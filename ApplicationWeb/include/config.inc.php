@@ -4,8 +4,8 @@
 
 define('DBHOST', "localhost");
 define('DBNAME', "projetgmp");
-define('DBUSER', "bd");
-define('DBPASSWD', "bede");
+define('DBUSER', "Arnaud");
+define('DBPASSWD', "arnaud");
 define('ENV','dev');
 define('SALT','48@!alsd');
 define('DBPORT',3306);
