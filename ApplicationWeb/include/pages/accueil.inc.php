@@ -1,7 +1,7 @@
-<p>Bienvenue sur l'accueil du Projet GMP</p>
+<h1>Bienvenue sur l'accueil du Projet GMP</h1>
 
 
-<p>
+
 
 <?php
 
