@@ -3,9 +3,9 @@
 // A modifier en fonction de la configuration
 
 define('DBHOST', "localhost");
-define('DBNAME', "projetgmp");
-define('DBUSER', "Arnaud");
-define('DBPASSWD', "arnaud");
+define('DBNAME', "projet_gmp");
+define('DBUSER', "dev");
+define('DBPASSWD', "piplup");
 define('ENV','dev');
 define('SALT','48@!alsd');
 define('DBPORT',3306);

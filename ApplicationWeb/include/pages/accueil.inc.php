@@ -1,8 +1,3 @@
-<h1>Bienvenue sur l'accueil du Projet GMP</h1>
-
-
-
-
 <?php
 
   echo '<pre>';
