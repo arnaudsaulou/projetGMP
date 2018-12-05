@@ -25,7 +25,7 @@ li a {
 }
 
 li a:hover {
-  background-color: red;
+  background-color: black;
   color: white;
   transition: all .3s ease-in-out;
 }
