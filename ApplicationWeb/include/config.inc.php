@@ -2,7 +2,7 @@
 // Param�tres de l'application Covoiturage
 // A modifier en fonction de la configuration
 
-define('DBHOST', "localhost");
+define('DBHOST', "91.160.51.219:3306");
 define('DBNAME', "projet_gmp");
 define('DBUSER', "dev");
 define('DBPASSWD', "piplup");
