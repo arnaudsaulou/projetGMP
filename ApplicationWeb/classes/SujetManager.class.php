@@ -2,9 +2,13 @@
 
 class SujetManager{
 
+	private $db;
+	private $donneeVariableManager;
+
   //Conctructeur
 	public function __construct($db){
 		$this->db = $db;
+		$this->donneeVariableManager = new DonneeVariableManager($db);
 	}
 
 	//Fonction permettant de créer un objet Sujet à partir d'un tableau
@@ -12,60 +16,49 @@ class SujetManager{
 		return new Sujet($paramsSujet);
 	}
 
-  public function getSQLQueryFromListDonneeVariable($listIdDonneeVariable){
+	public function generateSujet($listDonneeVariable){
 
-    $this->recursive(count($listIdDonneeVariable),$listIdDonneeVariable);
+		if(!empty($listDonneeVariable)){
 
-  }
+			$req = $this->db->prepare(
+				$this->getSQLQueryFromListDonneeVariable($listDonneeVariable)
+			);
 
+			$req->execute();
 
-  public function recursive($iteration, $listIdTypeDonnee){
-		if($iteration > 0){
-			echo "Sujet ".$iteration."<br/>";
-			foreach ($listIdTypeDonnee as $idTypeDonnee) {
+			$req->closeCursor();
 
-				echo "Valeur ";
-
-				// $donneeVariableManager = new DonneeVariableManager($this->db);
-				//
-				// $listOfDonneeVariable = $donneeVariableManager->getListOfDonneesVariableByIdTypeDonnee($idTypeDonnee);
-				// $donneeVariable->getValeur()." ";
-
-	      $this->recursive($iteration - 1,$listIdTypeDonnee);
-	  	}
 		}
+	}
+
+
+  public function getSQLQueryFromListDonneeVariable($listDonneeVariable){
+    $selectOn = '';
+    $join = '';
+
+    for($i=0; $i <= count($listDonneeVariable); $i++){
+
+      if($i == count($listDonneeVariable) - 1){
+        $selectOn = $selectOn.'d'.$i.'.`idDonneeVariable` AS `idDonneeVariableSujet'.$i.'`';
+      } else if ($i < count($listDonneeVariable) - 1) {
+        $selectOn = $selectOn.'d'.$i.'.`idDonneeVariable` AS `idDonneeVariableSujet'.$i.'`, ';
+      }
+
+
+      if($i == count($listDonneeVariable) - 1){
+        $join = $join.
+        '(SELECT * FROM `donnees_variable` WHERE `idType` = '.($i+1).') AS d'.$i;
+      } else if ($i < count($listDonneeVariable) -1) {
+        $join = $join.
+        '(SELECT * FROM `donnees_variable` WHERE `idType` = '.($i+1).') AS d'.$i.' , ';
+      }
+
+    }
+
+    $query = 'CREATE VIEW sujet1 AS ( SELECT '.$selectOn.' FROM '.$join.')';
+
+    return $query;
   }
-
-
-
-  // //TODO OK SI ON FAIT UNE VIEW POUR CHAQUE SUJET
-  // public function getSQLQueryFromListDonneeVariable($listDonneeVariable){
-  //   $selectOn = '';
-  //   $join = '';
-	//
-  //   for($i=0; $i <= count($listDonneeVariable); $i++){
-	//
-  //     if($i == count($listDonneeVariable) - 1){
-  //       $selectOn = $selectOn.'d'.$i.'.`idDonneeVariable`';
-  //     } else if ($i < count($listDonneeVariable) - 1) {
-  //       $selectOn = $selectOn.'d'.$i.'.`idDonneeVariable` , ';
-  //     }
-	//
-	//
-  //     if($i == count($listDonneeVariable) - 1){
-  //       $join = $join.
-  //       '(SELECT * FROM `donnees_variable` WHERE `idType` = '.($i+1).') AS d'.$i;
-  //     } else if ($i < count($listDonneeVariable) -1) {
-  //       $join = $join.
-  //       '(SELECT * FROM `donnees_variable` WHERE `idType` = '.($i+1).') AS d'.$i.' , ';
-  //     }
-	//
-  //   }
-	//
-  //   $query = 'SELECT '.$selectOn.' FROM '.$join;
-	//
-  //   return $query;
-  // }
 
 
 }

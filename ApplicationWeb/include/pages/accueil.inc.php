@@ -18,7 +18,9 @@
     }
   }
 
-  echo $sujetManager->getSQLQueryFromListDonneeVariable($listIdTypesDonnees);
+
+  $sujetManager->generateSujet($listIdTypesDonnees);
+
 
   echo '</pre>';
 

@@ -11,28 +11,6 @@ class DonneeVariableManager {
 		return new DonneeVariable($paramsDonneeVariable);
 	}
 
-	public function getRandomDonneeVariableByIdTypeDonnee($idTypeDonnee){
-
-		if(!empty($idTypeDonnee)){
-      $req = $this->db->prepare(
-        "SELECT t.`idDonneeVariable`,`idType`,`valeur` FROM donnees_variable AS t INNER JOIN
-				(SELECT ROUND(RAND() * (SELECT MAX(`idDonneeVariable`) FROM donnees_variable WHERE `idType` = :idType))
-				AS idDonneeVariable ) AS x
-				WHERE t.idDonneeVariable >= x.idDonneeVariable AND `idType` = :idType LIMIT 1"
-      );
-
-      $req->bindValue(':idType',$idTypeDonnee,PDO::PARAM_INT);
-
-      $req->execute();
-
-      $donneeVariable = $req->fetch(PDO::FETCH_OBJ);
-
-			$req->closeCursor();
-
-      return new DonneeVariable($donneeVariable);
-    }
-
-	}
 
 	public function getListOfDonneesVariableByIdTypeDonnee($idTypeDonnee){
 		if(!empty($idTypeDonnee)){
