@@ -1,6 +1,6 @@
-utilisateurun utilisateur<?php
+<?php
 
-class UserManager{
+class UtilisateurManager{
 
   public function __construct($db){
     $this->db = $db;
