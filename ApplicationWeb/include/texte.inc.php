@@ -7,17 +7,14 @@ if (!empty($_GET["page"])){
 	}
 
 switch ($page) {
-//
-// Personnes
-//
 
 case 0:
-	// inclure ici la page accueil photo
+	// Page d'accueil
 	include_once('pages/accueil.inc.php');
 	break;
-	// page insertion nouveau client
+	// Affichage de la liste des étudiants
 case 1:
-	include("pages/ajouterPersonne.inc.php");
+	include("pages/afficherEtudiants.inc.php");
   break;
 
 case 2:

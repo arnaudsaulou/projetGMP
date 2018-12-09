@@ -3,7 +3,7 @@
 	<div>
 		<h2 class="titreMenu">Etudiants</h2>
 		<ul>
-			<li><a href="index.h2 class="titreMenu"hp?page=1">Consulter les étudiants</a></li>
+			<li><a href="index.php?page=1">Consulter les étudiants</a></li>
 			<li><a href="index.php?page=2">Gestion des étudiants</a></li>
 			<li><a href="index.php?page=3">Consulter les notes</a></li>
 		</ul>
