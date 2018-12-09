@@ -1,4 +1,4 @@
-<div>
+<div class="menu_gauche">
 
 	<div>
 		<h2 class="titreMenu">Etudiants</h2>
