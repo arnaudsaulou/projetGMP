@@ -1,13 +1,13 @@
 
-<h1> Liste de etudiant enregistrees</h1>
+<h1> Liste des étudiant enregistrés</h1>
 Il y a
 <?php echo $userManager->countEtudiants();
 ?>
- etudiants enregistrés
+ étudiants enregistrés
 
 	<table>
 		<tr class="enTete">
-			<th>Numero</th>
+			<th>Numéro</th>
 			<th>Nom</th>
 			<th>Prenom</th>
 		</tr>
