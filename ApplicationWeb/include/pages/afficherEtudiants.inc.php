@@ -1,7 +1,7 @@
 
 <h1> Liste des étudiant enregistrés</h1>
 Il y a
-<?php echo $userManager->countEtudiants();
+<?php echo $utilisateurManager->countEtudiants();
 ?>
  étudiants enregistrés
 
@@ -13,7 +13,7 @@ Il y a
 		</tr>
 
 	<?php
-	$listeEtudiants =$userManager->getListEtudiants();
+	$listeEtudiants =$utilisateurManager->getListEtudiants();
 	foreach ($listeEtudiants as $etudiant){
 		?>
 

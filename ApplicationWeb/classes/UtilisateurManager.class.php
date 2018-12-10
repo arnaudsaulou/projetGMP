@@ -36,10 +36,36 @@ class UtilisateurManager{
     $req->closeCursor();
   }
 
+  //fonction permettant de lister tous les étudiants
+  public function getListEtudiants(){
+
+    $req = $this->db->prepare('SELECT idUtilisateur,estProf,nom,prenom FROM utilisateur WHERE estProf = 0 ORDER BY nom');
+    $req->execute();
+
+    $listeUser=array();
+
+    while($user=$req->fetch(PDO::FETCH_OBJ)){
+      $listeUser[]=new Utilisateur($user);
+    }
+    return $listeUser;
+    $req->closeCursor();
+  }
+
   //fonction permettant de compter le nombre d'utilisateurs enregistrés (prof ET élèves)
   public function countUtilisateurs(){
     $res=array();
-    $req = $this->db->prepare("SELECT count(idUtilisateur) as total FROM utilisateur");
+    $req = $this->db->prepare("SELECT count(idUtilisateur) AS total FROM utilisateur");
+    $req->execute();
+    $res = $req->fetch(PDO::FETCH_OBJ);
+    $nbUser=$res->total;
+    return $nbUser;
+    $req-> closeCursor();
+  }
+
+  //fonction permettant de compter le nombre d'étudiants enregistrés
+  public function countEtudiants(){
+    $res=array();
+    $req = $this->db->prepare("SELECT count(idUtilisateur) AS total FROM utilisateur WHERE estProf = 0");
     $req->execute();
     $res = $req->fetch(PDO::FETCH_OBJ);
     $nbUser=$res->total;
