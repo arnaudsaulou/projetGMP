@@ -16,7 +16,6 @@ Il y a
 	$listeEtudiants =$utilisateurManager->getListEtudiants();
 	foreach ($listeEtudiants as $etudiant){
 		?>
-
 		<tr>
 			<td><?php echo $etudiant->getIdUtilisateur()?></td>
 			<td><?php echo $etudiant ->getNom()?></td>
