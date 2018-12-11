@@ -1,5 +1,6 @@
 <?php
 class TypeDonneeManager {
+    private $db;
 
 	//Conctructeur
 	public function __construct($db){
@@ -32,5 +33,3 @@ class TypeDonneeManager {
   }
 
 }
-
-?>

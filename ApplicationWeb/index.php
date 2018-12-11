@@ -5,7 +5,7 @@ require('include/config.inc.php');
 require('include/autoLoad.inc.php');
 
 //Managers ici
-$db = new MyPDO;
+$db = new MyPDO();
 $donneeVariableManager = new DonneeVariableManager($db);
 $typeDonneeManager = new TypeDonneeManager($db);
 $sujetManager = new SujetManager($db);

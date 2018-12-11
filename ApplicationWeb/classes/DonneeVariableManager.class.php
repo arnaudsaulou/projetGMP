@@ -1,5 +1,6 @@
 <?php
 class DonneeVariableManager {
+	private $db;
 
 	//Conctructeur
 	public function __construct($db){
