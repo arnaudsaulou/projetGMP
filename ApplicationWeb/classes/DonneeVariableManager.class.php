@@ -11,7 +11,6 @@ class DonneeVariableManager {
 		return new DonneeVariable($paramsDonneeVariable);
 	}
 
-
 	public function getListOfDonneesVariableByIdTypeDonnee($idTypeDonnee){
 		if(!empty($idTypeDonnee)){
 
@@ -29,9 +28,9 @@ class DonneeVariableManager {
 				$listDonneeVariable[] = new DonneeVariable($donneeVariable);
 			}
 
-			return $listDonneeVariable;
-
 			$req->closeCursor();
+
+			return $listDonneeVariable;
 
     }
 	}

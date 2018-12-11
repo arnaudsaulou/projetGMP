@@ -50,10 +50,15 @@ $(document).ready(function() {
         });
 
     //Au clique sur le boutton, ajouter l'item à la zone de création
-    bouttonAjouter.onclick = function() {ajouterElement(itemEnCoursDeCration)};
+    bouttonAjouter.onclick = function() {
+      ajouterElement(itemEnCoursDeCration);
+
+      var url = './ajax/creerEnonce_ajoutTypeDonnee.ajax.php';
+      $.post(url, function(data){ });
+    };
 
     //Au clique sur le boutton, ajouter l'item à la zone de création
-    bouttonAjouterDonneeVariable.onclick = function() {ajouterBlockDonneeVariable()};
+    bouttonAjouterDonneeVariable.onclick = function() { ajouterBlockDonneeVariable(); };
 
 });
 

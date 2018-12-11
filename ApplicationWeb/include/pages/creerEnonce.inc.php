@@ -1,5 +1,9 @@
 <?php
 
+if(isset($_POST['newTypeDonnee'])){
+var_dump($_POST['newTypeDonnee']);
+}
+
 if(!isset($_POST['enonceCreer'])) {
 
  ?>
@@ -83,58 +87,63 @@ if(!isset($_POST['enonceCreer'])) {
 
     <div id="blockParametrageDonneeVariable">
 
-      <label>Type de donnée déjà enregistré : </label>
-      <select id="typeDonnee">
-        <option>-- Choisir --</option>
-        <option>TODO</option>
-        <option>TODO</option>
-      </select>
+      <form action="./ajax/creerEnoncer_ajoutTypeDonnee.ajax.php" method="post">
 
-      <label>Type de donnée :</label>
-      <input id="typeDonnee" type="text"></input>
+        <label>Type de donnée déjà enregistré : </label>
+        <?php $listTypeDonnee = $typeDonneeManager->getTypeDonnee(); ?>
+        <select id="typeDonnee">
+          <option> - Créer nouveau type - </option>
+          <?php foreach ($listTypeDonnee as $typeDonnee) { ?>
+            <option value="<?php echo $typeDonnee->getIdType(); ?>"><?php echo $typeDonnee->getLibelle(); ?></option>
+          <?php } ?>
+        </select>
 
-      <input id="itemTypeDonneeValeurAValeur" onclick="typeDonnerClick();" type="radio" name="typeDonnee" checked="checked"> <label>Valeur par valeur</label>
-      <input id="itemTypeDonneeInterval" onclick="typeDonnerClick();"  type="radio" name="typeDonnee"> <label>Interval</label>
+        <label>Type de donnée :</label>
+        <input name="newTypeDonnee" id="newTypeDonnee" type="text"></input>
 
-      <div id="blockParametrageValeurAValeur">
+        <input id="itemTypeDonneeValeurAValeur" onclick="typeDonnerClick();" type="radio" name="typeDonnee" checked="checked"> <label>Valeur par valeur</label>
+        <input id="itemTypeDonneeInterval" onclick="typeDonnerClick();"  type="radio" name="typeDonnee"> <label>Interval</label>
 
-        <button id="bouttonAjouterDonneeVariable">Ajouter une valeur</button>
+        <div id="blockParametrageValeurAValeur">
+
+          <button id="bouttonAjouterDonneeVariable">Ajouter une valeur</button>
+
+        </div>
+
+        <div id="blockParametrageInterval">
+            <label>Borne inférieure :</label>
+            <input type="number" id="borneInferieurInterval"></input>
+
+            <label>Borne supérieure :</label>
+            <input type="number" id="borneSuperieurInterval"></input>
+
+            <label>Pas :</label>
+            <input type="number" id="pasInterval"></input>
+        </div>
 
       </div>
 
-      <div id="blockParametrageInterval">
-          <label>Borne inférieure :</label>
-          <input type="number" id="borneInferieurInterval"></input>
+      <div id="blockParametrageImage">
+          <label>Source :</label>
+          <input id="itemSource" type="file" accept="image/*" required />
 
-          <label>Borne supérieure :</label>
-          <input type="number" id="borneSuperieurInterval"></input>
+          <label>Description :</label>
+          <input type="text" id="itemDescription"></input>
 
-          <label>Pas :</label>
-          <input type="number" id="pasInterval"></input>
+          <label>Largeur :</label>
+          <input type="number" id="itemLargeur"></input>
+
+          <label>Hauteur :</label>
+          <input type="number" id="itemHauteur"></input>
       </div>
 
-    </div>
+      <button id="bouttonAjouter">Ajouter</button>
 
-    <div id="blockParametrageImage">
-        <label>Source :</label>
-        <input id="itemSource" type="file" accept="image/*" required />
-
-        <label>Description :</label>
-        <input type="text" id="itemDescription"></input>
-
-        <label>Largeur :</label>
-        <input type="number" id="itemLargeur"></input>
-
-        <label>Hauteur :</label>
-        <input type="number" id="itemHauteur"></input>
-    </div>
-
-    <button id="bouttonAjouter">Ajouter</button>
+    </form>
 
     <form action="#" method="POST">
       <input type="hidden" name="enonceCreer" id="enonceCreer" >
       <button class="bouttonValiderSujet" id="bouttonValiderSujet" onclick="validerEnonce()">Valider</button>
-
     </form>
   </div>
 
