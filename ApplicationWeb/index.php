@@ -9,6 +9,7 @@ $db = new MyPDO;
 $donneeVariableManager = new DonneeVariableManager($db);
 $typeDonneeManager = new TypeDonneeManager($db);
 $sujetManager = new SujetManager($db);
+$enonceManager = new EnonceManager($db);
 
 require_once("include/header.inc.php");
 
