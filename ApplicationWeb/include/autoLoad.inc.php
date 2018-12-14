@@ -1,5 +1,6 @@
 <?php
-function __autoload($className){
+spl_autoload_register(function ($className) {
 	$repClasses='classes/';
 	require $repClasses.$className.'.class.php';
 }
+);
