@@ -2,22 +2,22 @@
 
 class UtilisateurManager{
   private $db;
-  
+
   public function __construct($db){
     $this->db = $db;
   }
 
   //fonction permettant d'jouter un utilisateur (prof ou élève)
-  public function addUtilisateur($User){
+  public function addUtilisateur($Utilisateur){
     $req=$this ->db->prepare
     ('INSERT INTO utilisateur (estProf,nom,prenom,nomUtilisateur,motDePasse)
     VALUES (:estProf,:nom,:prenom,:login,:pwd)');
 
-    $req ->bindValue(':estProf',$User->getEstProf(),PDO::PARAM_STR);
-    $req ->bindValue(':nom',$User->getNom(),PDO::PARAM_STR);
-    $req ->bindValue(':prenom',$User->getPrenom(),PDO::PARAM_STR);
-    $req ->bindValue(':login',$User->getNomUtilisateur(),PDO::PARAM_STR);
-    $req ->bindValue(':pwd',$User->getMotDePasse(),PDO::PARAM_STR);
+    $req ->bindValue(':estProf',$Utilisateur->getEstProf(),PDO::PARAM_STR);
+    $req ->bindValue(':nom',$Utilisateur->getNom(),PDO::PARAM_STR);
+    $req ->bindValue(':prenom',$Utilisateur->getPrenom(),PDO::PARAM_STR);
+    $req ->bindValue(':login',$Utilisateur->getNomUtilisateur(),PDO::PARAM_STR);
+    $req ->bindValue(':pwd',$Utilisateur->getMotDePasse(),PDO::PARAM_STR);
 
     $req->execute();
   }
@@ -28,12 +28,12 @@ class UtilisateurManager{
     $req = $this->db->prepare('SELECT idUtilisateur,estProf,nom,prenom FROM utilisateur ORDER BY nom');
     $req->execute();
 
-    $listeUser=array();
+    $listeUtilisateur=array();
 
-    while($user=$req->fetch(PDO::FETCH_OBJ)){
-      $listeUser[]=new Utilisateur($user);
+    while($Utilisateur=$req->fetch(PDO::FETCH_OBJ)){
+      $listeUtilisateur[]=new Utilisateur($Utilisateur);
     }
-    return $listeUser;
+    return $listeUtilisateur;
     $req->closeCursor();
   }
 
@@ -43,12 +43,12 @@ class UtilisateurManager{
     $req = $this->db->prepare('SELECT idUtilisateur,estProf,nom,prenom FROM utilisateur WHERE estProf = 0 ORDER BY nom');
     $req->execute();
 
-    $listeUser=array();
+    $listeUtilisateur=array();
 
-    while($user=$req->fetch(PDO::FETCH_OBJ)){
-      $listeUser[]=new Utilisateur($user);
+    while($Utilisateur=$req->fetch(PDO::FETCH_OBJ)){
+      $listeUtilisateur[]=new Utilisateur($Utilisateur);
     }
-    return $listeUser;
+    return $listeUtilisateur;
     $req->closeCursor();
   }
 
@@ -58,8 +58,8 @@ class UtilisateurManager{
     $req = $this->db->prepare("SELECT count(idUtilisateur) AS total FROM utilisateur");
     $req->execute();
     $res = $req->fetch(PDO::FETCH_OBJ);
-    $nbUser=$res->total;
-    return $nbUser;
+    $nbUtilisateur=$res->total;
+    return $nbUtilisateur;
     $req-> closeCursor();
   }
 
@@ -69,8 +69,8 @@ class UtilisateurManager{
     $req = $this->db->prepare("SELECT count(idUtilisateur) AS total FROM utilisateur WHERE estProf = 0");
     $req->execute();
     $res = $req->fetch(PDO::FETCH_OBJ);
-    $nbUser=$res->total;
-    return $nbUser;
+    $nbUtilisateur=$res->total;
+    return $nbUtilisateur;
     $req-> closeCursor();
   }
 
