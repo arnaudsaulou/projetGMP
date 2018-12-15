@@ -47,7 +47,7 @@ class Utilisateur {
         break;
 
         default:
-        echo "Fatal error : construction Utilisateur invalide";
+        echo "Fatal error : construction Utilisateur invalide  :  ".$attribut."<br>";
         break;
       }
     }
@@ -160,4 +160,12 @@ class Utilisateur {
   {
     $this->motDePasse = $motDePasse;
   }
+
+  //cette fonction renvoi true si le mot de passe saisie est le meme que celui enregistre
+  public function checkPassword($mdpSaisi){
+    //TODO : Faire le hashage des mots de passe
+    $password =$mdpSaisi;
+    return ($password == $this-> getMotDePasse());
+  }
+
 }

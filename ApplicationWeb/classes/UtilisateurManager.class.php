@@ -77,11 +77,15 @@ class UtilisateurManager{
   //fonction permettant de recuperer un utilisateur à partir d'un nom d'utilisateur
   public function getUtilisateurByLogin($login){
     $req=$this ->db->prepare
-    ("SELECT idUtilisateur,nom,prenom,nomUtilisateur,motDePasse  FROM utilisateur WHERE per_login = :login");
+    ("SELECT idUtilisateur,estProf,nom,prenom,nomUtilisateur,motDePasse  FROM utilisateur WHERE nomUtilisateur = :login");
     $req ->bindValue(':login',$login,PDO::PARAM_STR);
     $req->execute();
     $resu = $req->fetch(PDO::FETCH_OBJ);
+    if($resu!=null){
     return new Utilisateur($resu);
+  } else {
+    return null;
+  }
     $req -> closeCursor();
   }
 
@@ -106,7 +110,7 @@ class UtilisateurManager{
     if(isset($id)){
 
       $req=$this->db->prepare(
-        'SELECT idUtilisateur,nom, prenom,nomUtilisateur, motDePasse FROM utilisateur WHERE idUtilisateur= :id'
+        'SELECT idUtilisateur,estProf,nom, prenom, nomUtilisateur, motDePasse FROM utilisateur WHERE idUtilisateur= :id'
       );
       $req->bindValue(':id',$id,PDO::PARAM_STR);
       $req->execute();
@@ -134,9 +138,6 @@ class UtilisateurManager{
       $req->closeCursor();
     }
   }
-
-
-
 
 
 }
