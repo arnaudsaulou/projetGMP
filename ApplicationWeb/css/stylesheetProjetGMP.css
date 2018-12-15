@@ -56,6 +56,24 @@ th{
   cursor: default;
 }
 
+.button{
+  padding:6px;
+  margin: 6px;
+	font:bold 13px Calibri;
+	background:white;
+	color:black;
+	border-radius:2px;
+  border-style: solid;
+  border-color: black;
+}
+
+.button:hover {
+
+  background-color: black;
+  color: white;
+  transition: all .3s ease-in-out;
+}
+
 #TitrePrincipal{
   padding: 3%;
   color: #ffffff;
