@@ -12,7 +12,6 @@ class Utilisateur {
   * @param array contient les attributs d'un utilisateur
   */
   public function __construct($valeurs = array()){
-    var_dump($valeurs);
     if(!empty($valeurs)){
       $this->affect($valeurs);
     }

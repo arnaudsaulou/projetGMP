@@ -11,10 +11,10 @@
 <html>
 	<head>
 
-		<title>Controles Serveur The Desk</title
-  		<meta http-equiv="Content-Type" 
+		<title>Controles Serveur GMP</title
+  		<meta http-equiv="Content-Type"
         	content="text/html; charset=utf-8" />
- 
+
 	</head>
 
 	<body>
@@ -24,10 +24,10 @@
 		<form method="POST" action="">
 
 			<input type="submit" value="REBOOT" name="reboot"/>
-				
+
 			</br>
 			</br>
-				
+
 			<input type="submit" value="UPDATE REPO" name="update_repo"/>
 
 		</form>
