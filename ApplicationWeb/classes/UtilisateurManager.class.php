@@ -77,7 +77,7 @@ class UtilisateurManager{
   //fonction permettant de recuperer un utilisateur à partir d'un nom d'utilisateur
   public function getUtilisateurByLogin($login){
     $req=$this ->db->prepare
-    ("SELECT idUtilisateur,nom,prenom,nomUtilisateur,motDePasse  FROM utilisateur where per_login = :login");
+    ("SELECT idUtilisateur,nom,prenom,nomUtilisateur,motDePasse  FROM utilisateur WHERE per_login = :login");
     $req ->bindValue(':login',$login,PDO::PARAM_STR);
     $req->execute();
     $resu = $req->fetch(PDO::FETCH_OBJ);
@@ -106,7 +106,7 @@ class UtilisateurManager{
     if(isset($id)){
 
       $req=$this->db->prepare(
-        'SELECT idUtilisateur,nom, prenom,nomUtilisateur, motDePasse FROM utilisateur where idUtilisateur= :id'
+        'SELECT idUtilisateur,nom, prenom,nomUtilisateur, motDePasse FROM utilisateur WHERE idUtilisateur= :id'
       );
       $req->bindValue(':id',$id,PDO::PARAM_STR);
       $req->execute();
@@ -117,7 +117,26 @@ class UtilisateurManager{
     }
   }
 
+  //fonction permettant de calculer la moyenne générale d'un étudiant passé en parametre
+  public function calculerMoyenne($etudiant){
 
-
-
+    if(isset($etudiant)){
+      $res = array();
+      $id = $etudiant ->getIdUtilisateur();
+      $req=$this->db->prepare(
+        'SELECT AVG(note) AS moyenne FROM `note` WHERE idUtilisateur = :id'
+      );
+      $req->bindValue(':id',$id,PDO::PARAM_STR);
+      $req->execute();
+      $res=$req->fetch(PDO::FETCH_OBJ);
+      $moyenne = $res->moyenne;
+      return $moyenne;
+      $req->closeCursor();
+    }
   }
+
+
+
+
+
+}

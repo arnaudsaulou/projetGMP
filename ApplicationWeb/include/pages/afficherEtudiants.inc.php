@@ -10,6 +10,7 @@ Il y a
 			<th>Numéro</th>
 			<th>Nom</th>
 			<th>Prenom</th>
+      <th>Moyenne</th>
 		</tr>
 
 	<?php
@@ -20,6 +21,7 @@ Il y a
 			<td><?php echo $etudiant->getIdUtilisateur()?></td>
 			<td><?php echo $etudiant ->getNom()?></td>
 			<td><?php echo $etudiant ->getPrenom()?></td>
+      <td><?php echo $utilisateurManager ->calculerMoyenne($etudiant)?></td>
 		</tr>
 	<?php } ?>
 	</table>

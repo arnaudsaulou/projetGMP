@@ -10,7 +10,7 @@
 	</div>
 
 	<div>
-		<h2 class="titreMenu">Contôles</h2>
+		<h2 class="titreMenu">Contrôles</h2>
 		<ul>
 			<li><a href="index.php?page=4">Consulter les sujets</a></li>
 			<li><a href="index.php?page=5">Créer un sujet</a></li>
