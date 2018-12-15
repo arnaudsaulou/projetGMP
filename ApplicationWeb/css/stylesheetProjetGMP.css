@@ -4,7 +4,6 @@ body{
 
 h1{
   font-size: 300%;
-  margin-left: 10%;
 }
 
 ul {
@@ -55,4 +54,33 @@ th{
   padding: 8px 16px;
   font-weight: bold;
   cursor: default;
+}
+
+#TitrePrincipal{
+  padding: 3%;
+  color: #ffffff;
+  background-color: #000000;
+}
+
+
+#texte{
+	float:left ;
+	width: 79%;
+	margin-left: 5px;
+	text-align: center;
+	min-height:380px;
+	color:#000;
+}
+
+#corps{
+	float:left;
+	width: 100%;
+}
+
+#menu{
+	float : left;
+	min-height:355px;
+	margin-left: 3px;
+	color:#222222;
+	font-size:15px;
 }

@@ -1,20 +1,9 @@
 <?php
 session_start();
 
-
-
-
 require('include/config.inc.php');
-
-
-
-
 require('include/autoLoad.inc.php');
-
-
-
 require_once("include/header.inc.php");
-
 
 //Managers ici
 $db = new MyPDO();

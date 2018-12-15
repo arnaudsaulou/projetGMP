@@ -13,5 +13,5 @@
   <body>
 
     <div>
-      <h1>Bienvenue sur le site du Projet GMP</h1>
+      <h1 id=TitrePrincipal>Bienvenue sur le site du Projet GMP</h1>
     <div>

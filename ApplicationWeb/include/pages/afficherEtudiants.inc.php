@@ -1,5 +1,5 @@
 
-<h1> Liste des étudiant enregistrés</h1>
+<h1> Liste des étudiants enregistrés</h1>
 Il y a
 <?php echo $utilisateurManager->countEtudiants();
 ?>
