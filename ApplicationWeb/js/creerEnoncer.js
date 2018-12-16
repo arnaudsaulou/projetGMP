@@ -52,9 +52,6 @@ $(document).ready(function() {
     //Au clique sur le boutton, ajouter l'item à la zone de création
     bouttonAjouter.onclick = function() {
       ajouterElement(itemEnCoursDeCration);
-
-      var url = './ajax/creerEnonce_ajoutTypeDonnee.ajax.php';
-      $.post(url, function(data){ });
     };
 
     //Au clique sur le boutton, ajouter l'item à la zone de création
@@ -62,17 +59,23 @@ $(document).ready(function() {
 
 });
 
+function isRadioValeurParValeurChecked(){
+  return document.getElementById("itemTypeDonneeValeurAValeur").checked;
+}
+
+function isRadioIntervalChecked(){
+  return document.getElementById("itemTypeDonneeInterval").checked;
+}
+
 function typeDonnerClick() {
-  var radioValaurParValeur =  document.getElementById("itemTypeDonneeValeurAValeur");
-  var radioInterval =  document.getElementById("itemTypeDonneeInterval");
 
   var blockParametrageValeurAValeur = document.getElementById("blockParametrageValeurAValeur");
   var blockParametrageInterval = document.getElementById("blockParametrageInterval");
 
-  if(radioValaurParValeur.checked){
+  if(isRadioValeurParValeurChecked()){
     blockParametrageInterval.style.display  = "none";
     blockParametrageValeurAValeur.style.display  = "block";
-  } else if(radioInterval.checked){
+  } else if(isRadioIntervalChecked()){
     blockParametrageValeurAValeur.style.display  = "none";
     blockParametrageInterval.style.display  = "block";
   }
@@ -184,6 +187,11 @@ function ajouterElement(typeItem) {
 }
 
 function ajouterBlockDonneeVariable(){
+
+  //Simulation d'une variable globale
+  if( typeof idInput == 'undefined' ) { idInput = 0; }
+  idInput++;
+
   var blockParametrageValeurAValeur = document.getElementById("blockParametrageValeurAValeur");
 
   var newLabelDonneeVariable = document.createElement('label');
@@ -191,7 +199,7 @@ function ajouterBlockDonneeVariable(){
   newLabelDonneeVariable.appendChild(document.createTextNode("Valeur : "));
 
   var newInputDonneeVariable = document.createElement('input');
-  newInputDonneeVariable.id = 'inputDonneeVariable';
+  newInputDonneeVariable.id = 'inputDonneeVariable'+idInput;
   newInputDonneeVariable.appendChild(document.createTextNode(""));
 
   blockParametrageValeurAValeur.appendChild(newLabelDonneeVariable);
@@ -207,12 +215,55 @@ function validerEnonce(){
 
 function ajouterNouveauTypeDonnee(){
   var newTypeDonnee = document.getElementById("newTypeDonnee").value;
-  var isItemTypeDonneeValeurAValeurChecked = document.getElementById("newTypeDonnee").checked;
-  var isItemTypeDonneeIntervalChecked = document.getElementById("itemTypeDonneeInterval").checked;
 
-  $.post("./ajax/creerEnonce_ajoutTypeDonnee.ajax.php", { newTypeDonnee: newTypeDonnee }, function(data) {
-          $("#retour_ajax").html(data);
-        });
+  if(newTypeDonnee != ""){
+    $.post("./ajax/ajoutTypeDonnee.ajax.php", { newTypeDonnee: newTypeDonnee }, function(data) {
+      ajouterNouvelleDonneeVariable();
+    });
+  }
+}
 
+function ajouterNouvelleDonneeVariable(){
+
+  if(isRadioIntervalChecked()){
+    ajouterNouvelleDonneeVariableViaInterval();
+  } else if(isRadioValeurParValeurChecked()){
+    ajouterNouvelleDonneeVariableValeurAValeur();
+  } else {
+
+  }
+}
+
+function ajouterNouvelleDonneeVariableViaInterval(){
+  var borneInferieurInterval = document.getElementById("borneInferieurInterval").value;
+  var borneSuperieurInterval = document.getElementById("borneSuperieurInterval").value;
+  var pasInterval = document.getElementById("pasInterval").value;
+
+  if(borneInferieurInterval != "" && borneSuperieurInterval != "" && pasInterval != ""){
+    $.post("./ajax/ajoutDonneeVariableViaInterval.ajax.php", {
+      borneInferieurInterval: borneInferieurInterval ,
+      borneSuperieurInterval: borneSuperieurInterval ,
+      pasInterval: pasInterval
+    });
+  }
+}
+
+function ajouterNouvelleDonneeVariableValeurAValeur(){
+
+  var tab = document.getElementsByTagName('input');
+  var liste = [];
+
+  for(var i=0; i<tab.length; i++) {
+
+     if ( tab[i].id.substring(0, 19) == 'inputDonneeVariable' ) {
+       liste.push(document.getElementById(tab[i].id).value);
+     }
+  }
+
+  if(liste.length != 0){
+    $.post("./ajax/ajoutDonneeVariableValeurAValeur.ajax.php", {
+      liste: liste
+    });
+  }
 
 }

@@ -88,6 +88,7 @@ if(!isset($_POST['enonceCreer'])) {
     <div id="blockParametrageDonneeVariable">
 
         <label>Type de donnée déjà enregistré : </label>
+
         <?php $listTypeDonnee = $typeDonneeManager->getTypeDonnee(); ?>
         <select id="typeDonnee">
           <option> - Créer nouveau type - </option>
@@ -96,7 +97,7 @@ if(!isset($_POST['enonceCreer'])) {
           <?php } ?>
         </select>
 
-        <label>nouveau type de donnée :</label>
+        <label>Nouveau type de donnée :</label>
         <input name="newTypeDonnee" id="newTypeDonnee" type="text"></input>
 
         <input id="itemTypeDonneeValeurAValeur" onclick="typeDonnerClick();" type="radio" name="typeDonnee" checked="checked"> <label>Valeur par valeur</label>
@@ -119,8 +120,7 @@ if(!isset($_POST['enonceCreer'])) {
             <input type="number" id="pasInterval"></input>
         </div>
 
-        <button id="" onclick="ajouterNouveauTypeDonnee()">Ajouter nouveau type de donnée</button>
-
+        <button onclick="ajouterNouveauTypeDonnee()">Ajouter nouveau type de donnée</button>
 
       </div>
 
@@ -141,11 +141,15 @@ if(!isset($_POST['enonceCreer'])) {
       <button id="bouttonAjouter">Ajouter</button>
 
 
+
     <form action="#" method="POST">
       <input type="hidden" name="enonceCreer" id="enonceCreer" >
       <button class="bouttonValiderSujet" id="bouttonValiderSujet" onclick="validerEnonce()">Valider</button>
     </form>
   </div>
+
+  <div id="retour_ajax"></div>
+
 
   <!-- Partie de création de l'énoncé a proprement parler -->
   <div id="page_creation" class="page_creation">
