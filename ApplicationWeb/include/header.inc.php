@@ -28,3 +28,5 @@
     <a href="index.php?page=3"><button type="button" name="button" class="grosButtonInverse">Connexion</button></a>
     <?php
   } ?>
+
+  </div>
