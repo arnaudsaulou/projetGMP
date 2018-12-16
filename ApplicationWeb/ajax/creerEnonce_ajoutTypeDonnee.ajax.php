@@ -1,7 +1,7 @@
 <?php
 
-require "../classes/MyPDO.class.php";
-require "../classes/TypeDonneeManager.class.php";
+require('../include/config.inc.php');
+require('../include/autoLoad.inc.php');
 
 $db = new MyPDO;
 $typeDonneeManager = new TypeDonneeManager($db);

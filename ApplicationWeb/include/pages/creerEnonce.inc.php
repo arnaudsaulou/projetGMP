@@ -87,8 +87,6 @@ if(!isset($_POST['enonceCreer'])) {
 
     <div id="blockParametrageDonneeVariable">
 
-      <form action="./ajax/creerEnoncer_ajoutTypeDonnee.ajax.php" method="post">
-
         <label>Type de donnée déjà enregistré : </label>
         <?php $listTypeDonnee = $typeDonneeManager->getTypeDonnee(); ?>
         <select id="typeDonnee">
@@ -98,7 +96,7 @@ if(!isset($_POST['enonceCreer'])) {
           <?php } ?>
         </select>
 
-        <label>Type de donnée :</label>
+        <label>nouveau type de donnée :</label>
         <input name="newTypeDonnee" id="newTypeDonnee" type="text"></input>
 
         <input id="itemTypeDonneeValeurAValeur" onclick="typeDonnerClick();" type="radio" name="typeDonnee" checked="checked"> <label>Valeur par valeur</label>
@@ -121,6 +119,9 @@ if(!isset($_POST['enonceCreer'])) {
             <input type="number" id="pasInterval"></input>
         </div>
 
+        <button id="" onclick="ajouterNouveauTypeDonnee()">Ajouter nouveau type de donnée</button>
+
+
       </div>
 
       <div id="blockParametrageImage">
@@ -139,7 +140,6 @@ if(!isset($_POST['enonceCreer'])) {
 
       <button id="bouttonAjouter">Ajouter</button>
 
-    </form>
 
     <form action="#" method="POST">
       <input type="hidden" name="enonceCreer" id="enonceCreer" >
@@ -170,7 +170,5 @@ if(!isset($_POST['enonceCreer'])) {
 
 } ?>
 
-
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/creerEnoncer.js"></script>

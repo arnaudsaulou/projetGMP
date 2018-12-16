@@ -139,7 +139,7 @@ function ajouterElement(typeItem) {
           newTitre.style.fontWeight = itemGras;
           newTitre.style.fontStyle = itemItalique;
           newTitre.style.textDecoration = itemSousligne;
-          newTitre.appendChild(document.createTextNode('##1'));
+          newTitre.appendChild(document.createTextNode('##1##'));
         break;
 
       case "itemQuestion":
@@ -180,7 +180,6 @@ function ajouterElement(typeItem) {
       console.log("cc");
   }
 
-  //On insère notre nouveau paragraphe juste avant
   para1.appendChild(newTitre);
 }
 
@@ -204,4 +203,16 @@ function validerEnonce(){
   var enonceCreer = document.getElementById('page_creation').innerHTML;
   var inputEnonceCreer = document.getElementById('enonceCreer');
   inputEnonceCreer.value = enonceCreer;
+}
+
+function ajouterNouveauTypeDonnee(){
+  var newTypeDonnee = document.getElementById("newTypeDonnee").value;
+  var isItemTypeDonneeValeurAValeurChecked = document.getElementById("newTypeDonnee").checked;
+  var isItemTypeDonneeIntervalChecked = document.getElementById("itemTypeDonneeInterval").checked;
+
+  $.post("./ajax/creerEnonce_ajoutTypeDonnee.ajax.php", { newTypeDonnee: newTypeDonnee }, function(data) {
+          $("#retour_ajax").html(data);
+        });
+
+
 }
