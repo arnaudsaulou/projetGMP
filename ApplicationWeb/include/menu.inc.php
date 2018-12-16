@@ -1,4 +1,5 @@
 <div id=menu>
+	<?php if(isset($_SESSION['droits'])){ ?>
 	<?php if($_SESSION['droits'] == 1){ ?>
 		<div>
 			<h2>Etudiants</h2>
@@ -47,5 +48,6 @@
 
 			<?php
 		}
-	} ?>
+	}
+}?>
 </div>
