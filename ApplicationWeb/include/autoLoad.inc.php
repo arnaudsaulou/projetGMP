@@ -4,3 +4,4 @@ spl_autoload_register(function ($className) {
 	require $repClasses.$className.'.class.php';
 }
 );
+?>
