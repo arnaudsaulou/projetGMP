@@ -30,8 +30,6 @@ function creerUtilisateurAPartirDeLigne($ligne) {
 * @param string $file - Le contenu du fichier CSV reçu par le serveur.
 */
 function traiterFichier($file) {
-  $utilisateurManager = new UtilisateurManager(new MyPDO());
-
   //Création d'un tableau de ligne. L'expression régulière est faite pour supporter
   //tous les retours à la ligne possibles (Linux/Mac/Windows)
   $lignes = preg_split("/\\r\\n|\\r|\\n/", $file);
