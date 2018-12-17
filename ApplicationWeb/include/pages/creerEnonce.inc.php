@@ -1,9 +1,5 @@
 <?php
 
-if(isset($_POST['newTypeDonnee'])){
-var_dump($_POST['newTypeDonnee']);
-}
-
 if(!isset($_POST['enonceCreer'])) {
 
  ?>
@@ -91,14 +87,14 @@ if(!isset($_POST['enonceCreer'])) {
 
         <?php $listTypeDonnee = $typeDonneeManager->getTypeDonnee(); ?>
         <select id="typeDonnee">
-          <option> - Créer nouveau type - </option>
+          <option value="0"> - Créer nouveau type - </option>
           <?php foreach ($listTypeDonnee as $typeDonnee) { ?>
             <option value="<?php echo $typeDonnee->getIdType(); ?>"><?php echo $typeDonnee->getLibelle(); ?></option>
           <?php } ?>
         </select>
 
         <label>Nouveau type de donnée :</label>
-        <input name="newTypeDonnee" id="newTypeDonnee" type="text"></input>
+        <input name="newTypeDonnee" id="newTypeDonnee" type="text">
 
         <input id="itemTypeDonneeValeurAValeur" onclick="typeDonnerClick();" type="radio" name="typeDonnee" checked="checked"> <label>Valeur par valeur</label>
         <input id="itemTypeDonneeInterval" onclick="typeDonnerClick();"  type="radio" name="typeDonnee"> <label>Interval</label>
@@ -140,16 +136,11 @@ if(!isset($_POST['enonceCreer'])) {
 
       <button id="bouttonAjouter">Ajouter</button>
 
-
-
     <form action="#" method="POST">
       <input type="hidden" name="enonceCreer" id="enonceCreer" >
       <button class="bouttonValiderSujet" id="bouttonValiderSujet" onclick="validerEnonce()">Valider</button>
     </form>
   </div>
-
-  <div id="retour_ajax"></div>
-
 
   <!-- Partie de création de l'énoncé a proprement parler -->
   <div id="page_creation" class="page_creation">

@@ -1,3 +1,9 @@
+<?php
+if(!isset($_SESSION)){
+  session_start();
+}
+?>
+
 $(document).ready(function() {
 
     var menu_parametrage = document.getElementById("menu_parametrage");
@@ -54,7 +60,7 @@ $(document).ready(function() {
       ajouterElement(itemEnCoursDeCration);
     };
 
-    //Au clique sur le boutton, ajouter l'item à la zone de création
+    //Au clique sur le boutton, ajouter l'item block de donnée variable
     bouttonAjouterDonneeVariable.onclick = function() { ajouterBlockDonneeVariable(); };
 
 });
@@ -136,13 +142,13 @@ function ajouterElement(typeItem) {
 
       case "itemDonneeVariable":
           var newTitre = document.createElement('p');
-          newTitre.id = 'donneeVariable';
+          newTitre.id = '##' + recupererIdTypeDonneeAjoute() + '##';
           newTitre.style.fontSize = itemPolice;
           newTitre.style.color = itemCouleur;
           newTitre.style.fontWeight = itemGras;
           newTitre.style.fontStyle = itemItalique;
           newTitre.style.textDecoration = itemSousligne;
-          newTitre.appendChild(document.createTextNode('##1##'));
+          newTitre.appendChild(document.createTextNode(recupererLibelleTypeDonneeAjoute()));
         break;
 
       case "itemQuestion":
@@ -154,6 +160,7 @@ function ajouterElement(typeItem) {
           newTitre.style.fontStyle = itemItalique;
           newTitre.style.textDecoration = itemSousligne;
           newTitre.appendChild(document.createTextNode(itemValeur));
+          ajouterNouvelleQuestion(itemValeur);
         break;
 
       case "itemReponse":
@@ -229,9 +236,8 @@ function ajouterNouvelleDonneeVariable(){
     ajouterNouvelleDonneeVariableViaInterval();
   } else if(isRadioValeurParValeurChecked()){
     ajouterNouvelleDonneeVariableValeurAValeur();
-  } else {
-
   }
+
 }
 
 function ajouterNouvelleDonneeVariableViaInterval(){
@@ -264,6 +270,43 @@ function ajouterNouvelleDonneeVariableValeurAValeur(){
     $.post("./ajax/ajoutDonneeVariableValeurAValeur.ajax.php", {
       liste: liste
     });
+  }
+
+}
+
+function recupererIdTypeDonneeAjoute(){
+
+  var typeDonnee = document.getElementById("typeDonnee");
+  typeDonnee = typeDonnee.options[typeDonnee.selectedIndex].value;
+
+  if(typeDonnee == "0"){
+    return "<?php if(isset($_SESSION['newIdTypeDonne'])){ echo $_SESSION['newIdTypeDonne']; } else { echo '0'; }?>";
+  } else {
+    return typeDonnee;
+  }
+
+}
+
+function recupererLibelleTypeDonneeAjoute(){
+
+  var newTypeDonnee = document.getElementById("newTypeDonnee").value;
+
+  var typeDonnee = document.getElementById("typeDonnee");
+  typeDonneeValue = typeDonnee.options[typeDonnee.selectedIndex].value;
+  typeDonneeText = typeDonnee.options[typeDonnee.selectedIndex].text;
+
+  if(typeDonneeValue == 0){
+    return "\"" + newTypeDonnee + "\"";
+  } else {
+    return "\"" + typeDonneeText + "\"";
+  }
+
+}
+
+function ajouterNouvelleQuestion(libelle){
+
+  if(libelle != ""){
+    $.post("./ajax/ajoutQuestion.ajax.php", { libelle: libelle });
   }
 
 }
