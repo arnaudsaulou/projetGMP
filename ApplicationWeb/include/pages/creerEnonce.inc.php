@@ -16,27 +16,16 @@ if(!isset($_POST['enonceCreer'])) {
      <li><a>Données Variable</a>
         <ul>
            <li><a name="DonneesVariable" class="item" id="itemDonneeVariable">Donnée Variable</a></li>
-           <li><a name="" class="item" id="">Lien sous menu 1</a></li>
         </ul>
      </li>
       <li><a>Question</a>
         <ul>
            <li><a name="Question" class="item" id="itemQuestion">Question</a></li>
-           <li><a name="" class="item" id="">Lien sous menu 2</a></li>
-        </ul>
-     </li>
-     <li><a>Réponse</a>
-        <ul>
-           <li><a name="Réponse" class="item" id="itemReponse">Réponse</a></li>
-           <li><a name="" class="item" id="">Lien sous menu 3</a></li>
-
         </ul>
      </li>
      <li><a>Image</a>
         <ul>
            <li><a name="Image" class="item" id="itemImage">Image</a></li>
-           <li><a name="" class="item" id="">Lien sous menu 3</a></li>
-
         </ul>
      </li>
   </ul>
