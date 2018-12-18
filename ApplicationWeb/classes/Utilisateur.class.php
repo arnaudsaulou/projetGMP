@@ -6,6 +6,7 @@ class Utilisateur {
   private $prenom;
   private $nomUtilisateur;
   private $motDePasse;
+  private $annee;
 
   /**
   * Génère une nouvelle instance d'Utilisateur.
@@ -44,6 +45,10 @@ class Utilisateur {
 
         case 'motDePasse':
         $this->setMotDePasse($valeur);
+        break;
+
+        case 'annee':
+        $this->setAnnee($valeur);
         break;
 
         default:
@@ -166,6 +171,25 @@ class Utilisateur {
     //TODO : Faire le hashage des mots de passe
     $password =$mdpSaisi;
     return ($password == $this-> getMotDePasse());
+  }
+
+
+  /**
+  * Récupère l'annee d'utilisateur de l'Utilisateur.
+  * @return integer L'annee d'utilisateur de l'Utilisateur.
+  */
+  public function getAnnee()
+  {
+    return $this->annee;
+  }
+
+  /**
+  * Modifie l'annee d'utilisateur de l'Utilisateur.
+  * @param integer $annee La nouvelle annee d'utilisateur de l'Utilisateur.
+  */
+  public function setAnnee($annee)
+  {
+    $this->annee = $annee;
   }
 
 }

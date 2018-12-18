@@ -39,7 +39,7 @@ case 5:
 
 case 6:
 	// inclure ici la page
-	include_once('pages/accueil.inc.php');
+	include_once('pages/attribuerSujet.inc.php');
   break;
 
 case 7:

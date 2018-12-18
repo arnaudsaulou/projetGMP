@@ -101,6 +101,32 @@ class SujetManager{
     return $query;
   }
 
+	//fonction permettant de compter le nombre de sujets enregistrés
+  public function countSujet(){
+    $res=array();
+    $req = $this->db->prepare("SELECT count(idEnonce) AS total FROM enonce");
+    $req->execute();
+    $res = $req->fetch(PDO::FETCH_OBJ);
+    $nbSujet=$res->total;
+    return $nbSujet;
+    $req-> closeCursor();
+  }
+
+	//fonction permettant de lister tous les sujets
+  public function getListSujets(){
+
+    $req = $this->db->prepare('SELECT idEnonce, enonce FROM enonce ORDER BY idEnonce');
+    $req->execute();
+
+    $listeSujet=array();
+
+    while($sujet=$req->fetch(PDO::FETCH_OBJ)){
+      $listeSujet[]=new Enonce($sujet);
+    }
+    return $listeSujet;
+    $req->closeCursor();
+  }
+
 
 }
 
