@@ -92,13 +92,13 @@ th{
   transition: all .3s ease-in-out;
 }
 
-.Header{
+.header{
   padding: 3%;
   color: #ffffff;
   background-color: #000000;
 }
 
-.TitrePrincipal{
+.titrePrincipal{
   width: 60%;
   display: inline-block;
 }
