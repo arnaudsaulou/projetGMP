@@ -23,13 +23,13 @@ case 2:
   break;
 
 case 3:
-	// inclure ici la page de connexion
-	include_once('pages/connexion.inc.php');
+	// inclure ici la page
+	include_once('pages/accueil.inc.php');
   break;
 
 case 4:
-	// inclure ici la page de deconnexion
-	include_once('pages/deconnexion.inc.php');
+	// inclure ici la page
+	include_once('pages/accueil.inc.php');
   break;
 
 case 5:

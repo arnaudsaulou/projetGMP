@@ -1,7 +1,7 @@
 
-<h1> Liste des étudiants enregistrés</h1>
+<h1> Liste des étudiant enregistrés</h1>
 Il y a
-<?php echo $utilisateurManager->countEtudiants();
+<?php echo $userManager->countEtudiants();
 ?>
  étudiants enregistrés
 
@@ -10,18 +10,17 @@ Il y a
 			<th>Numéro</th>
 			<th>Nom</th>
 			<th>Prenom</th>
-      <th>Moyenne</th>
 		</tr>
 
 	<?php
-	$listeEtudiants =$utilisateurManager->getListEtudiants();
+	$listeEtudiants =$userManager->getListEtudiants();
 	foreach ($listeEtudiants as $etudiant){
 		?>
+
 		<tr>
 			<td><?php echo $etudiant->getIdUtilisateur()?></td>
 			<td><?php echo $etudiant ->getNom()?></td>
 			<td><?php echo $etudiant ->getPrenom()?></td>
-      <td><?php echo $utilisateurManager ->calculerMoyenne($etudiant)?></td>
 		</tr>
 	<?php } ?>
 	</table>
