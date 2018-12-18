@@ -20,7 +20,7 @@
                     </select>
     </p>
 
-    <button type="submit" value="ok">Valider</button>
+    <button type="submit" value="ok" class="button">Valider</button>
   </form>
 
   <?php
@@ -39,7 +39,7 @@ else if($_POST['choix_promotion']=='annee1'){
                     </select>
     </p>
 
-    <button type="submit" value="ok">Valider</button>
+    <button type="submit" value="ok" class="button">Valider</button>
   </form>
 
   </br></br>
@@ -81,7 +81,7 @@ else if($_POST['choix_promotion']=='annee1'){
                     </select>
     </p>
 
-    <button type="submit" value="ok">Valider</button>
+    <button type="submit" value="ok" class="button">Valider</button>
   </form>
 
   </br></br>
@@ -106,7 +106,7 @@ else if($_POST['choix_promotion']=='annee1'){
     }
      ?>
   </table>
-  
+
   <?php
   }
   ?>
