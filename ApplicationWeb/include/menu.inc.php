@@ -1,4 +1,4 @@
-<div id=menu>
+<div class=menu>
 	<?php if(isset($_SESSION['droits'])){ ?>
 	<?php if($_SESSION['droits'] == 1){ ?>
 		<div>

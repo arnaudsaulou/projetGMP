@@ -4,7 +4,7 @@ session_start();
 require('include/config.inc.php');
 require('include/autoLoad.inc.php');
 ?>
-<div id="header">
+<div class="Header">
 <?php
 require_once("include/header.inc.php");
 ?>
@@ -20,7 +20,7 @@ $noteManager=new NoteManager($db);
 $attribueManager=new AttribueManager($db);
 ?>
 
-<div id="corps">
+<div class="corps">
 <?php
 require_once("include/menu.inc.php");
 
@@ -28,6 +28,6 @@ require_once("include/texte.inc.php");
 ?>
 </div>
 
-<div id="spacer"></div>
+<div class="spacer"></div>
 <?php
 require_once("include/footer.inc.php"); ?>
