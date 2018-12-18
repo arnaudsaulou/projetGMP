@@ -23,23 +23,23 @@ case 2:
   break;
 
 case 3:
-	// inclure ici la page
-	include_once('pages/accueil.inc.php');
+	// inclure ici la page de connexion
+	include_once('pages/connexion.inc.php');
   break;
 
 case 4:
-	// inclure ici la page
-	include_once('pages/accueil.inc.php');
+	// inclure ici la page de deconnexion
+	include_once('pages/deconnexion.inc.php');
   break;
 
 case 5:
 	// inclure ici la page permettant de generer un sujet
-  include("pages/creerEnonce.inc.php");
+  include("pages/genererSujet.inc.php");
 	break;
 
 case 6:
 	// inclure ici la page
-	include("pages/genererSujet.inc.php");
+	include_once('pages/accueil.inc.php');
   break;
 
 case 7:
