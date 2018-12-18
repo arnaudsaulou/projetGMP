@@ -20,6 +20,7 @@
 			</ul>
 		</div>
 
+<<<<<<< Updated upstream
 		<div>
 			<h2>Paramètres</h2>
 			<ul>
@@ -50,4 +51,24 @@
 		}
 	}
 }?>
+
+	<div>
+		<h2 class="titreMenu">Contôles</h2>
+		<ul>
+			<li><a href="index.php?page=4">Consulter les sujets</a></li>
+			<li><a href="index.php?page=5">Créer un sujet</a></li>
+			<li><a href="index.php?page=6">Attribuer les sujets</a></li>
+			<li><a href="index.php?page=7">Consulter les réponses</a></li>
+			
+		</ul>
+	</div>
+
+	<div>
+		<h2 class="titreMenu">Paramètres</h2>
+		<ul>
+			<li><a href="index.php?page=9">...</a></li>
+			<li><a href="index.php?page=10">...</a></li>
+		</ul>
+	</div>
+
 </div>

@@ -59,7 +59,7 @@ case 9:
 
 case 10:
 	// inclure ici la page
-	include_once('pages/accueil.inc.php');
+	include_once('pages/afficherNote.inc.php');
 	break;
 
 default : 	include_once('pages/accueil.inc.php');

@@ -16,6 +16,8 @@ $donneeVariableManager = new DonneeVariableManager($db);
 $typeDonneeManager = new TypeDonneeManager($db);
 $sujetManager = new SujetManager($db);
 $utilisateurManager = new UtilisateurManager($db);
+$noteManager=new NoteManager($db);
+$attribueManager=new AttribueManager($db);
 ?>
 
 <div id="corps">
