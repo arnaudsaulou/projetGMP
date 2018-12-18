@@ -1,16 +1,16 @@
-.clear {
-  clear: both;
+body{
+  font-family: Calibri;
 }
-
 
 h1{
   font-size: 300%;
-  margin-left: 10%;
-  font-family: Calibri;
 }
 
-p {
-  font-family: Calibri;
+h2{
+  font-size: 130%;
+  padding: 8px 16px;
+  font-weight: bold;
+  cursor: default;
 }
 
 ul {
@@ -22,7 +22,6 @@ ul {
 }
 
 li a {
-  font-family: Calibri;
   display: block;
   color: #000;
   padding: 8px 0px 8px 32px;
@@ -35,87 +34,99 @@ li a:hover {
   transition: all .3s ease-in-out;
 }
 
-.menu_gauche {
-  float: left;
+table{
+  font-size: 200%;
+  margin: 0 auto;
+  margin-top:30px;
+  margin-bottom: 100px;
+  border-collapse: collapse
 }
 
-.titreMenu{
-  font-size: 130%;
-  padding: 8px 16px;
-  font-weight: bold;
-  font-family: Calibri;
-  cursor: default;
+td, th {
+  padding: 5px 20px;
 }
 
-
-.menu_droite {
-  font-size: 130%;
-  padding: 8px 16px;
-  font-weight: bold;
-  font-family: Calibri;
-  cursor: default;
-  float: right;
-  border: 1px solid black;
-}
-.menu_droite ul {
-  font-size: 90%;
-  padding: 8px 16px;
-  font-weight: normal;
-  text-align: left;
+td{
+  border:1px solid black;
+  padding: 10px 20px 10px 20px
 }
 
-.menu_droite li li {
-   max-height:0;
-   overflow: hidden;
-   transition: all .2s;
-   margin:0
+th{
+    font-weight: bold;
 }
 
-.menu_droite a {
-  display:block;
-  padding: 8px 0;
+.button{
+  padding:6px;
+  margin: 6px;
+	font:bold 13px Calibri;
+	background:white;
+	color:black;
+	border-radius:2px;
+  border-style: solid;
+  border-color: black;
 }
 
-.menu_droite li:hover li {
-  max-height: 15em;
+.button:hover {
+
+  background-color: black;
+  color: white;
+  transition: all .3s ease-in-out;
 }
 
-.espace_creation{
-  float: left;
-  padding: 1%;
-  margin: 2%;
-  border: 1px solid black;
-  width: 62%;
+.grosButtonInverse{
+  padding:6px;
+  margin: 6px;
+	font:bold 23px Calibri;
+	background:black;
+	color:white;
+	border-radius:2px;
+  border-style: solid;
+  border-color: white;
+  display: inline-block;
 }
 
-.menu_parametrage{
-  border: 1px solid black;
-  padding: 1%;
-  float: left;
-  width: 27%;
+.grosButtonInverse:hover {
+
+  background-color: white;
+  color: black;
+  transition: all .3s ease-in-out;
 }
 
-.page_creation{
-  border: 1px solid black;
-  padding: 1%;
-  float: right;
-  width: 67%;
+#Header{
+  padding: 3%;
+  color: #ffffff;
+  background-color: #000000;
 }
 
-.titre_parametrage {
-  border : 1px solid black;
-  padding: 1%;
+#TitrePrincipal{
+  width: 60%;
+  display: inline-block;
 }
 
-.titre_parametrage h4{
-  display: inline;
+#messageConnexion{
+  width: 20%;
+  display: inline-block;
+  text-align: right;
 }
 
-.menu_parametrage{
-  visibility: hidden;
+#texte{
+	float:left ;
+	width: 79%;
+	margin-left: 5px;
+	text-align: center;
+	min-height:380px;
+	color:#000;
 }
 
-.bouttonValiderSujet{
-  width: 100%;
-    margin-top: 4%;
+#corps{
+	float:left;
+	width: 100%;
+}
+
+#menu{
+	float : left;
+	min-height:355px;
+	margin-left: 3px;
+	color:#222222;
+	font-size:15px;
 }
