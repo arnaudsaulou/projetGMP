@@ -13,21 +13,20 @@ class Enonce{
     }
   }
 
-  //Affectation des donnees a un objet Sujet
+  //Affectation des donnees a un objet Enonce
   public function affect($donnees){
     foreach ((array) $donnees as $attribut => $valeur) {
       switch ($attribut) {
-
         case 'idEnonce':
-            $this->setIdEnonce($valeur);
-            break;
+          $this->setIdEnonce($valeur);
+          break;
 
         case 'enonce':
-            $this->setenonce($valeur);
+            $this->setEnonce($valeur);
             break;
 
         default:
-          echo "Fatal error : construction Sujet invalide";
+          echo "Fatal error : construction Enonce invalide";
           break;
       }
     }
@@ -39,7 +38,7 @@ class Enonce{
     $this->idEnonce = $new_idEnonce;
   }
 
-  public function setenonce($new_enonce){
+  public function setEnonce($new_enonce){
     $this->enonce = $new_enonce;
   }
 
@@ -49,9 +48,10 @@ class Enonce{
     return $this->idEnonce;
   }
 
-  public function getenonce(){
+  public function getEnonce(){
     return $this->enonce;
   }
+
 }
 
 ?>

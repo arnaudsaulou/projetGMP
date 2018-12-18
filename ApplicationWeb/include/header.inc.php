@@ -11,22 +11,24 @@
 </head>
 
 <body>
+  
+  <div class="header">
+    <h1 class="titrePrincipal">Bienvenue sur le site du Projet GMP</h1>
 
-
-  <h1 id="TitrePrincipal">Bienvenue sur le site du Projet GMP</h1>
-  <div id="messageConnexion">
     <?php
     if(isset($_SESSION['co'])){ //Test si l'utilisateur est connecté ou non
-
-      echo "  <h2>Connecté en tant que ".$_SESSION['co']." </h2>"
       ?>
-    </div>
-    <a href="index.php?page=4"><button type="button" name="button" class="grosButtonInverse">Deconnexion</button></a>
-  <?php }
-  else {
-    ?>
-    <a href="index.php?page=3"><button type="button" name="button" class="grosButtonInverse">Connexion</button></a>
-    <?php
-  } ?>
+      <div class="messageConnexion">
+        <?php
+        echo "  <h2>Connecté en tant que ".$_SESSION['co']." </h2>"
+        ?>
+      </div>
+      <a href="index.php?page=4"><button type="button" name="button" class="grosButtonInverse">Deconnexion</button></a>
+    <?php }
+    else {
+      ?>
+      <a href="index.php?page=3"><button type="button" name="button" class="grosButtonInverse">Connexion</button></a>
+      <?php
+    } ?>
 
   </div>

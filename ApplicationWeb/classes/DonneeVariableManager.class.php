@@ -1,6 +1,5 @@
 <?php
 class DonneeVariableManager {
-	private $db;
 
 	//Conctructeur
 	public function __construct($db){
@@ -11,7 +10,6 @@ class DonneeVariableManager {
 	public function createDonneeVariableDepuisTableau($paramsDonneeVariable){
 		return new DonneeVariable($paramsDonneeVariable);
 	}
-
 
 	public function getListOfDonneesVariableByIdTypeDonnee($idTypeDonnee){
 		if(!empty($idTypeDonnee)){
@@ -30,11 +28,50 @@ class DonneeVariableManager {
 				$listDonneeVariable[] = new DonneeVariable($donneeVariable);
 			}
 
+			$req->closeCursor();
+
 			return $listDonneeVariable;
+
+    }
+	}
+
+	//Fonction permettant d'ajouter un nouvel objet DonneeVariable
+	public function ajouterDonneeVariable($newDonneeVariable){
+		if(!empty($newDonneeVariable)){
+			$req = $this->db->prepare(
+				"INSERT INTO `donnees_variable`(`idType`, `valeur`) VALUES (:idType , :valeur)"
+			);
+
+			$req->bindValue(':idType',$newDonneeVariable->getIdType(),PDO::PARAM_INT);
+			$req->bindValue(':valeur',$newDonneeVariable->getValeur(),PDO::PARAM_INT);
+
+			$result = $req->execute();
 
 			$req->closeCursor();
 
-    }
+			return $result;
+
+		}
+	}
+
+	public function genererListeDonneeVariableViaInterval($interval){
+		$listeDonneVariable = array();
+
+		for ($valeur=$interval['borneInferieurInterval']; $valeur <= $interval['borneSuperieurInterval']; $valeur += $interval['pasInterval']) {
+			$listDonneeVariable[] = $this->createDonneeVariableDepuisTableau(array('idType' =>  $_SESSION['newIdTypeDonne'], 'valeur' => $valeur));
+		}
+
+		return $listDonneeVariable;
+	}
+
+	public function genererListeDonneeVariableViaListe($liste){
+		$listeDonneVariable = array();
+
+		foreach ($liste as $valeur) {
+			$listDonneeVariable[] = $this->createDonneeVariableDepuisTableau(array('idType' =>  $_SESSION['newIdTypeDonne'], 'valeur' => $valeur));
+		}
+
+		return $listDonneeVariable;
 	}
 
 }
