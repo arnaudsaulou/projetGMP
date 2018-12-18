@@ -34,12 +34,12 @@ case 4:
 
 case 5:
 	// inclure ici la page permettant de generer un sujet
-  include("pages/genererSujet.inc.php");
+  include("pages/creerEnonce.inc.php");
 	break;
 
 case 6:
 	// inclure ici la page
-	include_once('pages/accueil.inc.php');
+	include("pages/genererSujet.inc.php");
   break;
 
 case 7:

@@ -130,3 +130,88 @@ th{
 	color:#222222;
 	font-size:15px;
 }
+
+.menu_gauche {
+  float: left;
+}
+
+.titreMenu{
+  font-size: 130%;
+  padding: 8px 16px;
+  font-weight: bold;
+  font-family: Calibri;
+  cursor: default;
+}
+
+
+.menu_droite {
+  font-size: 130%;
+  padding: 8px 16px;
+  font-weight: bold;
+  font-family: Calibri;
+  cursor: default;
+  float: right;
+  border: 1px solid black;
+}
+.menu_droite ul {
+  font-size: 90%;
+  padding: 8px 16px;
+  font-weight: normal;
+  text-align: left;
+}
+
+.menu_droite li li {
+   max-height:0;
+   overflow: hidden;
+   transition: all .2s;
+   margin:0
+}
+
+.menu_droite a {
+  display:block;
+  padding: 8px 0;
+}
+
+.menu_droite li:hover li {
+  max-height: 15em;
+}
+
+.espace_creation{
+  float: left;
+  padding: 1%;
+  margin: 2%;
+  border: 1px solid black;
+  width: 62%;
+}
+
+.menu_parametrage{
+  border: 1px solid black;
+  padding: 1%;
+  float: left;
+  width: 27%;
+}
+
+.page_creation{
+  border: 1px solid black;
+  padding: 1%;
+  float: right;
+  width: 67%;
+}
+
+.titre_parametrage {
+  border : 1px solid black;
+  padding: 1%;
+}
+
+.titre_parametrage h4{
+  display: inline;
+}
+
+.menu_parametrage{
+  visibility: hidden;
+}
+
+.bouttonValiderSujet{
+  width: 100%;
+    margin-top: 4%;
+}
