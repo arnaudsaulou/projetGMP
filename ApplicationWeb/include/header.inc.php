@@ -13,8 +13,8 @@
 <body>
 
 
-  <h1 id="TitrePrincipal">Bienvenue sur le site du Projet GMP</h1>
-  <div id="messageConnexion">
+  <h1 class="TitrePrincipal">Bienvenue sur le site du Projet GMP</h1>
+  <div class="messageConnexion">
     <?php
     if(isset($_SESSION['co'])){ //Test si l'utilisateur est connecté ou non
 

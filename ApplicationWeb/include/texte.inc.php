@@ -1,4 +1,4 @@
-<div id="texte">
+<div class="texte">
 <?php
 if (!empty($_GET["page"])){
 	$page=$_GET["page"];}

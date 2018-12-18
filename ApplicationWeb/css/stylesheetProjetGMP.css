@@ -92,24 +92,24 @@ th{
   transition: all .3s ease-in-out;
 }
 
-#Header{
+.Header{
   padding: 3%;
   color: #ffffff;
   background-color: #000000;
 }
 
-#TitrePrincipal{
+.TitrePrincipal{
   width: 60%;
   display: inline-block;
 }
 
-#messageConnexion{
+.messageConnexion{
   width: 20%;
   display: inline-block;
   text-align: right;
 }
 
-#texte{
+.texte{
 	float:left ;
 	width: 79%;
 	margin-left: 5px;
@@ -118,12 +118,12 @@ th{
 	color:#000;
 }
 
-#corps{
+.corps{
 	float:left;
 	width: 100%;
 }
 
-#menu{
+.menu{
 	float : left;
 	min-height:355px;
 	margin-left: 3px;

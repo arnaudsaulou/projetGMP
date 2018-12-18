@@ -8,9 +8,9 @@ if (empty($_POST)){
     <?php
   }else {
     ?>
-    <div id="contain">
+    <div>
       <h1>Pour vous connecter</h1>
-      <form class="connexion" action="#" id="FormLogin" method="post">
+      <form class="connexion" action="#" method="post">
         <div>
           <div>
             <label> Nom d'utilisateur:</label>
@@ -27,7 +27,7 @@ if (empty($_POST)){
             <input type="password" name="password" size="4" required>
           </div>
         </div>
-        <div id="bouttonValid">
+        <div>
           <input class="button" type="submit" value="Valider" />
         </div>
       </form>
@@ -54,7 +54,7 @@ if (empty($_POST)){
       Login ou Mot de passe incorrect !
       <?php
     }
-    
+
   }else{
     // le mot de passe n'est pas OK
     ?>
