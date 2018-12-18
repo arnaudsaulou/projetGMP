@@ -1,11 +1,6 @@
 <h1> Attribution des sujets </h1>
 
 <?php
-  $db = new MyPdo();
-  $utilisateurmanager = new UtilisateurManager($db);
-  $sujetmanager = new SujetManager($db);
-?>
-<?php
   if(!isset($_POST['ok']) && empty($_POST['choix_promotion'])){
  ?>
   <form action="#" method="POST">
@@ -49,10 +44,10 @@ else if($_POST['choix_promotion']=='annee1'){
   <table>
     <thead>
       <tr>
-        <th> Liste des sujets : <?php echo $sujetmanager->countSujet();?> sujet(s) a/ont été trouvé</th>
+        <th> Liste des sujets : <?php echo $sujetManager->countSujet();?> sujet(s) a/ont été trouvé</th>
       </tr>
       <?php
-      $listSujets = $sujetmanager->getListSujets();
+      $listSujets = $sujetManager->getListSujets();
       foreach ($listSujets as $sujet){
       ?>
       <tr>
@@ -91,10 +86,10 @@ else if($_POST['choix_promotion']=='annee1'){
   <table>
     <thead>
       <tr>
-        <th> Liste des sujets : <?php echo $sujetmanager->countSujet();?> sujet(s) a/ont été trouvé</th>
+        <th> Liste des sujets : <?php echo $sujetManager->countSujet();?> sujet(s) a/ont été trouvé</th>
       </tr>
       <?php
-      $listSujets = $sujetmanager->getListSujets();
+      $listSujets = $sujetManager->getListSujets();
       foreach ($listSujets as $sujet){
       ?>
       <tr>
