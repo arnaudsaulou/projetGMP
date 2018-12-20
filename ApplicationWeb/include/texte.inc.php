@@ -63,6 +63,16 @@
         include_once('pages/afficherNote.inc.php');
         break;
 
+        case 12:
+        // inclure ici la page
+        include_once('pages/repondreControleDemo.inc.php');
+        break;
+
+        case 100:
+        // inclure ici la page
+        include_once('pages/page1.php');
+        break;
+
         default :     include_once('pages/accueil.inc.php');
     }
 

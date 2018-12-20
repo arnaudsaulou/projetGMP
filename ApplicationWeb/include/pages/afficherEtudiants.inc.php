@@ -1,10 +1,7 @@
 <h1> Liste des étudiants enregistrés</h1>
-Il y a
-<?php
-//affichage du nombre d'étudiant dans la base de données
-echo $utilisateurManager->countEtudiants();
-?>
-étudiants enregistrés
+
+<!-- affichage du nombre d'étudiant présent dans la base de données -->
+<p> Il y a <?php echo $utilisateurManager->countEtudiants();?> étudiants enregistrés</p>
 
 <table>
   <tr class="enTete">

@@ -147,12 +147,16 @@ if(!isset($_POST['enonceCreer'])) {
 
   if($ajout){
     echo "L'énoncé à bien été créer !";
+
+    // Simulation affichage coté étudiants (demo soutenance)
+    echo "<br><br><br>";
+    echo $_POST['enonceCreer'];
   } else {
     echo "Une erreur est survenue :/";
   }
-;
+?>
 
-} ?>
+<?php } ?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/creerEnoncer.js"></script>
+<script type="text/javascript" src="js/creerEnoncer.js.php"></script>
