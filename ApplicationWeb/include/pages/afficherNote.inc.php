@@ -21,9 +21,10 @@ if ($_SESSION['droits']==0){ ?>
 			<th>Note</th>
 
 		</tr>
-	<?php foreach($listeNoteEtudiant as $note){
-		$attribue=$attribueManager->getAttribueById($idEtudiant,$note->getIdSujet());
-	?>
+<?php
+	foreach($listeNoteEtudiant as $note){
+			$attribue=$attribueManager->getAttribueById($idEtudiant,$note->getIdSujet());
+?>
 
 		<tr>
 

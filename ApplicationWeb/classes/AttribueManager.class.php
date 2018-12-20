@@ -23,15 +23,16 @@ class AttribueManager{
 
 	//cette fonction permet de recuperer un attribue à partie d'un id d'utilisateur et d'un id de sujet
 	public function getAttribueById($idUtilisateur,$idSujet){
+
 			$req = $this->db->prepare(
 			    'SELECT idUtilisateur,idSujet,dateAttribution, dateLimite
-				FROM attribue WHERE idUtilisateur= :idUtilisateur && idSujet= :idSujet');
+						FROM attribue WHERE idUtilisateur= :idUtilisateur && idSujet= :idSujet'
+			);
 
 			$req->bindValue(':idUtilisateur',$idUtilisateur,PDO::PARAM_STR);
 			$req->bindValue(':idSujet',$idSujet,PDO::PARAM_STR);
 
 			$req->execute();
-
 
 			$attribue=$req->fetch(PDO::FETCH_OBJ);
 
