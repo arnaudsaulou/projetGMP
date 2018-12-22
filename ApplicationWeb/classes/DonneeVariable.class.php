@@ -52,7 +52,6 @@ class DonneeVariable{
   }
 
   //Getter//
-
   public function getIdDonneeVariable(){
     return $this->idDonneeVariable;
   }

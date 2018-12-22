@@ -74,6 +74,27 @@ class DonneeVariableManager {
 		return $listDonneeVariable;
 	}
 
+
+	function recupererIdTypeViaIdDonneeVariable($idDonneeVariable){
+		if(!empty($idDonneeVariable)){
+
+			$req = $this->db->prepare(
+				"SELECT `idType` FROM `donnees_variable` WHERE `idDonneeVariable` = :idDonneeVariable"
+			);
+
+			$req->bindValue(':idDonneeVariable',$idDonneeVariable->getIdType(),PDO::PARAM_INT);
+
+			$result = $req->execute();
+
+			$idType = $req->fetch(PDO::FETCH_OBJ);
+
+			$req->closeCursor();
+
+			return $idType;
+
+		}
+	}
+
 }
 
 ?>
