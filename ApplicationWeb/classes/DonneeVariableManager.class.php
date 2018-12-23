@@ -6,11 +6,12 @@ class DonneeVariableManager {
 		$this->db = $db;
 	}
 
-	//Fonction permettant de créer un objet DonneeVariable à partir d'un tableau
+	//Cette fonction permet de créer un objet DonneeVariable à partir d'un tableau
 	public function createDonneeVariableDepuisTableau($paramsDonneeVariable){
 		return new DonneeVariable($paramsDonneeVariable);
 	}
 
+	//Cette fonction permet de récupérer la liste des données variables à partir d'un id type de donnée
 	public function getListOfDonneesVariableByIdTypeDonnee($idTypeDonnee){
 		if(!empty($idTypeDonnee)){
 
@@ -35,7 +36,7 @@ class DonneeVariableManager {
     }
 	}
 
-	//Fonction permettant d'ajouter un nouvel objet DonneeVariable
+	//Fonction permettant d'ajouter un nouvel objet DonneeVariable à la base de données
 	public function ajouterDonneeVariable($newDonneeVariable){
 		if(!empty($newDonneeVariable)){
 			$req = $this->db->prepare(
@@ -54,6 +55,7 @@ class DonneeVariableManager {
 		}
 	}
 
+	//Cette fonction permet de générer la liste des données variable à partir d'un interval
 	public function genererListeDonneeVariableViaInterval($interval){
 		$listeDonneVariable = array();
 
@@ -64,6 +66,7 @@ class DonneeVariableManager {
 		return $listDonneeVariable;
 	}
 
+	//Cette fonction permet de générer la liste des données variable à aprtir d'une liste
 	public function genererListeDonneeVariableViaListe($liste){
 		$listeDonneVariable = array();
 
@@ -75,6 +78,7 @@ class DonneeVariableManager {
 	}
 
 
+	//Cette fonction permet de récupérer l'identifiant du type à partir d'un identifiant donnée variable
 	function recupererIdTypeViaIdDonneeVariable($idDonneeVariable){
 		if(!empty($idDonneeVariable)){
 

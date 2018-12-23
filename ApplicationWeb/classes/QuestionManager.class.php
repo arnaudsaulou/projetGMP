@@ -12,6 +12,7 @@ class QuestionManager {
 	}
 
 
+	//Cette fonction permet d'ajouter une question à la base de données
 	public function ajouterQuestion($newQuestion){
 		if(!empty($newQuestion)){
 

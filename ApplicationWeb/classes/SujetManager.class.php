@@ -16,6 +16,7 @@ class SujetManager{
 		return new Sujet($paramsSujet);
 	}
 
+	//Cette fonction permet de générer un sujet à partir d'une liste de données variable
 	public function generateSujet($listDonneeVariable){
 
 		ini_set('max_execution_time', 0);
@@ -42,6 +43,8 @@ class SujetManager{
 		}
 	}
 
+
+	//Cette fonction permet de ???
 	public function getSQLQueryFromPossibilite($numSujet, $possibilite){
 
 		$selectOn = 'INSERT INTO sujet_possible (idSujet, idDonneeVariable, numDonneeVariable) VALUES  ';
@@ -58,6 +61,7 @@ class SujetManager{
 
 	}
 
+	//Cette fonction permet d'ajouter un sujet possible à partir d'un numéro de sujet
 	public function addSujetPossible($numSujet, $possibilite){
 		if(!empty($numSujet) && !empty($possibilite)){
 
@@ -73,6 +77,7 @@ class SujetManager{
 	}
 
 
+	//Cette fonction permet ???
   public function getSQLQueryFromListDonneeVariable($listDonneeVariable){
     $selectOn = '';
     $join = '';
@@ -101,7 +106,7 @@ class SujetManager{
     return $query;
   }
 
-	//fonction permettant de compter le nombre de sujets enregistrés
+	//Cette fonction permettant de compter le nombre de sujets enregistrés
   public function countSujet(){
     $res=array();
     $req = $this->db->prepare("SELECT count(idEnonce) AS total FROM enonce");
@@ -112,7 +117,7 @@ class SujetManager{
     $req-> closeCursor();
   }
 
-	//fonction permettant de lister tous les sujets
+	//Cette fonction permettant de lister tous les sujets
   public function getListSujets(){
 
     $req = $this->db->prepare('SELECT idEnonce, enonce FROM enonce ORDER BY idEnonce');

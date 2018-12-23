@@ -2,11 +2,12 @@
 class NoteManager{
 	private $db;
 
+	//Constructeur
 	public function __construct($db){
 		$this->db = $db;
 	}
 
-
+	//Cette fonction permet d'ajouter une note à la base de données
 	public function addNote($Note){
 		$req=$this->db->prepare
 		(' INSERT INTO note (idUtilisateur, idSujet, numNote, note)
@@ -20,6 +21,8 @@ class NoteManager{
 		$req->execute();
 	}
 
+
+	//Cette fonction permet de récupérer une note à partir de l'identifiant d'un étudiant
 	public function getNoteByIdEtudiant($id){
 		$req=$this->db->prepare
 		('SELECT idUtilisateur, idSujet, numNote, note FROM note WHERE idUtilisateur = :id');
