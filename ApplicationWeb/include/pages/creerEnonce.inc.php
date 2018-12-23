@@ -1,6 +1,6 @@
 <?php
 
-if(!isset($_POST['enonceCreer'])) {
+if(!isset($_POST['enonceCreer']) && !isset($_POST['nomEnonce'])) {
 
  ?>
 
@@ -127,7 +127,7 @@ if(!isset($_POST['enonceCreer'])) {
 
     <form action="#" method="POST">
       <input type="hidden" name="enonceCreer" id="enonceCreer" >
-      <button class="bouttonValiderSujet" id="bouttonValiderSujet" onclick="validerEnonce()">Valider</button>
+      <button class="bouttonValiderSujet" id="bouttonValiderSujet" onclick="validerEnonce()">Continuer</button>
     </form>
   </div>
 
@@ -140,23 +140,32 @@ if(!isset($_POST['enonceCreer'])) {
 
 <div class="clear"></div>
 
-<?php } else {
+<?php } else if(isset($_POST['enonceCreer']) && !isset($_POST['nomEnonce'])) {
 
-  $newEnonce = $enonceManager->createEnonceDepuisTableau( array('enonce' => $_POST['enonceCreer'] ));
+        $_SESSION['enonceCreer'] = $_POST['enonceCreer'];
+
+?>
+
+  <form action="#" method="POST">
+    <label>Entrez un nom pour cet énoncé :</label>
+    <input type="text" name="nomEnonce" >
+    <button class="bouttonValiderSujet" type="submit">Valider</button>
+  </form>
+
+<?php
+
+} else  if(isset($_SESSION['enonceCreer']) && isset($_POST['nomEnonce'])) {
+
+  $newEnonce = $enonceManager->createEnonceDepuisTableau( array('nomEnonce' => $_POST['nomEnonce'], 'enonce' => $_SESSION['enonceCreer'] ));
   $ajout = $enonceManager->ajouterEnonce($newEnonce);
 
   if($ajout){
     echo "L'énoncé à bien été créer !";
-
-    // Simulation affichage coté étudiants (demo soutenance)
-    echo "<br><br><br>";
-    echo $_POST['enonceCreer'];
   } else {
     echo "Une erreur est survenue :/";
   }
+}
 ?>
-
-<?php } ?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/creerEnoncer.js.php"></script>

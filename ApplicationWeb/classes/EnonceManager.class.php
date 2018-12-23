@@ -16,10 +16,11 @@ class EnonceManager {
 		if(!empty($newEnonce)){
 
       $req = $this->db->prepare(
-        "INSERT INTO `enonce`(`enonce`) VALUES (:enonce)"
+        "INSERT INTO `enonce`(`nomEnonce`, `enonce`) VALUES (:nomEnonce , :enonce)"
       );
 
-      $req->bindValue(':enonce',$newEnonce->getEnonce(),PDO::PARAM_STR);
+      $req->bindValue(':nomEnonce',$newEnonce->getNomEnonce(),PDO::PARAM_STR);
+			$req->bindValue(':enonce',$newEnonce->getEnonce(),PDO::PARAM_STR);
 
       $result = $req->execute();
 

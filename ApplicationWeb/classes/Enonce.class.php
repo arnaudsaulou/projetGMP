@@ -4,6 +4,7 @@ class Enonce{
 
   //Déclarations des variables de la classe Enonce
   private $idEnonce;
+  private $nomEnonce;
   private $enonce;
 
   //Constructeur de la classe Enonce
@@ -25,6 +26,10 @@ class Enonce{
             $this->setEnonce($valeur);
             break;
 
+        case 'nomEnonce':
+            $this->setNomEnonce($valeur);
+            break;
+
         default:
           echo "Fatal error : construction Enonce invalide";
           break;
@@ -42,6 +47,10 @@ class Enonce{
     $this->enonce = $new_enonce;
   }
 
+  public function setNomEnonce($new_nomEnonce){
+    $this->nomEnonce = $new_nomEnonce;
+  }
+
   //Getter//
 
   public function getIdEnonce(){
@@ -50,6 +59,10 @@ class Enonce{
 
   public function getEnonce(){
     return $this->enonce;
+  }
+
+  public function getNomEnonce(){
+    return $this->nomEnonce;
   }
 
 }
