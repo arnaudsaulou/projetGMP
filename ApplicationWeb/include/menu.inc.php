@@ -14,10 +14,10 @@
 				<div>
 					<h2>Contrôles</h2>
 					<ul>
-						<li><a href="index.php?page=">Consulter les sujets</a></li>
+						<li><a href="index.php?page=7">Consulter les sujets</a></li>
 						<li><a href="index.php?page=5">Créer un sujet</a></li>
 						<li><a href="index.php?page=6">Attribuer les sujets</a></li>
-						<li><a href="index.php?page=7">Consulter les réponses</a></li>
+						<li><a href="index.php?page=">Consulter les réponses</a></li>
 					</ul>
 				</div>
 

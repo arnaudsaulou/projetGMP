@@ -45,12 +45,12 @@
 
         case 7:
         // inclure ici la page
-        include_once('pages/accueil.inc.php');
+        include_once('pages/consulterListeEnonces.inc.php');
         break;
 
         case 8:
         // inclure ici la page
-        include_once('pages/accueil.inc.php');
+        include_once('pages/consulterDetailEnonce.inc.php');
         break;
 
         case 9:

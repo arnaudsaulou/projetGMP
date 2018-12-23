@@ -32,6 +32,59 @@ class EnonceManager {
     }
 	}
 
+	public function recupererListEnonce(){
+
+		$listeEnonce = array();
+
+		$req = $this->db->prepare("SELECT `idEnonce`,`nomEnonce`,`enonce` FROM `enonce`");
+
+		$req->execute();
+
+		while($enonce = $req->fetch(PDO::FETCH_OBJ)){
+			$listeEnonce[] = $this->createEnonceDepuisTableau($enonce);
+		};
+
+		$req-> closeCursor();
+
+		return $listeEnonce;
+	}
+
+
+	public function recupererEnonceViaIdEnonce($idEnonce){
+
+		if(!empty($idEnonce)){
+
+			$req = $this->db->prepare("SELECT `idEnonce`,`nomEnonce`,`enonce` FROM `enonce` WHERE `idEnonce` = :idEnonce");
+
+			$req->bindValue(':idEnonce',$idEnonce,PDO::PARAM_STR);
+
+			$req->execute();
+
+			$enonce = $req->fetch(PDO::FETCH_OBJ);
+
+			$enonce = $this->createEnonceDepuisTableau($enonce);
+
+			$req-> closeCursor();
+
+			return $enonce;
+		}
+	}
+
+	//Cette fonction permettant de compter le nombre d'énoncé enregistrés
+	public function compterEnonce(){
+
+		$req = $this->db->prepare("SELECT count(`idEnonce`) AS total FROM `enonce`");
+
+		$req->execute();
+
+		$nbEnonce = $req->fetch(PDO::FETCH_ASSOC);
+
+		$req-> closeCursor();
+
+		return $nbEnonce['total'];
+
+	}
+
 }
 
 ?>
