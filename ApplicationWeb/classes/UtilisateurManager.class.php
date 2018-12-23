@@ -3,6 +3,7 @@
 class UtilisateurManager{
   private $db;
 
+  //Constructeur
   public function __construct($db){
     $this->db = $db;
   }
@@ -22,7 +23,7 @@ class UtilisateurManager{
     $req->execute();
   }
 
-  //fonction permettant de lister tous les utilisateurs (prof ET élèves)
+  //Cette fonction permettant de lister tous les utilisateurs (prof ET élèves)
   public function getList(){
 
     $req = $this->db->prepare('SELECT idUtilisateur,estProf,nom,prenom FROM utilisateur ORDER BY nom');
@@ -37,7 +38,7 @@ class UtilisateurManager{
     $req->closeCursor();
   }
 
-  //fonction permettant de lister tous les étudiants
+  //Cette fonction permettant de lister tous les étudiants
   public function getListEtudiants(){
 
     $req = $this->db->prepare('SELECT idUtilisateur,estProf,nom,prenom FROM utilisateur WHERE estProf = 0 ORDER BY nom');
@@ -52,7 +53,7 @@ class UtilisateurManager{
     $req->closeCursor();
   }
 
-  //fonction permettant de compter le nombre d'utilisateurs enregistrés (prof ET élèves)
+  //Cette fonction permettant de compter le nombre d'utilisateurs enregistrés (prof ET élèves)
   public function countUtilisateurs(){
     $res=array();
     $req = $this->db->prepare("SELECT count(idUtilisateur) AS total FROM utilisateur");
@@ -63,7 +64,7 @@ class UtilisateurManager{
     $req-> closeCursor();
   }
 
-  //fonction permettant de compter le nombre d'étudiants enregistrés
+  //Cette fonction permettant de compter le nombre d'étudiants enregistrés
   public function countEtudiants(){
     $res=array();
     $req = $this->db->prepare("SELECT count(idUtilisateur) AS total FROM utilisateur WHERE estProf = 0");
@@ -74,7 +75,7 @@ class UtilisateurManager{
     $req-> closeCursor();
   }
 
-  //fonction permettant de recuperer un utilisateur à partir d'un nom d'utilisateur
+  //Cette fonction permettant de recuperer un utilisateur à partir d'un nom d'utilisateur
   public function getUtilisateurByLogin($login){
     $req=$this ->db->prepare
     ("SELECT idUtilisateur,estProf,nom,prenom,nomUtilisateur,motDePasse  FROM utilisateur WHERE nomUtilisateur = :login");
@@ -89,7 +90,7 @@ class UtilisateurManager{
     $req -> closeCursor();
   }
 
-  //fonction permettant de verifier si un utilisateur correspondant à une id est un étudiant
+  //Cette fonction permettant de verifier si un utilisateur correspondant à une id est un étudiant
   public function estEtudiantByid($id){
 
     if(isset($id)){
@@ -104,7 +105,7 @@ class UtilisateurManager{
     }
   }
 
-  //fonction permettant de recuperer un utilisateur à partir d'une id
+  //Cette fonction permettant de recuperer un utilisateur à partir d'une id
   public function getUtilisateurById($id){
 
     if(isset($id)){
@@ -121,7 +122,7 @@ class UtilisateurManager{
     }
   }
 
-  //fonction permettant de calculer la moyenne générale d'un étudiant passé en parametre
+  //Cette fonction permettant de calculer la moyenne générale d'un étudiant passé en parametre
   public function calculerMoyenne($etudiant){
 
     if(isset($etudiant)){
@@ -138,7 +139,4 @@ class UtilisateurManager{
       $req->closeCursor();
     }
   }
-
-
-
 }

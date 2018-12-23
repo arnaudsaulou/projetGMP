@@ -3,11 +3,12 @@
 class AttribueManager{
 	private $db;
 
+	//Constructeur
 	public function __construct($db){
 		$this->db = $db;
 	}
 
-//cette fonction permet d'enregistrer un attribue dans la base de données
+	//Cette fonction permet d'enregistrer un attribue dans la base de données
 	public function addAttribue($Attribue){
 		$req=$this->db->prepare
 		('INSERT INTO attribue (idUtilisateur,idSujet,dateAttribution,dateLimite)
@@ -21,7 +22,7 @@ class AttribueManager{
 		$req->execute();
 	}
 
-	//cette fonction permet de recuperer un attribue à partie d'un id d'utilisateur et d'un id de sujet
+	//Cette fonction permet de recuperer un attribue à partie d'un id d'utilisateur et d'un id de sujet
 	public function getAttribueById($idUtilisateur,$idSujet){
 
 			$req = $this->db->prepare(

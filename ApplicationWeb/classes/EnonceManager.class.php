@@ -12,6 +12,7 @@ class EnonceManager {
 	}
 
 
+	//Cette fonction permet d'ajouter un énoncé à la base de données
 	public function ajouterEnonce($newEnonce){
 		if(!empty($newEnonce)){
 
