@@ -5,6 +5,7 @@
 </form>
 
 <?php
+
 /**
 * Crée une nouvelle instance d'Utilisateur à partir d'une ligne.
 * @param string $ligne La ligne à traiter.
@@ -29,7 +30,7 @@ function creerUtilisateurAPartirDeLigne($ligne) {
 * Traite le fichier CSV reçu par le serveur.
 * @param string $file - Le contenu du fichier CSV reçu par le serveur.
 */
-function traiterFichier($file) {
+function traiterFichier($file,$utilisateurManager) {
   //Création d'un tableau de ligne. L'expression régulière est faite pour supporter
   //tous les retours à la ligne possibles (Linux/Mac/Windows)
   $lignes = preg_split("/\\r\\n|\\r|\\n/", $file);
@@ -48,8 +49,8 @@ function traiterFichier($file) {
 if (isset($_FILES['fichier'])) {
   $file = file_get_contents($_FILES['fichier']['tmp_name']);
   if ($file === FALSE) {
-    echo "<p>Une erreur est survenue. Veuillez r&eacute;essayer s'il vous pla&icirc;t.</p>";
+    echo "<p>Une erreur est survenue. Veuillez reessayer.</p>";
   } else {
-    traiterFichier($file);
+    traiterFichier($file,$utilisateurManager);
   }
 }
