@@ -55,7 +55,7 @@
 
         case 9:
         // inclure ici la page
-        include_once('pages/accueil.inc.php');
+        include_once('pages/corrigerEnonce.inc.php');
         break;
 
         case 10:
