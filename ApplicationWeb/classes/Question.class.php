@@ -4,6 +4,7 @@ class Question{
 
   //Déclarations des variables de la classe Question
   private $idQuestion;
+  private $idEnonce;
   private $libelle;
 
   //Constructeur de la classe Question
@@ -19,6 +20,10 @@ class Question{
       switch ($attribut) {
         case 'idQuestion':
           $this->setIdQuestion($valeur);
+          break;
+
+        case 'idEnonce':
+          $this->setIdEnonce($valeur);
           break;
 
         case 'libelle':
@@ -38,6 +43,10 @@ class Question{
     $this->idQuestion = $new_idQuestion;
   }
 
+  public function setIdEnonce($new_idEnonce){
+    $this->idEnonce = $new_idEnonce;
+  }
+
   public function setLibelle($new_libelle){
     $this->libelle = $new_libelle;
   }
@@ -46,6 +55,10 @@ class Question{
 
   public function getIdQuestion(){
     return $this->idQuestion;
+  }
+
+  public function getIdEnonce(){
+    return $this->idEnonce;
   }
 
   public function getLibelle(){

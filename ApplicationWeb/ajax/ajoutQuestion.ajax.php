@@ -3,11 +3,19 @@
 require('../include/config.inc.php');
 require('../include/autoLoad.inc.php');
 
-$db = new MyPDO;
+if(!isset($_SESSION)){
+  session_start();
+}
+
+$db = new MyPDO();
 $questionManager = new QuestionManager($db);
 
 $newQuestion = $questionManager->createQuestionDepuisTableau(array('libelle' => $_POST['libelle']));
 
-$questionManager->ajouterQuestion($newQuestion);
+if(!isset($_SESSION['tableauQuestionEnonce'])){
+  $_SESSION['tableauQuestionEnonce'] = array(0 => serialize($newQuestion));
+} else {
+  array_push($_SESSION['tableauQuestionEnonce'], serialize($newQuestion));
+}
 
 ?>

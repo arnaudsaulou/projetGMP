@@ -25,6 +25,9 @@ class EnonceManager {
 
       $result = $req->execute();
 
+			$enonceManager = new QuestionManager($this->db);
+			$enonceManager->ajouterListeQuestion($this->db->lastInsertId());
+
 			$req->closeCursor();
 
       return $result;
