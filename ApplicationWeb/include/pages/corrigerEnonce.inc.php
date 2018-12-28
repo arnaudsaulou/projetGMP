@@ -44,3 +44,30 @@
   </ul>
 
 </div>
+
+
+<div>
+
+  <h4>Liste des formules enregistrées</h4>
+
+  <ul>
+
+    <?php
+
+      $dirname = "./formules";
+      $dir = opendir($dirname);
+
+      while ($file = readdir($dir)) {
+        if($file != '.' && $file != '..' && !is_dir($dirname.$file)){
+          $file = str_replace(".php", "", $file);
+          echo "<li>".$file."<li>";
+        }
+      }
+
+      closedir($dir);
+
+    ?>
+
+  </ul>
+
+</div>
