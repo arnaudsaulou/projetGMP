@@ -1,6 +1,6 @@
 <?php
 class EnonceManager {
-
+	
 	//Conctructeur
 	public function __construct($db){
 		$this->db = $db;
@@ -27,6 +27,8 @@ class EnonceManager {
 
 			$enonceManager = new QuestionManager($this->db);
 			$enonceManager->ajouterListeQuestion($this->db->lastInsertId());
+
+			$this->lastInsertId = $this->db->lastInsertId();
 
 			$req->closeCursor();
 

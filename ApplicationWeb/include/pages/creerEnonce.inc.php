@@ -1,8 +1,4 @@
-<?php
-
-if(!isset($_POST['enonceCreer']) && !isset($_POST['nomEnonce'])) {
-
- ?>
+<?php if(!isset($_POST['enonceCreer']) && !isset($_POST['nomEnonce'])) { ?>
 
 <!-- Menu de gauche (séléction des items à insérer) -->
 <div>
@@ -158,6 +154,9 @@ if(!isset($_POST['enonceCreer']) && !isset($_POST['nomEnonce'])) {
 
   $newEnonce = $enonceManager->createEnonceDepuisTableau( array('nomEnonce' => $_POST['nomEnonce'], 'enonce' => $_SESSION['enonceCreer'] ));
   $ajout = $enonceManager->ajouterEnonce($newEnonce);
+
+  //Appel du fichier contenant le code de génération des sujets
+  include('genererSujet.inc.php');
 
   if($ajout){
     echo "L'énoncé à bien été créer !";

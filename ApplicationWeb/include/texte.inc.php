@@ -65,12 +65,12 @@
 
         case 12:
         // inclure ici la page
-        include_once('pages/genererSujet.inc.php');
+        include_once('pages/accueil.inc.php');
         break;
 
         case 13:
         // inclure ici la page
-        include_once('pages/repondreControleDemo.inc.php');
+        include_once('pages/accueil.inc.php');
         break;
 
 
