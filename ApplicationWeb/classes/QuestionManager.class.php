@@ -70,6 +70,30 @@ class QuestionManager {
 	}
 
 
+	//Cette fonction permet de recupérer une liste de question associé à un numero d'énoncé
+	public function recupererListeQuestionD1Enonce($idEnonce){
+		if(!empty($idEnonce)){
+
+			$req = $this->db->prepare(
+				"SELECT `idQuestion` , `idEnonce` , `libelle` FROM `questions` WHERE `idEnonce` = :idEnonce"
+			);
+
+			$req->bindValue(':idEnonce',$idEnonce,PDO::PARAM_INT);
+
+			$req->execute();
+
+			while($question  = $req->fetch(PDO::FETCH_OBJ)){
+				$listeQuestions[] = $this->createQuestionDepuisTableau($question);
+			}
+
+			$req->closeCursor();
+
+			return $listeQuestions;
+
+		}
+	}
+
+
 
 }
 

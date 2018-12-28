@@ -16,7 +16,7 @@ class TypeDonneeManager {
 			$listTypeDonnee= array();
 
       $req = $this->db->prepare(
-        "SELECT * FROM type_donnees ORDER BY libelle"
+        "SELECT `idType` , `libelle` FROM `type_donnees` ORDER BY `libelle`"
       );
 
       $req->execute();
@@ -34,7 +34,7 @@ class TypeDonneeManager {
   public function getTypeDonneeById($idTypeDonnee){
     if(!empty($idTypeDonnee)){
       $req = $this->db->prepare(
-        "SELECT * FROM type_donnees WHERE idType = :idType"
+        "SELECT `idType` , `libelle` FROM `type_donnees` WHERE `idType` = :idType"
       );
 
       $req->bindValue(':idType',$idTypeDonnee,PDO::PARAM_INT);

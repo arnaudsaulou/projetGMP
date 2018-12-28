@@ -29,16 +29,18 @@ class SujetManager{
 				$this->getSQLQueryFromListDonneeVariable($listDonneeVariable)
 			);
 
-			$req->execute();
+			echo $this->getSQLQueryFromListDonneeVariable($listDonneeVariable);
 
-			while($possibilite  = $req->fetch(PDO::FETCH_NUM)){
-
-				$this->addSujetPossible($numSujet,$possibilite);
-
-				$numSujet++;
-			}
-
-			$req->closeCursor();
+			// $req->execute();
+			//
+			// while($possibilite  = $req->fetch(PDO::FETCH_NUM)){
+			//
+			// 	$this->addSujetPossible($numSujet,$possibilite);
+			//
+			// 	$numSujet++;
+			// }
+			//
+			// $req->closeCursor();
 
 		}
 	}

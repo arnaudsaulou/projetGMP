@@ -11,8 +11,9 @@ $typeDonneeManager = new TypeDonneeManager($db);
 $enonceManager = new EnonceManager($db);
 $sujetManager = new SujetManager($db);
 $utilisateurManager = new UtilisateurManager($db);
-$noteManager=new NoteManager($db);
-$attribueManager=new AttribueManager($db);
+$noteManager = new NoteManager($db);
+$attribueManager = new AttribueManager($db);
+$questionManager = new QuestionManager($db);
 
 require_once("include/header.inc.php");
 require_once("include/menu.inc.php");
