@@ -1,54 +1,37 @@
-<div class="corps">
-	<div class=menu>
-		<?php if(isset($_SESSION['droits'])){ ?>
-			<?php if($_SESSION['droits'] == 1){ ?>
-				<div>
-					<h2>Etudiants</h2>
-					<ul>
-						<li><a href="index.php?page=1">Consulter les étudiants</a></li>
-						<li><a href="index.php?page=2">Gestion des étudiants</a></li>
-						<li><a href="index.php?page=">Consulter les notes</a></li>
-					</ul>
-				</div>
+<div id="wrapper">
 
-				<div>
-					<h2>Contrôles</h2>
-					<ul>
-						<li><a href="index.php?page=5">Créer un énoncé</a></li>
-						<li><a href="index.php?page=7">Consulter les énoncés</a></li>
-						<li><a href="index.php?page=6">Attribuer les sujets</a></li>
-						<li><a href="index.php?page=">Consulter les réponses</a></li>
-					</ul>
-				</div>
+	<!-- Sidebar -->
+	<ul class="sidebar navbar-nav">
+		<li class="nav-item">
+			<a class="nav-link" href="index.html">
+				<i class="fas fa-fw fa-tachometer-alt"></i>
+				<span>Tableau de bord</span>
+			</a>
+		</li>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<i class="fa fa-users"></i>
+				<span>Etudiants</span>
+			</a>
+			<div class="dropdown-menu" aria-labelledby="pagesDropdown">
+				<h6 class="dropdown-header">Gestion des étudiants:</h6>
+				<a class="dropdown-item" href="index.php?page=1">Lister</a>
+				<a class="dropdown-item" href="index.php?page=2">Ajouter / supprimer</a>
+			</div>
+		</li>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<i class="fa fa-edit"></i>
+				<span>Contrôles</span>
+			</a>
+			<div class="dropdown-menu" aria-labelledby="pagesDropdown">
+				<h6 class="dropdown-header">Gestion des contrôles:</h6>
+				<a class="dropdown-item" href="index.php?page=5">Créer un énoncé</a>
+				<a class="dropdown-item" href="index.php?page=7">Lister les énoncés</a>
+				<a class="dropdown-item" href="index.php?page=6">Attribuer les sujets</a>
+			</div>
+		</li>
+	</ul>
 
-				<div>
-					<h2>Paramètres</h2>
-					<ul>
-						<li><a href="index.php?page=8">...</a></li>
-						<li><a href="index.php?page=9">...</a></li>
-					</ul>
-				</div>
-			<?php }
-			else{
-				if($_SESSION['droits'] == 0){
-					?>
-					<div>
-						<h2>Espace personnel</h2>
-						<ul>
-							<li><a href="index.php?page=10">Voir mes résultats</a></li>
-							<li><a href="index.php?page=11">Changer de mot de passe</a></li>
-						</ul>
-					</div>
-
-					<div>
-						<h2>Contrôles</h2>
-						<ul>
-							<li><a href="index.php?page=12">Repondre a un contrôle</a></li>
-						</ul>
-					</div>
-
-					<?php
-				}
-			}
-		}?>
-	</div>
+	<div id="content-wrapper">
+		  <div class="container-fluid">
