@@ -1,4 +1,10 @@
-<h1> Liste des étudiants enregistrés</h1>
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="#">Gestion des étudiants</a>
+  </li>
+  <li class="breadcrumb-item active">Lister les étudiants</li>
+</ol>
 
 <!-- affichage du nombre d'étudiant présent dans la base de données -->
 <p> Il y a <?php echo $utilisateurManager->countEtudiants();?> étudiants enregistrés</p>

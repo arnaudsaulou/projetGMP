@@ -1,3 +1,12 @@
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="#">Gestion des contrôle</a>
+  </li>
+  <li class="breadcrumb-item active">Créer un énoncé</li>
+</ol>
+
+
 <?php if(!isset($_POST['enonceCreer']) && !isset($_POST['nomEnonce'])) { ?>
 
 <!-- Menu de gauche (séléction des items à insérer) -->

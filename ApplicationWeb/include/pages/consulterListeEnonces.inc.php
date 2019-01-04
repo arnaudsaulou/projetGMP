@@ -1,4 +1,10 @@
-<h1> Liste des énoncés enregistrés</h1>
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="#">Gestion des contrôle</a>
+  </li>
+  <li class="breadcrumb-item active">Liste des énoncés enregistrés</li>
+</ol>
 
 <!-- affichage du nombre d'énoncé présent dans la base de données -->
 <p> Il y a <?php echo $enonceManager->compterEnonce();?> énoncé(s) enregistré(s)</p>

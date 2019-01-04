@@ -1,4 +1,10 @@
-<h1> Attribution des sujets </h1>
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="#">Gestion des contrôle</a>
+  </li>
+  <li class="breadcrumb-item active">Attribution des sujets</li>
+</ol>
 
 <?php
   if(!isset($_POST['ok']) && empty($_POST['choix_promotion'])){

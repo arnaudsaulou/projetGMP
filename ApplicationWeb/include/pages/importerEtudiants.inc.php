@@ -1,3 +1,12 @@
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="#">Gestion des étudiants</a>
+  </li>
+  <li class="breadcrumb-item active">Ajouter ou supprimer des étudiants</li>
+</ol>
+
+
 <form enctype="multipart/form-data" action="#" method="post">
   <label for="fichier">Fichier &agrave; importer (doit être un fichier CSV): </label>
   <input name="fichier" type="file" accept=".csv" required />
