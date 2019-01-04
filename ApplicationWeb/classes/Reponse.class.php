@@ -1,8 +1,7 @@
 <?php
 
-class Reponse {
-
-    //Déclarations des variables de la classe Reponse
+class Reponse
+{
     private $idReponse;
     private $idUtilisateur;
     private $idSujet;
@@ -10,14 +9,20 @@ class Reponse {
     private $valeur;
     private $dateReponse;
 
-    //Constructeur de la classe Reponse
+    /**
+     * Génère une nouvelle instance de Réponse.
+     * @param array $valeurs Un tableau associatif contenant les valeurs à assigner.
+     */
     public function __construct($valeurs = array()){
         if(!empty($valeurs)){
             $this->affect($valeurs);
         }
     }
 
-    //Affectation des donnees a un objet Reponse
+    /**
+     * Affecte les données d'un tableau associatif à cette instance de Réponse.
+     * @param array $valeurs Le tableau dans lequel récupérer les valeurs.
+     */
     private function affect(array $valeurs)
     {
         foreach ((array) $valeurs as $attribut => $valeur) {
@@ -47,60 +52,112 @@ class Reponse {
         }
     }
 
-
-    //Getters//
-
-    public function getIdReponse() {
+    /**
+     * Retourne l'identifiant unique de la Réponse.
+     * @return integer L'identifiant unique de la Réponse.
+     */
+    public function getIdReponse()
+    {
         return $this->idReponse;
     }
 
-    public function getIdUtilisateur() {
-        return $this->idUtilisateur;
-    }
-
-    public function getIdSujet() {
-        return $this->idSujet;
-    }
-
-    public function getNumReponse() {
-        return $this->numReponse;
-    }
-
-    public function getValeur() {
-        return $this->valeur;
-    }
-
-    public function getDateReponse() {
-        return $this->dateReponse;
-    }
-
-
-
-    //Setters//
-
-    public function setIdReponse($idReponse) {
+    /**
+     * Modifie l'identifiant unique de la Réponse.
+     * @param integer $idReponse Le nouvel identifiant unique de la Réponse.
+     */
+    public function setIdReponse($idReponse)
+    {
         $this->idReponse = $idReponse;
     }
 
-    public function setIdUtilisateur($idUtilisateur) {
+    /**
+     * Retourne l'identifiant unique de l'Utilisateur ayant saisi la Réponse.
+     * @return integer L'identifiant unique de l'Utilisateur ayant saisi la Réponse.
+     */
+    public function getIdUtilisateur()
+    {
+        return $this->idUtilisateur;
+    }
+
+    /**
+     * Modifie l'identifiant unique de l'Utilisateur ayant saisi la Réponse.
+     * @param integer $idUtilisateur Le nouvel identifiant unique de l'Utilisateur ayant saisi la Réponse.
+     */
+    public function setIdUtilisateur($idUtilisateur)
+    {
         $this->idUtilisateur = $idUtilisateur;
     }
 
-    public function setIdSujet($idSujet) {
+    /**
+     * Retourne l'identifiant unique du Sujet associé à cette Réponse.
+     * @return integer L'identifiant unique du Sujet associé à cette Réponse.
+     */
+    public function getIdSujet()
+    {
+        return $this->idSujet;
+    }
+
+    /**
+     * Modifie l'identifiant unique du Sujet associé à cette Réponse.
+     * @param integer $idSujet Le nouvel identifiant unique du Sujet associé à cette Réponse.
+     */
+    public function setIdSujet($idSujet)
+    {
         $this->idSujet = $idSujet;
     }
 
-    public function setNumReponse($numReponse) {
+    /**
+     * Retourne le numéro de la question liée à cette Réponse.
+     * @return integer Le numéro de la question liée à cette Réponse.
+     */
+    public function getNumReponse()
+    {
+        return $this->numReponse;
+    }
+
+    /**
+     * Modifie le numéro de la question liée à cette Réponse.
+     * @param integer $numReponse Le nouveau numéro de la question liée à cette Réponse.
+     */
+    public function setNumReponse($numReponse)
+    {
         $this->numReponse = $numReponse;
     }
 
-    public function setValeur($valeur) {
+    /**
+     * Retourne ce que l'Utilisateur a saisi comme réponse.
+     * @return string La réponse saisie.
+     */
+    public function getValeur()
+    {
+        return $this->valeur;
+    }
+
+    /**
+     * Modifie la valeur de la réponse saisie.
+     * @param string $valeur La nouvelle valeur de la réponse.
+     */
+    public function setValeur($valeur)
+    {
         $this->valeur = $valeur;
     }
 
-    public function setDateReponse($dateReponse) {
-        $this->dateReponse = $dateReponse;
+    /**
+     * Retourne la date de saisie de la Réponse.
+     * @return string La date de saisie de la Réponse.
+     */
+    public function getDateReponse()
+    {
+        return $this->dateReponse;
     }
 
-
+    /**
+     * Modifie la date de saisie de la Réponse. Format Attendu: AAAA-MM-JJ
+     * @param string $dateReponse La nouvelle date de saisie de la Réponse.
+     */
+    public function setDateReponse($dateReponse)
+    {
+        $this->dateReponse = $dateReponse;
+    }
 }
+
