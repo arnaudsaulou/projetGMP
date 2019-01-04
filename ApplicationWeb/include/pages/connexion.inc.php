@@ -5,7 +5,7 @@
     if(isset($_SESSION['co'])){
       ?>
       Vous êtes déjà connecté, vous allez être redirigé dans 2 secondes !
-      <meta http-equiv="refresh" content="2; URL=index.php?page=0">
+      <meta http-equiv="refresh" content="2; URL=index.php">
       <?php
     }else {
       ?>

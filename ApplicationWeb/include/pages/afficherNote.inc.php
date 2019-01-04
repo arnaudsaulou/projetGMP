@@ -1,6 +1,10 @@
-<?php
-if ($_SESSION['droits']==0){ ?>
-<h1>Note des élève</h1>
+
+	<!-- Breadcrumbs-->
+	<ol class="breadcrumb">
+	  <li class="breadcrumb-item">
+	    <a href="#">Afficher mes résultats</a>
+	  </li>
+	</ol>
 
 </br>
 
@@ -37,6 +41,3 @@ if ($_SESSION['droits']==0){ ?>
 			<?php } ?>
 
 	</table>
-<?php
-}
-?>
