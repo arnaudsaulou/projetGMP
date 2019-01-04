@@ -7,6 +7,10 @@ body {
   height: 100%;
 }
 
+th{
+  font-weight: bold;
+}
+
 #wrapper {
   display: -webkit-box;
   display: -ms-flexbox;

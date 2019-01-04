@@ -22,21 +22,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
-
-  <!-- Custom fonts for this template-->
-  <link href="packages/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
-  <!-- Page level plugin CSS-->
-  <link href="packages/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <!-- Custom scripts for all pages-->
+  <script src="js/generalScript.js"></script>
 
   <!-- Custom styles for this template-->
   <link href="css/stylesheet.css" rel="stylesheet">
 
-  <!-- Custom scripts for all pages-->
-  <script src="js/generalScript.js"></script>
-
-  <!-- Demo scripts for this page-->
-  <script src="js/demo/datatables-demo.js"></script>
+  <!-- Custom fonts for this template-->
+  <link href="packages/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
 </head>
 
