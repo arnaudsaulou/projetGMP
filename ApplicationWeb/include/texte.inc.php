@@ -1,10 +1,16 @@
 <div class="texte">
     <?php
+
+
     if (!empty($_GET["page"])){
         $page=$_GET["page"];
     }
     else{
         $page=0;
+    }
+
+    if(empty($_SESSION['droits'])){
+      $page = 3; // si la personne n'est pas connectée elle est redirigée vers la page de connexion
     }
 
     switch ($page) {

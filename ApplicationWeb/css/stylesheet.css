@@ -11,6 +11,11 @@ th{
   font-weight: bold;
 }
 
+.card-text{
+    margin-top: 0;
+    margin-bottom: 50px;
+}
+
 #wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -348,7 +353,7 @@ footer.sticky-footer {
   bottom: 0;
   width: calc(100% - 90px);
   height: 80px;
-  background-color: #e9ecef;
+  background-color: #FFF;
 }
 
 footer.sticky-footer .copyright {
