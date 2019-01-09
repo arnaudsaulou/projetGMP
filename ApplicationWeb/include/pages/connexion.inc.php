@@ -46,7 +46,11 @@
     if($utilisateur != null){
       if($utilisateur -> checkPassword($_POST['password'])){
         // le mot de passe est OK
-        $_SESSION['co'] = $utilisateur->getNomUtilisateur();
+        $nature = array(
+          1  => "prof",
+          0 => "etu"
+        );
+        $_SESSION['co'] = $utilisateur->getPrenom() . " " . $utilisateur->getNom();
         $_SESSION['droits'] = $utilisateur->getEstProf();
         $connexion_en_cours = true;
         ?>
