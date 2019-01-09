@@ -1,89 +1,115 @@
 <?php
+
 class Attribue {
+    private $idUtilisateur;
+    private $idSujet;
+    private $dateAttribution;
+    private $dateLimite;
 
-	//Déclarations des variables de la classe Attribue
-	private $idUtilisateur;
-	private $idSujet;
-	private $dateAttribution;
-	private $dateLimite;
+    /**
+     * Retourne une nouvelle instance d'Attribue.
+     * @param array $valeurs Un tableau associatif contenant les données à associer à cette instance.
+     */
+    public function __construct($valeurs = array())
+    {
+        if (!empty($valeurs)) {
+            $this->affect($valeurs);
+        }
+    }
 
-	//Constructeur de la classe Attribue
-	public function __construct($valeurs = array()){
-		if(!empty($valeurs)){
-			$this->affect($valeurs);
-		}
-  }
+    /**
+     * Associe les données d'un tableau associatif à cette instance de Attribue.
+     * @param array $donnees Un tableau associatif contenant des données à associer à cette instance.
+     */
+    public function affect($donnees)
+    {
+        foreach ((array)$donnees as $attribut => $valeur) {
+            switch ($attribut) {
+                case 'idUtilisateur':
+                    $this->setIdUtilisateur($valeur);
+                    break;
+                case 'idSujet':
+                    $this->setIdSujet($valeur);
+                    break;
+                case 'dateAttribution':
+                    $this->setDateAttribution($valeur);
+                    break;
+                case 'dateLimite':
+                    $this->setDateLimite($valeur);
+                    break;
+            }
+        }
+    }
 
-	//Affectation des donnees a un objet Attribue
-	public function affect($donnees){
-		foreach ((array) $donnees as $attribut => $valeur) {
-			switch ($attribut) {
+    /**
+     * Retourne l'ID de l'Utilisateur attribué à cet instance.
+     * @return integer L'ID de l'Utilisateur attribué à cet instance.
+     */
+    public function getIdUtilisateur()
+    {
+        return $this->idUtilisateur;
+    }
 
-				case 'idUtilisateur':
-				$this->setIdUtilisateur($valeur);
-				break;
+    /**
+     * Retourne l'ID du Sujet attribué à cet instance.
+     * @return integer L'ID du Sujet attribué à cet instance.
+     */
+    public function getIdSujet()
+    {
+        return $this->idSujet;
+    }
 
-				case 'idSujet':
-				$this->setIdSujet($valeur);
-				break;
+    /**
+     * Retourne la date d'attribution du sujet au sujet de cette instance.
+     * @return string La date d'attribution du sujet au sujet de cette instance.
+     */
+    public function getDateAttribution()
+    {
+        return $this->dateAttribution;
+    }
 
-				case 'dateAttribution':
-				$this->setDateAttribution($valeur);
-				break;
+    /**
+     * Retourne la date limite de réponse au sujet de cette instance.
+     * @return string La date limite de réponse au sujet de cette instance.
+     */
+    public function getDateLimite()
+    {
+        return $this->dateLimite;
+    }
 
-				case 'dateLimite':
-				$this->setDateLimite($valeur);
-				break;
-			}
+    /**
+     * Modifie l'ID de l'Utilisateur attribué à cet instance.
+     * @param integer $valeur Le nouvel ID de l'Utilisateur attribué à cet instance.
+     */
+    public function setIdUtilisateur($valeur)
+    {
+        $this->idUtilisateur = $valeur;
+    }
 
-		}
-	}
+    /**
+     * Modifie l'ID du Sujet attribué à cet instance.
+     * @param integer $valeur Le nouvel ID du Sujet attribué à cet instance.
+     */
+    public function setIdSujet($valeur)
+    {
+        $this->idUtilisateur = $valeur;
+    }
 
-	//Getters//
+    /**
+     * Modifie la date d'attribution du sujet de cette instance.
+     * @param string $valeur La nouvelle date d'attribution du sujet de cette instance.
+     */
+    public function setDateAttribution($valeur)
+    {
+        $this->dateAttribution = $valeur;
+    }
 
-	public function getIdUtilisateur(){
-	return $this->idUtilisateur;
-
-	}
-
-	public function getIdSujet(){
-	return $this->idSujet;
-
-	}
-
-	public function getDateAttribution(){
-	return $this->dateAttribution;
-
-	}
-
-	public function getDateLimite(){
-	return $this->dateLimite;
-
-	}
-
-
-
-	//Setters//
-
-	public function setIdUtilisateur($valeur){
-     $this->idUtilisateur = $valeur;
-
-	}
-
-	public function setIdSujet($valeur){
-     $this->idUtilisateur = $valeur;
-
-	}
-
-	public function setDateAttribution($valeur){
-     $this->dateAttribution = $valeur;
-
-	}
-
-	public function setDateLimite($valeur){
-     $this->setDateLimite = $valeur;
-
-	}
+    /**
+     * Modifie la date limite de réponse au sujet de cette instance.
+     * @param string $valeur La nouvelle date limite de réponse au sujet de cette instance.
+     */
+    public function setDateLimite($valeur)
+    {
+        $this->dateLimite = $valeur;
+    }
 }
-
-?>

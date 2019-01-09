@@ -1,9 +1,10 @@
 <?php
-class MyPDO extends PDO
-{
-
+class MyPDO extends PDO {
 	protected $dbo;
 
+	/**
+	 * Retourne une nouvelle instance de MyPDO.
+	 */
 	public function __construct ()
 	{
 	 // le parametrage de cette classe se fait dans le fichier config.inc.php
@@ -23,8 +24,4 @@ class MyPDO extends PDO
 			echo 'Echec lors de la connexion : ' . $e->getMessage();
 		}
 	}
-
-
 }
-
-?>

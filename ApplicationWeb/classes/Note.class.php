@@ -1,88 +1,106 @@
 <?php
 
-class Note {
+class Note
+{
+    private $idUtilisateur;
+    private $idSujet;
+    private $numNote;
+    private $note;
 
-	//Déclarations des variables de la classe Note
-	private $idUtilisateur;
-	private $idSujet;
-	private $numNote;
-	private $note;
+    /**
+     * Retourne une nouvelle instance de Note.
+     * @param array $valeurs Un tableau associatif contenant les données à associer à cette instance.
+     */
+    public function __construct($valeurs = array())
+    {
+        if (!empty($valeurs)) {
+            $this->affect($valeurs);
+        }
+    }
 
+    /**
+     * Associe les données d'un tableau associatif à cette instance de Note.
+     * @param array $donnees Un tableau associatif contenant des données à associer à cette instance.
+     */
+    public function affect($donnees)
+    {
+        foreach ((array)$donnees as $attribut => $valeur) {
+            switch ($attribut) {
+                case 'idUtilisateur' :
+                    $this->setUtilisateur($valeur);
+                    break;
+                case 'idSujet' :
+                    $this->setIdSujet($valeur);
+                    break;
+                case 'numNote' :
+                    $this->setNumNote($valeur);
+                    break;
+                case 'note' :
+                    $this->setNote($valeur);
+                    break;
+                default :
+                    echo "Fatal error : construction Utilisateur invalide";
+                    break;
+            }
+        }
+    }
 
-	//Constructeur de la classe Note
-	public function __construct($valeur = array()){
-		if(!empty($valeur)){
-			$this->affect($valeur);
-		}
-	}
+    /**
+     * @return mixed
+     */
+    public function getUtilisateur()
+    {
+        return $this->idUtilisateur;
+    }
 
-	//Affectation des donnees a un objet Note
-	public function affect($donnees){
-		foreach ((array) $donnees as $attribut => $valeur) {
-			switch ($attribut) {
+    /**
+     * @return mixed
+     */
+    public function getIdSujet()
+    {
+        return $this->idSujet;
+    }
 
-			    case 'idUtilisateur' :
-				$this->setUtilisateur($valeur);
-				break;
+    /**
+     * @return mixed
+     */
+    public function getNumNote()
+    {
+        return $this->numNote;
+    }
 
-				case 'idSujet' :
-				$this->setIdSujet($valeur);
-				break;
+    /**
+     * @return mixed
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
 
-				case 'numNote' :
-				$this->setNumNote($valeur);
-				break;
+    /**
+     * @param $idUtilisateur
+     */
+    public function setUtilisateur($idUtilisateur)
+    {
+        $this->idUtilisateur = $idUtilisateur;
+    }
 
-				case 'note' :
-				$this->setNote($valeur);
-				break;
+    public function setIdSujet($idSujet)
+    {
+        $this->idSujet = $idSujet;
+    }
 
-				default :
-				echo "Fatal error : construction Utilisateur invalide";
-				break;
-			}
-		}
-	}
+    public function setNumNote($numNote)
+    {
+        $this->numNote = $numNote;
+    }
 
-
-	//Getters//
-
-	public function getUtilisateur(){
-		return $this->idUtilisateur;
-
-	}
-	public function getIdSujet(){
-		return $this->idSujet;
-
-	}
-	public function getNumNote(){
-		return $this->numNote;
-
-	}
-	public function getNote(){
-		return $this->note;
-
-	}
-
-
-
-	//Setters//
-	
-	public function setUtilisateur($idUtilisateur){
-		$this->idUtilisateur=$idUtilisateur;
-
-	}
-	public function setIdSujet($idSujet){
-		$this->idSujet=$idSujet;
-
-	}
-	public function setNumNote($numNote){
-		$this->numNote=$numNote;
-
-	}
-	public function setNote($note){
-		$this->note=$note;
-
-	}
-
+    /**
+     * Modifie la valeur de cette instance de Note.
+     * @param $note
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+    }
 }
