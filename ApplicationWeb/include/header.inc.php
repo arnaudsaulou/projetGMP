@@ -32,7 +32,12 @@
 
 
 <?php //test si la personne est connectée
-if(isset($_SESSION['droits'])){ ?>
+if(isset($_SESSION['droits'])){
+
+  //la procédure de connexion n'est pas en cours
+  $connexion_en_cours = false;
+  ?>
+
   <body id="page-top">
 
 
