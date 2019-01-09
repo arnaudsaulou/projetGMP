@@ -3,7 +3,7 @@
 <!-- /.container-fluid -->
 
 <?php //test si la personne est connectée
-if(isset($_SESSION['droits'])){ ?>
+if(isset($_SESSION['droits']) && !$connexion_en_cours){ ?>
 
   <!-- Sticky Footer -->
 
