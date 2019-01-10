@@ -17,21 +17,21 @@
             <tr id="enteteTableau">
               <th>Question</th>
               <th>Formule</th>
-              <th>Paramètre 1</th>
+              <th>Paramètre</th>
             </tr>
           </thead>
           <tfoot>
             <tr id="piedTableau">
               <th>Question</th>
               <th>Formule</th>
-              <th>Paramètre 1</th>
+              <th>Paramètre</th>
             </tr>
           </tfoot>
           <tbody>
             <?php
             //on récupère la liste des questions de l'énoncé
             $listeQuestions = $questionManager->recupererListeQuestionD1Enonce($_GET['idEnonce']);
-			
+
 			//on récupère la liste des formule de correction disponible
 			$dirname = "./formules";
 			$dir = opendir($dirname);
@@ -44,7 +44,7 @@
 			}
 
 			closedir($dir);
-			
+
 			//on récupère la liste des données variable de l'énoncé
 			$listeTypeDonnee = $typeDonneeManager->getTypeDonnee();
 
@@ -52,7 +52,7 @@
             ?>
 				<tr>
 					<td><?php echo ($key+1).')'.' '.$question->getLibelle(); ?></td>
-					
+
 					<td>
 						<select name="formuleCorrection">
 							<?php foreach ($listeFormules as $formules) { ?>
@@ -60,22 +60,21 @@
 							<?php } ?>
 						</select>
 					</td>
-					
-					<td>
-						<select name="param1">
-							<?php foreach ($listeTypeDonnee as $key => $typeDonnee) { ?>
+
+					<td id="paramSection<?php echo $key ?>">
+						<select name="param0">
+							<?php foreach ($listeTypeDonnee as $typeDonnee) { ?>
 								<option value="<?php echo $typeDonnee->getIdType(); ?>"> <?php echo $typeDonnee->getLibelle(); ?> </option>
 							<?php } ?>
 						</select>
+            <button class="btnAdParams" id="btnAdParams<?php echo $key ?>">+</button>
+            <!-- <button class="btnAdParams" id="btnAdParams" onclick="ajouterParametres()">+</button> -->
+
 					</td>
-					
-					<td>
-						<button onclick="ajouterParametres()">+</button>
-					</td>
-				
+
 				<tr>
 			<?php } ?>
-			
+
           </tbody>
         </table>
       </div>
@@ -89,6 +88,6 @@
   <script src="js/callDatatables.js"></script>
   <script src="packages/datatables/jquery.dataTables.js"></script>
   <script src="packages/datatables/dataTables.bootstrap4.js"></script>
-  
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/corrigerEnonce.js"></script>

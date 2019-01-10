@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	require('../include/config.inc.php');
 	require('../include/autoLoad.inc.php');
@@ -8,13 +8,14 @@
 
 	//on récupère la liste des données variable de l'énoncé
 	$listeTypeDonnee = $typeDonneeManager->getTypeDonnee();
-	
-	echo "<td>";
-		echo '<select name="param1">';
-			foreach ($listeTypeDonnee as $key => $typeDonnee) {
-				echo "<option value=".$typeDonnee->getIdType().">".$typeDonnee->getLibelle()."</option>";
-			}
-		echo "</select>";
-	echo "</td>";
+
+	$listeParams = array();
+
+	foreach ($listeTypeDonnee as $key => $typeDonnee) {
+		//echo "<option value=".$typeDonnee->getIdType().">".$typeDonnee->getLibelle()."</option>";
+		$listeParams[] = $typeDonnee->getLibelle();
+	}
+
+	echo json_encode($listeParams);
 
 ?>
