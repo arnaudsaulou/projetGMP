@@ -53,7 +53,7 @@ else if($_POST['choix_promotion']=='annee1'){
         <th> Liste des sujets : <?php echo $sujetManager->countSujet();?> sujet(s) a/ont été trouvé</th>
       </tr>
       <?php
-      $listSujets = $sujetManager->getListSujets();
+      $listSujets = $sujetManager->getListEnonces();
       foreach ($listSujets as $sujet){
       ?>
       <tr>
@@ -95,7 +95,7 @@ else if($_POST['choix_promotion']=='annee1'){
         <th> Liste des sujets : <?php echo $sujetManager->countSujet();?> sujet(s) a/ont été trouvé</th>
       </tr>
       <?php
-      $listSujets = $sujetManager->getListSujets();
+      $listSujets = $sujetManager->getListEnonces();
       foreach ($listSujets as $sujet){
       ?>
       <tr>

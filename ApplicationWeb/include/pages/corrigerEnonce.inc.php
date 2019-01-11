@@ -30,7 +30,7 @@
           <tbody>
             <?php
             //on récupère la liste des questions de l'énoncé
-            $listeQuestions = $questionManager->recupererListeQuestionD1Enonce($_GET['idEnonce']);
+            $listeQuestions = $questionManager->recupererListeQuestionEnonce($_GET['idEnonce']);
 
 			//on récupère la liste des formule de correction disponible
 			$dirname = "./formules";
@@ -46,7 +46,7 @@
 			closedir($dir);
 
 			//on récupère la liste des données variable de l'énoncé
-			$listeTypeDonnee = $typeDonneeManager->getTypeDonnee();
+			$listeTypeDonnee = $typeDonneeManager->getListTypeDonnee();
 
 			foreach ($listeQuestions as $key => $question) {
             ?>

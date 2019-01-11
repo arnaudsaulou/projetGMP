@@ -79,7 +79,7 @@
 
         <label>Type de donnée déjà enregistré : </label>
 
-        <?php $listTypeDonnee = $typeDonneeManager->getTypeDonnee(); ?>
+        <?php $listTypeDonnee = $typeDonneeManager->getListTypeDonnee(); ?>
         <select id="typeDonnee">
           <option value="0"> - Créer nouveau type - </option>
           <?php foreach ($listTypeDonnee as $typeDonnee) { ?>

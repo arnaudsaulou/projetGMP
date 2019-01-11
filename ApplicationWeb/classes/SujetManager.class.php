@@ -1,138 +1,148 @@
 <?php
 
-class SujetManager{
+class SujetManager {
+    private $db;
+    private $donneeVariableManager;
 
-	private $db;
-	private $donneeVariableManager;
+    /**
+     * SujetManager constructor.
+     * @param MyPDO $db Une instance de MyPDO.
+     */
+    public function __construct($db)
+    {
+        $this->db = $db;
+        $this->donneeVariableManager = new DonneeVariableManager($db);
+    }
 
-  //Conctructeur
-	public function __construct($db){
-		$this->db = $db;
-		$this->donneeVariableManager = new DonneeVariableManager($db);
-	}
+    /**
+     * Génère une instance de Sujet à partir d'un tableau associatif contenant les données que doit contenir l'instance.
+     * @param array $paramsSujet Un tableau associatif contenant les données que doit contenir l'instance.
+     * @return Sujet Une instance de Sujet avec les données du tableau fourni comme valeurs.
+     */
+    public function createSujetDepuisTableau($paramsSujet)
+    {
+        return new Sujet($paramsSujet);
+    }
 
-	//Fonction permettant de créer un objet Sujet à partir d'un tableau
-	public function createSujetDepuisTableau($paramsSujet){
-		return new Sujet($paramsSujet);
-	}
+    //Cette fonction permet de générer un sujet à partir d'une liste de données variable
+    public function generateSujet($listDonneeVariable)
+    {
 
-	//Cette fonction permet de générer un sujet à partir d'une liste de données variable
-	public function generateSujet($listDonneeVariable){
+        ini_set('max_execution_time', 0);
 
-		ini_set('max_execution_time', 0);
+        if (!empty($listDonneeVariable)) {
 
-		if(!empty($listDonneeVariable)){
+            $numSujet = 1;
 
-			$numSujet = 1;
+            $req = $this->db->prepare(
+                $this->getSQLQueryFromListDonneeVariable($listDonneeVariable)
+            );
 
-			$req = $this->db->prepare(
-				$this->getSQLQueryFromListDonneeVariable($listDonneeVariable)
-			);
+            $req->execute();
 
-			$req->execute();
+            while ($possibilite = $req->fetch(PDO::FETCH_NUM)) {
 
-			while($possibilite  = $req->fetch(PDO::FETCH_NUM)){
+                $this->addSujetPossible($numSujet, $possibilite);
 
-				$this->addSujetPossible($numSujet,$possibilite);
+                $numSujet++;
+            }
 
-				$numSujet++;
-			}
+            $req->closeCursor();
 
-			$req->closeCursor();
-
-		}
-	}
-
-
-	//Cette fonction permet de ???
-	public function getSQLQueryFromPossibilite($numSujet, $possibilite){
-
-		$selectOn = 'INSERT INTO sujet_possible (idSujet, idDonneeVariable, numDonneeVariable) VALUES  ';
-
-		for ($i=0; $i < count($possibilite); $i++) {
-			if($i < count($possibilite) - 1){
-				$selectOn = $selectOn.'('.$numSujet.', '.$possibilite[$i].', '.($i+1).'), ';
-			} else {
-				$selectOn = $selectOn.'('.$numSujet.', '.$possibilite[$i].', '.($i+1).')';
-			}
-		}
-
-		return $selectOn;
-
-	}
-
-	//Cette fonction permet d'ajouter un sujet possible à partir d'un numéro de sujet
-	public function addSujetPossible($numSujet, $possibilite){
-		if(!empty($numSujet) && !empty($possibilite)){
-
-			$req = $this->db->prepare(
-				$this->getSQLQueryFromPossibilite($numSujet, $possibilite)
-			);
-
-			$req->execute();
-
-			$req->closeCursor();
-
-		}
-	}
+        }
+    }
 
 
-	//Cette fonction permet ???
-  public function getSQLQueryFromListDonneeVariable($listDonneeVariable){
-    $selectOn = '';
-    $join = '';
+    //TODO: Je ne peux pas commenter une fonction non terminée (d'ailleurs, il y a une erreur dans le SQL!) !
+    //Cette fonction permet de ???
+    public function getSQLQueryFromPossibilite($numSujet, $possibilite)
+    {
 
-    for($i=0; $i <= count($listDonneeVariable); $i++){
+        $selectOn = 'INSERT INTO sujet_possible (idSujet, idDonneeVariable, numDonneeVariable) VALUES  ';
 
-      if($i == count($listDonneeVariable) - 1){
-        $selectOn = $selectOn.'d'.$i.'.`idDonneeVariable` AS `idDonneeVariableSujet'.$i.'`';
-      } else if ($i < count($listDonneeVariable) - 1) {
-        $selectOn = $selectOn.'d'.$i.'.`idDonneeVariable` AS `idDonneeVariableSujet'.$i.'`, ';
-      }
+        for ($i = 0; $i < count($possibilite); $i++) {
+            if ($i < count($possibilite) - 1) {
+                $selectOn = $selectOn . '(' . $numSujet . ', ' . $possibilite[$i] . ', ' . ($i + 1) . '), ';
+            } else {
+                $selectOn = $selectOn . '(' . $numSujet . ', ' . $possibilite[$i] . ', ' . ($i + 1) . ')';
+            }
+        }
 
-
-      if($i == count($listDonneeVariable) - 1){
-        $join = $join.
-        '(SELECT * FROM `donnees_variable` WHERE `idType` = '.($i+1).') AS d'.$i;
-      } else if ($i < count($listDonneeVariable) -1) {
-        $join = $join.
-        '(SELECT * FROM `donnees_variable` WHERE `idType` = '.($i+1).') AS d'.$i.' , ';
-      }
+        return $selectOn;
 
     }
 
-    $query = 'SELECT '.$selectOn.' FROM '.$join;
-
-    return $query;
-  }
-
-	//Cette fonction permettant de compter le nombre de sujets enregistrés
-  public function countSujet(){
-    $res=array();
-    $req = $this->db->prepare("SELECT count(idEnonce) AS total FROM enonce");
-    $req->execute();
-    $res = $req->fetch(PDO::FETCH_OBJ);
-    $nbSujet=$res->total;
-    return $nbSujet;
-    $req-> closeCursor();
-  }
-
-	//Cette fonction permettant de lister tous les sujets
-  public function getListSujets(){
-
-    $req = $this->db->prepare('SELECT idEnonce, enonce FROM enonce ORDER BY idEnonce');
-    $req->execute();
-
-    $listeSujet=array();
-
-    while($sujet=$req->fetch(PDO::FETCH_OBJ)){
-      $listeSujet[]=new Enonce($sujet);
+    //Cette fonction permet d'ajouter un sujet possible à partir d'un numéro de sujet
+    public function addSujetPossible($numSujet, $possibilite)
+    {
+        if (!empty($numSujet) && !empty($possibilite)) {
+            $req = $this->db->prepare(
+                $this->getSQLQueryFromPossibilite($numSujet, $possibilite)
+            );
+            $req->execute();
+            $req->closeCursor();
+        }
     }
-    return $listeSujet;
-    $req->closeCursor();
-  }
 
 
+    //TODO: AAAAAAAARGH!
+    //Cette fonction permet ???
+    public function getSQLQueryFromListDonneeVariable($listDonneeVariable)
+    {
+        $selectOn = '';
+        $join = '';
+
+        for ($i = 0; $i <= count($listDonneeVariable); $i++) {
+
+            if ($i == count($listDonneeVariable) - 1) {
+                $selectOn = $selectOn . 'd' . $i . '.`idDonneeVariable` AS `idDonneeVariableSujet' . $i . '`';
+            } else if ($i < count($listDonneeVariable) - 1) {
+                $selectOn = $selectOn . 'd' . $i . '.`idDonneeVariable` AS `idDonneeVariableSujet' . $i . '`, ';
+            }
+
+
+            if ($i == count($listDonneeVariable) - 1) {
+                $join = $join .
+                    '(SELECT * FROM `donnees_variable` WHERE `idType` = ' . ($i + 1) . ') AS d' . $i;
+            } else if ($i < count($listDonneeVariable) - 1) {
+                $join = $join .
+                    '(SELECT * FROM `donnees_variable` WHERE `idType` = ' . ($i + 1) . ') AS d' . $i . ' , ';
+            }
+
+        }
+
+        $query = 'SELECT ' . $selectOn . ' FROM ' . $join;
+
+        return $query;
+    }
+
+    /**
+     * Retourne le nombre d'Enonces stockés dans la base de données.
+     * @return integer Le nombre d'Enonces stockés dans la base de données.
+     */
+    public function countSujet()
+    {
+        $req = $this->db->prepare("SELECT count(idEnonce) AS total FROM enonce");
+        $req->execute();
+        $res = $req->fetch(PDO::FETCH_OBJ);
+        $nbSujet = $res->total;
+        $req->closeCursor();
+        return $nbSujet;
+    }
+
+    /**
+     * Récupère tous les Enonces disponibles dans la base de données.
+     * @return array Un tableau contenant toutes les instances d'Enonce disponibles dans la base de données.
+     */
+    public function getListEnonces()
+    {
+        $req = $this->db->prepare('SELECT idEnonce, enonce FROM enonce ORDER BY idEnonce');
+        $req->execute();
+        $listeSujet = array();
+        while ($sujet = $req->fetch(PDO::FETCH_OBJ)) {
+            $listeSujet[] = new Enonce($sujet);
+        }
+        $req->closeCursor();
+        return $listeSujet;
+    }
 }
-
-?>

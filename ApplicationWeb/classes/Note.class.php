@@ -24,7 +24,7 @@ class Note
      */
     public function affect($donnees)
     {
-        foreach ((array)$donnees as $attribut => $valeur) {
+        foreach ($donnees as $attribut => $valeur) {
             switch ($attribut) {
                 case 'idUtilisateur' :
                     $this->setUtilisateur($valeur);
@@ -46,15 +46,17 @@ class Note
     }
 
     /**
-     * @return mixed
+     * Retourne l'ID de l'instance d'Utilisateur associé à cette Note.
+     * @return integer L'ID de l'instance d'Utilisateur associé à cette Note.
      */
-    public function getUtilisateur()
+    public function getIdUtilisateur()
     {
         return $this->idUtilisateur;
     }
 
     /**
-     * @return mixed
+     * Retourne l'ID du Sujet attribué à cet instance de Note.
+     * @return integer L'ID du Sujet attribué à cet instance de Note.
      */
     public function getIdSujet()
     {
@@ -62,7 +64,8 @@ class Note
     }
 
     /**
-     * @return mixed
+     * Retourne le numéro de cette instance de Note.
+     * @return integer Le numéro de cette instance de Note.
      */
     public function getNumNote()
     {
@@ -70,7 +73,8 @@ class Note
     }
 
     /**
-     * @return mixed
+     * Retourne la Note obtenue par l'Utilisateur pour le Sujet donné.
+     * @return integer La Note obtenue par l'Utilisateur pour le Sujet donné.
      */
     public function getNote()
     {
@@ -78,18 +82,27 @@ class Note
     }
 
     /**
-     * @param $idUtilisateur
+     * Modifie l'ID de l'instance d'Utilisateur associé à cette Note.
+     * @param integer $idUtilisateur Le nouvel ID de l'instance d'Utilisateur associé à cette Note.
      */
     public function setUtilisateur($idUtilisateur)
     {
         $this->idUtilisateur = $idUtilisateur;
     }
 
+    /**
+     * Modifie l'ID du Sujet attribué à cet instance de Note.
+     * @param integer $idSujet Le nouvel ID du Sujet attribué à cet instance de Note.
+     */
     public function setIdSujet($idSujet)
     {
         $this->idSujet = $idSujet;
     }
 
+    /**
+     * Modifie le numéro de cette instance de Note.
+     * @param integer $numNote Le nouveau numéro de cette instance de Note.
+     */
     public function setNumNote($numNote)
     {
         $this->numNote = $numNote;
@@ -97,7 +110,7 @@ class Note
 
     /**
      * Modifie la valeur de cette instance de Note.
-     * @param $note
+     * @param integer $note La Note obtenue par l'Utilisateur pour le Sujet donné.
      */
     public function setNote($note)
     {

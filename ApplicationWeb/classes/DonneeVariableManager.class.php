@@ -103,5 +103,4 @@ class DonneeVariableManager {
         $req->closeCursor();
         return $idType;
     }
-
 }

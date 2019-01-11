@@ -14,7 +14,7 @@ class AttribueManager {
 
     /**
      * Stocke un Attribue dans la base de données.
-     * @param $Attribue L'instance d'Attribue à enregistrer.
+     * @param Attribue $Attribue L'instance d'Attribue à enregistrer.
      */
     public function addAttribue($Attribue)
     {
@@ -30,8 +30,8 @@ class AttribueManager {
 
     /**
      * Retourne une instance d'Attribue à partir de son idUtilisateur et son idSujet.
-     * @param $idUtilisateur L'id de l'Utilisateur de l'Attribue à récupérer.
-     * @param $idSujet L'id du Sujet de l'Attribue à récupérer.
+     * @param integer $idUtilisateur L'id de l'Utilisateur de l'Attribue à récupérer.
+     * @param integer $idSujet L'id du Sujet de l'Attribue à récupérer.
      * @return Attribue Une instance d'Attribue correspondant aux paramètres spécifiés.
      */
     public function getAttribueById($idUtilisateur, $idSujet)
@@ -44,7 +44,7 @@ class AttribueManager {
         $req->bindValue(':idSujet', $idSujet, PDO::PARAM_STR);
         $req->execute();
         $attribue = $req->fetch(PDO::FETCH_OBJ);
-        return new Attribue($attribue);
         $req->closeCursor();
+        return new Attribue($attribue);
     }
 }
