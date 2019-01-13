@@ -47,4 +47,28 @@ class AttribueManager {
         $req->closeCursor();
         return new Attribue($attribue);
     }
+
+    /**
+     * Retourne un tableau avec la liste de tous les Utilisateurs n'ayant pas répondu au Sujet spécifié.
+     * @param integer $idSujet L'ID du Sujet dont on veut récupérer les élèves n'ayant pas répondu.
+     * @return array Un tableau avec toutes les instances d'Utilisateur n'ayant pas répondu au sujet.
+     */
+    public function getListeElevesNAyantPasRepondu($idSujet) {
+        $req = $this->db->prepare('
+            SELECT idUtilisateur FROM utilisateur WHERE estProf = 0 AND idUtilisateur NOT IN ( 
+                SELECT idUtilisateur FROM reponses WHERE idSujet = :idSujet
+                HAVING COUNT(idUtilisateur) > 0
+            ) AND idUtilisateur IN (
+                SELECT idUtilisateur FROM attribue WHERE idSujet = :idSujet
+            )
+        ');
+        $req->bindValue(':idSujet', $idSujet, PDO::PARAM_STR);
+        $req->execute();
+        $listeEleves = array();
+        while($eleve = $req->fetch(PDO::FETCH_OBJ)) {
+            $listeEleves[] = $eleve;
+        }
+        $req->closeCursor();
+        return $listeEleves;
+    }
 }
