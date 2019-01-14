@@ -376,3 +376,16 @@ body.sidebar-toggled footer.sticky-footer {
     width: calc(100% - 90px);
   }
 }
+
+/* supprimerEtudiants.inc.php */
+#confirmerSuppression  {
+  text-align: center;
+}
+
+#confirmerSuppression > input {
+  margin-top: 2%;
+}
+
+.etudiantSupprime {
+  text-align: center;
+}

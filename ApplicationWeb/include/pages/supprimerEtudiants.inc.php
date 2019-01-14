@@ -62,20 +62,25 @@
         $etudiant = $utilisateurManager->getUtilisateurById($_POST['id_etu']);
 ?>
 
-    <h2>Voulez-vous vraiment supprimer l'étudiant <?php echo $etudiant->getNom()." ".$etudiant->getPrenom() ?>?</h2>
     <form id="confirmerSuppression" name="confirmerSuppression" method="post" action="#">
+        <h2>Voulez-vous vraiment supprimer l'étudiant <?php echo $etudiant->getNom()." ".$etudiant->getPrenom() ?>?</h2>
         <input id="id_etu" name="id_etu" value="<?php echo $_POST['id_etu'] ?>" type="hidden">
         <input id="confirmSuppr" name="confirmSuppr" type="hidden" value="true">
-        <input onclick="reglerSuppr(true);" type="submit" value="Oui">
-        <input onclick="window.location.href='index.php?page=12';" type="button" value="Non">
+        <input class="btn btn-lg btn-danger" onclick="reglerSuppr(true);" type="submit" value="Oui">
+        <input class="btn btn-lg btn-primary" onclick="window.location.href='index.php?page=12';" type="button" value="Non">
     </form>
 
 <?php } else {
+        $noteManager->supprimerNotesAvecIdEtudiant($_POST['id_etu']);
+        $reponseManager->supprimerReponsesAvecIdEtudiant($_POST['id_etu']);
+        $attribueManager->supprimerAttribueAvecIdEtudiant($_POST['id_etu']);
         $utilisateurManager->supprimerUtilisateurAvecId($_POST['id_etu']);
 ?>
 
+    <div class="etudiantSupprime">
         <h3>L'&eacute;tudiant a bien &eacute;t&eacute; supprim&eacute; !</h3>
-        <a href="index.php?page=12"><p>Retour</p></a>
+        <a class="btn btn-link" href="index.php?page=12"><p>Retour</p></a>
+    </div>
 
 <?php
     }
