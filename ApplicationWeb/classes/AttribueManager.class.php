@@ -43,9 +43,9 @@ class AttribueManager {
         $req->bindValue(':idUtilisateur', $idUtilisateur, PDO::PARAM_STR);
         $req->bindValue(':idSujet', $idSujet, PDO::PARAM_STR);
         $req->execute();
-        $attribue = $req->fetch(PDO::FETCH_OBJ);
+        $attribue = new Attribue($req->fetch(PDO::FETCH_OBJ));
+        return $attribue;
         $req->closeCursor();
-        return new Attribue($attribue);
     }
 
     /**

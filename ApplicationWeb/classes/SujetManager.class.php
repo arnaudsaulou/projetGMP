@@ -145,4 +145,15 @@ class SujetManager {
         $req->closeCursor();
         return $listeSujet;
     }
+	
+	public function getSujetById($id){
+		$req=$this->db->prepare(
+			'SELECT idSujet, idEnonce FROM sujet WHERE idSujet=:id'
+		);
+		$req->bindValue(':id',$id,PDO::PARAM_INT);
+		$req->execute();
+		$res=$req->fetch(PDO::FETCH_OBJ);
+		$req->closeCursor();
+		return new Sujet($res);
+	}
 }
