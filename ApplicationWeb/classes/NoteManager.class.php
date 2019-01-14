@@ -28,6 +28,17 @@ class NoteManager{
 	}
 
     /**
+     * Supprime toutes les instances de Note liées à l''Utilisateur ayant l'id spécifié.
+     * @param integer $id L'ID représentant l'Utilisateur dont on veut supprimer les instances de Note.
+     */
+	public function supprimerNotesAvecIdEtudiant($id) {
+        $req = $this->db->prepare("DELETE FROM note WHERE idUtilisateur = :id");
+        $req->bindValue(':id', $id, PDO::PARAM_STR);
+        $req->execute();
+        $req->closeCursor();
+    }
+
+    /**
      * Retourne toutes les instances de Notes dans la base de données liées à l'ID Utilisateur fourni.
      * @param integer $id L'ID de l'Utilisateur dont on veut récupérer les notes.
      * @return array Un tableau contenant toutes les instances de Notes de l'Utilisateur correspondant à l'ID fourni.
