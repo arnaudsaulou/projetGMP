@@ -19,6 +19,7 @@
                     <th>Numéro</th>
                     <th>Nom</th>
                     <th>Prénom</th>
+					<th>Année</th>
                     <th>Moyenne</th>
                 </tr>
                 </thead>
@@ -27,6 +28,7 @@
                     <th>Numéro</th>
                     <th>Nom</th>
                     <th>Prénom</th>
+					<th>Année</th>
                     <th>Moyenne</th>
                 </tr>
                 </tfoot>
