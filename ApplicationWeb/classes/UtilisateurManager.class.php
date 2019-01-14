@@ -59,6 +59,52 @@ class UtilisateurManager
     }
 
     /**
+     * Retourne un tableau contenant toutes les instances d'Utilisateur appartenant à la promotion fournie.
+     * @param integer $annee La promotion dont on veut récupérer les étudiants.
+     * @return array Un tableau contenant toutes les instances d'Utilisateurs appartenant à la promotion $annee.
+     */
+    public function recupererPromotionEtudiante($annee) {
+        $req = $this->db->prepare('SELECT idUtilisateur, nom, prenom FROM utilisateur WHERE estProf = 0 AND annee = :annee');
+        $req->bindValue(':annee', $annee, PDO::PARAM_STR);
+        $req->execute();
+        $listeEtudiants = array();
+        while ($etudiant = $req->fetch(PDO::FETCH_OBJ)) {
+            $listeEtudiants[] = new Utilisateur($etudiant);
+        }
+        $req->closeCursor();
+        return $listeEtudiants;
+    }
+
+    /**
+     * Récupère le nombre d'étudiants dans une promotion donnée.
+     * @param integer $annee La promotion dont on veut récupérer le nombre d'étudiants.
+     * @return integer Le nombre d'étudiants dans la promotion $annee.
+     */
+    public function recupererNbEtudiantsPromotion($annee) {
+        $req = $this->db->prepare("SELECT count(idUtilisateur) AS total FROM utilisateur WHERE annee = :annee");
+        $req->bindValue(':annee', $annee, PDO::PARAM_STR);
+        $req->execute();
+        $res = $req->fetch(PDO::FETCH_OBJ);
+        $nbUtilisateur = $res->total;
+        $req->closeCursor();
+        return $nbUtilisateur;
+    }
+
+    /**
+     * Retourne une liste contenant toutes les années différentes.
+     * @return array Un tableau contenant toutes les années différentes.
+     */
+    public function getListeAnnees() {
+        $req = $this->db->prepare("SELECT DISTINCT annee FROM utilisateur");
+        $req->execute();
+        $listeAnnee = array();
+        while ($annee = $req->fetch()) {
+            $listeAnnee[] = $annee;
+        }
+        return $listeAnnee;
+    }
+
+    /**
      * Retourne un tableau contenant tous les élèves.
      * @return array Un tableau contenant tous les élèves.
      */
