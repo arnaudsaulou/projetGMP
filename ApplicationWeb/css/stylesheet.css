@@ -389,3 +389,8 @@ body.sidebar-toggled footer.sticky-footer {
 .suppressionConfirme {
   text-align: center;
 }
+
+/* importerEtudiants.inc.php */
+.importEtudiant > label {
+  margin-left: 0.1%;
+}

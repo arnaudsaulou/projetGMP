@@ -6,10 +6,10 @@
   <li class="breadcrumb-item active">Importer des étudiants</li>
 </ol>
 
-<form enctype="multipart/form-data" action="#" method="post">
+<form class="importEtudiant" enctype="multipart/form-data" action="#" method="post">
   <label for="fichier">Fichier &agrave; importer (doit être un fichier CSV): </label>
-  <input name="fichier" type="file" accept=".csv" required />
-  <input class="button" type="submit" value="Importer le fichier" />
+  <input class="btn btn-secondary" name="fichier" type="file" accept=".csv" required />
+  <input class="btn btn-primary" type="submit" value="Importer le fichier" />
 </form>
 
 <?php
