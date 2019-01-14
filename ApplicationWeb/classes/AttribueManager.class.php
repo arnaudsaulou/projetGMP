@@ -83,6 +83,10 @@ class AttribueManager {
         return $listeEleves;
     }
 
+		/**
+     * Retourne le plus grand identifiant d'un sujet par énoncé
+     * @param integer $idEnonce L'ID de l'énoncé dont on veut récupérer le plus grand id.
+     */
 		public function getIdSujetMaximumByIdEnonce($idEnonce){
 				$req = $this->db->prepare('
 						SELECT MAX(idSujet) as idSujetMax FROM sujet WHERE idEnonce = :idEnonce
@@ -94,5 +98,19 @@ class AttribueManager {
         $idSujetMax = $idSujet->idSujetMax;
         $req->closeCursor();
 				return $idSujetMax;
+		}
+
+		/**
+     * Retourne le nombre de sujet attribué à un étudiant enregistrés dans la base de données.
+     * @return integer Le nombre de sujet attribué à un étudiant enregistrés dans la base de données.
+     */
+		public function countNombreDeSujetAttribuerAUnEtudiant($idEtudiant){
+			$req = $this->db->prepare("SELECT count(idSujet) AS total FROM attribue WHERE idUtilisateur = :idEtudiant");
+			$req->bindValue(':idEtudiant', $idEtudiant, PDO::PARAM_STR);
+			$req->execute();
+			$res = $req->fetch(PDO::FETCH_OBJ);
+			$nbSujet = $res->total;
+			$req->closeCursor();
+			return $nbSujet;
 		}
 }
