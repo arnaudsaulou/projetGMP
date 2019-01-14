@@ -92,7 +92,7 @@ class Attribue {
      */
     public function setIdSujet($valeur)
     {
-        $this->idUtilisateur = $valeur;
+        $this->idSujet = $valeur;
     }
 
     /**

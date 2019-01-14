@@ -18,8 +18,8 @@ class AttribueManager {
      */
     public function addAttribue($Attribue)
     {
-        $req = $this->db->prepare
-        ('INSERT INTO attribue (idUtilisateur,idSujet,dateAttribution,dateLimite)
+        $req = $this->db->prepare(
+					'INSERT INTO attribue(idUtilisateur,idSujet,dateAttribution,dateLimite)
 		VALUES (:idUtilisateur,:idSujet,:dateAttribution,:dateLimite)');
         $req->bindValue(':idUtilisateur', $Attribue->getIdUtilisateur(), PDO::PARAM_STR);
         $req->bindValue(':idSujet', $Attribue->getIdSujet(), PDO::PARAM_STR);
@@ -66,7 +66,7 @@ class AttribueManager {
      */
     public function getListeElevesNAyantPasRepondu($idSujet) {
         $req = $this->db->prepare('
-            SELECT idUtilisateur FROM utilisateur WHERE estProf = 0 AND idUtilisateur NOT IN ( 
+            SELECT idUtilisateur FROM utilisateur WHERE estProf = 0 AND idUtilisateur NOT IN (
                 SELECT idUtilisateur FROM reponses WHERE idSujet = :idSujet
                 HAVING COUNT(idUtilisateur) > 0
             ) AND idUtilisateur IN (
@@ -82,4 +82,17 @@ class AttribueManager {
         $req->closeCursor();
         return $listeEleves;
     }
+
+		public function getIdSujetMaximumByIdEnonce($idEnonce){
+				$req = $this->db->prepare('
+						SELECT MAX(idSujet) as idSujetMax FROM sujet WHERE idEnonce = :idEnonce
+
+				');
+				$req->bindValue(':idEnonce', $idEnonce, PDO::PARAM_INT);
+				$req->execute();
+				$idSujet = $req->fetch(PDO::FETCH_OBJ);
+        $idSujetMax = $idSujet->idSujetMax;
+        $req->closeCursor();
+				return $idSujetMax;
+		}
 }
