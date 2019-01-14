@@ -32,6 +32,17 @@ class UtilisateurManager
     }
 
     /**
+     * Supprime l'instance d'Utilisateur ayant l'id spécifié.
+     * @param integer $id L'ID représentant l'Utilisateur à supprimer.
+     */
+    public function supprimerUtilisateurAvecId($id) {
+        $req = $this->db->prepare("DELETE FROM utilisateur WHERE idUtilisateur = :id");
+        $req->bindValue(':id', $id, PDO::PARAM_STR);
+        $req->execute();
+        $req->closeCursor();
+    }
+
+    /**
      * Retourne un tableau contenant tous les utilisateurs du système (professeurs & élèves).
      * @return array Un tableau contenant tous les utilisateurs du système (professeurs & élèves).
      */
@@ -53,7 +64,7 @@ class UtilisateurManager
      */
     public function getListEtudiants()
     {
-        $req = $this->db->prepare('SELECT idUtilisateur,estProf,nom,prenom FROM utilisateur WHERE estProf = 0 ORDER BY nom');
+        $req = $this->db->prepare('SELECT idUtilisateur,estProf,nom,prenom,annee FROM utilisateur WHERE estProf = 0 ORDER BY nom');
         $req->execute();
 
         $listeUtilisateur = array();

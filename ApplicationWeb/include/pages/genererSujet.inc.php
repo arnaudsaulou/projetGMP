@@ -1,14 +1,11 @@
 <?php
+$ligneExploded = array();
+$listIdTypesDonnees = array();
 
-  $ligneExploded = array();
-  $listIdTypesDonnees= array();
+$ligneExploded = explode("##", $newEnonce->getEnonce());
 
-  $ligneExploded = explode("##", $newEnonce->getEnonce());
-
-  for($i = 1; $i < count($ligneExploded); $i = $i + 2){
+for ($i = 1; $i < count($ligneExploded); $i = $i + 2) {
     $listIdTypesDonnees[] = $ligneExploded[$i];
-  }
+}
 
-  $sujetManager->generateSujet($listIdTypesDonnees);
-
-?>
+$sujetManager->generateSujet($listIdTypesDonnees);
