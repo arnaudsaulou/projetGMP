@@ -1,7 +1,7 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
   <li class="breadcrumb-item">
-    <a href="#">Corriger un énoncé</a>
+    <a>Corriger un énoncé</a>
   </li>
   <li class="breadcrumb-item active">Corriger l'énoncé n°<?php echo $_GET['idEnonce']; ?></li>
 

@@ -1,7 +1,7 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a href="#">Gestion des étudiants</a>
+        <a>Gestion des étudiants</a>
     </li>
     <li class="breadcrumb-item active">Supprimer une promotion</li>
 </ol>
@@ -68,8 +68,8 @@
             <div class="modal-footer">
                 <form id="formSupprimerEtudiant" name="formSupprimerEtudiant" method="post" action="#">
                     <input id="id_etu" name="id_etu" type="hidden" value="">
-                    <input class="btn btn-danger" type="submit" value="Supprimer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    <input class="btn btn-danger" type="submit" value="Supprimer">
                 </form>
             </div>
         </div>
