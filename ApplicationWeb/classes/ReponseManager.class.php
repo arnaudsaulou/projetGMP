@@ -30,6 +30,17 @@ class ReponseManager
     }
 
     /**
+     * Supprime toutes les instances de Réponse liées à l''Utilisateur ayant l'id spécifié.
+     * @param integer $id L'ID représentant l'Utilisateur dont on veut supprimer les instances de Réponse.
+     */
+    public function supprimerReponsesAvecIdEtudiant($id) {
+        $req = $this->db->prepare("DELETE FROM note WHERE idUtilisateur = :id");
+        $req->bindValue(':id', $id, PDO::PARAM_STR);
+        $req->execute();
+        $req->closeCursor();
+    }
+
+    /**
      * Vérifie l'existence dans la base de données d'une Réponse à la question numeroQuestion du sujet idSujet
      * pour l'utilisateur idUtilisateur.
      * @param integer $idSujet L'identifiant unique du Sujet concerné.
