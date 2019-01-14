@@ -50,6 +50,7 @@
         $_SESSION['co'] = $utilisateur->getPrenom() . " " . $utilisateur->getNom();
         $_SESSION['droits'] = $utilisateur->getEstProf();
         $connexion_en_cours = true;
+		$_SESSION['log']=$utilisateur->getNomUtilisateur();
         ?>
         <div class="card-header"><i class="fa fa-hourglass" style="color:green"></i>
           <span class="card-body">Connexion réussie !</span>
