@@ -64,8 +64,8 @@
             <div class="modal-footer">
                 <form id="formSupprimerPromotion" name="formSupprimerPromotion" method="post" action="#">
                     <input id="id_promotion" name="id_promotion" type="hidden" value="">
-                    <input class="btn btn-danger" type="submit" value="Supprimer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    <input class="btn btn-danger" type="submit" value="Supprimer">
                 </form>
             </div>
         </div>

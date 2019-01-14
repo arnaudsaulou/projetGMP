@@ -81,7 +81,7 @@ class UtilisateurManager
      * @return integer Le nombre d'étudiants dans la promotion $annee.
      */
     public function recupererNbEtudiantsPromotion($annee) {
-        $req = $this->db->prepare("SELECT count(idUtilisateur) AS total FROM utilisateur WHERE annee = :annee");
+        $req = $this->db->prepare("SELECT count(idUtilisateur) AS total FROM utilisateur WHERE annee = :annee AND estProf = 0");
         $req->bindValue(':annee', $annee, PDO::PARAM_STR);
         $req->execute();
         $res = $req->fetch(PDO::FETCH_OBJ);
