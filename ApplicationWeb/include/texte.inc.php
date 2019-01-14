@@ -93,10 +93,10 @@
             break;
 
         case 13:
-            // inclure ici la page
-            include_once('');
+            if ($_SESSION['droits'] == 1) {
+                include_once('pages/supprimerPromotion.inc.php');
+            }
             break;
-
 
         default :
             include_once('pages/accueil.inc.php');
