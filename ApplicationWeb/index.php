@@ -12,6 +12,7 @@ $enonceManager = new EnonceManager($db);
 $sujetManager = new SujetManager($db);
 $utilisateurManager = new UtilisateurManager($db);
 $noteManager = new NoteManager($db);
+$reponseManager = new ReponseManager($db);
 $attribueManager = new AttribueManager($db);
 $questionManager = new QuestionManager($db);
 

@@ -49,6 +49,17 @@ class AttribueManager {
     }
 
     /**
+     * Supprime toutes les instances de Attribue liées à l''Utilisateur ayant l'id spécifié.
+     * @param integer $id L'ID représentant l'Utilisateur dont on veut supprimer les instances d'Attribue.
+     */
+    public function supprimerAttribueAvecIdEtudiant($id) {
+        $req = $this->db->prepare("DELETE FROM attribue WHERE idUtilisateur = :id");
+        $req->bindValue(':id', $id, PDO::PARAM_STR);
+        $req->execute();
+        $req->closeCursor();
+    }
+
+    /**
      * Retourne un tableau avec la liste de tous les Utilisateurs n'ayant pas répondu au Sujet spécifié.
      * @param integer $idSujet L'ID du Sujet dont on veut récupérer les élèves n'ayant pas répondu.
      * @return array Un tableau avec toutes les instances d'Utilisateur n'ayant pas répondu au sujet.

@@ -22,7 +22,9 @@
 					<div class="dropdown-menu" aria-labelledby="pagesDropdown">
 						<h6 class="dropdown-header">Gestion des étudiants:</h6>
 						<a class="dropdown-item" href="index.php?page=1">Lister</a>
-						<a class="dropdown-item" href="index.php?page=2">Ajouter / supprimer</a>
+						<a class="dropdown-item" href="index.php?page=2">Importer</a>
+                        <a class="dropdown-item" href="index.php?page=12">Supprimer</a>
+                        <a class="dropdown-item" href="index.php?page=13">Supprimer promotion</a>
 					</div>
 				</li>
 				<li class="nav-item dropdown">

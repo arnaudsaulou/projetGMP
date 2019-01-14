@@ -1,6 +1,5 @@
 <?php
 class Utilisateur {
-
     private $idUtilisateur;
     private $estProf;
     private $nom;

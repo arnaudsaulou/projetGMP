@@ -1,43 +1,53 @@
 
-	<!-- Breadcrumbs-->
-	<ol class="breadcrumb">
-	  <li class="breadcrumb-item">
-	    <a href="#">Afficher mes résultats</a>
-	  </li>
-	</ol>
-
-</br>
-
-	<?php
-		$etudiant = $utilisateurManager->getUtilisateurByLogin($_SESSION["co"]);
-		$idEtudiant=$etudiant->getIdUtilisateur();
-		$listeNoteEtudiant=$noteManager->getNoteByIdEtudiant($idEtudiant);
-	?>
-
-	<h2>Note de l'élève <?php echo $etudiant->getNom() . " " . $etudiant->getPrenom(); ?></h2>
-
-<table>
-		<tr class="enTete">
-
-			<th>Numero de sujet</th>
-			<th>Nummero Note</th>
-			<th>Date d'attribution</th>
-			<th>Note</th>
-
-		</tr>
 <?php
-	foreach($listeNoteEtudiant as $note){
-			$attribue=$attribueManager->getAttribueById($idEtudiant,$note->getIdSujet());
+	$etudiant = $utilisateurManager->getUtilisateurByLogin($_SESSION["log"]);
+	$idEtudiant=$etudiant->getIdUtilisateur();
+	$listeNoteEtudiant=$noteManager->getNoteByIdEtudiant($idEtudiant);
 ?>
 
-		<tr>
+<h2>Note de l'élève <?php echo $etudiant->getNom() . " " . $etudiant->getPrenom(); ?></h2>
 
-			<td><?php echo $note->getIdSujet(); ?> </td>
-			<td><?php echo $note->getNumNote(); ?></td>
-			<td><?php echo $attribue->getDateAttribution(); ?></td>
-			<td><?php echo $note->getNote(); ?> </td>
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fas fa-table"></i>
+    Liste des étudiants enregistrés</div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Sujet</th>
+              <th>Numero de la note</th>
+              <th>Date d'attribution</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody>
+<?php
+			foreach($listeNoteEtudiant as $note){
+					$attribue=$attribueManager->getAttribueById($idEtudiant,$note->getIdSujet());
+			?>
 
-		</tr>
-			<?php } ?>
+				<tr>
 
-	</table>
+					<td><?php echo $note->getIdSujet(); ?> </td>
+					<td><?php echo $note->getNumNote(); ?></td>
+					<td><?php echo $attribue->getDateAttribution(); ?></td>
+					<td><?php echo $note->getNote(); ?> </td>
+
+				</tr>
+					<?php } ?>
+		   </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+  </div>
+
+<!-- Page level plugin CSS-->
+<link href="packages/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+<!-- scripts for this page-->
+<script src="js/callDatatables.js"></script>
+<script src="packages/datatables/jquery.dataTables.js"></script>
+<script src="packages/datatables/dataTables.bootstrap4.js"></script>
+
