@@ -62,13 +62,15 @@
 					</td>
 
 					<td id="paramSection<?php echo $key ?>">
-						<select name="param0">
+						<select id="param0">
 							<?php foreach ($listeTypeDonnee as $typeDonnee) { ?>
 								<option value="<?php echo $typeDonnee->getIdType(); ?>"> <?php echo $typeDonnee->getLibelle(); ?> </option>
 							<?php } ?>
 						</select>
-            <button class="btnAdParams" id="btnAdParams<?php echo $key ?>">+</button>
-            <!-- <button class="btnAdParams" id="btnAdParams" onclick="ajouterParametres()">+</button> -->
+
+            <div>
+              <button onclick="handleClickAjouterParametres(this);" id="btnAdParams<?php echo $key ?>">+</button>
+            <div>
 
 					</td>
 
