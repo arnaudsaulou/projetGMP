@@ -48,12 +48,30 @@ class UtilisateurManager
     }
 
     /**
-     * Retourne un tableau contenant tous les élèves.
+     * Retourne un tableau contenant tous les élèves de l'année 1.
      * @return array Un tableau contenant tous les élèves.
      */
-    public function getListEtudiants()
+    public function getListEtudiantsAnnee1()
     {
-        $req = $this->db->prepare('SELECT idUtilisateur,estProf,nom,prenom FROM utilisateur WHERE estProf = 0 ORDER BY nom');
+        $req = $this->db->prepare('SELECT idUtilisateur,estProf,nom,prenom FROM utilisateur WHERE estProf = 0 AND annee = 1 ORDER BY nom');
+        $req->execute();
+
+        $listeUtilisateur = array();
+
+        while ($Utilisateur = $req->fetch(PDO::FETCH_OBJ)) {
+            $listeUtilisateur[] = new Utilisateur($Utilisateur);
+        }
+        $req->closeCursor();
+        return $listeUtilisateur;
+    }
+
+    /**
+     * Retourne un tableau contenant tous les élèves de l'année 2.
+     * @return array Un tableau contenant tous les élèves.
+     */
+    public function getListEtudiantsAnnee2()
+    {
+        $req = $this->db->prepare('SELECT idUtilisateur,estProf,nom,prenom FROM utilisateur WHERE estProf = 0 AND annee = 2 ORDER BY nom');
         $req->execute();
 
         $listeUtilisateur = array();

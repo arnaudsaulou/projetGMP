@@ -7,7 +7,7 @@
 </ol>
 
 <?php
-  if(!isset($_POST['ok']) && empty($_POST['choix_promotion'])){
+if(!isset($_POST['ok']) && empty($_POST['choix_promotion'])){
  ?>
   <form action="#" method="POST">
 
@@ -19,95 +19,81 @@
                       <option value="annee2"> Année 2</option>
 
                     </select>
-    </p>
 
-    <button type="submit" value="ok" class="button">Valider</button>
-  </form>
 
-  <?php
-}
-else if($_POST['choix_promotion']=='annee1'){
-  ?>
-  <form action="#" method="POST">
+        Liste des sujets : <?php echo $sujetManager->countSujet();?> sujet(s) a/ont été trouvé
 
-    <h2> Choisir un sujet</h2>
-    <p>
-       Promotion : <select name="choix_promotion">
-                      <option value=""></option>
-                      <option value="annee1"> Année 1</option>
-                      <option value="annee2"> Année 2</option>
 
-                    </select>
-    </p>
+        <select name="choix_sujet">
 
-    <button type="submit" value="ok" class="button">Valider</button>
-  </form>
+            <?php
+            $listSujets = $sujetManager->getListEnonces();
 
-  </br></br>
+            foreach ($listSujets as $sujet){
+              echo $sujet->getIdEnonce();
+            ?>
+            <option value="<?php echo $sujet->getIdEnonce();?>">Contrôle n° <?php echo $sujet->getIdEnonce(); ?> de Mécanique</option>
+            <?php
+            }
+             ?>
+        </select>
 
-  <h2> Voici les énoncés pour l'année 1</h2>
+        Date de limite de réponse :
+        <input type="date" name="date_limite" value="<?php echo date("Y-m-d"); ?>">
 
-  <table>
-    <thead>
-      <tr>
-        <th> Liste des sujets : <?php echo $sujetManager->countSujet();?> sujet(s) a/ont été trouvé</th>
-      </tr>
-      <?php
-      $listSujets = $sujetManager->getListEnonces();
-      foreach ($listSujets as $sujet){
-      ?>
-      <tr>
-        <td>Contrôle n° <?php echo $sujet->getIdEnonce(); ?> de Mécanique </td>
-      </tr>
-    </thead>
+      </p>
 
-    <?php
-    }
-     ?>
-  </table>
+      <button type="submit" value="ok" class="button">Confirmer</button>
+    </form>
 
 <?php
+}
+else if($_POST['choix_promotion']=="annee1"){
+
+  $sujetChoisi = $_POST['choix_sujet'];
+
+
+  $listEtudiant = $utilisateurManager->getListEtudiantsAnnee1();
+  foreach ($listEtudiant as $etudiant) {
+
+    $idMaxSujet = $attribueManager->getIdSujetMaximumByIdEnonce($sujetChoisi);
+    $idSujetAlea = rand( 1 ,$idMaxSujet );
+
+    $attribuerSujet = new Attribue(array('idUtilisateur' => $etudiant->getIdUtilisateur(),
+                                        'idSujet' => $idSujetAlea,
+                                        'dateAttribution' => date("Y-m-d"),
+                                        'dateLimite' => $_POST["date_limite"],
+                                        ));
+
+    $attribueManager->addAttribue($attribuerSujet);
+
+
   }
-  else{
-  ?>
-  <form action="#" method="POST">
+  echo "Vous avez bien attribué un sujet à tout les élèves de première année.";
 
-    <h2> Choisir un sujet</h2>
-    <p>
-       Promotion : <select name="choix_promotion">
-                      <option value=""></option>
-                      <option value="annee1"> Année 1</option>
-                      <option value="annee2"> Année 2</option>
+}
+else if($_POST['choix_promotion']=="annee2"){
 
-                    </select>
-    </p>
+  $sujetChoisi = $_POST['choix_sujet'];
 
-    <button type="submit" value="ok" class="button">Valider</button>
-  </form>
 
-  </br></br>
+  $listEtudiant = $utilisateurManager->getListEtudiantsAnnee2();
+  foreach ($listEtudiant as $etudiant) {
 
-  <h2> Voici les énoncés pour l'année 2</h2>
+    $idMaxSujet = $attribueManager->getIdSujetMaximumByIdEnonce($sujetChoisi);
+    $idSujetAlea = rand( 1 ,$idMaxSujet );
 
-  <table>
-    <thead>
-      <tr>
-        <th> Liste des sujets : <?php echo $sujetManager->countSujet();?> sujet(s) a/ont été trouvé</th>
-      </tr>
-      <?php
-      $listSujets = $sujetManager->getListEnonces();
-      foreach ($listSujets as $sujet){
-      ?>
-      <tr>
-        <td>Contrôle n° <?php echo $sujet->getIdEnonce(); ?> de Mécanique </td>
-      </tr>
-    </thead>
+    $attribuerSujet = new Attribue(array('idUtilisateur' => $etudiant->getIdUtilisateur(),
+                                        'idSujet' => $idSujetAlea,
+                                        'dateAttribution' => date("Y-m-d"),
+                                        'dateLimite' => $_POST["date_limite"],
+                                        ));
 
-    <?php
-    }
-     ?>
-  </table>
+    $attribueManager->addAttribue($attribuerSujet);
 
-  <?php
+
   }
-  ?>
+  echo "Vous avez bien attribué un sujet à tout les élèves de seconde année.";
+
+}
+?>
