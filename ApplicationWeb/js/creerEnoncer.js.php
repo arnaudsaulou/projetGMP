@@ -151,6 +151,7 @@ function ajouterElement(typeItem) {
         newTitre.style.fontWeight = itemGras;
         newTitre.style.fontStyle = itemItalique;
         newTitre.style.textDecoration = itemSousligne;
+        newTitre.style.display = "inline";
         newTitre.appendChild(document.createTextNode(itemValeur));
       break;
 
@@ -163,29 +164,38 @@ function ajouterElement(typeItem) {
           newTitre.style.fontWeight = itemGras;
           newTitre.style.fontStyle = itemItalique;
           newTitre.style.textDecoration = itemSousligne;
+          newTitre.style.display = "inline";
+          console.log(recupererLibelleTypeDonneeAjoute());
           newTitre.appendChild(document.createTextNode(recupererLibelleTypeDonneeAjoute()));
         break;
 
       //Si l'item à ajouter est une "Question"
       case "itemQuestion":
+
+          var newTitre = document.createElement('div');
+          newTitre.id = 'divQuestionReponse' + numQR;
+
           var numQR = recupererNumQuestionReponse();
-          var newTitre = document.createElement('span');
-          newTitre.id = 'question_' + numQR;
-          newTitre.style.fontSize = itemPolice;
-          newTitre.style.color = itemCouleur;
-          newTitre.style.fontWeight = itemGras;
-          newTitre.style.fontStyle = itemItalique;
-          newTitre.style.textDecoration = itemSousligne;
-          newTitre.appendChild(document.createTextNode(itemValeur));
+          var itemQuestion = document.createElement('span');
+          itemQuestion.id = 'question_' + numQR;
+          itemQuestion.style.fontSize = itemPolice;
+          itemQuestion.style.color = itemCouleur;
+          itemQuestion.style.fontWeight = itemGras;
+          itemQuestion.style.fontStyle = itemItalique;
+          itemQuestion.style.textDecoration = itemSousligne;
+          itemQuestion.appendChild(document.createTextNode(itemValeur));
 
           //Appel de la fonction ajoutant la question à la base de donnée
           ajouterNouvelleQuestion(itemValeur);
 
           //Ajout d'un champ réponse associé
-          var newTitre2 = document.createElement('input');
-          newTitre2.id = 'reponse_' + numQR;
-          newTitre2.type = 'text';
-          newTitre2.placeholder = "Renseigner ici votre réponse";
+          var itemReponse = document.createElement('input');
+          itemReponse.id = 'reponse_' + numQR;
+          itemReponse.type = 'text';
+          itemReponse.placeholder = "Renseigner ici votre réponse";
+
+          newTitre.appendChild(itemQuestion);
+          newTitre.appendChild(itemReponse);
         break;
 
       //Si l'item à ajouter est une "Image"
@@ -362,10 +372,10 @@ function recupererLibelleTypeDonneeAjoute(){
   //Si le typeDonneeValue est "Créer un nouveau type de donnée"
   if(typeDonneeValue == 0){
     //Retourne le nouveau type de donné saisi
-    return "\"" + newTypeDonnee + "\"";
+    return newTypeDonnee;
   } else {
     //Retourne le nouveau type de donné séléctionné
-    return "\"" + typeDonneeText + "\"";
+    return typeDonneeText;
   }
 
 }
