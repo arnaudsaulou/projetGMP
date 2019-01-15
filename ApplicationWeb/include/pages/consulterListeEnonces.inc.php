@@ -1,7 +1,7 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
   <li class="breadcrumb-item">
-    <a href="#">Gestion des contrôle</a>
+    <a>Gestion des contrôle</a>
   </li>
   <li class="breadcrumb-item active">Liste des énoncés enregistrés</li>
 </ol>

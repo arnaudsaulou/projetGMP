@@ -78,6 +78,22 @@ class UtilisateurManager
     }
 
     /**
+     * Retourne un tableau contenant toutes les instances d'Utilisateur.
+     * @return array Un tableau contenant toutes les instances d'Utilisateurs.
+     */
+    public function getListEtudiants()
+    {
+        $req = $this->db->prepare('SELECT idUtilisateur, nom, prenom FROM utilisateur WHERE estProf = 0 ');
+        $req->execute();
+        $listeEtudiants = array();
+        while ($etudiant = $req->fetch(PDO::FETCH_OBJ)) {
+            $listeEtudiants[] = new Utilisateur($etudiant);
+        }
+        $req->closeCursor();
+        return $listeEtudiants;
+    }
+
+    /**
      * Récupère le nombre d'étudiants dans une promotion donnée.
      * @param integer $annee La promotion dont on veut récupérer le nombre d'étudiants.
      * @return integer Le nombre d'étudiants dans la promotion $annee.

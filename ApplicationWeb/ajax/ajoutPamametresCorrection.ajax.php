@@ -12,8 +12,7 @@
 	$listeParams = array();
 
 	foreach ($listeTypeDonnee as $key => $typeDonnee) {
-		//echo "<option value=".$typeDonnee->getIdType().">".$typeDonnee->getLibelle()."</option>";
-		$listeParams[] = $typeDonnee->getLibelle();
+		$listeParams[] = array("idTypeDonnee" => $typeDonnee->getIdType(), "libelleTypeDonnee" => $typeDonnee->getLibelle());
 	}
 
 	echo json_encode($listeParams);

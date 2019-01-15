@@ -1,7 +1,7 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
   <li class="breadcrumb-item">
-    <a href="#">Gestion des contrôle</a>
+    <a>Gestion des contrôle</a>
   </li>
   <li class="breadcrumb-item active">Attribution des sujets</li>
 </ol>
@@ -14,9 +14,8 @@ if(!isset($_POST['ok']) && empty($_POST['choix_promotion'])){
     <h2> Choisir un sujet</h2>
     <p>
        Promotion : <select name="choix_promotion">
-                      <option value=""></option>
-                      <option value="annee1"> Année 1</option>
-                      <option value="annee2"> Année 2</option>
+                      <option value="1"> Année 1</option>
+                      <option value="2"> Année 2</option>
 
                     </select>
 
@@ -48,12 +47,11 @@ if(!isset($_POST['ok']) && empty($_POST['choix_promotion'])){
 
 <?php
 }
-else if($_POST['choix_promotion']=="annee1"){
+else if($_POST['choix_promotion']=="1"){
 
   $sujetChoisi = $_POST['choix_sujet'];
 
-
-  $listEtudiant = $utilisateurManager->getListEtudiantsAnnee1();
+  $listEtudiant = $utilisateurManager->recupererPromotionEtudiante($_POST['choix_promotion']);
   foreach ($listEtudiant as $etudiant) {
 
     $idMaxSujet = $attribueManager->getIdSujetMaximumByIdEnonce($sujetChoisi);
@@ -64,20 +62,19 @@ else if($_POST['choix_promotion']=="annee1"){
                                         'dateAttribution' => date("Y-m-d"),
                                         'dateLimite' => $_POST["date_limite"],
                                         ));
-
     $attribueManager->addAttribue($attribuerSujet);
-
-
   }
-  echo "Vous avez bien attribué un sujet à tout les élèves de première année.";
+  if($attribueManager->countNombreDeSujetAttribuerAUnEtudiant($etudiant->getIdUtilisateur()) >= 1){
+    echo "Tous les étudiants de première année ont un sujet.";
+  }
 
 }
-else if($_POST['choix_promotion']=="annee2"){
+else if($_POST['choix_promotion']=="2"){
 
   $sujetChoisi = $_POST['choix_sujet'];
 
 
-  $listEtudiant = $utilisateurManager->getListEtudiantsAnnee2();
+  $listEtudiant = $utilisateurManager->recupererPromotionEtudiante($_POST['choix_promotion']);
   foreach ($listEtudiant as $etudiant) {
 
     $idMaxSujet = $attribueManager->getIdSujetMaximumByIdEnonce($sujetChoisi);
@@ -88,12 +85,11 @@ else if($_POST['choix_promotion']=="annee2"){
                                         'dateAttribution' => date("Y-m-d"),
                                         'dateLimite' => $_POST["date_limite"],
                                         ));
-
     $attribueManager->addAttribue($attribuerSujet);
-
-
   }
-  echo "Vous avez bien attribué un sujet à tout les élèves de seconde année.";
+  if($attribueManager->countNombreDeSujetAttribuerAUnEtudiant($etudiant->getIdUtilisateur()) >= 1){
+    echo "Tous les étudiants de seconde année ont un sujet.";
+  }
 
 }
 ?>
