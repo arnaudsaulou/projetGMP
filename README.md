@@ -34,9 +34,9 @@ Le dossier package sera alors créé Attention il est sous gitignore
 (pour éviter d'avoir des commits avec 70000 lignes ajoutés)
 
 # Liens
-* [Trello board *(in french)*](https://trello.com/b/4u5Oewn9/projet-gmp-todolist)
+* [Trello](https://trello.com/b/4u5Oewn9/projet-gmp-todolist)
 
 # Credits
-https://github.com/BlackrockDigital/startbootstrap-sb-admin
-https://github.com/evoluteur/colorpicker
-https://github.com/FortAwesome/Font-Awesome
+* [https://github.com/BlackrockDigital/startbootstrap-sb-admin]
+* [https://github.com/evoluteur/colorpicker]
+* [https://github.com/FortAwesome/Font-Awesome]
