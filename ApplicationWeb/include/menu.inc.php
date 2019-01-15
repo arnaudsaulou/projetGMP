@@ -49,7 +49,7 @@
 				<!-- Sidebar -->
 				<ul class="sidebar navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link" href="index.php">
+						<a class="nav-link" href="index.php?page=15">
 							<i class="fas fa-fw fa-tachometer-alt"></i>
 							<span>Repondre à un contrôle</span>
 						</a>
