@@ -398,3 +398,7 @@ body.sidebar-toggled footer.sticky-footer {
 #frenchColor{
   display: none;
 }
+
+.item{
+   cursor: pointer;
+}
