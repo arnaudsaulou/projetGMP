@@ -38,3 +38,5 @@ Le dossier package sera alors créé Attention il est sous gitignore
 
 # Credits
 https://github.com/BlackrockDigital/startbootstrap-sb-admin
+https://github.com/evoluteur/colorpicker
+https://github.com/FortAwesome/Font-Awesome
