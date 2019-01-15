@@ -7,7 +7,7 @@
 </ol>
 
 <?php
-if(!isset($_POST['ok']) && empty($_POST['choix_promotion'])){
+if( empty($_POST['choix_promotion'])){
  ?>
   <form action="#" method="POST">
 
@@ -42,8 +42,9 @@ if(!isset($_POST['ok']) && empty($_POST['choix_promotion'])){
 
       </p>
 
-      <button type="submit" value="ok" class="button">Confirmer</button>
+      <button class="button">Confirmer</button>
     </form>
+
 
 <?php
 }
@@ -62,11 +63,23 @@ else if($_POST['choix_promotion']=="1"){
                                         'dateAttribution' => date("Y-m-d"),
                                         'dateLimite' => $_POST["date_limite"],
                                         ));
-    $attribueManager->addAttribue($attribuerSujet);
+    if($attribueManager->countNombreDeSujetAttribuerAUnEtudiant($etudiant->getIdUtilisateur()) < 1){
+      $attribueManager->addAttribue($attribuerSujet);
+    }
   }
-  if($attribueManager->countNombreDeSujetAttribuerAUnEtudiant($etudiant->getIdUtilisateur()) >= 1){
-    echo "Tous les étudiants de première année ont un sujet.";
-  }
+?>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#confirmerModal').modal('show');
+    });
+
+    document.getElementById("myButton").onclick = function(){
+      location.href="index.php?page=6";
+    };
+  </script>
+
+<?php
 
 }
 else if($_POST['choix_promotion']=="2"){
@@ -85,11 +98,43 @@ else if($_POST['choix_promotion']=="2"){
                                         'dateAttribution' => date("Y-m-d"),
                                         'dateLimite' => $_POST["date_limite"],
                                         ));
-    $attribueManager->addAttribue($attribuerSujet);
+    if($attribueManager->countNombreDeSujetAttribuerAUnEtudiant($etudiant->getIdUtilisateur()) < 1){
+        $attribueManager->addAttribue($attribuerSujet);
+    }
   }
-  if($attribueManager->countNombreDeSujetAttribuerAUnEtudiant($etudiant->getIdUtilisateur()) >= 1){
-    echo "Tous les étudiants de seconde année ont un sujet.";
-  }
+?>
 
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#confirmerModal').modal('show');
+    });
+
+    document.getElementById("myButton").onclick = function(){
+      location.href="index.php?page=6";
+    };
+  </script>
+
+
+
+<?php
 }
 ?>
+
+<div class="modal fade" id="confirmerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Un sujet aléatoire a été ou  est déjà attribué à tout les étudiants ! </h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Appuyer sur "Continuer" pour attribuer d'autres sujets.</div>
+            <div class="modal-footer">
+                <form id="formConfirmAttribution" name="formConfirmAttribution" method="post" action="#">
+                    <button id="myButton" onclick="location.href = 'index.php?page=6';" class="btn btn-secondary" type="button" data-dismiss="modal">Continuer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
