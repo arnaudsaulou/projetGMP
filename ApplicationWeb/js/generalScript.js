@@ -38,17 +38,6 @@
   });
 
 
-  $(document).ready(function(){
-  	// Events demo
-  	function setColor(evt, color){
-          if(color){
-              $('#cpEvent').css('background-color', color);
-          }
-  	}
-  	// French colorpicker
-  	$('#frenchColor').colorpicker({
-  		strings: "Couleurs de themes,Couleurs de base,Plus,Moins,Palette,Historique,Pas encore d'historique."
-  	});
-  });
+
 
 })(jQuery); // End of use strict

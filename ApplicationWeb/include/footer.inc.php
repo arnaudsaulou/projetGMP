@@ -48,7 +48,6 @@ if(isset($_SESSION['droits']) && !$connexion_en_cours){ ?>
 </div>
 
 <!-- Custom scripts for all pages-->
-<script type="text/javascript" src="packages/colorpicker/js/creerEnoncer.js.php"></script>
 <script src="js/generalScript.js"></script>
 
 </body>
