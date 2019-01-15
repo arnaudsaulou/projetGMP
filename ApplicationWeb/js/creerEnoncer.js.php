@@ -163,6 +163,7 @@ function ajouterElement(typeItem) {
 
     //Si l'item à ajouter est une "Zone de texte"
     case "itemZoneTexte":
+<<<<<<< HEAD
     var newTitre = document.createElement('p');
     newTitre.id = 'zonedetext';
     newTitre.style.fontSize = itemPolice;
@@ -223,6 +224,78 @@ function ajouterElement(typeItem) {
 
     reader.readAsDataURL(itemSource.files[0]);
     break;
+=======
+        var newTitre = document.createElement('p');
+        newTitre.id = 'zonedetext';
+        newTitre.style.fontSize = itemPolice;
+        newTitre.style.color = itemCouleur;
+        newTitre.style.fontWeight = itemGras;
+        newTitre.style.fontStyle = itemItalique;
+        newTitre.style.textDecoration = itemSousligne;
+        newTitre.style.display = "inline";
+        newTitre.appendChild(document.createTextNode(itemValeur));
+      break;
+
+      //Si l'item à ajouter est une "Donnée Variable"
+      case "itemDonneeVariable":
+          var newTitre = document.createElement('p');
+          newTitre.id = '##' + recupererIdTypeDonneeAjoute() + '##';
+          newTitre.style.fontSize = itemPolice;
+          newTitre.style.color = itemCouleur;
+          newTitre.style.fontWeight = itemGras;
+          newTitre.style.fontStyle = itemItalique;
+          newTitre.style.textDecoration = itemSousligne;
+          newTitre.style.display = "inline";
+          console.log(recupererLibelleTypeDonneeAjoute());
+          newTitre.appendChild(document.createTextNode(recupererLibelleTypeDonneeAjoute()));
+        break;
+
+      //Si l'item à ajouter est une "Question"
+      case "itemQuestion":
+
+          var newTitre = document.createElement('div');
+          newTitre.id = 'divQuestionReponse' + numQR;
+
+          var numQR = recupererNumQuestionReponse();
+          var itemQuestion = document.createElement('span');
+          itemQuestion.id = 'question_' + numQR;
+          itemQuestion.style.fontSize = itemPolice;
+          itemQuestion.style.color = itemCouleur;
+          itemQuestion.style.fontWeight = itemGras;
+          itemQuestion.style.fontStyle = itemItalique;
+          itemQuestion.style.textDecoration = itemSousligne;
+          itemQuestion.appendChild(document.createTextNode(itemValeur));
+
+          //Appel de la fonction ajoutant la question à la base de donnée
+          ajouterNouvelleQuestion(itemValeur);
+
+          //Ajout d'un champ réponse associé
+          var itemReponse = document.createElement('input');
+          itemReponse.id = 'reponse_' + numQR;
+          itemReponse.type = 'text';
+          itemReponse.placeholder = "Renseigner ici votre réponse";
+
+          newTitre.appendChild(itemQuestion);
+          newTitre.appendChild(itemReponse);
+        break;
+
+      //Si l'item à ajouter est une "Image"
+      case "itemImage":
+        var newTitre = document.createElement('img');
+        newTitre.id = 'image';
+        newTitre.alt = itemDescription.value;
+
+        //Attendre que l'immage soit chargée pour l'afficher
+        var reader = new FileReader();
+        reader.addEventListener('load', function () {
+          newTitre.src = reader.result;
+          newTitre.width = itemLargeur.value;
+          newTitre.height = itemHauteur.value;
+        });
+
+        reader.readAsDataURL(itemSource.files[0]);
+      break;
+>>>>>>> Bug fix creerEnonce
 
     //Comportement par defaut
     default:
@@ -381,10 +454,10 @@ function recupererLibelleTypeDonneeAjoute(){
   //Si le typeDonneeValue est "Créer un nouveau type de donnée"
   if(typeDonneeValue == 0){
     //Retourne le nouveau type de donné saisi
-    return "\"" + newTypeDonnee + "\"";
+    return newTypeDonnee;
   } else {
     //Retourne le nouveau type de donné séléctionné
-    return "\"" + typeDonneeText + "\"";
+    return typeDonneeText;
   }
 
 }
