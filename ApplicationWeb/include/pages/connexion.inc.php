@@ -58,7 +58,7 @@
         </div>
         <div class="card-body">
 
-          <a class="btn btn-primary btn-block" href="index.html">Cliquez ici si vous n'êtes pas redirigé</a>
+          <a class="btn btn-primary btn-block" href="index.php">Cliquez ici si vous n'êtes pas redirigé</a>
         </div>
         <meta http-equiv="refresh" content="1; URL=index.php?page=0">
         <?php
