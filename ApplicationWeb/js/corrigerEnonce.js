@@ -1,40 +1,69 @@
-$(document).ready(function() {
+// $(document).ready(function() {
+//
+// 	var btnNumX;
+//
+//   //Gestion si click
+//   $('.btnAdParams').click(function(event){
+// 			idBtn = event.target.id;
+// 			idBtn = idBtn.substr(11,1);
+// 			ajouterParametres(idBtn);
+// 	});
+//
+// });
 
-	var btnNumX;
+/*function handleClickAjouterParametres(event){
+	console.log(event);
+	idBtn = event.target.id;
+	idBtn = idBtn.substr(11,1);
+	ajouterParametres(idBtn);
+}*/
 
-  //Gestion si click
-  $('.btnAdParams').click(function(event){
-			idBtn = event.target.id;
-			idBtn = idBtn.substr(11,1);
-			ajouterParametres(idBtn);
-	});
 
-});
+function handleClickAjouterParametres(e){
+  e = e || window.event;
+  var src = e.target || e.srcElement;
+	console.log(src.id);
+}
+
+
 //Ajouter un item séléctionné et paramétré à la page de création (énoncé)
 function ajouterParametres(idBtn) {
+
+	if( typeof newId == 'undefined' ) { newId = 1; } else { newId++; }
 
 	//Récupérer les éléments de l'ihm nécessaire
 	var paramSection = document.getElementById("paramSection"+idBtn);
 
 	var newParam = document.createElement('select');
-	newParam.id = idBtn;
-	paramSection.appendChild(newParam);
+	newParam.id = "param"+newId;
 
-	var array = ajouterNouveauParams();
+	var referenceNode = document.getElementById("param"+(newId-1));
+	referenceNode.parentNode.insertBefore(newParam, referenceNode.nextSibling);
 
-	for (var i = 0; i < array.length; i++) {
-	    var option = document.createElement("option");
-	    option.value = array[i];
-	    option.text = array[i];
-	    newParam.appendChild(option);
-	}
+	ajouterNouveauParams(newParam);
 
 }
 
 //Appel du fichier AJAX afin d'ajouter une nouvelle collonne de paramètre
-function ajouterNouveauParams(){
-	$.post("./ajax/ajoutPamametresCorrection.ajax.php",  function(data) {
-		console.log(data);
-		return data;
-	});
+function ajouterNouveauParams(newParam) {
+
+			$.ajax({
+        type: "POST",
+        url: './ajax/ajoutPamametresCorrection.ajax.php',
+        dataType: "json",
+        success: function(array) {
+            populateSelect(array,newParam);
+        }
+    });
+
+}
+
+function populateSelect(array, newParam){
+
+	for (var i = 0; i < array.length; i++) {
+			var option = document.createElement("option");
+			option.value = array[i].idTypeDonnee;
+			option.text = array[i].libelleTypeDonnee;
+			newParam.appendChild(option);
+	}
 }
