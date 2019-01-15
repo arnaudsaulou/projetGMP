@@ -97,6 +97,15 @@
                 include_once('pages/supprimerPromotion.inc.php');
             }
             break;
+		
+		case 14:
+			include_once('pages/parametre.inc.php');
+			break;
+        case 15:
+            if ($_SESSION['droits'] == 0) {
+                include_once('pages/repondreSujet.inc.php');
+            }
+            break;
 
         default :
             include_once('pages/accueil.inc.php');

@@ -223,4 +223,15 @@ class UtilisateurManager
         $req->closeCursor();
         return $moyenne;
     }
+	
+	public function changerMotDePasse($nouvMDP,$id){
+		
+		$req=$this->db->prepare(
+			'UPDATE utilisateur SET motDePasse=:nouvMDP WHERE idUtilisateur=:id'
+		);
+		$req->bindvalue(':nouvMDP',$nouvMDP,PDO::PARAM_INT);
+		$req->bindValue(':id', $id, PDO::PARAM_STR);
+        $req->execute();
+		$req->closeCursor();
+	}
 }

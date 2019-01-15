@@ -59,7 +59,7 @@ if(isset($_SESSION['droits'])){
             <i class="fas fa-user-circle fa-fw"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="#">Paramètres</a>
+            <a class="dropdown-item" href="index.php?page=14">Paramètres</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Deconnexion</a>
           </div>

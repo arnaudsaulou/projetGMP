@@ -5,7 +5,7 @@ class Reponse
     private $idReponse;
     private $idUtilisateur;
     private $idSujet;
-    private $numReponse;
+    private $idQuestion;
     private $valeur;
     private $dateReponse;
 
@@ -23,7 +23,7 @@ class Reponse
      * Affecte les données d'un tableau associatif à cette instance de Réponse.
      * @param array $valeurs Le tableau dans lequel récupérer les valeurs.
      */
-    private function affect(array $valeurs)
+    private function affect($valeurs)
     {
         foreach ((array) $valeurs as $attribut => $valeur) {
             switch ($attribut) {
@@ -36,8 +36,8 @@ class Reponse
                 case 'idSujet':
                     $this->setIdSujet($valeur);
                     break;
-                case 'numReponse':
-                    $this->setNumReponse($valeur);
+                case 'idQuestion':
+                    $this->setIdQuestion($valeur);
                     break;
                 case 'valeur':
                     $this->setValeur($valeur);
@@ -110,18 +110,18 @@ class Reponse
      * Retourne le numéro de la question liée à cette Réponse.
      * @return integer Le numéro de la question liée à cette Réponse.
      */
-    public function getNumReponse()
+    public function getIdQuestion()
     {
-        return $this->numReponse;
+        return $this->idQuestion;
     }
 
     /**
      * Modifie le numéro de la question liée à cette Réponse.
-     * @param integer $numReponse Le nouveau numéro de la question liée à cette Réponse.
+     * @param integer $idQuestion Le nouveau numéro de la question liée à cette Réponse.
      */
-    public function setNumReponse($numReponse)
+    public function setIdQuestion($idQuestion)
     {
-        $this->numReponse = $numReponse;
+        $this->idQuestion = $idQuestion;
     }
 
     /**

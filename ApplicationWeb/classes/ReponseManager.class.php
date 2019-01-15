@@ -21,7 +21,7 @@ class ReponseManager
         $sql = $this->db->prepare("INSERT INTO reponses VALUES(0, :idUtilisateur, :idSujet, :numReponse, :valeur, :dateReponse)");
         $sql->bindValue(":idUtilisateur", $reponse->getIdUtilisateur(), PDO::PARAM_INT);
         $sql->bindValue(":idSujet", $reponse->getIdSujet(), PDO::PARAM_INT);
-        $sql->bindValue(":numReponse", $reponse->getNumReponse(), PDO::PARAM_INT);
+        $sql->bindValue(":numReponse", $reponse->getIdQuestion(), PDO::PARAM_INT);
         $sql->bindValue(":valeur", $reponse->getValeur(), PDO::PARAM_STR);
         $sql->bindValue(":dateReponse", $reponse->getDateReponse(), PDO::PARAM_STR);
         $resultat = $sql->execute();
@@ -49,9 +49,9 @@ class ReponseManager
      * @return bool Un booléen indiquant s'il existe au moins une Réponse pour les paramètres donnés.
      */
     public function verifierExistenceReponse($idSujet, $numeroQuestion, $idUtilisateur) {
-        $sql = $this->db->prepare("SELECT COUNT(*) FROM reponses WHERE idSujet = :idSujet AND idUtilisateur = :idUtilisateur AND numReponse = :numReponse");
+        $sql = $this->db->prepare("SELECT COUNT(*) FROM reponses WHERE idSujet = :idSujet AND idUtilisateur = :idUtilisateur AND idQuestion = :numeroQuestion");
         $sql->bindValue(":idSujet", $idSujet, PDO::PARAM_INT);
-        $sql->bindValue(":numReponse", $numeroQuestion, PDO::PARAM_INT);
+        $sql->bindValue(":numeroQuestion", $numeroQuestion, PDO::PARAM_INT);
         $sql->bindValue(":idUtilisateur", $idUtilisateur, PDO::PARAM_INT);
         $sql->execute();
         $resultat = $sql->fetch();
@@ -68,14 +68,13 @@ class ReponseManager
      * @return Reponse L'instance de Réponse la plus récente correspondant aux critères.
      */
     public function recupererReponseLaPlusRecente($idSujet, $numeroQuestion, $idUtilisateur) {
-        $sql = $this->db->prepare("SELECT * FROM reponses WHERE idSujet = :idSujet AND idUtilisateur = :idUtilisateur AND numReponse = :numReponse ORDER BY dateReponse DESC LIMIT 1");
+        $sql = $this->db->prepare("SELECT * FROM reponses WHERE idSujet = :idSujet AND idUtilisateur = :idUtilisateur AND idQuestion = :numeroQuestion ORDER BY dateReponse DESC LIMIT 1");
         $sql->bindValue(":idSujet", $idSujet, PDO::PARAM_INT);
-        $sql->bindValue(":numReponse", $numeroQuestion, PDO::PARAM_INT);
+        $sql->bindValue(":numeroQuestion", $numeroQuestion, PDO::PARAM_INT);
         $sql->bindValue(":idUtilisateur", $idUtilisateur, PDO::PARAM_INT);
         $sql->execute();
-        $resultatRequete = $sql->fetch(PDO::FETCH_ASSOC);
+        $resultatRequete = $sql->fetch(PDO::FETCH_OBJ);
         $sql->closeCursor();
-        $resultat = new Reponse($resultatRequete);
-        return $resultat;
+        return new Reponse($resultatRequete);
     }
 }

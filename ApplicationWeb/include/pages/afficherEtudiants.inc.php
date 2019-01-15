@@ -1,7 +1,7 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a href="#">Gestion des étudiants</a>
+        <a>Gestion des étudiants</a>
     </li>
     <li class="breadcrumb-item active">Lister les étudiants</li>
 
@@ -42,7 +42,7 @@
                         <td><?php echo $etudiant->getIdUtilisateur() ?></td>
                         <td><?php echo $etudiant->getNom() ?></td>
                         <td><?php echo $etudiant->getPrenom() ?></td>
-                        <td><?php echo $etudiant->getAnnee() ?></td>
+                        <td><?php echo $etudiant->getAnnee()." A" ?></td>
                         <td><?php echo $utilisateurManager->calculerMoyenne($etudiant) ?></td>
                     </tr>
                     <?php

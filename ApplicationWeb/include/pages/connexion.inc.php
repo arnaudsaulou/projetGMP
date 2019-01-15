@@ -51,13 +51,14 @@
         $_SESSION['droits'] = $utilisateur->getEstProf();
         $connexion_en_cours = true;
 		$_SESSION['log']=$utilisateur->getNomUtilisateur();
+		$_SESSION['id']=$utilisateur->getIdUtilisateur();
         ?>
         <div class="card-header"><i class="fa fa-hourglass" style="color:green"></i>
           <span class="card-body">Connexion réussie !</span>
         </div>
         <div class="card-body">
 
-          <a class="btn btn-primary btn-block" href="index.html">Cliquez ici si vous n'êtes pas redirigé</a>
+          <a class="btn btn-primary btn-block" href="index.php">Cliquez ici si vous n'êtes pas redirigé</a>
         </div>
         <meta http-equiv="refresh" content="1; URL=index.php?page=0">
         <?php

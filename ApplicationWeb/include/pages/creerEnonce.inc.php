@@ -1,7 +1,10 @@
+<!-- A special css is needed for the color picker-->
+<link href="packages/colorpicker/css/evol-colorpicker.css" rel="stylesheet" />
+
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
   <li class="breadcrumb-item">
-    <a href="#">Gestion des contrôle</a>
+    <a>Gestion des contrôle</a>
   </li>
   <li class="breadcrumb-item active">Créer un énoncé</li>
 </ol>
@@ -9,155 +12,153 @@
 
 <?php if(!isset($_POST['enonceCreer']) && !isset($_POST['nomEnonce'])) { ?>
 
-<!-- Menu de gauche (séléction des items à insérer) -->
-<div>
-  <ul class="menu_droite">
-     <li><a>Texte</a>
-        <ul>
-           <li><a name="Titre" class="item" id="itemTitre">Titre</a></li>
-           <li><a name="Zone de texte" class="item" id="itemZoneTexte">Zone de texte</a></li>
-        </ul>
-     </li>
-     <li><a>Données Variable</a>
-        <ul>
-           <li><a name="DonneesVariable" class="item" id="itemDonneeVariable">Donnée Variable</a></li>
-        </ul>
-     </li>
-      <li><a>Question</a>
-        <ul>
-           <li><a name="Question" class="item" id="itemQuestion">Question</a></li>
-        </ul>
-     </li>
-     <li><a>Image</a>
-        <ul>
-           <li><a name="Image" class="item" id="itemImage">Image</a></li>
-        </ul>
-     </li>
-  </ul>
-
-</div>
-
-
-<!-- Partie centrale pour création de l'énoncé -->
-<div class="espace_creation">
-
-  <!-- Menu de gauche permettant le parametrage des items insérer -->
-  <div class="menu_parametrage" id="menu_parametrage">
-    <div class="titre_parametrage">
-      <h4>Parametres : </h4>
-      <h4 id="titreParametrage"></h4>
+  <div class="row">
+    <!-- Menu de gauche (séléction des items à insérer) -->
+    <div class="col-xs-6 col-md-2">
+      <ul  class="list-group">
+        <li class="list-group-item item" id=itemTitre>Titre</li>
+        <li class="list-group-item item" id=itemZoneTexte>Zone de texte</li>
+        <li class="list-group-item item" id=itemDonneeVariable>Donnée Variable</li>
+        <li class="list-group-item item" id=itemQuestion>Question</li>
+        <li class="list-group-item item" id=itemImage>Image</li>
+      </ul>
+      <ul class="list-group">
+        <li class="list-group-item"> <button name="Elementsuivant" class="btn btn-secondary" id="boutonAjouter">Element suivant</button></li>
+        <form action="#" method="POST">
+          <input type="hidden" name="enonceCreer" id="enonceCreer" >
+          <li class="list-group-item"> <button name="Terminer" class="btn btn-primary boutonValiderSujet" id="boutonValiderSujet" onclick="validerEnonce()">Terminer Enonce</button></li>
+        </form>
+      </ul>
     </div>
 
-    <div id="blockParametrageText">
+    <!-- Partie de création de l'énoncé a proprement parler -->
+    <div class="page_creation col-xs-12 col-md-9 border  border-dark">
+      <div id="page_creation">
 
-      <label>Valeur :</label>
-      <input id="itemValeur" type="text"></input>
+      </div>
+      <div id="blockParametrageText">
+        <div class="dropdown">
+          <input id="itemValeur" type="text" value="Entrez votre texte ici">
+          <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-cog"></i>
+          </button>
 
-      <label>Police :</label>
-      <select id="itemPolice">
-        <option value="small">Très petit</option>
-        <option value="medium">Petit</option>
-        <option value="large">Normal</option>
-        <option value="x-large">Grand</option>
-        <option value="xx-large">Très grand</option>
-      </select>
+          <form>
+            <div class="menu_parametrage dropdown-menu" id="menu_parametrage" aria-labelledby="dropdownMenu1">
+              <div class="titre_parametrage">
+                <h5 class="card-title">Parametres : </h5>
+                <h6 class="" id="titreParametrage"></h6>
+              </div>
 
-      <label>Couleur :</label>
-      <select id="itemCouleur">
-        <option value="black">Noir</option>
-        <option value="blue">Bleu</option>
-        <option value="red">Rouge</option>
-        <option value="green">Vert</option>
-      </select>
-
-      <input id="itemGras" type="checkbox" value="bold"> <label>Gras</label>
-      <input id="itemItalique" type="checkbox" value="italic"> <label>Italique</label>
-      <input id="itemSousligne" type="checkbox" value="underline"> <label>Souligné</label>
-    </div>
-
-    <div id="blockParametrageDonneeVariable">
-
-        <label>Type de donnée déjà enregistré : </label>
-
-        <?php $listTypeDonnee = $typeDonneeManager->getListTypeDonnee(); ?>
-        <select id="typeDonnee">
-          <option value="0"> - Créer nouveau type - </option>
-          <?php foreach ($listTypeDonnee as $typeDonnee) { ?>
-            <option value="<?php echo $typeDonnee->getIdType(); ?>"><?php echo $typeDonnee->getLibelle(); ?></option>
-          <?php } ?>
-        </select>
-
-        <label>Nouveau type de donnée :</label>
-        <input name="newTypeDonnee" id="newTypeDonnee" type="text">
-
-        <input id="itemTypeDonneeValeurAValeur" onclick="typeDonnerClick();" type="radio" name="typeDonnee" checked="checked"> <label>Valeur par valeur</label>
-        <input id="itemTypeDonneeInterval" onclick="typeDonnerClick();"  type="radio" name="typeDonnee"> <label>Interval</label>
-
-        <div id="blockParametrageValeurAValeur">
-
-          <button id="bouttonAjouterDonneeVariable">Ajouter une valeur</button>
-
+              <div class="btn btn-light">
+                <i class="fas fa-font"></i>
+                <i class="fas fa-angle-up"></i>
+              </div>
+              <div class="btn btn-light">
+                <i class="fas fa-font"></i>
+                <i class="fas fa-angle-down"></i>
+              </div>
+              <div class="btn btn-light">
+                <input id="frenchColor" value="#000000" />
+              </div>
+              <div class="btn btn-light">
+                <i class="fas fa-bold"></i>
+              </div>
+              <div class="btn btn-light">
+                <i class="fas fa-italic"></i>
+              </div>
+              <div class="btn btn-light">
+                <i class="fas fa-underline"></i>
+              </div>
+            </div>
+          </form>
         </div>
+      </div>
 
-        <div id="blockParametrageInterval">
-            <label>Borne inférieure :</label>
-            <input type="number" id="borneInferieurInterval"></input>
+      <div id="blockParametrageDonneeVariable">
+        <div class="dropdown">
+          <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-cog"></i>
+          </button>
+          <form>
+            <div class="menu_parametrage dropdown-menu" id="menu_parametrage" aria-labelledby="dropdownMenu2">
+              <label>Type de donnée déjà enregistré : </label>
 
-            <label>Borne supérieure :</label>
-            <input type="number" id="borneSuperieurInterval"></input>
+              <?php $listTypeDonnee = $typeDonneeManager->getListTypeDonnee(); ?>
+              <select id="typeDonnee">
+                <option value="0"> - Créer nouveau type - </option>
+                <?php foreach ($listTypeDonnee as $typeDonnee) { ?>
+                  <option value="<?php echo $typeDonnee->getIdType(); ?>"><?php echo $typeDonnee->getLibelle(); ?></option>
+                <?php } ?>
+              </select>
 
-            <label>Pas :</label>
-            <input type="number" id="pasInterval"></input>
+              <label>Nouveau type de donnée :</label>
+              <input name="newTypeDonnee" id="newTypeDonnee" type="text">
+
+              <input id="itemTypeDonneeValeurAValeur" onclick="typeDonnerClick();" type="radio" name="typeDonnee" checked="checked"> <label>Valeur par valeur</label>
+              <input id="itemTypeDonneeInterval" onclick="typeDonnerClick();"  type="radio" name="typeDonnee"> <label>Interval</label>
+
+              <div id="blockParametrageValeurAValeur">
+                <button id="boutonAjouterDonneeVariable">Ajouter une valeur</button>
+              </div>
+
+              <div id="blockParametrageInterval">
+                <label>Borne inférieure :</label>
+                <input type="number" id="borneInferieurInterval">
+
+                <label>Borne supérieure :</label>
+                <input type="number" id="borneSuperieurInterval">
+
+                <label>Pas :</label>
+                <input type="number" id="pasInterval">
+              </div>
+              <button onclick="ajouterNouveauTypeDonnee()">Ajouter nouveau type de donnée</button>
+            </div>
+          </form>
         </div>
-
-        <button onclick="ajouterNouveauTypeDonnee()">Ajouter nouveau type de donnée</button>
-
       </div>
 
       <div id="blockParametrageImage">
-          <label>Source :</label>
-          <input id="itemSource" type="file" accept="image/*" required />
+        <div class="dropdown">
+          <div class="thumbnail">
+            <img src="Ressources/no-image.png" alt="image size preview">
+            <button class="btn dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-cog"></i>
+            </button>
+            <form>
+              <div class="menu_parametrage dropdown-menu" id="menu_parametrage" aria-labelledby="dropdownMenu2">
+                <label>Source :</label>
+                <input id="itemSource" type="file" accept="image/*" required />
 
-          <label>Description :</label>
-          <input type="text" id="itemDescription"></input>
+                <label>Description :</label>
+                <input type="text" id="itemDescription">
 
-          <label>Largeur :</label>
-          <input type="number" id="itemLargeur"></input>
+                <label>Largeur :</label>
+                <input type="number" id="itemLargeur">
 
-          <label>Hauteur :</label>
-          <input type="number" id="itemHauteur"></input>
+                <label>Hauteur :</label>
+                <input type="number" id="itemHauteur">
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-
-      <button id="bouttonAjouter">Ajouter</button>
-
-    <form action="#" method="POST">
-      <input type="hidden" name="enonceCreer" id="enonceCreer" >
-      <button class="bouttonValiderSujet" id="bouttonValiderSujet" onclick="validerEnonce()">Continuer</button>
-    </form>
+    </div>
   </div>
-
-  <!-- Partie de création de l'énoncé a proprement parler -->
-  <div id="page_creation" class="page_creation">
-
-  </div>
-
-</div>
-
-<div class="clear"></div>
 
 <?php } else if(isset($_POST['enonceCreer']) && !isset($_POST['nomEnonce'])) {
 
-        $_SESSION['enonceCreer'] = $_POST['enonceCreer'];
+  $_SESSION['enonceCreer'] = $_POST['enonceCreer'];
 
-?>
+  ?>
 
   <form action="#" method="POST">
     <label>Entrez un nom pour cet énoncé :</label>
     <input type="text" name="nomEnonce" >
-    <button class="bouttonValiderSujet" type="submit">Valider</button>
+    <button class="boutonValiderSujet" type="submit">Valider</button>
   </form>
 
-<?php
+  <?php
 
 } else  if(isset($_SESSION['enonceCreer']) && isset($_POST['nomEnonce'])) {
 
@@ -174,6 +175,7 @@
   }
 }
 ?>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
+<script src="packages/colorpicker/js/evol-colorpicker.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/creerEnoncer.js.php"></script>

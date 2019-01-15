@@ -52,6 +52,17 @@ class SujetManager {
         }
     }
 
+    /**
+     * @param $idSujet
+     * @return Sujet
+     */
+    public function getSujetAvecId($idSujet) {
+        $req = $this->db->prepare('SELECT * FROM sujet WHERE idSujet = :idSujet');
+        $req->bindValue(':idSujet', $idSujet, PDO::PARAM_STR);
+        $req->execute();
+        return new Sujet($req->fetch(PDO::FETCH_OBJ));
+    }
+
 
     //TODO: Je ne peux pas commenter une fonction non terminée (d'ailleurs, il y a une erreur dans le SQL!) !
     //Cette fonction permet de ???
@@ -145,4 +156,15 @@ class SujetManager {
         $req->closeCursor();
         return $listeSujet;
     }
+	
+	public function getSujetById($id){
+		$req=$this->db->prepare(
+			'SELECT idSujet, idEnonce FROM sujet WHERE idSujet=:id'
+		);
+		$req->bindValue(':id',$id,PDO::PARAM_INT);
+		$req->execute();
+		$res=$req->fetch(PDO::FETCH_OBJ);
+		$req->closeCursor();
+		return new Sujet($res);
+	}
 }
