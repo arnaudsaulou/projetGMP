@@ -1,6 +1,7 @@
 <?php
 
-class AttribueManager {
+class AttribueManager
+{
     private $db;
 
     /**
@@ -19,7 +20,7 @@ class AttribueManager {
     public function addAttribue($Attribue)
     {
         $req = $this->db->prepare(
-					'INSERT INTO attribue(idUtilisateur,idSujet,dateAttribution,dateLimite)
+            'INSERT INTO attribue(idUtilisateur,idSujet,dateAttribution,dateLimite)
 		VALUES (:idUtilisateur,:idSujet,:dateAttribution,:dateLimite)');
         $req->bindValue(':idUtilisateur', $Attribue->getIdUtilisateur(), PDO::PARAM_STR);
         $req->bindValue(':idSujet', $Attribue->getIdSujet(), PDO::PARAM_STR);
@@ -43,16 +44,35 @@ class AttribueManager {
         $req->bindValue(':idUtilisateur', $idUtilisateur, PDO::PARAM_STR);
         $req->bindValue(':idSujet', $idSujet, PDO::PARAM_STR);
         $req->execute();
-        $attribue = $req->fetch(PDO::FETCH_OBJ);
+        $attribue = new Attribue($req->fetch(PDO::FETCH_OBJ));
+        return $attribue;
         $req->closeCursor();
-        return new Attribue($attribue);
+    }
+
+    /**
+     * @param $idEtudiant
+     * @return array
+     */
+    public function getAttribuePourEtudiant($idEtudiant) {
+        $req = $this->db->prepare(
+            'SELECT idSujet,dateAttribution, dateLimite
+						FROM attribue WHERE idUtilisateur = :idUtilisateur');
+        $req->bindValue(':idUtilisateur', $idEtudiant, PDO::PARAM_STR);
+        $req->execute();
+        $listeAttribue = array();
+        while ($res = $req->fetch(PDO::FETCH_OBJ)) {
+            $listeAttribue[] = new Attribue($res);
+        }
+        $req->closeCursor();
+        return $listeAttribue;
     }
 
     /**
      * Supprime toutes les instances de Attribue liées à l''Utilisateur ayant l'id spécifié.
      * @param integer $id L'ID représentant l'Utilisateur dont on veut supprimer les instances d'Attribue.
      */
-    public function supprimerAttribueAvecIdEtudiant($id) {
+    public function supprimerAttribueAvecIdEtudiant($id)
+    {
         $req = $this->db->prepare("DELETE FROM attribue WHERE idUtilisateur = :id");
         $req->bindValue(':id', $id, PDO::PARAM_STR);
         $req->execute();
@@ -64,7 +84,8 @@ class AttribueManager {
      * @param integer $idSujet L'ID du Sujet dont on veut récupérer les élèves n'ayant pas répondu.
      * @return array Un tableau avec toutes les instances d'Utilisateur n'ayant pas répondu au sujet.
      */
-    public function getListeElevesNAyantPasRepondu($idSujet) {
+    public function getListeElevesNAyantPasRepondu($idSujet)
+    {
         $req = $this->db->prepare('
             SELECT idUtilisateur FROM utilisateur WHERE estProf = 0 AND idUtilisateur NOT IN (
                 SELECT idUtilisateur FROM reponses WHERE idSujet = :idSujet
@@ -76,41 +97,43 @@ class AttribueManager {
         $req->bindValue(':idSujet', $idSujet, PDO::PARAM_STR);
         $req->execute();
         $listeEleves = array();
-        while($eleve = $req->fetch(PDO::FETCH_OBJ)) {
+        while ($eleve = $req->fetch(PDO::FETCH_OBJ)) {
             $listeEleves[] = $eleve;
         }
         $req->closeCursor();
         return $listeEleves;
     }
 
-		/**
+    /**
      * Retourne le plus grand identifiant d'un sujet par énoncé
      * @param integer $idEnonce L'ID de l'énoncé dont on veut récupérer le plus grand id.
      */
-		public function getIdSujetMaximumByIdEnonce($idEnonce){
-				$req = $this->db->prepare('
+    public function getIdSujetMaximumByIdEnonce($idEnonce)
+    {
+        $req = $this->db->prepare('
 						SELECT MAX(idSujet) as idSujetMax FROM sujet WHERE idEnonce = :idEnonce
 
 				');
-				$req->bindValue(':idEnonce', $idEnonce, PDO::PARAM_INT);
-				$req->execute();
-				$idSujet = $req->fetch(PDO::FETCH_OBJ);
+        $req->bindValue(':idEnonce', $idEnonce, PDO::PARAM_INT);
+        $req->execute();
+        $idSujet = $req->fetch(PDO::FETCH_OBJ);
         $idSujetMax = $idSujet->idSujetMax;
         $req->closeCursor();
-				return $idSujetMax;
-		}
+        return $idSujetMax;
+    }
 
-		/**
+    /**
      * Retourne le nombre de sujet attribué à un étudiant enregistrés dans la base de données.
      * @return integer Le nombre de sujet attribué à un étudiant enregistrés dans la base de données.
      */
-		public function countNombreDeSujetAttribuerAUnEtudiant($idEtudiant){
-			$req = $this->db->prepare("SELECT count(idSujet) AS total FROM attribue WHERE idUtilisateur = :idEtudiant");
-			$req->bindValue(':idEtudiant', $idEtudiant, PDO::PARAM_STR);
-			$req->execute();
-			$res = $req->fetch(PDO::FETCH_OBJ);
-			$nbSujet = $res->total;
-			$req->closeCursor();
-			return $nbSujet;
-		}
+    public function countNombreDeSujetAttribuerAUnEtudiant($idEtudiant)
+    {
+        $req = $this->db->prepare("SELECT count(idSujet) AS total FROM attribue WHERE idUtilisateur = :idEtudiant");
+        $req->bindValue(':idEtudiant', $idEtudiant, PDO::PARAM_STR);
+        $req->execute();
+        $res = $req->fetch(PDO::FETCH_OBJ);
+        $nbSujet = $res->total;
+        $req->closeCursor();
+        return $nbSujet;
+    }
 }

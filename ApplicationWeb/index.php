@@ -10,6 +10,7 @@ $donneeVariableManager = new DonneeVariableManager($db);
 $typeDonneeManager = new TypeDonneeManager($db);
 $enonceManager = new EnonceManager($db);
 $sujetManager = new SujetManager($db);
+$sujetPossibleManager = new SujetPossibleManager($db);
 $utilisateurManager = new UtilisateurManager($db);
 $noteManager = new NoteManager($db);
 $reponseManager = new ReponseManager($db);

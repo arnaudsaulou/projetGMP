@@ -80,10 +80,14 @@ class EnonceManager {
      */
     public function compterEnonce()
     {
-        $req = $this->db->prepare("SELECT count(idEnonce) AS total FROM enonce");
+        $req = $this->db->prepare(
+			"SELECT count(idEnonce) AS total FROM enonce"
+		);
         $req->execute();
         $nbEnonce = $req->fetch(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $nbEnonce['total'];
     }
+	
+	
 }

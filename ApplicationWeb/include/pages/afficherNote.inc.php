@@ -3,9 +3,10 @@
 	$etudiant = $utilisateurManager->getUtilisateurByLogin($_SESSION["log"]);
 	$idEtudiant=$etudiant->getIdUtilisateur();
 	$listeNoteEtudiant=$noteManager->getNoteByIdEtudiant($idEtudiant);
+	
 ?>
 
-<h2>Note de l'élève <?php echo $etudiant->getNom() . " " . $etudiant->getPrenom(); ?></h2>
+<h2>Note de l'élève <?php echo $_SESSION['co'] ?></h2>
 
 <div class="card mb-3">
   <div class="card-header">
@@ -13,11 +14,10 @@
     Liste des étudiants enregistrés</div>
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-bordered" width="100%" cellspacing="0">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
               <th>Sujet</th>
-              <th>Numero de la note</th>
               <th>Date d'attribution</th>
               <th>Note</th>
             </tr>
@@ -26,17 +26,23 @@
 <?php
 			foreach($listeNoteEtudiant as $note){
 					$attribue=$attribueManager->getAttribueById($idEtudiant,$note->getIdSujet());
-			?>
-
+					$sujet=$sujetManager->getSujetById($note->getIdSujet());
+					$enonce=$enonceManager->recupererEnonceViaIdEnonce($sujet->getIdEnonce());
+					
+				
+		?>			
+				
 				<tr>
 
-					<td><?php echo $note->getIdSujet(); ?> </td>
-					<td><?php echo $note->getNumNote(); ?></td>
+					<td><?php echo $enonce->getNomEnonce(); ?> </td>
 					<td><?php echo $attribue->getDateAttribution(); ?></td>
-					<td><?php echo $note->getNote(); ?> </td>
+					<td><?php echo $note->getNote(); ?></td>
 
 				</tr>
-					<?php } ?>
+				
+					<?php 
+					
+					} ?>
 		   </tbody>
         </table>
       </div>
