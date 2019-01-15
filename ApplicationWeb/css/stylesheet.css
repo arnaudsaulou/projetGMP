@@ -394,3 +394,7 @@ body.sidebar-toggled footer.sticky-footer {
 .importEtudiant > label {
   margin-left: 0.1%;
 }
+
+#frenchColor{
+  display: none;
+}
