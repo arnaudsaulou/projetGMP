@@ -23,7 +23,8 @@
         <li class="list-group-item item" id="itemImage" name="Image">Image</li>
       </ul>
       <ul class="list-group">
-        <li class="list-group-item"> <button name="Elementsuivant" class="btn btn-secondary" id="boutonAjouter">Element suivant</button></li>
+        <li class="list-group-item"> <button name="Elementsuivant" class="btn btn-secondary" id="boutonAjouter">Ajouter l'élément</button></li>
+        <li class="list-group-item"> <button name="Elementprecedent" class="btn btn-danger" id="boutonSupprimer">Supprimer</button></li>
         <form action="#" method="POST">
           <input type="hidden" name="enonceCreer" id="enonceCreer" >
           <li class="list-group-item"> <button name="Terminer" class="btn btn-primary boutonValiderSujet" id="boutonValiderSujet" onclick="validerEnonce()">Terminer Enonce</button></li>
