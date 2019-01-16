@@ -39,8 +39,8 @@ class Note
                 case 'note' :
                     $this->setNote($valeur);
                     break;
-				case 'dateAttribution' :
-                    $this->setDateAttribution($valeur);
+				case 'dateReponse' :
+                    $this->setDateReponse($valeur);
                     break;
                 default :
                     echo "Fatal error : construction Utilisateur invalide";
@@ -89,9 +89,9 @@ class Note
      * Retourne la date obtenue par l'Utilisateur pour le Sujet donné.
      * @return integer La Note obtenue par l'Utilisateur pour le Sujet donné.
      */
-	public function getDateAttribution()
+	public function getDateReponse()
     {
-        return $this->dateAttribution;
+        return $this->dateReponse;
     }
 	
     /**
@@ -134,8 +134,8 @@ class Note
      * Modifie la valeur de cette instance de Note.
      * @param integer $note La Note obtenue par l'Utilisateur pour le Sujet donné.
      */
-    public function setDateAttribution($dateAttribution)
+    public function setDateReponse($dateReponse)
     {
-        $this->dateAttribution = $dateAttribution;
+        $this->dateReponse = $dateReponse;
     }
 }
