@@ -11,8 +11,8 @@ function insererReponses(string &$enonce, ReponseManager $reponseManager, int $i
             $numero_question = substr($enonce, $pos, $longueur_nombre);
             if ($reponseManager->verifierExistenceReponse($idSujet, $numero_question, $idEtudiant)) {
                 $reponse = $reponseManager->recupererReponseLaPlusRecente($idSujet, $numero_question, $idEtudiant);
-                $reponse = str_replace('.', ',', $reponse);
-                $enonce = substr_replace($enonce, "value=\"" . $reponse->getValeur() . "\"", $pos + $longueur_nombre + 2, 0);
+                $reponse = str_replace('.', ',', $reponse->getValeur());
+                $enonce = substr_replace($enonce, "value=\"" . $reponse . "\"", $pos + $longueur_nombre + 2, 0);
             }
         }
     } while ($pos !== false);
