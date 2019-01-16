@@ -41,8 +41,6 @@ $(document).ready(function() {
   //Gestion si click sur un item du menu de menu de droite
   $('.item').click(function(event){
 
-
-
     itemEnCoursDeCration = event.target;
 
     //affichage dans le menu de droite d'un backgroundgris sur l'option
@@ -307,16 +305,10 @@ function ajouterBlockDonneeVariable(){
   idInput++;
 
   //Récupérer les éléments de l'ihm nécessaire
-<<<<<<< HEAD
   let blockParametrageValeurAValeur = document.getElementById("blockParametrageValeurAValeur");
   let newDivDonneeVariable = document.createElement('div');
   let newLabelDonneeVariable = document.createElement('label');
   let newInputDonneeVariable = document.createElement('input');
-=======
-  let blockParametrageValeurAValeur = document.getElementById("blockParametrageValeurAValeur");
-  let newLabelDonneeVariable = document.createElement('label');
-  let newInputDonneeVariable = document.createElement('input');
->>>>>>> 1fbd7d880a520d7c055dd16f53f0383977199485
 
   newDivDonneeVariable.classList.add("form-group");
 
@@ -352,12 +344,6 @@ function ajouterNouveauTypeDonnee(){
 
   //Si le libellé donné pour le type de donnée n'est pas vide
   if(newTypeDonnee != ""){
-<<<<<<< HEAD
-    // $.post("./ajax/ajoutTypeDonnee.ajax.php", { newTypeDonnee: newTypeDonnee }, function(data) {
-    //   //Appel de la fonction d'ajout des donnée variables associé
-    //   ajouterNouvelleDonneeVariable();
-    //   refreshSelectTypeDonnee(data);
-    // });
 
     $.ajax({
       type: "POST",
@@ -369,12 +355,6 @@ function ajouterNouveauTypeDonnee(){
         refreshSelectTypeDonnee(newTypeDonnee);
       }
   });
-=======
-    $.post("./ajax/ajoutTypeDonnee.ajax.php", { newTypeDonnee: newTypeDonnee }, function(data) {
-      //Appel de la fonction d'ajout des donnée letiables associé
-      ajouterNouvelleDonneeVariable();
-    });
->>>>>>> 1fbd7d880a520d7c055dd16f53f0383977199485
   }
 }
 
@@ -456,11 +436,7 @@ function ajouterNouvelleDonneeVariableValeurAValeur(){
 function recupererIdTypeDonneeAjoute(){
 
   //Récupérer les éléments de l'ihm nécessaire
-<<<<<<< HEAD
   let typeDonnee = document.getElementById("selectTypeDonnee");
-=======
-  let typeDonnee = document.getElementById("typeDonnee");
->>>>>>> 1fbd7d880a520d7c055dd16f53f0383977199485
 
   //Récupérer la valeur de l'item séléctionné dans la liste déroulante
   typeDonnee = typeDonnee.options[typeDonnee.selectedIndex].value;
