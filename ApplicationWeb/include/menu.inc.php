@@ -38,6 +38,7 @@
 						<a class="dropdown-item" href="index.php?page=7">Lister les énoncés</a>
 						<a class="dropdown-item" href="index.php?page=6">Attribuer les sujets</a>
 						<a class="dropdown-item" href="index.php?page=8">Lister les réponses</a>
+						<a class="dropdown-item" href="index.php?page=11">Lister les attributions des sujets</a>
 					</div>
 				</li>
 			</ul>

@@ -1,9 +1,9 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a>Gestion des attributions de sujet</a>
+        <a>Gestion des attributions des sujets</a>
     </li>
-    <li class="breadcrumb-item active">Lister les attributions</li>
+    <li class="breadcrumb-item active">Lister les attributions des sujets</li>
 </ol>
 
 <div class="card mb-3">
