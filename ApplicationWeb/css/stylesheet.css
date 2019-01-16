@@ -402,3 +402,11 @@ body.sidebar-toggled footer.sticky-footer {
 .item{
    cursor: pointer;
 }
+
+#html_btn{
+  display: none;
+}
+
+#buttonFakeInputFile{
+  display: inline;
+}

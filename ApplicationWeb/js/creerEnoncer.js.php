@@ -4,6 +4,16 @@ if(!isset($_SESSION)){
 }
 ?>
 
+var fontWeight = ["normal" , "bold"];
+var fontStyle = ["normal" , "italic"];
+var textDecoration = ["none" , "underline"];
+var fontSize = ["60%", "80%", "100%", "150%", "200%", "300%", "400%", "500%"];
+
+var isBoldSelected = false;
+var isItalicSelected = false;
+var isUnderlineSelected = false;
+var policeSize = 3;
+
 //Attendre que le document soit completement chargé
 $(document).ready(function() {
 
@@ -13,28 +23,31 @@ $(document).ready(function() {
   var blockParametrageImage = document.getElementById("blockParametrageImage");
   var boutonAjouterDonneeVariable = document.getElementById("boutonAjouterDonneeVariable");
   var boutonAjouter = document.getElementById("boutonAjouter");
+  var boldButton = document.getElementById("boldButton");
+  var italicButton = document.getElementById("italicButton");
+  var underlineButton = document.getElementById("underlineButton");
+  var policeUpButton = document.getElementById("policeUpButton");
+  var policeDownButton = document.getElementById("policeDownButton");
 
   //Stocker le type d'item en cours de création
-  var itemEnCoursDeCration = document.getElementById("itemTitre");
+  let itemEnCoursDeCration = document.getElementById("itemTitre");
 
   //chargement de la zone par défaut
   document.getElementById("itemTitre").classList.add("active");
   blockParametrageDonneeVariable.style.display  = "none";
   blockParametrageImage.style.display  = "none";
   blockParametrageText.style.display  = "block";
-  document.getElementById("titreParametrage").innerHTML = document.getElementById("itemTitre").getAttribute("name");
 
   //Gestion si click sur un item du menu de menu de droite
   $('.item').click(function(event){
 
-    //Affichage (comme titre) de l'item séléctionné dans le menu paramétrage
-    document.getElementById("titreParametrage").innerHTML = event.target.getAttribute("name");
+
+
     itemEnCoursDeCration = event.target;
 
     //affichage dans le menu de droite d'un backgroundgris sur l'option
     resetMenuSelectedItem();
     event.target.classList.add("active");
-
 
     //Si l'item nécessite le block de paramétrage "Text"
     if( event.target.getAttribute("id") == "itemTitre" ||
@@ -51,7 +64,7 @@ $(document).ready(function() {
       blockParametrageImage.style.display  = "none";
       blockParametrageDonneeVariable.style.display  = "block";
 
-      //Déterminer quel block de paramétrage de donnée variable afficher
+      //Déterminer quel block de paramétrage de donnée letiable afficher
       typeDonnerClick();
 
     }
@@ -66,17 +79,71 @@ $(document).ready(function() {
 
   //Au clique sur le bouton, ajouter l'item à la zone de création
   boutonAjouter.onclick = function() {
+    console.log(itemEnCoursDeCration)
     ajouterElement(itemEnCoursDeCration);
   };
 
-  //Au clique sur le bouton, ajouter l'item block de donnée variable
+  //Au clique sur le bouton, ajouter l'item block de donnée letiable
   boutonAjouterDonneeVariable.onclick = function() { ajouterBlockDonneeVariable(); };
+
+  //Toggle fontWeight
+  boldButton.onclick = function(){
+    isBoldSelected = !isBoldSelected;
+
+    if(isBoldSelected){
+      this.classList.remove("btn-light");
+      this.classList.add("btn-secondary");
+    } else {
+      this.classList.remove("btn-secondary");
+      this.classList.add("btn-light");
+    }
+  };
+
+  //Toggle fontStyle
+  italicButton.onclick = function(){
+    isItalicSelected = !isItalicSelected;
+
+    if(isItalicSelected){
+      this.classList.remove("btn-light");
+      this.classList.add("btn-secondary");
+    } else {
+      this.classList.remove("btn-secondary");
+      this.classList.add("btn-light");
+    }
+  };
+
+  //Text Decoration
+  underlineButton.onclick = function(){
+    isUnderlineSelected = !isUnderlineSelected;
+
+    if(isUnderlineSelected){
+      this.classList.remove("btn-light");
+      this.classList.add("btn-secondary");
+    } else {
+      this.classList.remove("btn-secondary");
+      this.classList.add("btn-light");
+    }
+  };
+
+  policeUpButton.onclick = function(){
+    if(policeSize < fontSize.length)
+      policeSize++;
+    console.log(policeSize);
+  };
+
+  policeDownButton.onclick = function(){
+    if(policeSize > 0)
+      policeSize--;
+    console.log(policeSize);
+  };
+
+  $('#buttonFakeInputFile').bind("click" , function () {
+        $('#html_btn').click();
+    });
 
 });
 
 
-
-//Renvoie TRUE si le bouton radio "Valeur a valeur" est coché
 function resetMenuSelectedItem(){
   document.getElementById("itemTitre").classList.remove("active");
   document.getElementById("itemZoneTexte").classList.remove("active");
@@ -99,16 +166,18 @@ function isRadioIntervalChecked(){
 function typeDonnerClick() {
 
   //Récupérer les éléments de l'ihm nécessaire
-  var blockParametrageValeurAValeur = document.getElementById("blockParametrageValeurAValeur");
-  var blockParametrageInterval = document.getElementById("blockParametrageInterval");
+  let blockParametrageValeurAValeur = document.getElementById("blockParametrageValeurAValeur");
+  let blockParametrageInterval = document.getElementById("blockParametrageInterval");
 
   //Comportement à appliquer
   if(isRadioValeurParValeurChecked()){
     blockParametrageInterval.style.display  = "none";
     blockParametrageValeurAValeur.style.display  = "block";
+    boutonAjouterDonneeVariable.style.display = "block"
   } else if(isRadioIntervalChecked()){
     blockParametrageValeurAValeur.style.display  = "none";
     blockParametrageInterval.style.display  = "block";
+    boutonAjouterDonneeVariable.style.display = "none"
   }
 }
 
@@ -116,117 +185,110 @@ function typeDonnerClick() {
 function ajouterElement(typeItem) {
 
   //Récupérer les éléments de l'ihm nécessaire
-  var para1 = document.querySelector('.page_creation');
+  var para1 = document.getElementById("page_creation");
   var itemTitre = typeItem.getAttribute("id");
   var itemValeur = document.getElementById("itemValeur").value;
-  var itemPolice = document.getElementById("itemPolice");
-  itemPolice = itemPolice.options[itemPolice.selectedIndex].value;
-  var itemCouleur = document.getElementById("itemCouleur");
-  itemCouleur = itemCouleur.options[itemCouleur.selectedIndex].value;
-  var itemGras = document.getElementById("itemGras");
-  var itemItalique = document.getElementById("itemItalique");
-  var itemSousligne = document.getElementById("itemSousligne");
-  var itemSource = document.getElementById("itemSource");
+  var itemCouleur = document.getElementById("frenchColor").value;
+  var itemSource = document.getElementById("html_btn");
   var itemDescription = document.getElementById("itemDescription");
   var itemLargeur = document.getElementById("itemLargeur");
   var itemHauteur = document.getElementById("itemHauteur");
-
-  //Récupérer la valeur de la check box si elle est cochée
-  if(itemGras.checked){
-    itemGras = itemGras.value;
-  }
-
-  //Récupérer la valeur de la check box si elle est cochée
-  if(itemItalique.checked){
-    itemItalique = itemItalique.value;
-  }
-
-  //Récupérer la valeur de la check box si elle est cochée
-  if(itemSousligne.checked){
-    itemSousligne = itemSousligne.value;
-  }
 
   //Différent comportement à appliquer en fonction du type d'item à ajouter
   switch (itemTitre) {
 
     //Si l'item à ajouter est un "Titre"
     case "itemTitre":
-    var newTitre = document.createElement('h1');
-    newTitre.id = 'titre';
-    newTitre.style.fontSize = itemPolice;
-    newTitre.style.color = itemCouleur;
-    newTitre.style.fontWeight = itemGras;
-    newTitre.style.fontStyle = itemItalique;
-    newTitre.style.textDecoration = itemSousligne;
-    newTitre.appendChild(document.createTextNode(itemValeur));
+      var newTitre = document.createElement('h1');
+      newTitre.id = 'titre';
+      newTitre.style.fontSize = fontSize[policeSize];
+      newTitre.style.color = itemCouleur;
+      newTitre.style.fontWeight = fontWeight[isBoldSelected ? 1 : 0];
+      newTitre.style.fontStyle = fontStyle[isItalicSelected ? 1 : 0];
+      newTitre.style.textDecoration = textDecoration[isUnderlineSelected ? 1 : 0];
+      newTitre.appendChild(document.createTextNode(itemValeur));
     break;
 
     //Si l'item à ajouter est une "Zone de texte"
     case "itemZoneTexte":
-    var newTitre = document.createElement('p');
-    newTitre.id = 'zonedetext';
-    newTitre.style.fontSize = itemPolice;
-    newTitre.style.color = itemCouleur;
-    newTitre.style.fontWeight = itemGras;
-    newTitre.style.fontStyle = itemItalique;
-    newTitre.style.textDecoration = itemSousligne;
-    newTitre.appendChild(document.createTextNode(itemValeur));
+      var newTitre = document.createElement('p');
+      newTitre.id = 'zonedetext';
+      newTitre.style.fontSize = fontSize[policeSize];
+      newTitre.style.color = itemCouleur;
+      newTitre.style.fontWeight = fontWeight[isBoldSelected ? 1 : 0];
+      newTitre.style.fontStyle = fontStyle[isItalicSelected ? 1 : 0];
+      newTitre.style.textDecoration = textDecoration[isUnderlineSelected ? 1 : 0];
+      newTitre.style.display = "inline";
+      newTitre.appendChild(document.createTextNode(itemValeur));
     break;
 
     //Si l'item à ajouter est une "Donnée Variable"
     case "itemDonneeVariable":
-    var newTitre = document.createElement('p');
-    newTitre.id = '##' + recupererIdTypeDonneeAjoute() + '##';
-    newTitre.style.fontSize = itemPolice;
-    newTitre.style.color = itemCouleur;
-    newTitre.style.fontWeight = itemGras;
-    newTitre.style.fontStyle = itemItalique;
-    newTitre.style.textDecoration = itemSousligne;
-    newTitre.appendChild(document.createTextNode(recupererLibelleTypeDonneeAjoute()));
+      var newTitre = document.createElement('p');
+      newTitre.id = '##' + recupererIdTypeDonneeAjoute() + '##';
+      newTitre.style.fontSize = fontSize[policeSize];
+      newTitre.style.color = itemCouleur;
+      newTitre.style.fontWeight = fontWeight[isBoldSelected ? 1 : 0];
+      newTitre.style.fontStyle = fontStyle[isItalicSelected ? 1 : 0];
+      newTitre.style.textDecoration = textDecoration[isUnderlineSelected ? 1 : 0];
+      newTitre.style.display = "inline";
+      newTitre.appendChild(document.createTextNode(recupererLibelleTypeDonneeAjoute()));
     break;
 
     //Si l'item à ajouter est une "Question"
     case "itemQuestion":
-    var numQR = recupererNumQuestionReponse();
-    var newTitre = document.createElement('span');
-    newTitre.id = 'question_' + numQR;
-    newTitre.style.fontSize = itemPolice;
-    newTitre.style.color = itemCouleur;
-    newTitre.style.fontWeight = itemGras;
-    newTitre.style.fontStyle = itemItalique;
-    newTitre.style.textDecoration = itemSousligne;
-    newTitre.appendChild(document.createTextNode(itemValeur));
+      var numQR = recupererNumQuestionReponse();
 
-    //Appel de la fonction ajoutant la question à la base de donnée
-    ajouterNouvelleQuestion(itemValeur);
+      var newTitre = document.createElement('div');
 
-    //Ajout d'un champ réponse associé
-    var newTitre2 = document.createElement('input');
-    newTitre2.id = 'reponse_' + numQR;
-    newTitre2.type = 'text';
-    newTitre2.placeholder = "Renseigner ici votre réponse";
+      var question = document.createElement('span');
+      question.id = 'question_' + numQR;
+      question.style.fontSize = fontSize[policeSize];
+      question.style.color = itemCouleur;
+      question.style.fontWeight = fontWeight[isBoldSelected ? 1 : 0];
+      question.style.fontStyle = fontStyle[isItalicSelected ? 1 : 0];
+      question.style.textDecoration = textDecoration[isUnderlineSelected ? 1 : 0];
+      question.style.display = "inline";
+      question.appendChild(document.createTextNode(itemValeur));
+
+      //Appel de la fonction ajoutant la question à la base de donnée
+      ajouterNouvelleQuestion(itemValeur);
+
+      //Ajout d'un champ réponse associé
+      var reponse = document.createElement('input');
+      reponse.id = 'reponse_' + numQR;
+      reponse.type = 'text';
+      reponse.placeholder = "Renseigner ici votre réponse";
+      reponse.style.display = "inline";
+
+      newTitre.appendChild(question);
+      newTitre.appendChild(reponse);
     break;
 
     //Si l'item à ajouter est une "Image"
     case "itemImage":
-    var newTitre = document.createElement('img');
-    newTitre.id = 'image';
-    newTitre.alt = itemDescription.value;
+      var newTitre = document.createElement('img');
+      newTitre.id = 'image';
+      newTitre.alt = itemDescription.value;
 
-    //Attendre que l'immage soit chargée pour l'afficher
-    var reader = new FileReader();
-    reader.addEventListener('load', function () {
-      newTitre.src = reader.result;
-      newTitre.width = itemLargeur.value;
-      newTitre.height = itemHauteur.value;
-    });
+      //Attendre que l'immage soit chargée pour l'afficher
+      var reader = new FileReader();
+      reader.addEventListener('load', function () {
+        newTitre.src = reader.result;
 
-    reader.readAsDataURL(itemSource.files[0]);
+        if(!empty(itemLargeur.value))
+          newTitre.width = itemLargeur.value;
+
+        if(!empty(itemHauteur.value))
+          newTitre.height = itemHauteur.value;
+      });
+
+      reader.readAsDataURL(itemSource.files[0]);
     break;
 
     //Comportement par defaut
     default:
-    console.log("Une erreur est survenue");
+      console.log("Une erreur est survenue");
   }
 
   para1.appendChild(newTitre);
@@ -240,14 +302,23 @@ function ajouterElement(typeItem) {
 //Ajoute un block d'insertion de donnée "Valeur à valeur"
 function ajouterBlockDonneeVariable(){
 
-  //Simulation d'une variable globale
+  //Simulation d'une letiable globale
   if( typeof idInput == 'undefined' ) { idInput = 0; }
   idInput++;
 
   //Récupérer les éléments de l'ihm nécessaire
+<<<<<<< HEAD
   var blockParametrageValeurAValeur = document.getElementById("blockParametrageValeurAValeur");
+  var newDivDonneeVariable = document.createElement('div');
   var newLabelDonneeVariable = document.createElement('label');
   var newInputDonneeVariable = document.createElement('input');
+=======
+  let blockParametrageValeurAValeur = document.getElementById("blockParametrageValeurAValeur");
+  let newLabelDonneeVariable = document.createElement('label');
+  let newInputDonneeVariable = document.createElement('input');
+>>>>>>> 1fbd7d880a520d7c055dd16f53f0383977199485
+
+  newDivDonneeVariable.classList.add("form-group");
 
   //Ajout d'un label
   newLabelDonneeVariable.id = 'labelDonneeVariable';
@@ -255,18 +326,21 @@ function ajouterBlockDonneeVariable(){
 
   //Ajout de l'input
   newInputDonneeVariable.id = 'inputDonneeVariable'+idInput;
-  newInputDonneeVariable.appendChild(document.createTextNode(""));
+  //newInputDonneeVariable.appendChild(document.createTextNode(""));
+  newInputDonneeVariable.classList.add("form-control");
+
 
   //Ajout des éléments au block de paramétrage des items
-  blockParametrageValeurAValeur.appendChild(newLabelDonneeVariable);
-  blockParametrageValeurAValeur.appendChild(newInputDonneeVariable);
+  newDivDonneeVariable.appendChild(newLabelDonneeVariable);
+  newDivDonneeVariable.appendChild(newInputDonneeVariable);
+  blockParametrageValeurAValeur.appendChild(newDivDonneeVariable);
 
 }
 
 //Récupère le code HTML de la page de création et l'insère comme valeur de champ "hidden pour la méthode POST
 function validerEnonce(){
-  var enonceCreer = document.getElementById('page_creation').innerHTML;
-  var inputEnonceCreer = document.getElementById('enonceCreer');
+  let enonceCreer = document.getElementById('page_creation').innerHTML;
+  let inputEnonceCreer = document.getElementById('enonceCreer');
   inputEnonceCreer.value = enonceCreer;
 }
 
@@ -274,15 +348,47 @@ function validerEnonce(){
 function ajouterNouveauTypeDonnee(){
 
   //Récupérer les éléments de l'ihm nécessaire
-  var newTypeDonnee = document.getElementById("newTypeDonnee").value;
+  let newTypeDonnee = document.getElementById("newTypeDonnee").value;
 
   //Si le libellé donné pour le type de donnée n'est pas vide
   if(newTypeDonnee != ""){
+<<<<<<< HEAD
+    // $.post("./ajax/ajoutTypeDonnee.ajax.php", { newTypeDonnee: newTypeDonnee }, function(data) {
+    //   //Appel de la fonction d'ajout des donnée variables associé
+    //   ajouterNouvelleDonneeVariable();
+    //   refreshSelectTypeDonnee(data);
+    // });
+
+    $.ajax({
+      type: "POST",
+      url: './ajax/ajoutTypeDonnee.ajax.php',
+      data : { newTypeDonnee: newTypeDonnee },
+      success: function() {
+        //Appel de la fonction d'ajout des donnée variables associé
+        ajouterNouvelleDonneeVariable();
+        refreshSelectTypeDonnee(newTypeDonnee);
+      }
+  });
+=======
     $.post("./ajax/ajoutTypeDonnee.ajax.php", { newTypeDonnee: newTypeDonnee }, function(data) {
-      //Appel de la fonction d'ajout des donnée variables associé
+      //Appel de la fonction d'ajout des donnée letiables associé
       ajouterNouvelleDonneeVariable();
     });
+>>>>>>> 1fbd7d880a520d7c055dd16f53f0383977199485
   }
+}
+
+
+//Permet de mettre à jour le liste déroulante avec le nouveau type de donnée qui vient d'être ajouté
+function refreshSelectTypeDonnee(newTypeDonnee){
+  var selectTypeDonnee =  document.getElementById("selectTypeDonnee");
+
+  var option = document.createElement("option");
+  option.value = "<?php echo $_SESSION['newIdTypeDonne']; ?>";
+  option.text = newTypeDonnee;
+  selectTypeDonnee.appendChild(option);
+
+  alert("Un nouveau type de donnée à été ajouté à la liste !");
 }
 
 //Descide du comportement à appliquer en fonction du type de donnée à ajouter
@@ -299,13 +405,13 @@ function ajouterNouvelleDonneeVariable(){
 
 }
 
-//Appel du fichier AJAX afin d'ajouter les nouvelles donnée variable associé au nouveau type de donnée via un interval
+//Appel du fichier AJAX afin d'ajouter les nouvelles donnée letiable associé au nouveau type de donnée via un interval
 function ajouterNouvelleDonneeVariableViaInterval(){
 
   //Récupérer les éléments de l'ihm nécessaire
-  var borneInferieurInterval = document.getElementById("borneInferieurInterval").value;
-  var borneSuperieurInterval = document.getElementById("borneSuperieurInterval").value;
-  var pasInterval = document.getElementById("pasInterval").value;
+  let borneInferieurInterval = document.getElementById("borneInferieurInterval").value;
+  let borneSuperieurInterval = document.getElementById("borneSuperieurInterval").value;
+  let pasInterval = document.getElementById("pasInterval").value;
 
   //Si les champs nécessaire ne sont pas vide
   if(borneInferieurInterval != "" && borneSuperieurInterval != "" && pasInterval != ""){
@@ -319,23 +425,23 @@ function ajouterNouvelleDonneeVariableViaInterval(){
   }
 }
 
-//Appel du fichier AJAX afin d'ajouter les nouvelles donnée variable associé au nouveau type de donnée valeur après valeur
+//Appel du fichier AJAX afin d'ajouter les nouvelles donnée letiable associé au nouveau type de donnée valeur après valeur
 function ajouterNouvelleDonneeVariableValeurAValeur(){
 
   //Récupérer les éléments de l'ihm nécessaire
-  var tab = document.getElementsByTagName('input');
-  var liste = [];
+  let tab = document.getElementsByTagName('input');
+  let liste = [];
 
-  for(var i=0; i<tab.length; i++) {
+  for(let i=0; i<tab.length; i++) {
 
-    //Récupérer toutes les valeurs possible de la donnée variable
+    //Récupérer toutes les valeurs possible de la donnée letiable
     if ( tab[i].id.substring(0, 19) == 'inputDonneeVariable' ) {
       liste.push(document.getElementById(tab[i].id).value);
     }
 
   }
 
-  //Si la liste des donnée variable à ajouter n'est pas vide
+  //Si la liste des donnée letiable à ajouter n'est pas vide
   if(liste.length != 0){
 
     //Appel du fichier AJAX avec les paramètres passé grace à la méthode POST
@@ -350,14 +456,18 @@ function ajouterNouvelleDonneeVariableValeurAValeur(){
 function recupererIdTypeDonneeAjoute(){
 
   //Récupérer les éléments de l'ihm nécessaire
-  var typeDonnee = document.getElementById("typeDonnee");
+<<<<<<< HEAD
+  var typeDonnee = document.getElementById("selectTypeDonnee");
+=======
+  let typeDonnee = document.getElementById("typeDonnee");
+>>>>>>> 1fbd7d880a520d7c055dd16f53f0383977199485
 
   //Récupérer la valeur de l'item séléctionné dans la liste déroulante
   typeDonnee = typeDonnee.options[typeDonnee.selectedIndex].value;
 
   //Si l'item séléctionné dans la liste est le 1er ("Créer un nouveau type")
   if(typeDonnee == "0"){
-    //Retourner le dernier idType inséré dans la table TypeDonnee de la base de donnée (via la variable de session venant du TypeDonneeManager)
+    //Retourner le dernier idType inséré dans la table TypeDonnee de la base de donnée (via la letiable de session venant du TypeDonneeManager)
     return "<?php if(isset($_SESSION['newIdTypeDonne'])){ echo $_SESSION['newIdTypeDonne']; } else { echo '0'; }?>";
   } else {
     //Retourner l'id du type séléctionné dans la liste déroulante
@@ -371,8 +481,8 @@ function recupererIdTypeDonneeAjoute(){
 function recupererLibelleTypeDonneeAjoute(){
 
   //Récupérer les éléments de l'ihm nécessaire
-  var typeDonnee = document.getElementById("typeDonnee");
-  var newTypeDonnee = document.getElementById("newTypeDonnee").value;
+  let typeDonnee = document.getElementById("typeDonnee");
+  let newTypeDonnee = document.getElementById("newTypeDonnee").value;
 
   //Récupérer le libellé du type de donnée séléctionné / inséré
   typeDonneeValue = typeDonnee.options[typeDonnee.selectedIndex].value;
@@ -381,10 +491,10 @@ function recupererLibelleTypeDonneeAjoute(){
   //Si le typeDonneeValue est "Créer un nouveau type de donnée"
   if(typeDonneeValue == 0){
     //Retourne le nouveau type de donné saisi
-    return "\"" + newTypeDonnee + "\"";
+    return newTypeDonnee;
   } else {
     //Retourne le nouveau type de donné séléctionné
-    return "\"" + typeDonneeText + "\"";
+    return typeDonneeText;
   }
 
 }
@@ -402,7 +512,7 @@ function ajouterNouvelleQuestion(libelle){
 //Retourne un id pour la question/réponse autoincrémenté a chaque fois
 function recupererNumQuestionReponse(){
 
-  //Simulation d'une variable globale
+  //Simulation d'une letiable globale
   if( typeof numQR == 'undefined' ) { numQR = 0; } else { numQR++; }
 
   return numQR;

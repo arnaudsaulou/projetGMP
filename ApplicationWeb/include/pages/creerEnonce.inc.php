@@ -16,11 +16,11 @@
     <!-- Menu de gauche (séléction des items à insérer) -->
     <div class="col-xs-6 col-md-2">
       <ul  class="list-group">
-        <li class="list-group-item item" id=itemTitre>Titre</li>
-        <li class="list-group-item item" id=itemZoneTexte>Zone de texte</li>
-        <li class="list-group-item item" id=itemDonneeVariable>Donnée Variable</li>
-        <li class="list-group-item item" id=itemQuestion>Question</li>
-        <li class="list-group-item item" id=itemImage>Image</li>
+        <li class="list-group-item item" id="itemTitre" name="Titre">Titre</li>
+        <li class="list-group-item item" id="itemZoneTexte" name="Zone de texte">Zone de texte</li>
+        <li class="list-group-item item" id="itemDonneeVariable" name="Donnée Variable">Donnée Variable</li>
+        <li class="list-group-item item" id="itemQuestion" name="Question">Question</li>
+        <li class="list-group-item item" id="itemImage" name="Image">Image</li>
       </ul>
       <ul class="list-group">
         <li class="list-group-item"> <button name="Elementsuivant" class="btn btn-secondary" id="boutonAjouter">Element suivant</button></li>
@@ -33,114 +33,167 @@
 
     <!-- Partie de création de l'énoncé a proprement parler -->
     <div class="page_creation col-xs-12 col-md-9 border  border-dark">
+
       <div id="page_creation">
 
       </div>
+
+      <!-- Titre + Zone de text -->
       <div id="blockParametrageText">
         <div class="dropdown">
-          <input id="itemValeur" type="text" value="Entrez votre texte ici">
+          <input id="itemValeur" type="text" placeholder="Entrez votre texte ici">
           <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-cog"></i>
           </button>
 
           <form>
             <div class="menu_parametrage dropdown-menu" id="menu_parametrage" aria-labelledby="dropdownMenu1">
-              <div class="titre_parametrage">
-                <h5 class="card-title">Parametres : </h5>
-                <h6 class="" id="titreParametrage"></h6>
-              </div>
+              <div class="dropdown-header">
+                <div class="titre_parametrage">
+                  <label>Parametres : </label>
+                  <label class="titreParametrage"></label>
+                </div>
 
-              <div class="btn btn-light">
-                <i class="fas fa-font"></i>
-                <i class="fas fa-angle-up"></i>
-              </div>
-              <div class="btn btn-light">
-                <i class="fas fa-font"></i>
-                <i class="fas fa-angle-down"></i>
-              </div>
-              <div class="btn btn-light">
-                <input id="frenchColor" value="#000000" />
-              </div>
-              <div class="btn btn-light">
-                <i class="fas fa-bold"></i>
-              </div>
-              <div class="btn btn-light">
-                <i class="fas fa-italic"></i>
-              </div>
-              <div class="btn btn-light">
-                <i class="fas fa-underline"></i>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <div id="blockParametrageDonneeVariable">
-        <div class="dropdown">
-          <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-cog"></i>
-          </button>
-          <form>
-            <div class="menu_parametrage dropdown-menu" id="menu_parametrage" aria-labelledby="dropdownMenu2">
-              <label>Type de donnée déjà enregistré : </label>
-
-              <?php $listTypeDonnee = $typeDonneeManager->getListTypeDonnee(); ?>
-              <select id="typeDonnee">
-                <option value="0"> - Créer nouveau type - </option>
-                <?php foreach ($listTypeDonnee as $typeDonnee) { ?>
-                  <option value="<?php echo $typeDonnee->getIdType(); ?>"><?php echo $typeDonnee->getLibelle(); ?></option>
-                <?php } ?>
-              </select>
-
-              <label>Nouveau type de donnée :</label>
-              <input name="newTypeDonnee" id="newTypeDonnee" type="text">
-
-              <input id="itemTypeDonneeValeurAValeur" onclick="typeDonnerClick();" type="radio" name="typeDonnee" checked="checked"> <label>Valeur par valeur</label>
-              <input id="itemTypeDonneeInterval" onclick="typeDonnerClick();"  type="radio" name="typeDonnee"> <label>Interval</label>
-
-              <div id="blockParametrageValeurAValeur">
-                <button id="boutonAjouterDonneeVariable">Ajouter une valeur</button>
-              </div>
-
-              <div id="blockParametrageInterval">
-                <label>Borne inférieure :</label>
-                <input type="number" id="borneInferieurInterval">
-
-                <label>Borne supérieure :</label>
-                <input type="number" id="borneSuperieurInterval">
-
-                <label>Pas :</label>
-                <input type="number" id="pasInterval">
-              </div>
-              <button onclick="ajouterNouveauTypeDonnee()">Ajouter nouveau type de donnée</button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <div id="blockParametrageImage">
-        <div class="dropdown">
-          <div class="thumbnail">
-            <img src="Ressources/no-image.png" alt="image size preview">
-            <button class="btn dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-cog"></i>
-            </button>
-            <form>
-              <div class="menu_parametrage dropdown-menu" id="menu_parametrage" aria-labelledby="dropdownMenu2">
-                <label>Source :</label>
-                <input id="itemSource" type="file" accept="image/*" required />
-
-                <label>Description :</label>
-                <input type="text" id="itemDescription">
-
-                <label>Largeur :</label>
-                <input type="number" id="itemLargeur">
-
-                <label>Hauteur :</label>
-                <input type="number" id="itemHauteur">
+                <div id="policeUpButton" class="btn btn-light">
+                  <i class="fas fa-font"></i>
+                  <i class="fas fa-angle-up"></i>
+                </div>
+                <div id="policeDownButton" class="btn btn-light">
+                  <i class="fas fa-font"></i>
+                  <i class="fas fa-angle-down"></i>
+                </div>
+                <div class="btn btn-light">
+                  <input id="frenchColor" value="#000000" />
+                </div>
+                <div id="boldButton" class="btn btn-light">
+                  <i  class="fas fa-bold"></i>
+                </div>
+                <div id="italicButton" class="btn btn-light">
+                  <i class="fas fa-italic"></i>
+                </div>
+                <div id="underlineButton" class="btn btn-light">
+                  <i class="fas fa-underline"></i>
+                </div>
               </div>
             </form>
           </div>
+        </div>
+      </div>
+
+      <!-- Donnée Variable -->
+      <div id="blockParametrageDonneeVariable">
+        <div class="dropdown">
+
+          <?php $listTypeDonnee = $typeDonneeManager->getListTypeDonnee(); ?>
+          <select id="selectTypeDonnee">
+            <?php foreach ($listTypeDonnee as $typeDonnee) { ?>
+              <option value="<?php echo $typeDonnee->getIdType(); ?>"><?php echo $typeDonnee->getLibelle(); ?></option>
+            <?php } ?>
+          </select>
+
+          <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-cog"></i>
+          </button>
+
+          <form>
+            <div class="menu_parametrage dropdown-menu" id="menu_parametrage" aria-labelledby="dropdownMenu2">
+              <div class="dropdown-header">
+
+                <div class="titre_parametrage">
+                  <label>Parametres : </label>
+                  <label class="titreParametrage"></label>
+                </div>
+
+                <form class="px-4 py-3" method="post">
+            			<div class="form-group">
+                    <label>Nouveau type de donnée :</label>
+                    <input name="newTypeDonnee" class="form-control" id="newTypeDonnee" type="text" required>
+            			</div>
+
+            			<div class="form-group">
+                    <input id="itemTypeDonneeValeurAValeur" onclick="typeDonnerClick();" type="radio" name="typeDonnee" checked="checked"> <label>Valeur par valeur</label>
+                    <input id="itemTypeDonneeInterval" onclick="typeDonnerClick();"  type="radio" name="typeDonnee"> <label>Interval</label>
+            			</div>
+
+            			<div class="form-group" id="blockParametrageValeurAValeur">
+            			  <label for="confirmerMDP">Valeur : </label>
+            			  <input type="text" class="form-control" id="inputDonneeVariable0" required>
+            			</div>
+
+                  <div id="blockParametrageInterval">
+                    <div class="form-group">
+                      <label>Borne inférieure :</label>
+                      <input type="number" class="form-control" id="borneInferieurInterval">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Borne supérieure :</label>
+                      <input type="number" class="form-control" id="borneSuperieurInterval">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Pas :</label>
+                      <input type="number" class="form-control" id="pasInterval">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                      <input id="boutonAjouterDonneeVariable" class="btn btn-secondary" value="Ajouter une valeur">
+                  </div>
+
+                  <div class="row"></div>
+
+                  <div class="form-group">
+                    <input onclick="ajouterNouveauTypeDonnee()" class="btn btn-primary" value="Enregistrer">
+                  </div>
+
+          		  </form>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Image -->
+      <div id="blockParametrageImage">
+        <div class="dropdown">
+
+          <div id="buttonFakeInputFile">
+            <img src="Ressources/no-image.png">
+          </div>
+          <input id="html_btn" type="file" />
+
+          <button class="btn dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-cog"></i>
+          </button>
+          <form>
+
+            <div class="menu_parametrage dropdown-menu" id="menu_parametrage" aria-labelledby="dropdownMenu2">
+              <div class="dropdown-header">
+
+                <div class="titre_parametrage">
+                  <label>Parametres : </label>
+                  <label class="titreParametrage"></label>
+                </div>
+
+                <div class="form-group">
+                  <label>Description :</label>
+                  <input type="text" class="form-control" id="itemDescription">
+                </div>
+
+                <div class="form-group">
+                  <label>Largeur :</label>
+                  <input type="number" class="form-control" id="itemLargeur">
+                </div>
+
+                <div class="form-group">
+                  <label>Hauteur :</label>
+                  <input type="number" class="form-control" id="itemHauteur">
+                </div>
+              </div>
+            </div>
+
+          </form>
         </div>
       </div>
     </div>
@@ -175,7 +228,8 @@
   }
 }
 ?>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
 <script src="packages/colorpicker/js/evol-colorpicker.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/creerEnoncer.js.php"></script>
