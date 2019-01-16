@@ -1,6 +1,6 @@
 <?php
 //Sert à insérer les réponses, si elles existent, dans les champs.
-function insererReponses(string &$enonce, ReponseManager $reponseManager, int $idSujet, int $idEtudiant)
+function insererReponses(string &$enonce, ReponseManager $reponseManager, int $idSujet, int $idEtudiant, SolutionManager $solutionManager = null)
 {
     $pos = 0;
     do {
@@ -11,11 +11,22 @@ function insererReponses(string &$enonce, ReponseManager $reponseManager, int $i
             $numero_question = substr($enonce, $pos, $longueur_nombre);
             if ($reponseManager->verifierExistenceReponse($idSujet, $numero_question, $idEtudiant)) {
                 $reponse = $reponseManager->recupererReponseLaPlusRecente($idSujet, $numero_question, $idEtudiant);
-                $reponse = str_replace('.', ',', $reponse->getValeur());
-                $enonce = substr_replace($enonce, "value=\"" . $reponse . "\"", $pos + $longueur_nombre + 2, 0);
+                $reponseInseree = str_replace('.', ',', $reponse->getValeur());
+                $insertion = "value=\"" . $reponseInseree;
+                if ($solutionManager !== null) {
+                    $insertion .= "(". comparerValeurs($solutionManager, $idSujet, $numero_question, $reponse->getValeur()) . "%)";
+                }
+                $insertion .= "\"";
+                $positionInsertion = $pos + $longueur_nombre + 2;
+                insererReponseDansChamp($enonce, $insertion, $positionInsertion);
             }
         }
     } while ($pos !== false);
+}
+
+function insererReponseDansChamp(string &$enonce, string $texte, int $position)
+{
+    $enonce = substr_replace($enonce, $texte, $position, 0);
 }
 
 //Sert à insérer les valeurs dans à la place des libellés.
@@ -43,6 +54,6 @@ function desactiverTousLesInputs(string &$enonce)
 //Compare les valeurs et retourne un nombre représentant le pourcentage de différence.
 function comparerValeurs(SolutionManager $solutionManager, int $idSujet, int $idQuestion, $reponse) {
     $solution = $solutionManager->recupererSolution($idSujet, $idQuestion);
-    $difference = (($reponse - $solution) / $solution) * 100;
+    $difference = (((double)$reponse - (double)$solution->getValeur()) / (double)$solution->getValeur()) * 100;
     return $difference;
 }

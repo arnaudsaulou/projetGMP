@@ -59,8 +59,8 @@ class Note
     }
 
     /**
-     * Retourne l'ID du Sujet attribué à cet instance de Note.
-     * @return integer L'ID du Sujet attribué à cet instance de Note.
+     * Retourne l'ID du Sujet attribué à cette instance de Note.
+     * @return integer L'ID du Sujet attribué à cette instance de Note.
      */
     public function getIdSujet()
     {
@@ -84,7 +84,7 @@ class Note
     {
         return $this->note;
     }
-	
+
 	/**
      * Retourne la date obtenue par l'Utilisateur pour le Sujet donné.
      * @return integer La Note obtenue par l'Utilisateur pour le Sujet donné.
@@ -93,7 +93,7 @@ class Note
     {
         return $this->dateReponse;
     }
-	
+
     /**
      * Modifie l'ID de l'instance d'Utilisateur associé à cette Note.
      * @param integer $idUtilisateur Le nouvel ID de l'instance d'Utilisateur associé à cette Note.
@@ -104,8 +104,8 @@ class Note
     }
 
     /**
-     * Modifie l'ID du Sujet attribué à cet instance de Note.
-     * @param integer $idSujet Le nouvel ID du Sujet attribué à cet instance de Note.
+     * Modifie l'ID du Sujet attribué à cette instance de Note.
+     * @param integer $idSujet Le nouvel ID du Sujet attribué à cette instance de Note.
      */
     public function setIdSujet($idSujet)
     {
@@ -129,7 +129,7 @@ class Note
     {
         $this->note = $note;
     }
-	
+
 	/**
      * Modifie la valeur de cette instance de Note.
      * @param integer $note La Note obtenue par l'Utilisateur pour le Sujet donné.

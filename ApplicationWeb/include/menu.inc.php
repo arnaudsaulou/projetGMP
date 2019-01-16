@@ -23,8 +23,8 @@
 						<h6 class="dropdown-header">Gestion des étudiants:</h6>
 						<a class="dropdown-item" href="index.php?page=1">Lister</a>
 						<a class="dropdown-item" href="index.php?page=2">Importer</a>
-                        <a class="dropdown-item" href="index.php?page=12">Supprimer</a>
-                        <a class="dropdown-item" href="index.php?page=13">Supprimer promotion</a>
+						<a class="dropdown-item" href="index.php?page=12">Supprimer</a>
+						<a class="dropdown-item" href="index.php?page=13">Supprimer promotion</a>
 					</div>
 				</li>
 				<li class="nav-item dropdown">
@@ -37,6 +37,7 @@
 						<a class="dropdown-item" href="index.php?page=5">Créer un énoncé</a>
 						<a class="dropdown-item" href="index.php?page=7">Lister les énoncés</a>
 						<a class="dropdown-item" href="index.php?page=6">Attribuer les sujets</a>
+						<a class="dropdown-item" href="index.php?page=8">Lister les réponses</a>
 					</div>
 				</li>
 			</ul>
@@ -64,6 +65,6 @@
 				<?php
 			}
 		}
-}?>
-<div id="content-wrapper">
-	<div class="container-fluid">
+	}?>
+	<div id="content-wrapper">
+		<div class="container-fluid">

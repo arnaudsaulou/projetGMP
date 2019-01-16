@@ -68,7 +68,7 @@
         case 8:
             if ($_SESSION['droits'] == 1) {
                 // inclure ici la page
-                include_once('pages/consulterDetailEnonce.inc.php');
+                include_once('pages/afficherReponses.inc.php');
             }
             break;
 

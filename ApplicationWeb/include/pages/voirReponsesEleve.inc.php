@@ -16,10 +16,10 @@ if (!isset($_POST['idSujet'])) {
     //Récupération des données variables
     $listeDonneeVariable = $sujetPossibleManager->recuperListeDonneeVariableViaIdSujet($idSujet);
 
-    //Substitution et affichage de l'énoncé et TODO: Ajout des pourcentages de différences.
+    //Substitution et affichage de l'énoncé et des pourcentages.
     insererValeurs($listeDonneeVariable, $typeDonneeManager, $enonce);
     //Ajout des réponses si elles existent.
-    insererReponses($enonce, $reponseManager, $idSujet, $idEtudiant);
+    insererReponses($enonce, $reponseManager, $idSujet, $idEtudiant, $solutionManager);
     //
     //Desactiver les inputs
     desactiverTousLesInputs($enonce);
