@@ -65,26 +65,28 @@ if( empty($_POST['choix_promotion'])){
 }
 else if($_POST['choix_promotion']=="1"){
 
-  $sujetChoisi = $_POST['choix_sujet'];
+  $enonceChoisi = $_POST['choix_sujet'];
   $anneeChoisi = $_POST['choix_promotion'];
 
-  $idMaxSujet = $attribueManager->getIdSujetMaximumByIdEnonce($sujetChoisi);
+  $idMaxSujet = $attribueManager->getIdSujetMaximumByIdEnonce($enonceChoisi);
+  $idMinSujet = $attribueManager->getIdSujetMinimumByIdEnonce($enonceChoisi);
 
   $listEtudiant = $utilisateurManager->recupererPromotionEtudiante($anneeChoisi);
   foreach ($listEtudiant as $etudiant) {
 
     $table = $attribueManager->getUniqueIdSujet($anneeChoisi);
 
-    $idSujetAlea = (int) rand(1 ,$idMaxSujet);
+    $idSujetAlea = (int) rand($idMinSujet ,$idMaxSujet);
 
     while(in_array($idSujetAlea, $table)){
-      $idSujetAlea = rand( 1 ,$idMaxSujet );
+      $idSujetAlea = rand($idMinSujet ,$idMaxSujet );
     }
 
     $attribuerSujet = new Attribue(array('idUtilisateur' => $etudiant->getIdUtilisateur(),
                                         'idSujet' => $idSujetAlea,
                                         'dateAttribution' => date("Y-m-d"),
                                         'dateLimite' => $_POST["date_limite"],
+                                        'cooldown' => $_POST["choix_cooldown"],
                                         ));
 
     if($attribueManager->countNombreDeSujetAttribuerAUnEtudiant($etudiant->getIdUtilisateur()) < 1){
@@ -108,26 +110,28 @@ else if($_POST['choix_promotion']=="1"){
 }
 else if($_POST['choix_promotion']=="2"){
 
-  $sujetChoisi = $_POST['choix_sujet'];
+  $enonceChoisi = $_POST['choix_sujet'];
   $anneeChoisi = $_POST['choix_promotion'];
+
+  $idMaxSujet = $attribueManager->getIdSujetMaximumByIdEnonce($enonceChoisi);
+  $idMinSujet = $attribueManager->getIdSujetMinimumByIdEnonce($enonceChoisi);
 
   $listEtudiant = $utilisateurManager->recupererPromotionEtudiante($anneeChoisi);
   foreach ($listEtudiant as $etudiant) {
 
-    $idMaxSujet = $attribueManager->getIdSujetMaximumByIdEnonce($sujetChoisi);
-
     $table = $attribueManager->getUniqueIdSujet($anneeChoisi);
 
-    $idSujetAlea = (int) rand(1 ,$idMaxSujet);
+    $idSujetAlea = (int) rand($idMinSujet ,$idMaxSujet);
 
     while(in_array($idSujetAlea, $table)){
-      $idSujetAlea = rand( 1 ,$idMaxSujet );
+      $idSujetAlea = rand($idMinSujet ,$idMaxSujet );
     }
 
       $attribuerSujet = new Attribue(array('idUtilisateur' => $etudiant->getIdUtilisateur(),
                                           'idSujet' => $idSujetAlea,
                                           'dateAttribution' => date("Y-m-d"),
                                           'dateLimite' => $_POST["date_limite"],
+                                          'cooldown' => $_POST["choix_cooldown"],
                                           ));
 
       if($attribueManager->countNombreDeSujetAttribuerAUnEtudiant($etudiant->getIdUtilisateur()) < 1){

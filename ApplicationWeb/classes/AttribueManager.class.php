@@ -106,6 +106,24 @@ class AttribueManager
     }
 
     /**
+     * Retourne le plus petit identifiant d'un sujet par énoncé
+     * @param integer $idEnonce L'ID de l'énoncé dont on veut récupérer le plus petit id.
+     */
+    public function getIdSujetMinimumByIdEnonce($idEnonce)
+    {
+        $req = $this->db->prepare(
+          'SELECT MIN(idSujet) as idSujetMin FROM sujet WHERE idEnonce = :idEnonce
+				');
+
+        $req->bindValue(':idEnonce', $idEnonce, PDO::PARAM_INT);
+        $req->execute();
+        $idSujet = $req->fetch(PDO::FETCH_OBJ);
+        $idSujetMin = $idSujet->idSujetMin;
+        $req->closeCursor();
+        return $idSujetMin;
+    }
+
+    /**
      * Retourne le plus grand identifiant d'un sujet par énoncé
      * @param integer $idEnonce L'ID de l'énoncé dont on veut récupérer le plus grand id.
      */
@@ -114,7 +132,7 @@ class AttribueManager
         $req = $this->db->prepare(
           'SELECT MAX(idSujet) as idSujetMax FROM sujet WHERE idEnonce = :idEnonce
 				');
-        
+
         $req->bindValue(':idEnonce', $idEnonce, PDO::PARAM_INT);
         $req->execute();
         $idSujet = $req->fetch(PDO::FETCH_OBJ);
