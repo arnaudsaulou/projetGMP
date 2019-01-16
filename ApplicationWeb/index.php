@@ -16,6 +16,7 @@ $noteManager = new NoteManager($db);
 $reponseManager = new ReponseManager($db);
 $attribueManager = new AttribueManager($db);
 $questionManager = new QuestionManager($db);
+$solutionManager = new SolutionManager($db);
 
 require_once("include/header.inc.php");
 require_once("include/menu.inc.php");

@@ -41,4 +41,20 @@ class SolutionManager {
         $req->closeCursor();
         return $result;
     }
+
+    /**
+     * Récupère l'instance de Solution ayant les idSujet et idQuestion passés en paramètres.
+     * @param integer $idSujet L'ID du Sujet auquel la Solution désirée répond.
+     * @param integer $idQuestion L'ID de la Question à laquelle la Solution désirée répond.
+     * @return Solution L'instance de Solution ayant les idSujet et idQuestion passés en paramètres.
+     */
+    public function recupererSolution($idSujet, $idQuestion) {
+        $req = $this->db->prepare('SELECT * FROM solutions WHERE idSujet = :idSujet AND idQuestion = :idQuestion');
+        $req->bindValue(':idSujet', $idSujet, PDO::PARAM_INT);
+        $req->bindValue(':idQuestion', $idQuestion, PDO::PARAM_INT);
+        $req->execute();
+        $solution = new Solution($req->fetch(PDO::FETCH_OBJ));
+        $req->closeCursor();
+        return $solution;
+    }
 }

@@ -11,6 +11,7 @@ function insererReponses(string &$enonce, ReponseManager $reponseManager, int $i
             $numero_question = substr($enonce, $pos, $longueur_nombre);
             if ($reponseManager->verifierExistenceReponse($idSujet, $numero_question, $idEtudiant)) {
                 $reponse = $reponseManager->recupererReponseLaPlusRecente($idSujet, $numero_question, $idEtudiant);
+                $reponse = str_replace('.', ',', $reponse);
                 $enonce = substr_replace($enonce, "value=\"" . $reponse->getValeur() . "\"", $pos + $longueur_nombre + 2, 0);
             }
         }
@@ -37,4 +38,11 @@ function desactiverTousLesInputs(string &$enonce)
             $enonce = substr_replace($enonce, "disabled", $pos, 0);
         }
     } while ($pos !== false);
+}
+
+//Compare les valeurs et retourne un nombre représentant le pourcentage de différence.
+function comparerValeurs(SolutionManager $solutionManager, int $idSujet, int $idQuestion, $reponse) {
+    $solution = $solutionManager->recupererSolution($idSujet, $idQuestion);
+    $difference = (($reponse - $solution) / $solution) * 100;
+    return $difference;
 }
