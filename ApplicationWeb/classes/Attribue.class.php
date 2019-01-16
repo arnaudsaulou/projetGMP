@@ -46,8 +46,8 @@ class Attribue {
     }
 
     /**
-     * Retourne l'ID de l'Utilisateur attribué à cet instance.
-     * @return integer L'ID de l'Utilisateur attribué à cet instance.
+     * Retourne l'ID de l'Utilisateur attribué à cette instance.
+     * @return integer L'ID de l'Utilisateur attribué à cette instance.
      */
     public function getIdUtilisateur()
     {
@@ -55,8 +55,8 @@ class Attribue {
     }
 
     /**
-     * Retourne l'ID du Sujet attribué à cet instance.
-     * @return integer L'ID du Sujet attribué à cet instance.
+     * Retourne l'ID du Sujet attribué à cette instance.
+     * @return integer L'ID du Sujet attribué à cette instance.
      */
     public function getIdSujet()
     {
@@ -91,8 +91,8 @@ class Attribue {
     }
 
     /**
-     * Modifie l'ID de l'Utilisateur attribué à cet instance.
-     * @param integer $valeur Le nouvel ID de l'Utilisateur attribué à cet instance.
+     * Modifie l'ID de l'Utilisateur attribué à cette instance.
+     * @param integer $valeur Le nouvel ID de l'Utilisateur attribué à cette instance.
      */
     public function setIdUtilisateur($valeur)
     {
@@ -100,8 +100,8 @@ class Attribue {
     }
 
     /**
-     * Modifie l'ID du Sujet attribué à cet instance.
-     * @param integer $valeur Le nouvel ID du Sujet attribué à cet instance.
+     * Modifie l'ID du Sujet attribué à cette instance.
+     * @param integer $valeur Le nouvel ID du Sujet attribué à cette instance.
      */
     public function setIdSujet($valeur)
     {
