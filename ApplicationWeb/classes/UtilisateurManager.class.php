@@ -83,7 +83,7 @@ class UtilisateurManager
      */
     public function getListEtudiants()
     {
-        $req = $this->db->prepare('SELECT idUtilisateur, nom, prenom FROM utilisateur WHERE estProf = 0 ');
+        $req = $this->db->prepare('SELECT idUtilisateur, nom, prenom, annee FROM utilisateur WHERE estProf = 0 ');
         $req->execute();
         $listeEtudiants = array();
         while ($etudiant = $req->fetch(PDO::FETCH_OBJ)) {
