@@ -30,6 +30,7 @@ if (empty($_POST)) { ?>
     //Stocker les réponses.
     foreach($_POST as $key => $value) {
         $numero_question = str_replace('question_', '', $key);
+        $value = str_replace(',', '.', $value);
         $reponseQuestion = new Reponse([
             'idUtilisateur' => $idEtudiant,
             'idSujet' => $idSujet,
