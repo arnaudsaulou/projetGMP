@@ -25,17 +25,16 @@
           <tbody>
 <?php
 			foreach($listeNoteEtudiant as $note){
-					$attribue=$attribueManager->getAttribueById($idEtudiant,$note->getIdSujet());
+					
 					$sujet=$sujetManager->getSujetById($note->getIdSujet());
 					$enonce=$enonceManager->recupererEnonceViaIdEnonce($sujet->getIdEnonce());
 					
-				
 		?>			
 				
 				<tr>
 
 					<td><?php echo $enonce->getNomEnonce(); ?> </td>
-					<td><?php echo $attribue->getDateAttribution(); ?></td>
+					<td><?php echo $note->getDateAttribution(); ?></td>
 					<td><?php echo $note->getNote(); ?></td>
 
 				</tr>

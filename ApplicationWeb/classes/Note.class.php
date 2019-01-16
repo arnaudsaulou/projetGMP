@@ -6,6 +6,7 @@ class Note
     private $idSujet;
     private $numNote;
     private $note;
+	private $date;
 
     /**
      * Retourne une nouvelle instance de Note.
@@ -37,6 +38,9 @@ class Note
                     break;
                 case 'note' :
                     $this->setNote($valeur);
+                    break;
+				case 'dateAttribution' :
+                    $this->setDateAttribution($valeur);
                     break;
                 default :
                     echo "Fatal error : construction Utilisateur invalide";
@@ -80,7 +84,16 @@ class Note
     {
         return $this->note;
     }
-
+	
+	/**
+     * Retourne la date obtenue par l'Utilisateur pour le Sujet donné.
+     * @return integer La Note obtenue par l'Utilisateur pour le Sujet donné.
+     */
+	public function getDateAttribution()
+    {
+        return $this->dateAttribution;
+    }
+	
     /**
      * Modifie l'ID de l'instance d'Utilisateur associé à cette Note.
      * @param integer $idUtilisateur Le nouvel ID de l'instance d'Utilisateur associé à cette Note.
@@ -115,5 +128,14 @@ class Note
     public function setNote($note)
     {
         $this->note = $note;
+    }
+	
+	/**
+     * Modifie la valeur de cette instance de Note.
+     * @param integer $note La Note obtenue par l'Utilisateur pour le Sujet donné.
+     */
+    public function setDateAttribution($dateAttribution)
+    {
+        $this->dateAttribution = $dateAttribution;
     }
 }

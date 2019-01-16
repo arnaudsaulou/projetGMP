@@ -17,12 +17,13 @@ class NoteManager{
      */
 	public function addNote($Note){
 		$req=$this->db->prepare
-		(' INSERT INTO note (idUtilisateur, idSujet, numNote, note)
-		VALUES (:idUtilisateur, :idSujet, :numNote, :note) ');
+		(' INSERT INTO note (idUtilisateur, idSujet, numNote, note, dateAttribution)
+		VALUES (:idUtilisateur, :idSujet, :numNote, :note, :dateAttribution) ');
 		$req->bindValue(':idUtilisateur',$Note->getIdUtilisateur(),PDO::PARAM_STR);
 		$req->bindValue(':idSujet',$Note->getIdSujet(),PDO::PARAM_STR);
 		$req->bindValue(':numNote',$Note->getNumNote(),PDO::PARAM_STR);
 		$req->bindValue(':note',$Note->getNote(),PDO::PARAM_STR);
+		$req->bindValue(':dateAttribution',$Note->getDateAttribution(),PDO::PARAM_DATE);
 		$result = $req->execute();
 		return $result;
 	}
@@ -45,7 +46,7 @@ class NoteManager{
      */
 	public function getNoteByIdEtudiant($id){
 		$req=$this->db->prepare
-        ('SELECT idUtilisateur, idSujet, numNote, note FROM note WHERE idUtilisateur = :id');
+        ('SELECT idUtilisateur, idSujet, numNote, note, dateAttribution FROM note WHERE idUtilisateur = :id');
 		$req->bindValue(':id',$id,PDO::PARAM_STR);
 		$req->execute();
 		$listeNote=array();

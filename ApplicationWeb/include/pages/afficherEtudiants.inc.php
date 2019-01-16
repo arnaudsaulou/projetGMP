@@ -37,13 +37,14 @@
                 //on récupère la liste des étudiants enregistrés
                 $listeEtudiants = $utilisateurManager->getListEtudiants();
                 foreach ($listeEtudiants as $etudiant) {
+					
                     ?>
                     <tr>
-                        <td><?php echo $etudiant->getIdUtilisateur() ?></td>
-                        <td><?php echo $etudiant->getNom() ?></td>
-                        <td><?php echo $etudiant->getPrenom() ?></td>
-                        <td><?php echo $etudiant->getAnnee()." A" ?></td>
-                        <td><?php echo $utilisateurManager->calculerMoyenne($etudiant) ?></td>
+                        <td><?php echo $etudiant->getIdUtilisateur(); ?></td>
+                        <td><?php echo $etudiant->getNom(); ?></td>
+                        <td><?php echo $etudiant->getPrenom(); ?></td>
+                        <td><?php echo $etudiant->getAnnee() ;?></td>
+                        <td><?php echo $utilisateurManager->calculerMoyenne($etudiant); ?></td>
                     </tr>
                     <?php
                 }
