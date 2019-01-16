@@ -40,7 +40,21 @@ if( empty($_POST['choix_promotion'])){
              ?>
         </select>
 
-  </br>
+      </br>
+
+      <h4> Temps d'attente entre chaque réponse: </h4>
+      <select name="choix_cooldown">
+        <option value="1"> 1 jour</option>
+        <option value="2"> 2 jours</option>
+        <option value="3"> 3 jours</option>
+        <option value="4"> 4 jours</option>
+        <option value="5"> 5 jours</option>
+        <option value="6"> 6 jours</option>
+        <option value="7"> 1 semaine </option>
+        <option value="14"> 2 semaines </option>
+
+      </select>
+    </br>
 
 
       <button class="button">Confirmer</button>
@@ -49,7 +63,7 @@ if( empty($_POST['choix_promotion'])){
 
 <?php
 }
-else if($_POST['choix_promotion']=="1" ){
+else if($_POST['choix_promotion']=="1"){
 
   $sujetChoisi = $_POST['choix_sujet'];
   $anneeChoisi = $_POST['choix_promotion'];

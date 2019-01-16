@@ -5,6 +5,7 @@ class Attribue {
     private $idSujet;
     private $dateAttribution;
     private $dateLimite;
+    private $cooldown;
 
     /**
      * Retourne une nouvelle instance d'Attribue.
@@ -36,6 +37,9 @@ class Attribue {
                     break;
                 case 'dateLimite':
                     $this->setDateLimite($valeur);
+                    break;
+                case 'cooldown':
+                    $this->setCooldown($valeur);
                     break;
             }
         }
@@ -78,6 +82,15 @@ class Attribue {
     }
 
     /**
+     * Retourne le cooldown de réponse au sujet de cette instance.
+     * @return string Le cooldown de réponse au sujet de cette instance.
+     */
+    public function getCooldown()
+    {
+      return $this->cooldown;
+    }
+
+    /**
      * Modifie l'ID de l'Utilisateur attribué à cet instance.
      * @param integer $valeur Le nouvel ID de l'Utilisateur attribué à cet instance.
      */
@@ -111,5 +124,14 @@ class Attribue {
     public function setDateLimite($valeur)
     {
         $this->dateLimite = $valeur;
+    }
+
+    /**
+     * Modifie lecooldown de réponse au sujet de cette instance.
+     * @param string $valeur Le nouveau cooldown de réponse au sujet de cette instance.
+     */
+    public function setCooldown($valeur)
+    {
+        $this->cooldown = $valeur;
     }
 }
