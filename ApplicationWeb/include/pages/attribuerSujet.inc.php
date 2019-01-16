@@ -11,17 +11,20 @@ if( empty($_POST['choix_promotion'])){
  ?>
   <form action="#" method="POST">
 
-    <h2> Choisir un sujet</h2>
-    <p>
-       Promotion : <select name="choix_promotion">
+    <h4> Promotion : </h4>
+                    <select name="choix_promotion">
                       <option value="1"> Année 1</option>
                       <option value="2"> Année 2</option>
 
                     </select>
 
+  </br>
 
-        Liste des sujets : <?php echo $sujetManager->countSujet();?> sujet(s) a/ont été trouvé
+    <h4>  Date de limite de réponse : </h4>
+      <input type="date" name="date_limite" value="<?php echo date("Y-m-d"); ?>">
 
+      </br>
+    <h4> Liste des sujets : <?php echo $sujetManager->countSujet();?> sujet(s) a/ont été trouvé </h4>
 
         <select name="choix_sujet">
 
@@ -37,10 +40,8 @@ if( empty($_POST['choix_promotion'])){
              ?>
         </select>
 
-        Date de limite de réponse :
-        <input type="date" name="date_limite" value="<?php echo date("Y-m-d"); ?>">
+  </br>
 
-      </p>
 
       <button class="button">Confirmer</button>
     </form>

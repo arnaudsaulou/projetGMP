@@ -136,4 +136,9 @@ class AttribueManager
         $req->closeCursor();
         return $nbSujet;
     }
+
+    public function getUniqueIdSujet($idSujet)
+    {
+      $req = $this->db->prepare("SELECT idSujet FROM attribue WHERE ");
+    }
 }
