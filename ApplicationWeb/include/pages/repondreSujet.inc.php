@@ -1,4 +1,6 @@
 <?php
+include_once ('fonctionsAffichageEnonce.inc.php');
+
 //Récupération de l'Attribue.
 $idEtudiant = $utilisateurManager->getUtilisateurByLogin($_SESSION['log'])->getIdUtilisateur();
 $attribue = $attribueManager->getAttribuePourEtudiant($idEtudiant);
@@ -10,33 +12,6 @@ $enonce = $enonceManager->recupererEnonceViaIdEnonce($idEnonce)->getEnonce();
 
 //Récupération des données variables
 $listeDonneeVariable = $sujetPossibleManager->recuperListeDonneeVariableViaIdSujet($idSujet);
-
-//Sert à insérer les réponses, si elles existent, dans les champs.
-function insererReponses(string &$enonce, ReponseManager $reponseManager, int $idSujet, int $idEtudiant)
-{
-    $pos = 0;
-    do {
-        $pos = strpos($enonce, "<input name=\"question_", $pos);
-        if ($pos !== false) {
-            $pos += 22;
-            $longueur_nombre = strpos($enonce, "\"", $pos) - $pos;
-            $numero_question = substr($enonce, $pos, $longueur_nombre);
-            if ($reponseManager->verifierExistenceReponse($idSujet, $numero_question, $idEtudiant)) {
-                $reponse = $reponseManager->recupererReponseLaPlusRecente($idSujet, $numero_question, $idEtudiant);
-                $enonce = substr_replace($enonce, "value=\"" . $reponse->getValeur() . "\"", $pos + $longueur_nombre + 2, 0);
-            }
-        }
-    } while ($pos !== false);
-}
-
-//Sert à insérer les valeurs dans à la place des libellés.
-function insererValeurs(array $listeDonneeVariable, TypeDonneeManager $typeDonneeManager, string &$enonce)
-{
-    foreach ($listeDonneeVariable as $donneeVariable) {
-        $typeDonnee = $typeDonneeManager->getTypeDonneeById($donneeVariable->getIdType());
-        $enonce = str_replace($typeDonnee->getLibelle(), $donneeVariable->getValeur(), $enonce);
-    }
-}
 
 if (empty($_POST)) { ?>
 
@@ -58,10 +33,10 @@ if (empty($_POST)) { ?>
         $reponseQuestion = new Reponse([
             'idUtilisateur' => $idEtudiant,
             'idSujet' => $idSujet,
-            'numReponse' => $numero_question,
+            'idQuestion' => $numero_question,
             'valeur' => $value,
             'dateReponse' => date('Y-m-d')
         ]);
         $reponseManager->enregistrerReponse($reponseQuestion);
     }
-}?>
+} ?>
