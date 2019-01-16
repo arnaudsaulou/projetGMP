@@ -104,7 +104,7 @@ class Submission {
 
   /**
   * Modifie la date d'attribution du sujet de cette instance.
-  * @param string $valeur La nouvelle date d'attribution du sujet de cette instance.
+  * @param date $valeur La nouvelle date d'attribution du sujet de cette instance.
   */
   public function setDateAttribution($valeur)
   {
@@ -113,7 +113,7 @@ class Submission {
 
   /**
   * Modifie la date de réponse au sujet de cette instance.
-  * @param string $valeur La nouvelle date de réponse au sujet de cette instance.
+  * @param date $valeur La nouvelle date de réponse au sujet de cette instance.
   */
   public function setDateSubmission($valeur)
   {
@@ -122,7 +122,7 @@ class Submission {
 
   /**
   * Modifie la note associée à cette instance.
-  * @param string $valeur la nouvelle note associée à cette instance.
+  * @param integer $valeur la nouvelle note associée à cette instance.
   */
   public function setNote($valeur)
   {
@@ -140,7 +140,7 @@ class Submission {
 
   /**
   * Retourne la promotion attribué à cette instance.
-  * @return integer la promotion attribué à cette instance.
+  * @return string la promotion attribué à cette instance.
   */
   public function getPromo()
   {
@@ -149,7 +149,7 @@ class Submission {
 
   /**
   * Retourne le prenom attribué à cette instance.
-  * @return integer le prenom attribué à cette instance.
+  * @return string le prenom attribué à cette instance.
   */
   public function getPrenom()
   {
@@ -176,7 +176,7 @@ class Submission {
 
   /**
   * Retourne la date d'attribution du sujet de cette instance.
-  * @return string $valeur La nouvelle date d'attribution du sujet de cette instance.
+  * @return date $valeur La nouvelle date d'attribution du sujet de cette instance.
   */
   public function getDateAttribution()
   {
@@ -185,7 +185,7 @@ class Submission {
 
   /**
   * Retourne la date de réponse au sujet de cette instance.
-  * @return string $valeur La nouvelle date de réponse au sujet de cette instance.
+  * @return date $valeur La nouvelle date de réponse au sujet de cette instance.
   */
   public function getDateSubmission()
   {
@@ -194,7 +194,7 @@ class Submission {
 
   /**
   * Retourne la note associée cette instance.
-  * @return string $valeur Le nouveau cooldown de réponse au sujet de cette instance.
+  * @return integer $valeur Le nouveau cooldown de réponse au sujet de cette instance.
   */
   public function getNote()
   {

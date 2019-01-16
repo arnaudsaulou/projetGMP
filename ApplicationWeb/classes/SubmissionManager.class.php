@@ -19,7 +19,7 @@ class SubmissionManager
      */
     public function getList()
     {
-        $req = $this->db->prepare('SELECT estProf,nom,prenom FROM utilisateur ORDER BY nom');
+        $req = $this->db->prepare('SELECT distinct annee,nom,prenom,a.idSujet,nomEnonce,a.dateAttribution,dateReponse,note FROM utilisateur u join note n on n.idUtilisateur = u.idUtilisateur join attribue a on a.idUtilisateur = n.idUtilisateur join sujet s on s.idSujet = n.idSujet join enonce e on e.idEnonce = s.idEnonce where a.idUtilisateur = n.idUtilisateur and a.idSujet = n.idSujet');
         $req->execute();
         $listeSubmission = array();
         while ($Submission = $req->fetch(PDO::FETCH_OBJ)) {

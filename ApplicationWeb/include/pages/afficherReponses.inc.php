@@ -40,15 +40,19 @@
         </tfoot>
         <tbody>
           <?php
-          //on récupère la liste des étudiants enregistrés
-          $listeEtudiants = $utilisateurManager->getListEtudiants();
-          foreach ($listeEtudiants as $etudiant) {
+          //on récupère la liste des submissions enregistrés
+          $listeSubmissions = $submissionManager->getList();
+          foreach ($listeSubmissions as $Submission) {
             ?>
             <tr>
-              <td><?php echo $etudiant->getNom() ?></td>
-              <td><?php echo $etudiant->getPrenom() ?></td>
-              <td><?php echo $etudiant->getAnnee()." A" ?></td>
-              <td><?php echo $utilisateurManager->calculerMoyenne($etudiant) ?></td>
+              <td><?php echo $Submission->getPromo()." A" ?></td>
+              <td><?php echo $Submission->getNom() ?></td>
+              <td><?php echo $Submission->getPrenom() ?></td>
+              <td><?php echo $Submission->getIdSujet()?></td>
+              <td><?php echo $Submission->getTitreEnonce()?></td>
+              <td><?php echo $Submission->getDateAttribution()?></td>
+              <td><?php echo $Submission->getDateSubmission()?></td>
+              <td><?php echo $Submission->getNote()?></td>
             </tr>
             <?php
           }
