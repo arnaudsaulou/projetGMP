@@ -108,6 +108,7 @@ class AttribueManager
     /**
      * Retourne le plus petit identifiant d'un sujet par énoncé
      * @param integer $idEnonce L'ID de l'énoncé dont on veut récupérer le plus petit id.
+     * @return integer
      */
     public function getIdSujetMinimumByIdEnonce($idEnonce)
     {
@@ -126,6 +127,7 @@ class AttribueManager
     /**
      * Retourne le plus grand identifiant d'un sujet par énoncé
      * @param integer $idEnonce L'ID de l'énoncé dont on veut récupérer le plus grand id.
+     * @return integer
      */
     public function getIdSujetMaximumByIdEnonce($idEnonce)
     {
@@ -143,6 +145,7 @@ class AttribueManager
 
     /**
      * Retourne le nombre de sujet attribué à un étudiant enregistrés dans la base de données.
+     * @param integer $idEtudiant, l'ID de l'étudiant
      * @return integer Le nombre de sujet attribué à un étudiant enregistrés dans la base de données.
      */
     public function countNombreDeSujetAttribuerAUnEtudiant($idEtudiant)
@@ -173,5 +176,32 @@ class AttribueManager
       return $listeIdSujet;
     }
 
-  /*  public function check*/
+    /**
+     * Retourne un tableau contenant toutes les instances d'Attributions.
+     * @return array Un tableau contenant toutes les instances d'Attributions.
+     */
+    public function getListAttribution()
+    {
+      $req = $this->db->prepare('SELECT DISTINCT annee, nomEnonce, dateAttribution, dateLimite, cooldown FROM attribue a JOIN utilisateur u ON a.idUtilisateur = u.idUtilisateur JOIN sujet s ON s.idSujet = a.idSujet JOIN enonce e ON s.idEnonce = e.idEnonce ');
+      $req->execute();
+
+      $listeAttribution = array();
+      while ($attribu = $req->fetch(PDO::FETCH_OBJ)) {
+          $listeAttribution[] = $attribu;
+      }
+      $req->closeCursor();
+      return $listeAttribution;
+    }
+
+    public function getAnneeByIdUtilisateur($idUtilisateur)
+    {
+      $req = $this->db->prepare("SELECT  annee FROM utilisateur WHERE idUtilisateur = :idUtilisateur");
+      $req->bindValue(':idUtilisateur', $idUtilisateur, PDO::PARAM_STR);
+      $req->execute();
+      $res = $req->fetch(PDO::FETCH_ASSOC);
+      $req->closeCursor();
+      return $res['annee'];
+
+    }
+
 }

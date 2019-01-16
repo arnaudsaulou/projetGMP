@@ -86,6 +86,13 @@
             }
             break;
 
+        case 11:
+            if ($_SESSION['droits'] == 1) {
+                // inclure ici la page
+                include_once('pages/afficherAttributionSujet.inc.php');
+            }
+            break;
+
         case 12:
             if ($_SESSION['droits'] == 1) {
                 include_once('pages/supprimerEtudiants.inc.php');
@@ -97,7 +104,7 @@
                 include_once('pages/supprimerPromotion.inc.php');
             }
             break;
-		
+
 		case 14:
 			include_once('pages/parametre.inc.php');
 			break;

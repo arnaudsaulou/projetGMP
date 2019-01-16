@@ -4,8 +4,8 @@
         <a>Gestion des étudiants</a>
     </li>
     <li class="breadcrumb-item active">Lister les étudiants</li>
-
 </ol>
+
 <div class="card mb-3">
     <div class="card-header">
         <i class="fas fa-table"></i>
@@ -37,7 +37,7 @@
                 //on récupère la liste des étudiants enregistrés
                 $listeEtudiants = $utilisateurManager->getListEtudiants();
                 foreach ($listeEtudiants as $etudiant) {
-					
+
                     ?>
                     <tr>
                         <td><?php echo $etudiant->getIdUtilisateur(); ?></td>
