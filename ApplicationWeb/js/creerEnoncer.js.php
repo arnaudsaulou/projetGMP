@@ -163,68 +163,6 @@ function ajouterElement(typeItem) {
 
     //Si l'item à ajouter est une "Zone de texte"
     case "itemZoneTexte":
-<<<<<<< HEAD
-    var newTitre = document.createElement('p');
-    newTitre.id = 'zonedetext';
-    newTitre.style.fontSize = itemPolice;
-    newTitre.style.color = itemCouleur;
-    newTitre.style.fontWeight = itemGras;
-    newTitre.style.fontStyle = itemItalique;
-    newTitre.style.textDecoration = itemSousligne;
-    newTitre.appendChild(document.createTextNode(itemValeur));
-    break;
-
-    //Si l'item à ajouter est une "Donnée Variable"
-    case "itemDonneeVariable":
-    var newTitre = document.createElement('p');
-    newTitre.id = '##' + recupererIdTypeDonneeAjoute() + '##';
-    newTitre.style.fontSize = itemPolice;
-    newTitre.style.color = itemCouleur;
-    newTitre.style.fontWeight = itemGras;
-    newTitre.style.fontStyle = itemItalique;
-    newTitre.style.textDecoration = itemSousligne;
-    newTitre.appendChild(document.createTextNode(recupererLibelleTypeDonneeAjoute()));
-    break;
-
-    //Si l'item à ajouter est une "Question"
-    case "itemQuestion":
-    var numQR = recupererNumQuestionReponse();
-    var newTitre = document.createElement('span');
-    newTitre.id = 'question_' + numQR;
-    newTitre.style.fontSize = itemPolice;
-    newTitre.style.color = itemCouleur;
-    newTitre.style.fontWeight = itemGras;
-    newTitre.style.fontStyle = itemItalique;
-    newTitre.style.textDecoration = itemSousligne;
-    newTitre.appendChild(document.createTextNode(itemValeur));
-
-    //Appel de la fonction ajoutant la question à la base de donnée
-    ajouterNouvelleQuestion(itemValeur);
-
-    //Ajout d'un champ réponse associé
-    var newTitre2 = document.createElement('input');
-    newTitre2.id = 'reponse_' + numQR;
-    newTitre2.type = 'text';
-    newTitre2.placeholder = "Renseigner ici votre réponse";
-    break;
-
-    //Si l'item à ajouter est une "Image"
-    case "itemImage":
-    var newTitre = document.createElement('img');
-    newTitre.id = 'image';
-    newTitre.alt = itemDescription.value;
-
-    //Attendre que l'immage soit chargée pour l'afficher
-    var reader = new FileReader();
-    reader.addEventListener('load', function () {
-      newTitre.src = reader.result;
-      newTitre.width = itemLargeur.value;
-      newTitre.height = itemHauteur.value;
-    });
-
-    reader.readAsDataURL(itemSource.files[0]);
-    break;
-=======
         var newTitre = document.createElement('p');
         newTitre.id = 'zonedetext';
         newTitre.style.fontSize = itemPolice;
@@ -295,11 +233,10 @@ function ajouterElement(typeItem) {
 
         reader.readAsDataURL(itemSource.files[0]);
       break;
->>>>>>> Bug fix creerEnonce
 
     //Comportement par defaut
     default:
-    console.log("Une erreur est survenue");
+      console.log("Une erreur est survenue");
   }
 
   para1.appendChild(newTitre);

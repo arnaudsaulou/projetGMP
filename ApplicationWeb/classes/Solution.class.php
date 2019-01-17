@@ -1,9 +1,9 @@
 <?php
 
 class Solution {
-    private $idSujet;
     private $idQuestion;
-    private $valeur;
+    private $nomFormule;
+    private $tableauIdParams;
 
     /**
      * Génère une nouvelle instance de Solution.
@@ -24,29 +24,20 @@ class Solution {
     {
         foreach ($donnees as $attribut => $valeur) {
             switch ($attribut) {
-                case 'idSujet':
-                    $this->setIdSujet($valeur);
-                    break;
                 case 'idQuestion':
                     $this->setIdQuestion($valeur);
                     break;
-                case 'libelle':
-                    $this->setValeur($valeur);
+                case 'nomFormule':
+                    $this->setNomFormule($valeur);
+                    break;
+                case 'tableauIdParams':
+                    $this->setTableauIdParams($valeur);
                     break;
                 default:
                     echo "Fatal error : construction Solution invalide";
                     break;
             }
         }
-    }
-
-    /**
-     * Modifie l'ID de l'instance de Sujet associé à cette instance de Solution.
-     * @param integer $new_idSujet Le nouvel ID de l'instance de Sujet associé à cette instance de Solution.
-     */
-    public function setIdSujet($new_idSujet)
-    {
-        $this->idSujet = $new_idSujet;
     }
 
     /**
@@ -59,21 +50,21 @@ class Solution {
     }
 
     /**
-     * Modifie la valeur de cette instance de Solution.
-     * @param string $new_valeur La nouvelle valeur de cette instance de Solution.
+     * Modifie l'ID de l'instance de NomFormule associé à cette instance de Solution.
+     * @param integer $new_nomFormule Le nouvel ID de l'instance de NomFormule associé à cette instance de Solution.
      */
-    public function setValeur($new_valeur)
+    public function setNomFormule($new_nomFormule)
     {
-        $this->valeur = $new_valeur;
+        $this->nomFormule = $new_nomFormule;
     }
 
     /**
-     * Retourne l'ID de l'instance de Sujet associé à cette instance de Solution.
-     * @return integer L'ID de l'instance de Sujet associé à cette instance de Solution.
+     * Modifie la valeur de tableauIdParams de cette instance de Solution.
+     * @param string $new_tableauIdParams La nouvelle valeur de cette instance de Solution.
      */
-    public function getIdSujet()
+    public function setTableauIdParams($new_tableauIdParams)
     {
-        return $this->idSujet;
+        $this->tableauIdParams = $new_tableauIdParams;
     }
 
     /**
@@ -86,11 +77,20 @@ class Solution {
     }
 
     /**
-     * Retourne la valeur de cette instance de Solution.
-     * @return string La valeur de cette instance de Solution.
+     * Retourne l'ID de l'instance de nomFormule associé à cette instance de Solution.
+     * @return integer Le nom de nomFormule associé à cette instance de Solution.
      */
-    public function getValeur()
+    public function getNomFormule()
     {
-        return $this->valeur;
+        return $this->nomFormule;
+    }
+
+    /**
+     * Retourne le tableauIdParams de cette instance de Solution.
+     * @return string Le tableauIdParams de cette instance de Solution.
+     */
+    public function getTableauIdParams()
+    {
+        return $this->tableauIdParams;
     }
 }

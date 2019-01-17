@@ -32,11 +32,11 @@ class SolutionManager {
     public function ajouterSolution($newSolution)
     {
         $req = $this->db->prepare(
-            "INSERT INTO solutions(idSujet, idQuestion, valeur) VALUES (:idSujet , :idQuestion , :valeur)"
+            "INSERT INTO solutions(idQuestion, nomFormule, tableauIdParams) VALUES (:idQuestion , :nomFormule , :tableauIdParams)"
         );
-        $req->bindValue(':idSujet', $newSolution->getIdSujet(), PDO::PARAM_INT);
         $req->bindValue(':idQuestion', $newSolution->getIdQuestion(), PDO::PARAM_INT);
-        $req->bindValue(':valeur', $newSolution->getValeur(), PDO::PARAM_STR);
+        $req->bindValue(':nomFormule', $newSolution->getNomFormule(), PDO::PARAM_STR);
+        $req->bindValue(':tableauIdParams', $newSolution->getTableauIdParams(), PDO::PARAM_STR);
         $result = $req->execute();
         $req->closeCursor();
         return $result;
@@ -44,13 +44,11 @@ class SolutionManager {
 
     /**
      * Récupère l'instance de Solution ayant les idSujet et idQuestion passés en paramètres.
-     * @param integer $idSujet L'ID du Sujet auquel la Solution désirée répond.
      * @param integer $idQuestion L'ID de la Question à laquelle la Solution désirée répond.
      * @return Solution L'instance de Solution ayant les idSujet et idQuestion passés en paramètres.
      */
-    public function recupererSolution($idSujet, $idQuestion) {
-        $req = $this->db->prepare('SELECT * FROM solutions WHERE idSujet = :idSujet AND idQuestion = :idQuestion');
-        $req->bindValue(':idSujet', $idSujet, PDO::PARAM_INT);
+    public function recupererSolution($idQuestion) {
+        $req = $this->db->prepare('SELECT * FROM solutions WHERE idQuestion = :idQuestion');
         $req->bindValue(':idQuestion', $idQuestion, PDO::PARAM_INT);
         $req->execute();
         $solution = new Solution($req->fetch(PDO::FETCH_OBJ));

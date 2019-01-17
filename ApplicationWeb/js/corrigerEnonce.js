@@ -102,10 +102,21 @@ function validerCorrection(){
       tableauIdParams.push(idDonneVariableParamsTemp);
     }
 
-    //TODO => Envoie Manager puis BD
-    console.log(idQuestion);
-    console.log(nomFormule);
-    console.log(tableauIdParams);
+    ajouterCorrection(idQuestion,nomFormule,tableauIdParams);
 
   }
+
+  alert("La correction à cet énoncé à bien été enregistrée !");
+  window.location.replace("../ApplicationWeb/index.php?page=7");
+
+}
+
+//Appel du fichier AJAX afin d'ajouter une nouvelle correction
+function ajouterCorrection(idQuestion,nomFormule,tableauIdParams) {
+
+  $.post(
+    "./ajax/ajouterCorrection.ajax.php",
+    {idQuestion: idQuestion, nomFormule: nomFormule, tableauIdParams: tableauIdParams}
+  );
+
 }
