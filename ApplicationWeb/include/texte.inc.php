@@ -105,10 +105,16 @@
             }
             break;
 
+<<<<<<< HEAD
 		    case 14:
 			      include_once('pages/parametre.inc.php');
 			      break;
 
+=======
+    		case 14:
+    			include_once('pages/parametre.inc.php');
+    			break;
+>>>>>>> 91a8238ebc13140d38336da6cf8ab50779bd85f1
 
         case 15:
             if ($_SESSION['droits'] == 0) {
@@ -121,6 +127,12 @@
                 include_once('pages/afficherDetailsReponse.inc.php');
             }
             break;
+
+        case 16:
+          if ($_SESSION['droits'] == 1) {
+                  include_once('pages/consulterDetailEnonce.inc.php');
+          }
+          break;
 
         default :
             include_once('pages/accueil.inc.php');
