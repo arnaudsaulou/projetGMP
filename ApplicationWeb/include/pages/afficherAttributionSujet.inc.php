@@ -3,7 +3,7 @@
     <li class="breadcrumb-item">
         <a>Gestion des attributions des sujets</a>
     </li>
-    <li class="breadcrumb-item active">Lister les attributions des sujets</li>
+    <li class="breadcrumb-item active">Lister les attributions</li>
 </ol>
 
 <div class="card mb-3">
@@ -21,6 +21,7 @@
                       <th>Date attribution</th>
                       <th>Date limite</th>
                       <th>Temps entre chaque réponse</th>
+                      <th>Détail de la promotion</th>
                   </tr>
                 </thead>
                 <tfoot>
@@ -30,6 +31,7 @@
                       <th>Date attribution</th>
                       <th>Date limite</th>
                       <th>Temps entre chaque réponse</th>
+                      <th>Détail de la promotion</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -44,6 +46,7 @@
                             <td><?php echo $attribu->dateAttribution;?></td>
                             <td><?php echo $attribu->dateLimite;?></td>
                             <td><?php echo $attribu->cooldown;?></td>
+                            <th> <a href="index.php?page=16&annee=<?php echo $attribu->annee ;?>&idEnonce=<?php echo $attribu->idEnonce ;?>"><i class="fas fa-plus-square btn btn-light" style='font-size:24px;'></i> </a> </th>
 
                         </tr>
                         <?php

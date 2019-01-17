@@ -223,9 +223,9 @@ class UtilisateurManager
         $req->closeCursor();
         return $moyenne;
     }
-	
+
 	public function changerMotDePasse($nouvMDP,$id){
-		
+
 		$req=$this->db->prepare(
 			'UPDATE utilisateur SET motDePasse=:nouvMDP WHERE idUtilisateur=:id'
 		);
@@ -234,4 +234,34 @@ class UtilisateurManager
         $req->execute();
 		$req->closeCursor();
 	}
+
+  /**
+   * Retourne un tableau contenant les statistiques d'une promo d'élève par rapport à un énoncé .
+   * @param int $annee L'année de l'Utilisateur à contrôler.
+   * @param int $Enonce L'ID de l'enonce à contrôler.
+   * @return array Un tableau contenant les statistiques d'une promo d'élève par rapport à un énoncé.
+   */
+  public function getStatReponseEtudiantParAnneeEtEnonce($annee, $Enonce)
+  {
+    $req = $this->db->prepare(
+                      'SELECT distinct nom, prenom, COUNT( DISTINCT r.dateReponse) as nbReponses, MAX(note) as meilleureNote,  MIN(r.dateReponse) as premiereRep, MAX(r.dateReponse) as derniereRep
+                       FROM utilisateur u
+                       JOIN attribue a ON a.idUtilisateur = u.idUtilisateur
+                       JOIN sujet s ON s.idSujet = a.idSujet
+                       JOIN note n ON n.idUtilisateur = u.idUtilisateur
+                       JOIN reponses r ON r.idUtilisateur = a.idUtilisateur
+                       WHERE annee = :annee AND s.idEnonce = :Enonce
+                      ');
+    $req->bindValue(':annee', $annee, PDO::PARAM_STR);
+    $req->bindValue(':Enonce', $Enonce, PDO::PARAM_STR);
+    $req->execute();
+
+    $listeStatReponse = array();
+    while ($eleve = $req->fetch(PDO::FETCH_OBJ)) {
+        $listeStatReponse[] = $eleve;
+    }
+    $req->closeCursor();
+    return $listeStatReponse;
+
+  }
 }
