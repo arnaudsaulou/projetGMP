@@ -50,7 +50,7 @@
 
 			foreach ($listeQuestions as $key => $question) {
             ?>
-				<tr>
+				<tr class="ligneQuestion">
 					<td><?php echo ($key+1).')'.' '.$question->getLibelle(); ?></td>
 
 					<td>
@@ -62,19 +62,19 @@
 					</td>
 
 					<td id="paramSection<?php echo $key ?>">
-						<select id="param0">
+						<select id="param<?php echo $key ?>_0">
 							<?php foreach ($listeTypeDonnee as $typeDonnee) { ?>
 								<option value="<?php echo $typeDonnee->getIdType(); ?>"> <?php echo $typeDonnee->getLibelle(); ?> </option>
 							<?php } ?>
 						</select>
 
             <div>
-              <button onclick="handleClickAjouterParametres(this);" id="btnAdParams<?php echo $key ?>">+</button>
+              <button onclick="handleClickAddParams(event);" id="btnAdParams<?php echo $key ?>">+</button>
             <div>
 
 					</td>
 
-				<tr>
+				</tr>
 			<?php } ?>
 
           </tbody>
@@ -87,9 +87,9 @@
   <!-- Page level plugin CSS-->
   <link href="packages/datatables/dataTables.bootstrap4.css" rel="stylesheet">
   <!-- scripts for this page-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="js/callDatatables.js"></script>
   <script src="packages/datatables/jquery.dataTables.js"></script>
   <script src="packages/datatables/dataTables.bootstrap4.js"></script>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/corrigerEnonce.js"></script>
