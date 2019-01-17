@@ -182,7 +182,7 @@ class AttribueManager
      */
     public function getListAttribution()
     {
-      $req = $this->db->prepare('SELECT DISTINCT annee, nomEnonce, dateAttribution, dateLimite, cooldown FROM attribue a JOIN utilisateur u ON a.idUtilisateur = u.idUtilisateur JOIN sujet s ON s.idSujet = a.idSujet JOIN enonce e ON s.idEnonce = e.idEnonce ');
+      $req = $this->db->prepare('SELECT DISTINCT annee, nomEnonce, dateAttribution, dateLimite, cooldown, s.idEnonce FROM attribue a JOIN utilisateur u ON a.idUtilisateur = u.idUtilisateur JOIN sujet s ON s.idSujet = a.idSujet JOIN enonce e ON s.idEnonce = e.idEnonce ');
       $req->execute();
 
       $listeAttribution = array();

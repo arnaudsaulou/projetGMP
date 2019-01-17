@@ -105,12 +105,20 @@
             }
             break;
 
-		case 14:
-			include_once('pages/parametre.inc.php');
-			break;
+		    case 14:
+			      include_once('pages/parametre.inc.php');
+			      break;
+
+
         case 15:
             if ($_SESSION['droits'] == 0) {
                 include_once('pages/repondreSujet.inc.php');
+            }
+            break;
+            
+        case 16:
+            if ($_SESSION['droits'] == 1) {
+                include_once('pages/afficherDetailsReponse.inc.php');
             }
             break;
 
