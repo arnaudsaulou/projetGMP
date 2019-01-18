@@ -52,7 +52,7 @@
                             <td><?php echo $controle->tempsAttente ;?></td>
                             <td><?php echo $controle->cooldown ;?> jour(s)</td>
                             <td><?php echo $controle->meilleureNote ;?></td>
-                            <td><button onclick="post_en_url('index.php?page=15', <?php echo $controle->idSujet ;?>)" class="button">Répondre</button></td>
+                            <td><button onclick="post_en_url('index.php?page=15', {idSujet: <?php echo $controle->idSujet ;?>})" class="button">Répondre</button></td>
 
                         </tr>
                         <?php
@@ -77,10 +77,10 @@ function post_en_url(url, parametres) {
   //Ajout des paramètres sous forme de champs cachés
   for(var cle in parametres) {
     if(parametres.hasOwnProperty(cle)) {
-      var champCache = document.createElement(input);
-      champCache.setAttribute(type, hidden);
-      champCache.setAttribute(name, cle);
-      champCache.setAttribute(value, parametres[cle]);
+      var champCache = document.createElement('input');
+      champCache.setAttribute('type', 'hidden');
+      champCache.setAttribute('name', cle);
+      champCache.setAttribute('value', parametres[cle]);
       form.appendChild(champCache);
     }
   }
