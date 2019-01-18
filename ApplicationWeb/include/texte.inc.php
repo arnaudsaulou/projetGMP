@@ -121,7 +121,7 @@
     }
     break;
 
-    case 16:
+    case 17:
     if ($_SESSION['droits'] == 1) {
       include_once('pages/consulterDetailEnonce.inc.php');
     }

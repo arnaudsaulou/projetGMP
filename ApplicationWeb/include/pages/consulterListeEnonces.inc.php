@@ -29,8 +29,8 @@
 			  foreach ($listeEnonce as $enonce){
 				?>
 				<tr>
-				  <td><a href="index.php?page=16&idEnonce=<?php echo $enonce->getIdEnonce(); ?>"><?php echo $enonce->getIdEnonce()?></a></td>
-				  <td><a href="index.php?page=16&idEnonce=<?php echo $enonce->getIdEnonce(); ?>"><?php echo $enonce ->getNomEnonce()?></a></td>
+				  <td><a href="index.php?page=17&idEnonce=<?php echo $enonce->getIdEnonce(); ?>"><?php echo $enonce->getIdEnonce()?></a></td>
+				  <td><a href="index.php?page=17&idEnonce=<?php echo $enonce->getIdEnonce(); ?>"><?php echo $enonce ->getNomEnonce()?></a></td>
 				</tr>
 				<?php
 			  }
