@@ -18,7 +18,8 @@ if (empty($_POST)) { ?>
     <form id="formReponseEnonce" name="formReponseEnonce" action="#" method="post">
         <?php
             //Substitution et affichage de l'énoncé.
-            insererValeurs($listeDonneeVariable, $typeDonneeManager, $enonce);
+            $enonnce = "enonce";
+            insererValeurs($listeDonneeVariable, $typeDonneeManager, $enonnce);
             //Ajout des réponses si elles existent.
             insererReponses($enonce, $reponseManager, $idSujet, $idEtudiant);
             echo $enonce;
@@ -27,17 +28,37 @@ if (empty($_POST)) { ?>
     </form>
 
 <?php } else {
-    //Stocker les réponses.
-    foreach($_POST as $key => $value) {
-        $numero_question = str_replace('question_', '', $key);
-        $value = str_replace(',', '.', $value);
-        $reponseQuestion = new Reponse([
-            'idUtilisateur' => $idEtudiant,
-            'idSujet' => $idSujet,
-            'idQuestion' => $numero_question,
-            'valeur' => $value,
-            'dateReponse' => date('Y-m-d')
-        ]);
-        $reponseManager->enregistrerReponse($reponseQuestion);
-    }
-} ?>
+
+  $tabReponseQuestion = array();
+
+  //Stocker les réponses.
+  foreach($_POST as $key => $value) {
+      $numero_question = str_replace('question_', '', $key);
+      $value = str_replace(',', '.', $value);
+      $reponseQuestion = new Reponse([
+          'idUtilisateur' => $idEtudiant,
+          'idSujet' => $idSujet,
+          'idQuestion' => $numero_question,
+          'valeur' => $value,
+          'dateReponse' => date('Y-m-d')
+      ]);
+      $reponseManager->enregistrerReponse($reponseQuestion);
+      $tabReponseQuestion[] = $reponseQuestion;
+  }
+
+  include("./formules/formuleTest.php");
+
+  //Corriger les réponses
+  foreach ($tabReponseQuestion as $key => $reponse) {
+
+    $idQuestion = $reponse->getIdQuestion();
+    $idQuestion = str_replace('reponse_', '', $idQuestion);
+
+    $tauxErreur = comparerValeurs($solutionManager, $idQuestion, $reponse);
+
+    echo "Réponse n°".($key+1).") <br> taux d'erreur = ".$tauxErreur." % <br><br>";
+  }
+
+}
+
+?>

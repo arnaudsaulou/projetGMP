@@ -53,7 +53,13 @@ function desactiverTousLesInputs(string &$enonce)
 
 //Compare les valeurs et retourne un nombre représentant le pourcentage de différence.
 function comparerValeurs(SolutionManager $solutionManager, int $idQuestion, $reponse) {
-    $solution = $solutionManager->recupererSolution($idQuestion);
-    $difference = (((double)$reponse - (double)$solution->getValeur()) / (double)$solution->getValeur()) * 100;
+    $solution = $solutionManager->recupererSolution($idQuestion+1);
+
+    $nomFormule = $solution->getNomFormule();
+
+    $solution = Formule::$nomFormule(10);
+    $reponse = $reponse->getValeur();
+    
+    $difference = (((double)$reponse - (double)$solution) / (double)$solution) * 100;
     return $difference;
 }
