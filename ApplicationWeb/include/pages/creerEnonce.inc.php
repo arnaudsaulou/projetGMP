@@ -19,6 +19,7 @@
         <li class="list-group-item item" id="itemTitre" name="Titre">Titre</li>
         <li class="list-group-item item" id="itemZoneTexte" name="Zone de texte">Zone de texte</li>
         <li class="list-group-item item" id="itemDonneeVariable" name="Donnée Variable">Donnée Variable</li>
+        <li class="list-group-item item" id="itemDonneeCalculee" name="Donnée Calculee">Donnée Calculée</li>
         <li class="list-group-item item" id="itemQuestion" name="Question">Question</li>
         <li class="list-group-item item" id="itemImage" name="Image">Image</li>
       </ul>
@@ -59,7 +60,7 @@
             <div class="menu_parametrage dropdown-menu" id="menu_parametrage" aria-labelledby="dropdownMenu1">
               <div class="dropdown-header">
                 <div class="titre_parametrage">
-                  <label>Parametres : </label>
+                  <label>Paramètres : </label>
                   <label class="titreParametrage"></label>
                 </div>
 
@@ -109,7 +110,7 @@
               <div class="dropdown-header">
 
                 <div class="titre_parametrage">
-                  <label>Parametres : </label>
+                  <label>Paramètres : </label>
                   <label class="titreParametrage"></label>
                 </div>
 
