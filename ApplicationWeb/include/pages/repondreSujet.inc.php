@@ -27,8 +27,7 @@ if (count($_POST) === 1) {
         <input name="idSujet" type="hidden" value="<?php echo $idSujet; ?>">
         <input type="submit" value="Envoyer les réponses">
     </form>
-
-<<<<<<< HEAD
+    
 <?php } else {
 
   $tabReponseQuestion = array();
@@ -64,23 +63,3 @@ if (count($_POST) === 1) {
 }
 
 ?>
-=======
-<?php } else if (count($_POST) > 1) {
-    $idSujet = $_POST['idSujet'];
-    foreach($_POST as $key => $value) {
-        if (!($key === 'idSujet')) {
-            $numero_question = str_replace('question_', '', $key);
-            $value = str_replace(',', '.', $value);
-            $reponseQuestion = new Reponse([
-                'idUtilisateur' => $idEtudiant,
-                'idSujet' => $idSujet,
-                'idQuestion' => $numero_question,
-                'valeur' => $value,
-                'dateReponse' => date('Y-m-d')
-            ]);
-            $reponseManager->enregistrerReponse($reponseQuestion);
-        }
-    }
-
-} ?>
->>>>>>> ef726d42b2ce508ce4199de6cc2449a2696229cc
