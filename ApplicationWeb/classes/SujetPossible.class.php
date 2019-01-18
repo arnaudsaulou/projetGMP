@@ -21,16 +21,13 @@ class SujetPossible {
      */
     public function affect($donnees)
     {
-        foreach ($donnees as $attribut => $valeur) {
+        foreach ((array)$donnees as $attribut => $valeur) {
             switch ($attribut) {
                 case 'idSujet':
                     $this->setIdSujet($valeur);
                     break;
                 case 'idDonneeVariable':
                     $this->setIdDonneeVariable($valeur);
-                    break;
-                default:
-                    echo "Fatal error : construction SujetPossible invalide";
                     break;
             }
         }

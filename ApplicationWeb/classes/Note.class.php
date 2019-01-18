@@ -25,7 +25,7 @@ class Note
      */
     public function affect($donnees)
     {
-        foreach ($donnees as $attribut => $valeur) {
+        foreach ((array)$donnees as $attribut => $valeur) {
             switch ($attribut) {
                 case 'idUtilisateur' :
                     $this->setUtilisateur($valeur);
@@ -41,9 +41,6 @@ class Note
                     break;
 				case 'dateReponse' :
                     $this->setDateReponse($valeur);
-                    break;
-                default :
-                    echo "Fatal error : construction Utilisateur invalide";
                     break;
             }
         }

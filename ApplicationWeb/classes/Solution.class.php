@@ -22,7 +22,7 @@ class Solution {
      */
     public function affect($donnees)
     {
-        foreach ($donnees as $attribut => $valeur) {
+        foreach ((array) $donnees as $attribut => $valeur) {
             switch ($attribut) {
                 case 'idQuestion':
                     $this->setIdQuestion($valeur);
@@ -32,9 +32,6 @@ class Solution {
                     break;
                 case 'tableauIdParams':
                     $this->setTableauIdParams($valeur);
-                    break;
-                default:
-                    echo "Fatal error : construction Solution invalide";
                     break;
             }
         }

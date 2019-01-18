@@ -25,7 +25,7 @@ class Reponse
      */
     private function affect($valeurs)
     {
-        foreach ((array) $valeurs as $attribut => $valeur) {
+        foreach ((array)$valeurs as $attribut => $valeur) {
             switch ($attribut) {
                 case 'idReponse':
                     $this->setIdReponse($valeur);
@@ -44,9 +44,6 @@ class Reponse
                     break;
                 case 'dateReponse':
                     $this->setDateReponse($valeur);
-                    break;
-                default:
-                    echo "Fatal error : construction Reponse invalide";
                     break;
             }
         }

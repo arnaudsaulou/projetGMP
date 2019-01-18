@@ -27,17 +27,11 @@ class DonneeVariable {
                 case 'idDonneeVariable':
                     $this->setIdDonneeVariable($valeur);
                     break;
-
                 case 'idType':
                     $this->setIdType($valeur);
                     break;
-
                 case 'valeur':
                     $this->setValeur($valeur);
-                    break;
-
-                default:
-                    echo "Fatal error : construction DonneeVariable invalide";
                     break;
             }
         }

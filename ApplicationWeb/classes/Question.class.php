@@ -22,22 +22,16 @@ class Question {
      */
     public function affect($donnees)
     {
-        foreach ($donnees as $attribut => $valeur) {
+        foreach ((array) $donnees as $attribut => $valeur) {
             switch ($attribut) {
                 case 'idQuestion':
                     $this->setIdQuestion($valeur);
                     break;
-
                 case 'idEnonce':
                     $this->setIdEnonce($valeur);
                     break;
-
                 case 'libelle':
                     $this->setLibelle($valeur);
-                    break;
-
-                default:
-                    echo "Fatal error : construction Question invalide";
                     break;
             }
         }

@@ -78,18 +78,25 @@ class ReponseManager
         return new Reponse($resultatRequete);
     }
 
+    /**
+     * Récupère la liste des controles disponible pour un étudiant.
+     * @param integer $idEtudiant, l'ID de l'étudiant.
+     * @return array Le tableau des controles disponible pour un étudiant.
+     */
     public function getListControleDisponible($idEtudiant)
     {
       $req = $this->db->prepare(
-                        'SELECT nomEnonce, nbReponses, derniereRep, cooldown, ADDDATE(derniereRep, INTERVAL cooldown DAY) as tempsAttente, meilleureNote FROM ( SELECT distinct nomEnonce, COUNT( DISTINCT r.dateReponse) as nbReponses, cooldown, MAX(r.dateReponse) as derniereRep, MAX(note) as meilleureNote
-                       FROM enonce e
-                       JOIN sujet s ON e.idEnonce=s.idEnonce
-                       JOIN note n ON s.idSujet=n.idSujet
-                       JOIN attribue a ON n.idSujet=a.idSujet
-                       JOIN utilisateur u ON a.idUtilisateur=u.idUtilisateur
-                       JOIN reponses r ON u.idUtilisateur=r.idUtilisateur
-                       WHERE u.idUtilisateur = :idEtudiant
-                       ) t1
+                        'SELECT idSujet, nomEnonce, nbReponses, derniereRep, cooldown, ADDDATE(derniereRep, INTERVAL cooldown DAY) as tempsAttente, meilleureNote
+                         FROM (
+                                SELECT distinct s.idSujet, nomEnonce, COUNT( DISTINCT r.dateReponse) as nbReponses, cooldown, MAX(r.dateReponse) as derniereRep, MAX(note) as meilleureNote
+                                FROM enonce e
+                                JOIN sujet s ON e.idEnonce=s.idEnonce
+                                JOIN note n ON s.idSujet=n.idSujet
+                                JOIN attribue a ON n.idSujet=a.idSujet
+                                JOIN utilisateur u ON a.idUtilisateur=u.idUtilisateur
+                                JOIN reponses r ON u.idUtilisateur=r.idUtilisateur
+                                WHERE u.idUtilisateur = :idEtudiant
+                              ) t1
                         ');
       $req->bindValue(":idEtudiant", $idEtudiant, PDO::PARAM_INT);
       $req->execute();

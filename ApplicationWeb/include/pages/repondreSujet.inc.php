@@ -5,15 +5,15 @@ include_once ('fonctionsAffichageEnonce.inc.php');
 $idEtudiant = $_SESSION['id'];
 $attribue = $attribueManager->getAttribuePourEtudiant($idEtudiant);
 
-//Récupération de l'Enonce.
-$idSujet = $attribue[0]->getIdSujet();
-$idEnonce = $sujetManager->getSujetAvecId($idSujet)->getIdEnonce();
-$enonce = $enonceManager->recupererEnonceViaIdEnonce($idEnonce)->getEnonce();
+if (count($_POST) === 1) {
+    //Récupération de l'Enonce.
+    $idSujet = $_POST['idSujet'];
+    $idEnonce = $sujetManager->getSujetAvecId($idSujet)->getIdEnonce();
+    $enonce = $enonceManager->recupererEnonceViaIdEnonce($idEnonce)->getEnonce();
 
-//Récupération des données variables
-$listeDonneeVariable = $sujetPossibleManager->recuperListeDonneeVariableViaIdSujet($idSujet);
-
-if (empty($_POST)) { ?>
+    //Récupération des données variables
+    $listeDonneeVariable = $sujetPossibleManager->recuperListeDonneeVariableViaIdSujet($idSujet);
+?>
 
     <form id="formReponseEnonce" name="formReponseEnonce" action="#" method="post">
         <?php
@@ -24,9 +24,11 @@ if (empty($_POST)) { ?>
             insererReponses($enonce, $reponseManager, $idSujet, $idEtudiant);
             echo $enonce;
         ?>
+        <input name="idSujet" type="hidden" value="<?php echo $idSujet; ?>">
         <input type="submit" value="Envoyer les réponses">
     </form>
 
+<<<<<<< HEAD
 <?php } else {
 
   $tabReponseQuestion = array();
@@ -62,3 +64,23 @@ if (empty($_POST)) { ?>
 }
 
 ?>
+=======
+<?php } else if (count($_POST) > 1) {
+    $idSujet = $_POST['idSujet'];
+    foreach($_POST as $key => $value) {
+        if (!($key === 'idSujet')) {
+            $numero_question = str_replace('question_', '', $key);
+            $value = str_replace(',', '.', $value);
+            $reponseQuestion = new Reponse([
+                'idUtilisateur' => $idEtudiant,
+                'idSujet' => $idSujet,
+                'idQuestion' => $numero_question,
+                'valeur' => $value,
+                'dateReponse' => date('Y-m-d')
+            ]);
+            $reponseManager->enregistrerReponse($reponseQuestion);
+        }
+    }
+
+} ?>
+>>>>>>> ef726d42b2ce508ce4199de6cc2449a2696229cc

@@ -27,17 +27,11 @@ class Enonce {
                 case 'idEnonce':
                     $this->setIdEnonce($valeur);
                     break;
-
                 case 'enonce':
                     $this->setEnonce($valeur);
                     break;
-
                 case 'nomEnonce':
                     $this->setNomEnonce($valeur);
-                    break;
-
-                default:
-                    echo "Fatal error : construction Enonce invalide";
                     break;
             }
         }

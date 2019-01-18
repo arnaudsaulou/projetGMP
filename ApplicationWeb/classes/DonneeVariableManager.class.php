@@ -95,9 +95,7 @@ class DonneeVariableManager {
      */
     function recupererIdTypeViaIdDonneeVariable($idDonneeVariable)
     {
-        $req = $this->db->prepare(
-            "SELECT idTyp FROM donnees_variable WHERE idDonneeVariable = :idDonneeVariable"
-        );
+        $req = $this->db->prepare("SELECT idTyp FROM donnees_variable WHERE idDonneeVariable = :idDonneeVariable");
         $req->bindValue(':idDonneeVariable', $idDonneeVariable, PDO::PARAM_INT);
         $idType = $req->fetch(PDO::FETCH_OBJ);
         $req->closeCursor();

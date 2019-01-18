@@ -105,9 +105,6 @@
 
 <!-- Page level plugin CSS-->
 <link href="packages/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-
-<!-- scripts for this page-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="js/callDatatables.js"></script>
 <script src="packages/datatables/jquery.dataTables.js"></script>
 <script src="packages/datatables/dataTables.bootstrap4.js"></script>
