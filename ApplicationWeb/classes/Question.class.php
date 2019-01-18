@@ -9,7 +9,7 @@ class Question {
      * Génère une nouvelle instance de Question.
      * @param array $valeurs Un tableau associatif contenant les données à associer à cette instance.
      */
-    public function __construct(array $valeurs = array())
+    public function __construct($valeurs = array())
     {
         if (!empty($valeurs)) {
             $this->affect($valeurs);
@@ -20,9 +20,9 @@ class Question {
      * Associe les données d'un tableau associatif à cette instance de Question.
      * @param array $donnees Un tableau associatif contenant des données à associer à cette instance.
      */
-    public function affect(array $donnees)
+    public function affect($donnees)
     {
-        foreach ($donnees as $attribut => $valeur) {
+        foreach ((array) $donnees as $attribut => $valeur) {
             switch ($attribut) {
                 case 'idQuestion':
                     $this->setIdQuestion($valeur);

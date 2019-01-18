@@ -9,7 +9,7 @@ class Enonce {
      * Retourne une nouvelle instance d'Enonce.
      * @param array $valeurs Un tableau associatif contenant les données à associer à cette instance.
      */
-    public function __construct(array $valeurs = array())
+    public function __construct($valeurs = array())
     {
         if (!empty($valeurs)) {
             $this->affect($valeurs);
@@ -20,9 +20,9 @@ class Enonce {
      * Associe les données d'un tableau associatif à cette instance d'Enonce.
      * @param array $donnees Un tableau associatif contenant des données à associer à cette instance.
      */
-    public function affect(array $donnees)
+    public function affect($donnees)
     {
-        foreach ($donnees as $attribut => $valeur) {
+        foreach ((array)$donnees as $attribut => $valeur) {
             switch ($attribut) {
                 case 'idEnonce':
                     $this->setIdEnonce($valeur);
