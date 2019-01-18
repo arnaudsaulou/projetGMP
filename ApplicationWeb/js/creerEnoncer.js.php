@@ -14,6 +14,9 @@ var isItalicSelected = false;
 var isUnderlineSelected = false;
 var policeSize = 3;
 
+var itemASuppr = [];
+var idItem = 0;
+
 //Attendre que le document soit compvarement chargé
 $(document).ready(function() {
 
@@ -23,6 +26,7 @@ $(document).ready(function() {
   var blockParametrageImage = document.getElementById("blockParametrageImage");
   var boutonAjouterDonneeVariable = document.getElementById("boutonAjouterDonneeVariable");
   var boutonAjouter = document.getElementById("boutonAjouter");
+  var boutonSupprimer = document.getElementById("boutonSupprimer");
   var boldButton = document.getElementById("boldButton");
   var italicButton = document.getElementById("italicButton");
   var underlineButton = document.getElementById("underlineButton");
@@ -77,8 +81,12 @@ $(document).ready(function() {
 
   //Au clique sur le bouton, ajouter l'item à la zone de création
   boutonAjouter.onclick = function() {
-    console.log(itemEnCoursDeCration)
     ajouterElement(itemEnCoursDeCration);
+  };
+
+  //Au clique sur le bouton, supprimer l'item de la zone de création
+  boutonSupprimer.onclick = function() {
+    supprimerElement(itemEnCoursDeCration);
   };
 
   //Au clique sur le bouton, ajouter l'item block de donnée variable
@@ -183,7 +191,7 @@ function typeDonnerClick() {
 function ajouterElement(typeItem) {
 
   //Récupérer les éléments de l'ihm nécessaire
-  var para1 = document.getElementById("page_creation");
+  var page_creation = document.getElementById("page_creation");
   var itemTitre = typeItem.getAttribute("id");
   var itemValeur = document.getElementById("itemValeur").value;
   var itemCouleur = document.getElementById("frenchColor").value;
@@ -198,7 +206,7 @@ function ajouterElement(typeItem) {
     //Si l'item à ajouter est un "Titre"
     case "itemTitre":
       var newTitre = document.createElement('h1');
-      newTitre.id = 'titre';
+      newTitre.id = 'titre'+idItem;
       newTitre.style.fontSize = fontSize[policeSize];
       newTitre.style.color = itemCouleur;
       newTitre.style.fontWeight = fontWeight[isBoldSelected ? 1 : 0];
@@ -289,11 +297,17 @@ function ajouterElement(typeItem) {
       console.log("Une erreur est survenue");
   }
 
-  para1.appendChild(newTitre);
+  page_creation.appendChild(newTitre);
 
-  if( typeof newTitre2 != 'undefined'){
-    para1.appendChild(newTitre2);
-  }
+  itemASuppr.push(newTitre);
+  idItem++;
+}
+
+//Supprimer le dernier élément ajouté à la zone de text
+function supprimerElement(typeItem){
+  var page_creation = document.getElementById("page_creation");
+  page_creation.removeChild(itemASuppr[itemASuppr.length - 1]);
+  itemASuppr.pop();
 
 }
 
@@ -470,7 +484,7 @@ function recupererIdTypeDonneeAjoute(){
 function recupererLibelleTypeDonneeAjoute(){
 
   //Récupérer les éléments de l'ihm nécessaire
-  var typeDonnee = document.getElementById("typeDonnee");
+  var typeDonnee = document.getElementById("selectTypeDonnee");
   var newTypeDonnee = document.getElementById("newTypeDonnee").value;
 
   //Récupérer le libellé du type de donnée séléctionné / inséré
