@@ -153,7 +153,7 @@ function resetMenuSelectedItem(){
   document.getElementById("itemTitre").classList.remove("active");
   document.getElementById("itemZoneTexte").classList.remove("active");
   document.getElementById("itemDonneeVariable").classList.remove("active");
-  document.getElementById("itemDonneeCalculee").classList.remove("active");
+  //document.getElementById("itemDonneeCalculee").classList.remove("active");
   document.getElementById("itemQuestion").classList.remove("active");
   document.getElementById("itemImage").classList.remove("active")
 }
