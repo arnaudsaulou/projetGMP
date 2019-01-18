@@ -132,28 +132,28 @@
                   <div id="blockParametrageInterval">
                     <div class="form-group">
                       <label>Borne inférieure :</label>
-                      <input type="number" class="form-control" id="borneInferieurInterval">
+                      <input type="number" class="form-control" id="borneInferieurInterval" required>
                     </div>
 
                     <div class="form-group">
                       <label>Borne supérieure :</label>
-                      <input type="number" class="form-control" id="borneSuperieurInterval">
+                      <input type="number" class="form-control" id="borneSuperieurInterval" required>
                     </div>
 
                     <div class="form-group">
                       <label>Pas :</label>
-                      <input type="number" class="form-control" id="pasInterval">
+                      <input type="number" class="form-control" id="pasInterval" required>
                     </div>
                   </div>
 
                   <div class="form-group">
-                      <input id="boutonAjouterDonneeVariable" class="btn btn-secondary" value="Ajouter une valeur">
+                      <input id="boutonAjouterDonneeVariable" class="btn btn-secondary col-12" value="Ajouter une valeur">
                   </div>
 
                   <div class="row"></div>
 
                   <div class="form-group">
-                    <input onclick="ajouterNouveauTypeDonnee()" class="btn btn-primary" value="Enregistrer">
+                    <input type="submit" onclick="ajouterNouveauTypeDonnee()" class="btn btn-primary col-12" value="Enregistrer">
                   </div>
 
           		  </form>
