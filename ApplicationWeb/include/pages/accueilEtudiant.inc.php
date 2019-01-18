@@ -52,7 +52,7 @@
                             <td><?php echo $controle->tempsAttente ;?></td>
                             <td><?php echo $controle->cooldown ;?> jour(s)</td>
                             <td><?php echo $controle->meilleureNote ;?></td>
-                            <td><button class="button"><a href="index.php?page=15">Répondre </a></button></td>
+                            <td><button class="button"><a href="index.php?page=15">Répondre</a></button></td>
 
                         </tr>
                         <?php
