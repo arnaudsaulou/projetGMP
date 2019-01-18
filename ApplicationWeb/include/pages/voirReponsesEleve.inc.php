@@ -2,7 +2,7 @@
 include_once ('fonctionsAffichageEnonce.inc.php');
 
 //Récupération de l'Attribue.
-$idEtudiant = $utilisateurManager->getUtilisateurByLogin($_SESSION['log'])->getIdUtilisateur();
+$idEtudiant = $_SESSION['id'];
 $attribue = $attribueManager->getAttribuePourEtudiant($idEtudiant);
 
 if (!isset($_POST['idSujet'])) {

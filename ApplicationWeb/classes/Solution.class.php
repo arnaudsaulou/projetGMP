@@ -9,7 +9,7 @@ class Solution {
      * Génère une nouvelle instance de Solution.
      * @param array $valeurs Un tableau associatif contenant les données à associer à cette instance.
      */
-    public function __construct($valeurs = array())
+    public function __construct(array $valeurs = array())
     {
         if (!empty($valeurs)) {
             $this->affect($valeurs);
@@ -20,7 +20,7 @@ class Solution {
      * Associe les données d'un tableau associatif à cette instance de Solution.
      * @param array $donnees Un tableau associatif contenant des données à associer à cette instance.
      */
-    public function affect($donnees)
+    public function affect(array $donnees)
     {
         foreach ($donnees as $attribut => $valeur) {
             switch ($attribut) {
@@ -32,9 +32,6 @@ class Solution {
                     break;
                 case 'tableauIdParams':
                     $this->setTableauIdParams($valeur);
-                    break;
-                default:
-                    echo "Fatal error : construction Solution invalide";
                     break;
             }
         }

@@ -13,7 +13,7 @@ class Reponse
      * Génère une nouvelle instance de Réponse.
      * @param array $valeurs Un tableau associatif contenant les valeurs à assigner.
      */
-    public function __construct($valeurs = array()){
+    public function __construct(array $valeurs = array()){
         if(!empty($valeurs)){
             $this->affect($valeurs);
         }
@@ -23,9 +23,9 @@ class Reponse
      * Affecte les données d'un tableau associatif à cette instance de Réponse.
      * @param array $valeurs Le tableau dans lequel récupérer les valeurs.
      */
-    private function affect($valeurs)
+    private function affect(array $valeurs)
     {
-        foreach ((array) $valeurs as $attribut => $valeur) {
+        foreach ($valeurs as $attribut => $valeur) {
             switch ($attribut) {
                 case 'idReponse':
                     $this->setIdReponse($valeur);
@@ -44,9 +44,6 @@ class Reponse
                     break;
                 case 'dateReponse':
                     $this->setDateReponse($valeur);
-                    break;
-                default:
-                    echo "Fatal error : construction Reponse invalide";
                     break;
             }
         }

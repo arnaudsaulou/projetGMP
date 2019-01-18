@@ -8,7 +8,7 @@ class TypeDonnee {
      * Génère une nouvelle instance de TypeDonnee.
      * @param array $valeurs
      */
-    public function __construct($valeurs = array())
+    public function __construct(array $valeurs = array())
     {
         if (!empty($valeurs)) {
             $this->affect($valeurs);
@@ -19,21 +19,15 @@ class TypeDonnee {
      * Associe les données d'un tableau associatif à cette instance de TypeDonnee.
      * @param array $donnees Un tableau associatif contenant des données à associer à cette instance.
      */
-    public function affect($donnees)
+    public function affect(array $donnees)
     {
-        foreach ((array)$donnees as $attribut => $valeur) {
+        foreach ($donnees as $attribut => $valeur) {
             switch ($attribut) {
-
                 case 'idType':
                     $this->setIdType($valeur);
                     break;
-
                 case 'libelle':
                     $this->setLibelle($valeur);
-                    break;
-
-                default:
-                    echo "Fatal error : construction TypeDonnee invalide";
                     break;
             }
         }
