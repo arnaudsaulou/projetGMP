@@ -1,3 +1,9 @@
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a>Tableau de bord</a>
+  </li>
+</ol>
 
 <?php
 $etudiant = $utilisateurManager->getUtilisateurByLogin($_SESSION["log"]);
@@ -30,7 +36,7 @@ $listeNoteEtudiant=$noteManager->getNoteByIdEtudiant($idEtudiant);
 							$enonce=$enonceManager->recupererEnonceViaIdEnonce($sujet->getIdEnonce());
 
 							?>
-							
+
 							<tr>
 
 								<td><?php echo $enonce->getNomEnonce(); ?> </td>
