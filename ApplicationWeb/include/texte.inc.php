@@ -19,6 +19,9 @@
     if ($_SESSION['droits'] == 1) {
       include_once('pages/accueil.inc.php');
     }
+    else{
+      include_once('pages/accueilEtudiant.inc.php');
+    }
     break;
     // inclure ici l'affichage de la liste des étudiants
     case 1:

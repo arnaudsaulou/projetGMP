@@ -45,13 +45,13 @@
     $utilisateur = $utilisateurManager->getUtilisateurByLogin($_POST['login']);
     if($utilisateur != null){
       if($utilisateur -> checkPassword($_POST['password'])){
-        
+
         // le mot de passe est OK
         $_SESSION['co'] = $utilisateur->getPrenom() . " " . $utilisateur->getNom();
         $_SESSION['droits'] = $utilisateur->getEstProf();
         $connexion_en_cours = true;
-		$_SESSION['log']=$utilisateur->getNomUtilisateur();
-		$_SESSION['id']=$utilisateur->getIdUtilisateur();
+		    $_SESSION['log']=$utilisateur->getNomUtilisateur();
+		    $_SESSION['id']=$utilisateur->getIdUtilisateur();
         ?>
         <div class="card-header"><i class="fa fa-hourglass" style="color:green"></i>
           <span class="card-body">Connexion réussie !</span>

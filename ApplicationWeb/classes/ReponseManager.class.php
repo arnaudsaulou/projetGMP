@@ -77,4 +77,27 @@ class ReponseManager
         $sql->closeCursor();
         return new Reponse($resultatRequete);
     }
+
+    public function getListControleDisponible($idEtudiant)
+    {
+      $req = $this->db->prepare(
+                        'SELECT nomEnonce, nbReponses, derniereRep, cooldown, ADDDATE(derniereRep, INTERVAL cooldown DAY) as tempsAttente, meilleureNote FROM ( SELECT distinct nomEnonce, COUNT( DISTINCT r.dateReponse) as nbReponses, cooldown, MAX(r.dateReponse) as derniereRep, MAX(note) as meilleureNote
+                       FROM enonce e
+                       JOIN sujet s ON e.idEnonce=s.idEnonce
+                       JOIN note n ON s.idSujet=n.idSujet
+                       JOIN attribue a ON n.idSujet=a.idSujet
+                       JOIN utilisateur u ON a.idUtilisateur=u.idUtilisateur
+                       JOIN reponses r ON u.idUtilisateur=r.idUtilisateur
+                       WHERE u.idUtilisateur = :idEtudiant
+                       ) t1
+                        ');
+      $req->bindValue(":idEtudiant", $idEtudiant, PDO::PARAM_INT);
+      $req->execute();
+      $listeControleDispo = array();
+      while ($controle = $req->fetch(PDO::FETCH_OBJ)) {
+          $listeControleDispo[] = $controle;
+      }
+      $req->closeCursor();
+      return $listeControleDispo;
+    }
 }
