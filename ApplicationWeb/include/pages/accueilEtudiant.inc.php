@@ -87,7 +87,6 @@ function post_en_url(url, parametres) {
 
   //Ajout du formulaire à la page et soumission du formulaire
   document.body.appendChild(form);
-  console.log(form);
   form.submit();
 }
 </script>
