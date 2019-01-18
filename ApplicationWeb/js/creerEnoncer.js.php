@@ -143,8 +143,8 @@ $(document).ready(function() {
   };
 
   $('#buttonFakeInputFile').bind("click" , function () {
-        $('#html_btn').click();
-    });
+    $('#html_btn').click();
+  });
 
 });
 
@@ -153,6 +153,7 @@ function resetMenuSelectedItem(){
   document.getElementById("itemTitre").classList.remove("active");
   document.getElementById("itemZoneTexte").classList.remove("active");
   document.getElementById("itemDonneeVariable").classList.remove("active");
+  document.getElementById("itemDonneeCalculee").classList.remove("active");
   document.getElementById("itemQuestion").classList.remove("active");
   document.getElementById("itemImage").classList.remove("active")
 }
@@ -284,24 +285,24 @@ function ajouterElement(typeItem) {
       newTitre.name = 'item'+numItem;
       newTitre.alt = itemDescription.value;
 
-      //Attendre que l'immage soit chargée pour l'afficher
-      var reader = new FileReader();
-      reader.addEventListener('load', function () {
-        newTitre.src = reader.result;
+    //Attendre que l'immage soit chargée pour l'afficher
+    var reader = new FileReader();
+    reader.addEventListener('load', function () {
+      newTitre.src = reader.result;
 
-        if(!empty(itemLargeur.value))
-          newTitre.width = itemLargeur.value;
+      if(!empty(itemLargeur.value))
+      newTitre.width = itemLargeur.value;
 
-        if(!empty(itemHauteur.value))
-          newTitre.height = itemHauteur.value;
-      });
+      if(!empty(itemHauteur.value))
+      newTitre.height = itemHauteur.value;
+    });
 
-      reader.readAsDataURL(itemSource.files[0]);
+    reader.readAsDataURL(itemSource.files[0]);
     break;
 
     //Comportement par defaut
     default:
-      console.log("Une erreur est survenue");
+    console.log("Une erreur est survenue");
   }
 
   page_creation.appendChild(newTitre);
@@ -370,26 +371,26 @@ function ajouterNouveauTypeDonnee(){
 
   //Si le libellé donné pour le type de donnée n'est pas vide
   if( newTypeDonnee != "" &&
-      inputDonneeVariable != "" ||
-      (
-        borneInferieurInterval = "" && borneSuperieurInterval != "" && pasInterval != ""
-      )
-    ){
+  inputDonneeVariable != "" ||
+  (
+    borneInferieurInterval = "" && borneSuperieurInterval != "" && pasInterval != ""
+  )
+){
 
-    $.ajax({
-      type: "POST",
-      url: './ajax/ajoutTypeDonnee.ajax.php',
-      data : { newTypeDonnee: newTypeDonnee },
-      success: function() {
-        //Appel de la fonction d'ajout des donnée variables associé
-        ajouterNouvelleDonneeVariable();
-        refreshSelectTypeDonnee(newTypeDonnee);
-      }
+  $.ajax({
+    type: "POST",
+    url: './ajax/ajoutTypeDonnee.ajax.php',
+    data : { newTypeDonnee: newTypeDonnee },
+    success: function() {
+      //Appel de la fonction d'ajout des donnée variables associé
+      ajouterNouvelleDonneeVariable();
+      refreshSelectTypeDonnee(newTypeDonnee);
+    }
   });
-    return true;
-  } else {
-    return false;
-  }
+  return true;
+} else {
+  return false;
+}
 }
 
 

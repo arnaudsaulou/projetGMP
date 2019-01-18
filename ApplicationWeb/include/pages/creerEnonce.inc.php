@@ -61,7 +61,7 @@
             <div class="menu_parametrage dropdown-menu"  aria-labelledby="dropdownMenu1">
               <div class="dropdown-header">
                 <div class="titre_parametrage">
-                  <label>Parametres : </label>
+                  <label>Paramètres : </label>
                   <label class="titreParametrage"></label>
                 </div>
 
@@ -110,7 +110,7 @@
               <div class="dropdown-header">
 
                 <div class="titre_parametrage">
-                  <label>Parametres : </label>
+                  <label>Paramètres : </label>
                   <label class="titreParametrage"></label>
                 </div>
 
