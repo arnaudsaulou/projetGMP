@@ -52,7 +52,7 @@
                             <td><?php echo $controle->tempsAttente ;?></td>
                             <td><?php echo $controle->cooldown ;?> jour(s)</td>
                             <td><?php echo $controle->meilleureNote ;?></td>
-                            <td><button class="button"><a href="index.php?page=15">Répondre</a></button></td>
+                            <td><button onclick="post_en_url('index.php?page=15', <?php echo $controle->idSujet ;?>)" class="button">Répondre</button></td>
 
                         </tr>
                         <?php
@@ -65,6 +65,33 @@
         </div>
     </div>
 </div>
+
+<!--Javascript / récupérer l'id du controle avec une méthode POST et un URL -->
+<script type="text/javascript">
+function post_en_url(url, parametres) {
+  //Création dynamique du formulaire
+  var form = document.createElement('form');
+  form.setAttribute('method', 'POST');
+  form.setAttribute('action', url);
+
+  //Ajout des paramètres sous forme de champs cachés
+  for(var cle in parametres) {
+    if(parametres.hasOwnProperty(cle)) {
+      var champCache = document.createElement(input);
+      champCache.setAttribute(type, hidden);
+      champCache.setAttribute(name, cle);
+      champCache.setAttribute(value, parametres[cle]);
+      form.appendChild(champCache);
+    }
+  }
+
+  //Ajout du formulaire à la page et soumission du formulaire
+  document.body.appendChild(form);
+  console.log(form);
+  form.submit();
+}
+</script>
+
 
 <!-- Page level plugin CSS-->
 <link href="packages/datatables/dataTables.bootstrap4.css" rel="stylesheet">
