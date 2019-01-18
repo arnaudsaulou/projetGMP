@@ -15,7 +15,7 @@ var isUnderlineSelected = false;
 var policeSize = 3;
 
 var itemASuppr = [];
-var idItem = 0;
+var numItem = 0;
 
 //Attendre que le document soit compvarement chargé
 $(document).ready(function() {
@@ -37,10 +37,11 @@ $(document).ready(function() {
   var itemEnCoursDeCration = document.getElementById("itemTitre");
 
   //chargement de la zone par défaut
-  document.getElementById("itemTitre").classList.add("active");
+  itemEnCoursDeCration.classList.add("active");
   blockParametrageDonneeVariable.style.display  = "none";
   blockParametrageImage.style.display  = "none";
   blockParametrageText.style.display  = "block";
+
 
   //Gestion si click sur un item du menu de menu de droite
   $('.item').click(function(event){
@@ -134,13 +135,11 @@ $(document).ready(function() {
   policeUpButton.onclick = function(){
     if(policeSize < fontSize.length)
       policeSize++;
-    console.log(policeSize);
   };
 
   policeDownButton.onclick = function(){
     if(policeSize > 0)
       policeSize--;
-    console.log(policeSize);
   };
 
   $('#buttonFakeInputFile').bind("click" , function () {
@@ -206,7 +205,8 @@ function ajouterElement(typeItem) {
     //Si l'item à ajouter est un "Titre"
     case "itemTitre":
       var newTitre = document.createElement('h1');
-      newTitre.id = 'titre'+idItem;
+      newTitre.id = 'titre'+numItem;
+      newTitre.name = 'item'+numItem;
       newTitre.style.fontSize = fontSize[policeSize];
       newTitre.style.color = itemCouleur;
       newTitre.style.fontWeight = fontWeight[isBoldSelected ? 1 : 0];
@@ -218,7 +218,8 @@ function ajouterElement(typeItem) {
     //Si l'item à ajouter est une "Zone de texte"
     case "itemZoneTexte":
       var newTitre = document.createElement('p');
-      newTitre.id = 'zonedetext';
+      newTitre.id = 'zonedetext'+numItem;
+      newTitre.name = 'item'+numItem;
       newTitre.style.fontSize = fontSize[policeSize];
       newTitre.style.color = itemCouleur;
       newTitre.style.fontWeight = fontWeight[isBoldSelected ? 1 : 0];
@@ -232,6 +233,7 @@ function ajouterElement(typeItem) {
     case "itemDonneeVariable":
       var newTitre = document.createElement('p');
       newTitre.id = '##' + recupererIdTypeDonneeAjoute() + '##';
+      newTitre.name = 'item'+numItem;
       newTitre.style.fontSize = fontSize[policeSize];
       newTitre.style.color = itemCouleur;
       newTitre.style.fontWeight = fontWeight[isBoldSelected ? 1 : 0];
@@ -249,6 +251,7 @@ function ajouterElement(typeItem) {
 
       var question = document.createElement('span');
       question.id = 'question_' + numQR;
+      newTitre.name = 'item'+numQR;
       question.style.fontSize = fontSize[policeSize];
       question.style.color = itemCouleur;
       question.style.fontWeight = fontWeight[isBoldSelected ? 1 : 0];
@@ -263,9 +266,12 @@ function ajouterElement(typeItem) {
       //Ajout d'un champ réponse associé
       var reponse = document.createElement('input');
       reponse.id = 'reponse_' + numQR;
+      reponse.name = 'item' + numQR;
       reponse.type = 'text';
       reponse.placeholder = "Renseigner ici votre réponse";
       reponse.style.display = "inline";
+      reponse.pattern="[0-9]+([\,|\.][0-9]+)?";
+      reponse.step="0.01";
 
       newTitre.appendChild(question);
       newTitre.appendChild(reponse);
@@ -274,7 +280,8 @@ function ajouterElement(typeItem) {
     //Si l'item à ajouter est une "Image"
     case "itemImage":
       var newTitre = document.createElement('img');
-      newTitre.id = 'image';
+      newTitre.id = 'image'+numItem;
+      newTitre.name = 'item'+numItem;
       newTitre.alt = itemDescription.value;
 
       //Attendre que l'immage soit chargée pour l'afficher
@@ -300,7 +307,7 @@ function ajouterElement(typeItem) {
   page_creation.appendChild(newTitre);
 
   itemASuppr.push(newTitre);
-  idItem++;
+  numItem++;
 }
 
 //Supprimer le dernier élément ajouté à la zone de text
@@ -348,6 +355,7 @@ function validerEnonce(){
   var enonceCreer = document.getElementById('page_creation').innerHTML;
   var inputEnonceCreer = document.getElementById('enonceCreer');
   inputEnonceCreer.value = enonceCreer;
+  return true;
 }
 
 //Appel du fichier AJAX afin d'ajouter un nouveau type de donnée dans la base
@@ -507,7 +515,9 @@ function ajouterNouvelleQuestion(libelle){
 
   //Si le libellé de la question n'est pas vide
   if(libelle != ""){
-    $.post("./ajax/ajoutQuestion.ajax.php", { libelle: libelle });
+    $.post("./ajax/ajoutQuestion.ajax.php", { libelle: libelle }, function(data){
+      console.log(data);
+    });
   }
 
 }

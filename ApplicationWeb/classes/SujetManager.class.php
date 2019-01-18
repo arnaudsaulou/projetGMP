@@ -34,20 +34,22 @@ class SujetManager {
 
             $numSujet = 1;
 
-            $req = $this->db->prepare(
-                $this->getSQLQueryFromListDonneeVariable($listDonneeVariable)
-            );
+            echo $this->getSQLQueryFromListDonneeVariable($listDonneeVariable);
 
-            $req->execute();
-
-            while ($possibilite = $req->fetch(PDO::FETCH_NUM)) {
-
-                $this->addSujetPossible($numSujet, $possibilite);
-
-                $numSujet++;
-            }
-
-            $req->closeCursor();
+            // $req = $this->db->prepare(
+            //     $this->getSQLQueryFromListDonneeVariable($listDonneeVariable)
+            // );
+            //
+            // $req->execute();
+            //
+            // while ($possibilite = $req->fetch(PDO::FETCH_NUM)) {
+            //
+            //     $this->addSujetPossible($numSujet, $possibilite);
+            //
+            //     $numSujet++;
+            // }
+            //
+            // $req->closeCursor();
 
         }
     }
@@ -69,13 +71,13 @@ class SujetManager {
     public function getSQLQueryFromPossibilite($numSujet, $possibilite)
     {
 
-        $selectOn = 'INSERT INTO sujet_possible (idSujet, idDonneeVariable, numDonneeVariable) VALUES  ';
+        $selectOn = 'INSERT INTO sujet_possible (idSujet, idDonneeVariable) VALUES  ';
 
         for ($i = 0; $i < count($possibilite); $i++) {
             if ($i < count($possibilite) - 1) {
-                $selectOn = $selectOn . '(' . $numSujet . ', ' . $possibilite[$i] . ', ' . ($i + 1) . '), ';
+                $selectOn = $selectOn . '(' . $numSujet . ', ' . $possibilite[$i] . '), ';
             } else {
-                $selectOn = $selectOn . '(' . $numSujet . ', ' . $possibilite[$i] . ', ' . ($i + 1) . ')';
+                $selectOn = $selectOn . '(' . $numSujet . ', ' . $possibilite[$i] . ')';
             }
         }
 
@@ -156,7 +158,7 @@ class SujetManager {
         $req->closeCursor();
         return $listeSujet;
     }
-	
+
 	public function getSujetById($id){
 		$req=$this->db->prepare(
 			'SELECT idSujet, idEnonce FROM sujet WHERE idSujet=:id'

@@ -16,11 +16,11 @@
     <!-- Menu de gauche (séléction des items à insérer) -->
     <div class="col-xs-6 col-md-2">
       <ul  class="list-group">
-        <li class="list-group-item item" id="itemTitre" name="Titre">Titre</li>
-        <li class="list-group-item item" id="itemZoneTexte" name="Zone de texte">Zone de texte</li>
-        <li class="list-group-item item" id="itemDonneeVariable" name="Donnée Variable">Donnée Variable</li>
-        <li class="list-group-item item" id="itemQuestion" name="Question">Question</li>
-        <li class="list-group-item item" id="itemImage" name="Image">Image</li>
+        <li class="list-group-item item" id="itemTitre">Titre</li>
+        <li class="list-group-item item" id="itemZoneTexte">Zone de texte</li>
+        <li class="list-group-item item" id="itemDonneeVariable">Donnée Variable</li>
+        <li class="list-group-item item" id="itemQuestion">Question</li>
+        <li class="list-group-item item" id="itemImage">Image</li>
       </ul>
 
       <hr class="half-rule"/>
@@ -33,8 +33,10 @@
           <button name="Elementprecedent" class="btn btn-danger col-sm-12" id="boutonSupprimer">Supprimer</button>
         </div>
         <div class="form-group">
-          <input type="hidden" name="enonceCreer" id="enonceCreer" >
-          <button name="Terminer" class="btn btn-primary boutonValiderSujet col-sm-12" id="boutonValiderSujet" onclick="validerEnonce()">Terminer Enonce</button>
+          <form action="#" method="post">
+            <input type="hidden" name="enonceCreer" id="enonceCreer" >
+            <button type="submit" class="btn btn-primary col-sm-12" onclick="validerEnonce()">Terminer Enonce</button>
+          </form>
         </div>
       </div>
 
@@ -56,7 +58,7 @@
           </button>
 
           <form>
-            <div class="menu_parametrage dropdown-menu" id="menu_parametrage" aria-labelledby="dropdownMenu1">
+            <div class="menu_parametrage dropdown-menu"  aria-labelledby="dropdownMenu1">
               <div class="dropdown-header">
                 <div class="titre_parametrage">
                   <label>Parametres : </label>
@@ -84,8 +86,8 @@
                   <i class="fas fa-underline"></i>
                 </div>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
 
@@ -104,8 +106,7 @@
             <i class="fas fa-cog"></i>
           </button>
 
-          <form>
-            <div class="menu_parametrage dropdown-menu" id="menu_parametrage" aria-labelledby="dropdownMenu2">
+            <div class="menu_parametrage dropdown-menu"  aria-labelledby="dropdownMenu2">
               <div class="dropdown-header">
 
                 <div class="titre_parametrage">
@@ -113,7 +114,7 @@
                   <label class="titreParametrage"></label>
                 </div>
 
-                <form class="px-4 py-3" method="post">
+                <form action="#" class="px-4 py-3" method="post">
             			<div class="form-group">
                     <label>Nouveau type de donnée :</label>
                     <input name="newTypeDonnee" class="form-control" id="newTypeDonnee" type="text" required>
@@ -125,7 +126,7 @@
             			</div>
 
             			<div class="form-group" id="blockParametrageValeurAValeur">
-            			  <label for="confirmerMDP">Valeur : </label>
+            			  <label>Valeur : </label>
             			  <input type="text" class="form-control" id="inputDonneeVariable0" required>
             			</div>
 
@@ -153,13 +154,13 @@
                   <div class="row"></div>
 
                   <div class="form-group">
-                    <input type="submit" onclick="ajouterNouveauTypeDonnee()" class="btn btn-primary col-12" value="Enregistrer">
+                    <input onclick="ajouterNouveauTypeDonnee()" class="btn btn-primary col-12" value="Enregistrer">
                   </div>
 
           		  </form>
               </div>
             </div>
-          </form>
+
         </div>
       </div>
 
@@ -168,7 +169,7 @@
         <div class="dropdown">
 
           <div id="buttonFakeInputFile">
-            <img src="Ressources/no-image.png">
+            <img alt="logo ajouter image" src="Ressources/no-image.png">
           </div>
           <input id="html_btn" type="file" />
 
@@ -177,7 +178,7 @@
           </button>
           <form>
 
-            <div class="menu_parametrage dropdown-menu" id="menu_parametrage" aria-labelledby="dropdownMenu2">
+            <div class="menu_parametrage dropdown-menu"  aria-labelledby="dropdownMenu2">
               <div class="dropdown-header">
 
                 <div class="titre_parametrage">
@@ -210,6 +211,8 @@
 
 <?php } else if(isset($_POST['enonceCreer']) && !isset($_POST['nomEnonce'])) {
 
+  ($_POST);
+
   $_SESSION['enonceCreer'] = $_POST['enonceCreer'];
 
   ?>
@@ -217,12 +220,14 @@
   <form action="#" method="POST">
     <label>Entrez un nom pour cet énoncé :</label>
     <input type="text" name="nomEnonce" >
-    <button class="boutonValiderSujet" type="submit">Valider</button>
+    <button type="submit" class="boutonValiderSujet" type="submit">Valider</button>
   </form>
 
   <?php
 
-} else  if(isset($_SESSION['enonceCreer']) && isset($_POST['nomEnonce'])) {
+} else if(isset($_SESSION['enonceCreer']) && isset($_POST['nomEnonce'])) {
+
+  ($_POST);
 
   $newEnonce = $enonceManager->createEnonceDepuisTableau( array('nomEnonce' => $_POST['nomEnonce'], 'enonce' => $_SESSION['enonceCreer'] ));
   $ajout = $enonceManager->ajouterEnonce($newEnonce);
@@ -241,4 +246,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
 <script src="packages/colorpicker/js/evol-colorpicker.js" type="text/javascript"></script>
-<script type="text/javascript" src="js/creerEnoncer.js.php"></script>
+<?php if(!isset($_POST['enonceCreer']) && !isset($_POST['nomEnonce'])) { ?>
+  <script type="text/javascript" src="js/creerEnoncer.js.php"></script>
+<?php } ?>

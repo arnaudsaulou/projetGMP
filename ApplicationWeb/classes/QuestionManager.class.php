@@ -34,6 +34,7 @@ class QuestionManager
         $req = $this->db->prepare(
             "INSERT INTO questions(idEnonce, libelle) VALUES (:idEnonce , :libelle)"
         );
+
         $req->bindValue(':idEnonce', $newQuestion->getIdEnonce(), PDO::PARAM_INT);
         $req->bindValue(':libelle', $newQuestion->getLibelle(), PDO::PARAM_STR);
         $result = $req->execute();
@@ -52,8 +53,8 @@ class QuestionManager
                 $question = unserialize($question);
                 $question->setIdEnonce($lastInsertedIdEnonce);
                 $this->ajouterQuestion($question);
-                unset($_SESSION['tableauQuestionEnonce']);
             }
+            unset($_SESSION['tableauQuestionEnonce']);
         }
     }
 
