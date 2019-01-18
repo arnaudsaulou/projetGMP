@@ -12,7 +12,7 @@ class Utilisateur {
      * Retourne une nouvelle instance d'Utilisateur.
      * @param array $valeurs Un tableau associatif contenant les données à associer à cette instance.
      */
-    public function __construct($valeurs = array())
+    public function __construct(array $valeurs = array())
     {
         if (!empty($valeurs)) {
             $this->affect($valeurs);
@@ -23,41 +23,31 @@ class Utilisateur {
      * Associe les données d'un tableau associatif à cette instance d'Utilisateur.
      * @param array $donnees Un tableau associatif contenant des données à associer à cette instance.
      */
-    public function affect($donnees)
+    public function affect(array $donnees)
     {
-        foreach ((array)$donnees as $attribut => $valeur) {
+        foreach ($donnees as $attribut => $valeur) {
             switch ($attribut) {
 
                 case 'idUtilisateur':
                     $this->setIdUtilisateur($valeur);
                     break;
-
                 case 'estProf':
                     $this->setEstProf($valeur);
                     break;
-
                 case 'nom':
                     $this->setNom($valeur);
                     break;
-
                 case 'prenom':
                     $this->setPrenom($valeur);
                     break;
-
                 case 'nomUtilisateur':
                     $this->setNomUtilisateur($valeur);
                     break;
-
                 case 'motDePasse':
                     $this->setMotDePasse($valeur);
                     break;
-
                 case 'annee':
                     $this->setAnnee($valeur);
-                    break;
-
-                default:
-                    echo "Fatal error : construction Utilisateur invalide  :  " . $attribut . "<br>";
                     break;
             }
         }

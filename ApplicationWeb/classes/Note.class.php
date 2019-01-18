@@ -12,7 +12,7 @@ class Note
      * Retourne une nouvelle instance de Note.
      * @param array $valeurs Un tableau associatif contenant les données à associer à cette instance.
      */
-    public function __construct($valeurs = array())
+    public function __construct(array $valeurs = array())
     {
         if (!empty($valeurs)) {
             $this->affect($valeurs);
@@ -23,7 +23,7 @@ class Note
      * Associe les données d'un tableau associatif à cette instance de Note.
      * @param array $donnees Un tableau associatif contenant des données à associer à cette instance.
      */
-    public function affect($donnees)
+    public function affect(array $donnees)
     {
         foreach ($donnees as $attribut => $valeur) {
             switch ($attribut) {
@@ -41,9 +41,6 @@ class Note
                     break;
 				case 'dateReponse' :
                     $this->setDateReponse($valeur);
-                    break;
-                default :
-                    echo "Fatal error : construction Utilisateur invalide";
                     break;
             }
         }
