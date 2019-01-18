@@ -27,28 +27,18 @@ class SujetManager {
     //Cette fonction permet de générer un sujet à partir d'une liste de données variable
     public function generateSujet($listDonneeVariable)
     {
-
         ini_set('max_execution_time', 0);
-
         if (!empty($listDonneeVariable)) {
-
             $numSujet = 1;
-
             $req = $this->db->prepare(
                 $this->getSQLQueryFromListDonneeVariable($listDonneeVariable)
             );
-
             $req->execute();
-
             while ($possibilite = $req->fetch(PDO::FETCH_NUM)) {
-
                 $this->addSujetPossible($numSujet, $possibilite);
-
                 $numSujet++;
             }
-
             $req->closeCursor();
-
         }
     }
 
@@ -63,19 +53,15 @@ class SujetManager {
         return new Sujet($req->fetch(PDO::FETCH_OBJ));
     }
 
-
-    //TODO: Je ne peux pas commenter une fonction non terminée (d'ailleurs, il y a une erreur dans le SQL!) !
     //Cette fonction permet de ???
     public function getSQLQueryFromPossibilite($numSujet, $possibilite)
     {
-
         $selectOn = 'INSERT INTO sujet_possible (idSujet, idDonneeVariable, numDonneeVariable) VALUES  ';
-
         for ($i = 0; $i < count($possibilite); $i++) {
             if ($i < count($possibilite) - 1) {
-                $selectOn = $selectOn . '(' . $numSujet . ', ' . $possibilite[$i] . ', ' . ($i + 1) . '), ';
+                $selectOn .= '(' . $numSujet . ', ' . $possibilite[$i] . ', ' . ($i + 1) . '), ';
             } else {
-                $selectOn = $selectOn . '(' . $numSujet . ', ' . $possibilite[$i] . ', ' . ($i + 1) . ')';
+                $selectOn .= '(' . $numSujet . ', ' . $possibilite[$i] . ', ' . ($i + 1) . ')';
             }
         }
 
@@ -87,14 +73,11 @@ class SujetManager {
     public function addSujetPossible($numSujet, $possibilite)
     {
         if (!empty($numSujet) && !empty($possibilite)) {
-            $req = $this->db->prepare(
-                $this->getSQLQueryFromPossibilite($numSujet, $possibilite)
-            );
+            $req = $this->db->prepare($this->getSQLQueryFromPossibilite($numSujet, $possibilite));
             $req->execute();
             $req->closeCursor();
         }
     }
-
 
     //TODO: AAAAAAAARGH!
     //Cette fonction permet ???
@@ -104,26 +87,16 @@ class SujetManager {
         $join = '';
 
         for ($i = 0; $i <= count($listDonneeVariable); $i++) {
-
             if ($i == count($listDonneeVariable) - 1) {
-                $selectOn = $selectOn . 'd' . $i . '.`idDonneeVariable` AS `idDonneeVariableSujet' . $i . '`';
+                $selectOn .= 'd' . $i . '.`idDonneeVariable` AS `idDonneeVariableSujet' . $i . '`';
+                $join .= '(SELECT * FROM `donnees_variable` WHERE `idType` = ' . ($i + 1) . ') AS d' . $i;
             } else if ($i < count($listDonneeVariable) - 1) {
-                $selectOn = $selectOn . 'd' . $i . '.`idDonneeVariable` AS `idDonneeVariableSujet' . $i . '`, ';
+                $selectOn .= 'd' . $i . '.`idDonneeVariable` AS `idDonneeVariableSujet' . $i . '`, ';
+                $join .= '(SELECT * FROM `donnees_variable` WHERE `idType` = ' . ($i + 1) . ') AS d' . $i . ' , ';
             }
-
-
-            if ($i == count($listDonneeVariable) - 1) {
-                $join = $join .
-                    '(SELECT * FROM `donnees_variable` WHERE `idType` = ' . ($i + 1) . ') AS d' . $i;
-            } else if ($i < count($listDonneeVariable) - 1) {
-                $join = $join .
-                    '(SELECT * FROM `donnees_variable` WHERE `idType` = ' . ($i + 1) . ') AS d' . $i . ' , ';
-            }
-
         }
 
         $query = 'SELECT ' . $selectOn . ' FROM ' . $join;
-
         return $query;
     }
 

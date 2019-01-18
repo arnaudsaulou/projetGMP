@@ -14,7 +14,7 @@ function insererReponses(string &$enonce, ReponseManager $reponseManager, int $i
                 $reponseInseree = str_replace('.', ',', $reponse->getValeur());
                 $insertion = "value=\"" . $reponseInseree;
                 if ($solutionManager !== null) {
-                    $insertion .= "(". comparerValeurs($solutionManager, $idSujet, $numero_question, $reponse->getValeur()) . "%)";
+                    $insertion .= "(". comparerValeurs($solutionManager, $numero_question, $reponse->getValeur()) . "%)";
                 }
                 $insertion .= "\"";
                 $positionInsertion = $pos + $longueur_nombre + 2;
@@ -52,7 +52,7 @@ function desactiverTousLesInputs(string &$enonce)
 }
 
 //Compare les valeurs et retourne un nombre représentant le pourcentage de différence.
-function comparerValeurs(SolutionManager $solutionManager, int $idSujet, int $idQuestion, $reponse) {
+function comparerValeurs(SolutionManager $solutionManager, int $idQuestion, $reponse) {
     $solution = $solutionManager->recupererSolution($idQuestion);
     $difference = (((double)$reponse - (double)$solution->getValeur()) / (double)$solution->getValeur()) * 100;
     return $difference;
