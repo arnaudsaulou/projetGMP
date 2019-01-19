@@ -1,19 +1,19 @@
 <?php
-include_once ('fonctionsAffichageEnonce.inc.php');
+include_once('fonctionsAffichageEnonce.inc.php');
 
 //Récupération de l'Attribue.
 $idEtudiant = $_SESSION['id'];
 $attribue = $attribueManager->getAttribuePourEtudiant($idEtudiant);
 
 //TODO Remplacer GET par POST
-if (count($_GET) === 2) {
+$idSujet = $_GET['idSujet'];
+//$idSujet = $_POST['idSujet'];
+
+//TODO Remplacer GET par POST
+if (count($_GET) === 2 && empty($_POST)) {
 // if (count($_POST) === 1) {
 
     //Récupération de l'Enonce.
-
-    //TODO Remplacer GET par POST
-    $idSujet = $_GET['idSujet'];
-    //$idSujet = $_POST['idSujet'];
 
     $idEnonce = $sujetManager->getSujetAvecId($idSujet)->getIdEnonce();
     $enonce = $enonceManager->recupererEnonceViaIdEnonce($idEnonce)->getEnonce();
@@ -32,7 +32,6 @@ if (count($_GET) === 2) {
             echo $enonce;
         ?>
 
-        <input name="idSujet" type="hidden" value="<?php echo $idSujet; ?>">
         <input type="submit" value="Envoyer les réponses">
     </form>
 
@@ -45,7 +44,7 @@ if (count($_GET) === 2) {
 
   //Stocker les réponses.
   foreach($_POST as $key => $value) {
-      $numero_question = str_replace('question_', '', $key);
+      $numero_question = str_replace('item', '', $key);
       $value = str_replace(',', '.', $value);
       $reponseQuestion = new Reponse([
           'idUtilisateur' => $idEtudiant,
@@ -54,7 +53,7 @@ if (count($_GET) === 2) {
           'valeur' => $value,
           'dateReponse' => date('Y-m-d')
       ]);
-      $reponseManager->enregistrerReponse($reponseQuestion);
+      //$reponseManager->enregistrerReponse($reponseQuestion);
       $tabReponseQuestion[] = $reponseQuestion;
   }
 
@@ -66,9 +65,11 @@ if (count($_GET) === 2) {
     $idQuestion = $reponse->getIdQuestion();
     $idQuestion = str_replace('reponse_', '', $idQuestion);
 
-    $tauxErreur = comparerValeurs($solutionManager, $idQuestion, $reponse);
+    // $tauxErreur = comparerValeurs($solutionManager, $idQuestion, $reponse);
+    $tauxErreur = comparerValeurs($solutionManager, $donneeVariableManager, $idSujet, $idQuestion, $reponse);
 
     echo "Réponse n°".($key+1).") <br> taux d'erreur = ".$tauxErreur." % <br><br>";
+
   }
 
 }
