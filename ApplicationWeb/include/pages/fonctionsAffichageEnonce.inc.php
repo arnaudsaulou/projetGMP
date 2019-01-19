@@ -52,8 +52,30 @@ function desactiverTousLesInputs(string &$enonce)
 }
 
 //Compare les valeurs et retourne un nombre représentant le pourcentage de différence.
-function comparerValeurs(SolutionManager $solutionManager, int $idQuestion, $reponse) {
-    $solution = $solutionManager->recupererSolution($idQuestion);
-    $difference = (((double)$reponse - (double)$solution->getValeur()) / (double)$solution->getValeur()) * 100;
+function comparerValeurs(SolutionManager $solutionManager, DonneeVariableManager $donneeVariableManager, int $idSujet, int $idQuestion, $reponse) {
+
+    //Récupérer la solution avec l'id de la question
+    $solution = $solutionManager->recupererSolution($idQuestion+1);
+
+    //Récupérer le nom de la formule
+    $nomFormule = $solution->getNomFormule();
+
+    //Récupérer les id des paramètres à appliquer à cette fonction
+    $params = $solution->getTableauIdParams();
+
+    //Split le string des idParamètres obtenu en un tableau
+    $arrayResult = preg_split('/,/',$params);
+
+    $params = $donneeVariableManager->recupererValeurDonneVariableViaTableauIdDonneeVariable($arrayResult);
+
+    //Appel des fonction prédéfinies en fonction du nom extrait juste avant et passage des paramètres
+    $solution = Formule::$nomFormule($arrayResult);
+
+    //Récupérer la valeur de la réponse
+    $reponse = $reponse->getValeur();
+
+    //Calcul du taux d'erreur absolue en pourcentage
+    $difference = abs((((double)$reponse - (double)$solution) / (double)$solution) * 100);
+
     return $difference;
 }

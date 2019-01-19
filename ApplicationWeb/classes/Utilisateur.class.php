@@ -31,33 +31,23 @@ class Utilisateur {
                 case 'idUtilisateur':
                     $this->setIdUtilisateur($valeur);
                     break;
-
                 case 'estProf':
                     $this->setEstProf($valeur);
                     break;
-
                 case 'nom':
                     $this->setNom($valeur);
                     break;
-
                 case 'prenom':
                     $this->setPrenom($valeur);
                     break;
-
                 case 'nomUtilisateur':
                     $this->setNomUtilisateur($valeur);
                     break;
-
                 case 'motDePasse':
                     $this->setMotDePasse($valeur);
                     break;
-
                 case 'annee':
                     $this->setAnnee($valeur);
-                    break;
-
-                default:
-                    echo "Fatal error : construction Utilisateur invalide  :  " . $attribut . "<br>";
                     break;
             }
         }

@@ -23,17 +23,11 @@ class TypeDonnee {
     {
         foreach ((array)$donnees as $attribut => $valeur) {
             switch ($attribut) {
-
                 case 'idType':
                     $this->setIdType($valeur);
                     break;
-
                 case 'libelle':
                     $this->setLibelle($valeur);
-                    break;
-
-                default:
-                    echo "Fatal error : construction TypeDonnee invalide";
                     break;
             }
         }

@@ -21,16 +21,13 @@ class Sujet {
      */
     public function affect($donnees)
     {
-        foreach ($donnees as $attribut => $valeur) {
+        foreach ((array) $donnees as $attribut => $valeur) {
             switch ($attribut) {
                 case 'idSujet':
                     $this->setIdSujet($valeur);
                     break;
                 case 'idEnonce':
                     $this->setIdEnonce($valeur);
-                    break;
-                default:
-                    echo "Fatal error : construction Sujet invalide";
                     break;
             }
         }
