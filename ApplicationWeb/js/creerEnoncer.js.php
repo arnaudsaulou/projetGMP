@@ -232,7 +232,7 @@ function ajouterElement(typeItem) {
 
     //Si l'item à ajouter est une "Donnée Variable"
     case "itemDonneeVariable":
-      var newTitre = document.createElement('p');
+      var newTitre = document.createElement('data');
       newTitre.id = '##' + recupererIdTypeDonneeAjoute() + '##';
       newTitre.name = 'item'+numItem;
       newTitre.style.fontSize = fontSize[policeSize];
