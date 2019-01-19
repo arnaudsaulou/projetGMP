@@ -31,7 +31,7 @@ class DonneeVariableManager {
     {
         $listDonneeVariable = array();
         $req = $this->db->prepare(
-            "SELECT * FROM donnees_variable WHERE idType = :idType"
+            "SELECT * FROM donnee_variable WHERE idType = :idType"
         );
         $req->bindValue(':idType', $idTypeDonnee, PDO::PARAM_INT);
         $req->execute();
@@ -50,7 +50,7 @@ class DonneeVariableManager {
     public function ajouterDonneeVariable($newDonneeVariable)
     {
         $req = $this->db->prepare(
-            "INSERT INTO donnees_variable(idType, valeur) VALUES (:idType , :valeur)"
+            "INSERT INTO donnee_variable(idType, valeur) VALUES (:idType , :valeur)"
         );
         $req->bindValue(':idType', $newDonneeVariable->getIdType(), PDO::PARAM_INT);
         $req->bindValue(':valeur', $newDonneeVariable->getValeur(), PDO::PARAM_INT);
@@ -96,7 +96,7 @@ class DonneeVariableManager {
     function recupererIdTypeViaIdDonneeVariable($idDonneeVariable)
     {
         $req = $this->db->prepare(
-            "SELECT idTyp FROM donnees_variable WHERE idDonneeVariable = :idDonneeVariable"
+            "SELECT idTyp FROM donnee_variable WHERE idDonneeVariable = :idDonneeVariable"
         );
         $req->bindValue(':idDonneeVariable', $idDonneeVariable, PDO::PARAM_INT);
         $idType = $req->fetch(PDO::FETCH_OBJ);

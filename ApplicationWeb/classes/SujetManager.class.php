@@ -89,10 +89,10 @@ class SujetManager {
         for ($i = 0; $i <= count($listDonneeVariable); $i++) {
             if ($i == count($listDonneeVariable) - 1) {
                 $selectOn .= 'd' . $i . '.`idDonneeVariable` AS `idDonneeVariableSujet' . $i . '`';
-                $join .= '(SELECT * FROM `donnees_variable` WHERE `idType` = ' . ($i + 1) . ') AS d' . $i;
+                $join .= '(SELECT * FROM `donnee_variable` WHERE `idType` = ' . ($i + 1) . ') AS d' . $i;
             } else if ($i < count($listDonneeVariable) - 1) {
                 $selectOn .= 'd' . $i . '.`idDonneeVariable` AS `idDonneeVariableSujet' . $i . '`, ';
-                $join .= '(SELECT * FROM `donnees_variable` WHERE `idType` = ' . ($i + 1) . ') AS d' . $i . ' , ';
+                $join .= '(SELECT * FROM `donnee_variable` WHERE `idType` = ' . ($i + 1) . ') AS d' . $i . ' , ';
             }
         }
 

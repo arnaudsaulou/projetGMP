@@ -46,7 +46,7 @@
           <form>
             <div class="menu_parametrage dropdown-menu" id="menu_parametrage" aria-labelledby="dropdownMenu1">
               <div class="titre_parametrage">
-                <h5 class="card-title">Parametres : </h5>
+                <h5 class="card-title">Paramètres : </h5>
                 <h6 class="" id="titreParametrage"></h6>
               </div>
 
