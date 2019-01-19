@@ -32,7 +32,7 @@ class SujetPossibleManager {
     public function recuperListeDonneeVariableViaIdSujet($idSujet)
     {
         $req = $this->db->prepare(
-            'SELECT idDonneeVariable, idType, valeur FROM donnees_variable WHERE idDonneeVariable IN
+            'SELECT idDonneeVariable, idType, valeur FROM donnee_variable WHERE idDonneeVariable IN
           ( SELECT idDonneeVariable FROM sujet_possible WHERE idSujet = :idSujet)
         ');
         $req->bindValue(":idSujet", $idSujet, PDO::PARAM_INT);

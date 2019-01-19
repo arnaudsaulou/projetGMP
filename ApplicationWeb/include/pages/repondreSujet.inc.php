@@ -5,9 +5,16 @@ include_once ('fonctionsAffichageEnonce.inc.php');
 $idEtudiant = $_SESSION['id'];
 $attribue = $attribueManager->getAttribuePourEtudiant($idEtudiant);
 
-if (count($_POST) === 1) {
+//TODO Remplacer GET par POST
+if (count($_GET) === 2) {
+// if (count($_POST) === 1) {
+
     //Récupération de l'Enonce.
-    $idSujet = $_POST['idSujet'];
+
+    //TODO Remplacer GET par POST
+    $idSujet = $_GET['idSujet'];
+    //$idSujet = $_POST['idSujet'];
+
     $idEnonce = $sujetManager->getSujetAvecId($idSujet)->getIdEnonce();
     $enonce = $enonceManager->recupererEnonceViaIdEnonce($idEnonce)->getEnonce();
 
@@ -24,10 +31,14 @@ if (count($_POST) === 1) {
             insererReponses($enonce, $reponseManager, $idSujet, $idEtudiant);
             echo $enonce;
         ?>
+
         <input name="idSujet" type="hidden" value="<?php echo $idSujet; ?>">
         <input type="submit" value="Envoyer les réponses">
     </form>
-    
+
+    <script onload="recupererTypeDonneeVariableDansEnonce(<?php echo $idSujet; ?>)" type="text/javascript" src="js/interpreterEnonce.js.php"></script>
+
+
 <?php } else {
 
   $tabReponseQuestion = array();
