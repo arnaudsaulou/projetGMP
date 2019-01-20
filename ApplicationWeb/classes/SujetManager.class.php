@@ -29,7 +29,13 @@ class SujetManager {
     {
         ini_set('max_execution_time', 0);
         if (!empty($listDonneeVariable)) {
-            $numSujet = 1;
+
+            $lastIdSujet = getLastIdSujet();
+
+            if($lastIdSujet == ''){
+              $numSujet = 1;
+            }
+
             $req = $this->db->prepare(
                 $this->getSQLQueryFromListDonneeVariable($listDonneeVariable)
             );
@@ -56,12 +62,13 @@ class SujetManager {
     //Cette fonction permet de ???
     public function getSQLQueryFromPossibilite($numSujet, $possibilite)
     {
-        $selectOn = 'INSERT INTO sujet_possible (idSujet, idDonneeVariable, numDonneeVariable) VALUES  ';
+        $selectOn = ' START TRANSACTION;
+                      INSERT INTO sujet_possible (idSujet, idDonneeVariable, numDonneeVariable) VALUES';
         for ($i = 0; $i < count($possibilite); $i++) {
             if ($i < count($possibilite) - 1) {
                 $selectOn .= '(' . $numSujet . ', ' . $possibilite[$i] . ', ' . ($i + 1) . '), ';
             } else {
-                $selectOn .= '(' . $numSujet . ', ' . $possibilite[$i] . ', ' . ($i + 1) . ')';
+                $selectOn .= '(' . $numSujet . ', ' . $possibilite[$i] . ', ' . ($i + 1) . '); COMMIT;';
             }
         }
 
@@ -129,7 +136,7 @@ class SujetManager {
         $req->closeCursor();
         return $listeSujet;
     }
-	
+
 	public function getSujetById($id){
 		$req=$this->db->prepare(
 			'SELECT idSujet, idEnonce FROM sujet WHERE idSujet=:id'
@@ -140,4 +147,13 @@ class SujetManager {
 		$req->closeCursor();
 		return new Sujet($res);
 	}
+
+
+  public function getLastIdSujet(){
+    $req = $this->db->prepare('SELECT idSujet FROM sujet_possible ORDER BY idSujet DESC LIMIT 1');
+    $req->execute();
+    $lastIdSujet = $req->fetch(PDO::FETCH_ASSOC);
+    $req->closeCursor();
+    return $listeSujet['idSujet'];
+  }
 }
