@@ -40,7 +40,8 @@ class EnonceManager {
 
         $questionManager = new QuestionManager($this->db);
         $questionManager->ajouterListeQuestion($this->lastInsertId);
-        
+        $_SESSION['lastInsertIdEnonce'] = $this->lastInsertId;
+
         return $result;
     }
 

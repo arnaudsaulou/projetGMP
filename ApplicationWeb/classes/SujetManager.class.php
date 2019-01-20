@@ -30,22 +30,28 @@ class SujetManager {
         ini_set('max_execution_time', 0);
         if (!empty($listDonneeVariable)) {
 
-            $lastIdSujet = getLastIdSujet();
+            $numSujet = $this->getLastIdSujet();
 
-            if($lastIdSujet == ''){
+            if($numSujet == ''){
               $numSujet = 1;
+            } else {
+              $numSujet++;
             }
 
             $req = $this->db->prepare(
                 $this->getSQLQueryFromListDonneeVariable($listDonneeVariable)
             );
             $req->execute();
+
             while ($possibilite = $req->fetch(PDO::FETCH_NUM)) {
                 $this->addSujetPossible($numSujet, $possibilite);
+                $this->addSujet($numSujet);
                 $numSujet++;
             }
             $req->closeCursor();
         }
+
+        unset($_SESSION['lastInsertIdEnonce']);
     }
 
     /**
@@ -63,12 +69,12 @@ class SujetManager {
     public function getSQLQueryFromPossibilite($numSujet, $possibilite)
     {
         $selectOn = ' START TRANSACTION;
-                      INSERT INTO sujet_possible (idSujet, idDonneeVariable, numDonneeVariable) VALUES';
+                      INSERT INTO sujet_possible (idSujet, idDonneeVariable) VALUES';
         for ($i = 0; $i < count($possibilite); $i++) {
             if ($i < count($possibilite) - 1) {
-                $selectOn .= '(' . $numSujet . ', ' . $possibilite[$i] . ', ' . ($i + 1) . '), ';
+                $selectOn .= '(' . $numSujet . ', ' . $possibilite[$i] . '), ';
             } else {
-                $selectOn .= '(' . $numSujet . ', ' . $possibilite[$i] . ', ' . ($i + 1) . '); COMMIT;';
+                $selectOn .= '(' . $numSujet . ', ' . $possibilite[$i] . '); COMMIT;';
             }
         }
 
@@ -154,6 +160,19 @@ class SujetManager {
     $req->execute();
     $lastIdSujet = $req->fetch(PDO::FETCH_ASSOC);
     $req->closeCursor();
-    return $listeSujet['idSujet'];
+    return $lastIdSujet['idSujet'];
+  }
+
+  public function addSujet($numSujet)
+  {
+
+    $req = $this->db->prepare(
+        "INSERT INTO sujet(idSujet, idEnonce) VALUES (:idSujet , :idEnonce)"
+    );
+
+    $req->bindValue(':idSujet', $numSujet, PDO::PARAM_INT);
+    $req->bindValue(':idEnonce', $_SESSION['lastInsertIdEnonce'], PDO::PARAM_INT);
+    $result = $req->execute();
+    $req->closeCursor();
   }
 }
