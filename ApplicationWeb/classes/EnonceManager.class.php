@@ -35,10 +35,12 @@ class EnonceManager {
         $req->bindValue(':nomEnonce', $newEnonce->getNomEnonce(), PDO::PARAM_STR);
         $req->bindValue(':enonce', $newEnonce->getEnonce(), PDO::PARAM_STR);
         $result = $req->execute();
-        $enonceManager = new QuestionManager($this->db);
-        $enonceManager->ajouterListeQuestion($this->db->lastInsertId());
         $this->lastInsertId = $this->db->lastInsertId();
         $req->closeCursor();
+
+        $questionManager = new QuestionManager($this->db);
+        $questionManager->ajouterListeQuestion($this->lastInsertId);
+        
         return $result;
     }
 
@@ -88,6 +90,6 @@ class EnonceManager {
         $req->closeCursor();
         return $nbEnonce['total'];
     }
-	
-	
+
+
 }

@@ -18,4 +18,12 @@ if(!isset($_SESSION['tableauQuestionEnonce'])){
   array_push($_SESSION['tableauQuestionEnonce'], serialize($newQuestion));
 }
 
+// if(!isset($_SESSION['tableauQuestionEnonce'])){
+//   $_SESSION['tableauQuestionEnonce'] = array(0 => $newQuestion);
+// } else {
+//   array_push($_SESSION['tableauQuestionEnonce'], $newQuestion);
+// }
+
+var_dump($_SESSION['tableauQuestionEnonce']);
+
 ?>
