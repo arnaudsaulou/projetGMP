@@ -55,4 +55,5 @@ class SolutionManager {
         $req->closeCursor();
         return $solution;
     }
+
 }

@@ -31,7 +31,6 @@ function ajouterParametres(idBtn) {
   //Création et paramétrage d'une nouvelle liste déroulante
 	var newParam = document.createElement('select');
 	newParam.id = "param" + idBtn + "_" + newId;
-  newParam.classList.add("paramSection"+idBtn);
 
   //Ajout de la nouvelle liste déroulante
 	var referenceNode = document.getElementById("param" + idBtn + "_" + (newId-1));
@@ -73,50 +72,4 @@ function populateSelect(array, newParam){
       //Ajout des option à la liste déroulante
 			newParam.appendChild(option);
 	}
-}
-
-//Appeler pour enregistrer les élémennts de correction de l'énoncé
-function validerCorrection(){
-
-  //Pour chaque question de l'énoncé
-  for (var numQuestion = 0; numQuestion < nbLigne; numQuestion++) {
-
-    //Récupérer le numero de question
-    var idQuestion = document.getElementById("question"+numQuestion).value;
-
-    //Récupérer le nom de la fonction de correction
-    var nomFormule = document.getElementById("formuleCorrection"+numQuestion);
-    nomFormule = nomFormule.options[nomFormule.selectedIndex].value;
-
-    //Récupérer les paramètres à passer à la fonction de correction
-    var tableauIdParams = Array();
-    var listeElementsParams = document.getElementsByClassName('paramSection'+numQuestion);
-
-    //Pour chaque paramètres
-    for (var i = 0; i < listeElementsParams.length; i++) {
-      //Récupérer l'id de la donnée variable à utiliser
-      var idDonneVariableParamsTemp = document.getElementById(listeElementsParams[i].id);
-      idDonneVariableParamsTemp = idDonneVariableParamsTemp.options[idDonneVariableParamsTemp.selectedIndex].value;
-
-      //Ajouter cette id au tableau des paramètres de correction de la question
-      tableauIdParams.push(idDonneVariableParamsTemp);
-    }
-
-    ajouterCorrection(idQuestion,nomFormule,tableauIdParams);
-
-  }
-
-  alert("La correction à cet énoncé à bien été enregistrée !");
-  window.location.replace("../ApplicationWeb/index.php?page=7");
-
-}
-
-//Appel du fichier AJAX afin d'ajouter une nouvelle correction
-function ajouterCorrection(idQuestion,nomFormule,tableauIdParams) {
-
-  $.post(
-    "./ajax/ajouterCorrection.ajax.php",
-    {idQuestion: idQuestion, nomFormule: nomFormule, tableauIdParams: tableauIdParams}
-  );
-
 }

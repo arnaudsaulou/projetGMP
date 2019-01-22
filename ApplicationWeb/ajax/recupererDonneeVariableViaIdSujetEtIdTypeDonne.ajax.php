@@ -10,8 +10,10 @@ if(!isset($_SESSION)){
   session_start();
 }
 
-$listeIdTypeDonnee = $_POST['listeIdTypeDonne'];
-$listeValeur = $sujetPossibleManager->recuperListeValeurDonneeVariableViaIdSujet($listeIdTypeDonnee, $_POST['idSujet']);
+$listeValeur = $sujetPossibleManager->recuperListeValeurDonneeVariableViaIdSujet(
+                                                                                  $_POST['listeIdTypeDonne'],
+                                                                                  $_POST['idSujet']
+                                                                                 );
 
 echo json_encode($listeValeur);
 

@@ -1,4 +1,5 @@
 <?php
+
 $ligneExploded = array();
 $listIdTypesDonnees = array();
 
@@ -9,3 +10,5 @@ for ($i = 1; $i < count($ligneExploded); $i = $i + 2) {
 }
 
 $sujetManager->generateSujet($listIdTypesDonnees);
+
+?>

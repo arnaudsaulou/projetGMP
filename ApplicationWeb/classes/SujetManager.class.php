@@ -29,17 +29,29 @@ class SujetManager {
     {
         ini_set('max_execution_time', 0);
         if (!empty($listDonneeVariable)) {
-            $numSujet = 1;
+
+            $numSujet = $this->getLastIdSujet();
+
+            if($numSujet == ''){
+              $numSujet = 1;
+            } else {
+              $numSujet++;
+            }
+
             $req = $this->db->prepare(
                 $this->getSQLQueryFromListDonneeVariable($listDonneeVariable)
             );
             $req->execute();
+
             while ($possibilite = $req->fetch(PDO::FETCH_NUM)) {
                 $this->addSujetPossible($numSujet, $possibilite);
+                $this->addSujet($numSujet);
                 $numSujet++;
             }
             $req->closeCursor();
         }
+
+        unset($_SESSION['lastInsertIdEnonce']);
     }
 
     /**
@@ -56,12 +68,13 @@ class SujetManager {
     //Cette fonction permet de ???
     public function getSQLQueryFromPossibilite($numSujet, $possibilite)
     {
-        $selectOn = 'INSERT INTO sujet_possible (idSujet, idDonneeVariable, numDonneeVariable) VALUES  ';
+        $selectOn = ' START TRANSACTION;
+                      INSERT INTO sujet_possible (idSujet, idDonneeVariable) VALUES';
         for ($i = 0; $i < count($possibilite); $i++) {
             if ($i < count($possibilite) - 1) {
-                $selectOn .= '(' . $numSujet . ', ' . $possibilite[$i] . ', ' . ($i + 1) . '), ';
+                $selectOn .= '(' . $numSujet . ', ' . $possibilite[$i] . '), ';
             } else {
-                $selectOn .= '(' . $numSujet . ', ' . $possibilite[$i] . ', ' . ($i + 1) . ')';
+                $selectOn .= '(' . $numSujet . ', ' . $possibilite[$i] . '); COMMIT;';
             }
         }
 
@@ -89,10 +102,10 @@ class SujetManager {
         for ($i = 0; $i <= count($listDonneeVariable); $i++) {
             if ($i == count($listDonneeVariable) - 1) {
                 $selectOn .= 'd' . $i . '.`idDonneeVariable` AS `idDonneeVariableSujet' . $i . '`';
-                $join .= '(SELECT * FROM `donnees_variable` WHERE `idType` = ' . ($i + 1) . ') AS d' . $i;
+                $join .= '(SELECT * FROM `donnee_variable` WHERE `idType` = ' . ($i + 1) . ') AS d' . $i;
             } else if ($i < count($listDonneeVariable) - 1) {
                 $selectOn .= 'd' . $i . '.`idDonneeVariable` AS `idDonneeVariableSujet' . $i . '`, ';
-                $join .= '(SELECT * FROM `donnees_variable` WHERE `idType` = ' . ($i + 1) . ') AS d' . $i . ' , ';
+                $join .= '(SELECT * FROM `donnee_variable` WHERE `idType` = ' . ($i + 1) . ') AS d' . $i . ' , ';
             }
         }
 
@@ -129,7 +142,7 @@ class SujetManager {
         $req->closeCursor();
         return $listeSujet;
     }
-	
+
 	public function getSujetById($id){
 		$req=$this->db->prepare(
 			'SELECT idSujet, idEnonce FROM sujet WHERE idSujet=:id'
@@ -140,4 +153,26 @@ class SujetManager {
 		$req->closeCursor();
 		return new Sujet($res);
 	}
+
+
+  public function getLastIdSujet(){
+    $req = $this->db->prepare('SELECT idSujet FROM sujet_possible ORDER BY idSujet DESC LIMIT 1');
+    $req->execute();
+    $lastIdSujet = $req->fetch(PDO::FETCH_ASSOC);
+    $req->closeCursor();
+    return $lastIdSujet['idSujet'];
+  }
+
+  public function addSujet($numSujet)
+  {
+
+    $req = $this->db->prepare(
+        "INSERT INTO sujet(idSujet, idEnonce) VALUES (:idSujet , :idEnonce)"
+    );
+
+    $req->bindValue(':idSujet', $numSujet, PDO::PARAM_INT);
+    $req->bindValue(':idEnonce', $_SESSION['lastInsertIdEnonce'], PDO::PARAM_INT);
+    $result = $req->execute();
+    $req->closeCursor();
+  }
 }

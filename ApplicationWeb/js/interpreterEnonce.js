@@ -1,12 +1,3 @@
-//Attendre que le document soit completement chargé
-$(document).ready(function() {
-
-  var idSujet = Math.floor((Math.random() * 32000) + 1);
-
-  recupererTypeDonneeVariableDansEnonce(idSujet);
-
-});
-
 function recupererTypeDonneeVariableDansEnonce(idSujet){
 
   //Récupérer les éléments de l'ihm nécessaire
@@ -45,8 +36,6 @@ function recupererDonneeVariableViaIdSujetEtIdTypeDonne(idSujet, listeIdTypeDonn
 }
 
 function remplacerTagParDonneeVariableDuSujet(listeValeur){
-
-  console.log(listeValeur);
 
   var tab = document.getElementsByTagName('data');
 

@@ -33,7 +33,7 @@ class TypeDonneeManager
     public function getListTypeDonnee()
     {
         $listTypeDonnee = array();
-        $req = $this->db->prepare("SELECT idType , libelle FROM type_donnees ORDER BY libelle");
+        $req = $this->db->prepare("SELECT idType , libelle FROM type_donnee ORDER BY libelle");
         $req->execute();
         while ($typeDonnee = $req->fetch(PDO::FETCH_OBJ)) {
             $listTypeDonnee[] = new TypeDonnee($typeDonnee);
@@ -49,7 +49,7 @@ class TypeDonneeManager
      */
     public function getTypeDonneeById($idTypeDonnee)
     {
-        $req = $this->db->prepare("SELECT idType , libelle FROM type_donnees WHERE idType = :idType");
+        $req = $this->db->prepare("SELECT idType , libelle FROM type_donnee WHERE idType = :idType");
         $req->bindValue(':idType', $idTypeDonnee, PDO::PARAM_INT);
         $req->execute();
         $typeDonnee = $req->fetch(PDO::FETCH_OBJ);
@@ -64,7 +64,7 @@ class TypeDonneeManager
      */
     public function ajouterTypeDonne($newTypeDonnee)
     {
-        $req = $this->db->prepare("INSERT INTO type_donnees(libelle) VALUES (:libelle)");
+        $req = $this->db->prepare("INSERT INTO type_donnee(libelle) VALUES (:libelle)");
         $req->bindValue(':libelle', $newTypeDonnee->getLibelle(), PDO::PARAM_STR);
         $result = $req->execute();
         $_SESSION['newIdTypeDonne'] = $this->db->lastInsertId();

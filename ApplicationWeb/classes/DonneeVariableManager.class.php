@@ -31,7 +31,7 @@ class DonneeVariableManager {
     {
         $listDonneeVariable = array();
         $req = $this->db->prepare(
-            "SELECT * FROM donnees_variable WHERE idType = :idType"
+            "SELECT * FROM donnee_variable WHERE idType = :idType"
         );
         $req->bindValue(':idType', $idTypeDonnee, PDO::PARAM_INT);
         $req->execute();
@@ -50,7 +50,7 @@ class DonneeVariableManager {
     public function ajouterDonneeVariable($newDonneeVariable)
     {
         $req = $this->db->prepare(
-            "INSERT INTO donnees_variable(idType, valeur) VALUES (:idType , :valeur)"
+            "INSERT INTO donnee_variable(idType, valeur) VALUES (:idType , :valeur)"
         );
         $req->bindValue(':idType', $newDonneeVariable->getIdType(), PDO::PARAM_INT);
         $req->bindValue(':valeur', $newDonneeVariable->getValeur(), PDO::PARAM_INT);
@@ -89,16 +89,31 @@ class DonneeVariableManager {
 
 
     /**
-     * Retourne l'ID du type d'une DonneeVariable à partir de son ID.
+     * Retourne un objet DonneeVariable à partir de son ID.
      * @param integer $idDonneeVariable L'ID de la DonneeVariable dont on veut le ID du type.
-     * @return integer L'ID du type de la DonneeVariable passée en paramètre.
+     * @return integer Un objet DonneeVariable associé à l'id passée en paramètre.
      */
-    function recupererIdTypeViaIdDonneeVariable($idDonneeVariable)
+    function recupererDonneeVariableViaIdDonneeVariable($idDonneeVariable)
     {
-        $req = $this->db->prepare("SELECT idTyp FROM donnees_variable WHERE idDonneeVariable = :idDonneeVariable");
+        $req = $this->db->prepare(
+            "SELECT idTyp FROM donnee_variable WHERE idDonneeVariable = :idDonneeVariable"
+        );
         $req->bindValue(':idDonneeVariable', $idDonneeVariable, PDO::PARAM_INT);
-        $idType = $req->fetch(PDO::FETCH_OBJ);
+        $donneeVariable = new DonneeVariable($req->fetch(PDO::FETCH_OBJ));
         $req->closeCursor();
-        return $idType;
+
+        return $donneeVariable;
+    }
+
+
+    function recupererValeurDonneVariableViaTableauIdDonneeVariable($tableauIdDonneeVariable){
+
+      $tableauValeurDonneVariable = array();
+      foreach ($tableauIdDonneeVariable as $idDonneeVariable) {
+        $donneeVariable = $this->recupererDonneeVariableViaIdDonneeVariable($idDonneeVariable);
+        $tableauValeurDonneVariable[] = $donneeVariable->getValeur();
+      }
+
+      return $tableauValeurDonneVariable;
     }
 }
