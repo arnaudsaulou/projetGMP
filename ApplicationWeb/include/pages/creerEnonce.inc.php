@@ -19,6 +19,7 @@
         <li class="list-group-item item" id="itemTitre">Titre</li>
         <li class="list-group-item item" id="itemZoneTexte">Zone de texte</li>
         <li class="list-group-item item" id="itemDonneeVariable">Donnée Variable</li>
+        <li class="list-group-item item" id="itemDonneeCalculee">Donnée Calculée</li>
         <li class="list-group-item item" id="itemQuestion">Question</li>
         <li class="list-group-item item" id="itemImage">Image</li>
       </ul>

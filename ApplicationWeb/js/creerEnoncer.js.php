@@ -153,7 +153,7 @@ function resetMenuSelectedItem(){
   document.getElementById("itemTitre").classList.remove("active");
   document.getElementById("itemZoneTexte").classList.remove("active");
   document.getElementById("itemDonneeVariable").classList.remove("active");
-  //document.getElementById("itemDonneeCalculee").classList.remove("active");
+  document.getElementById("itemDonneeCalculee").classList.remove("active");
   document.getElementById("itemQuestion").classList.remove("active");
   document.getElementById("itemImage").classList.remove("active")
 }
@@ -234,6 +234,20 @@ function ajouterElement(typeItem) {
     case "itemDonneeVariable":
       var newTitre = document.createElement('data');
       newTitre.id = '##' + recupererIdTypeDonneeAjoute() + '##';
+      newTitre.name = 'item'+numItem;
+      newTitre.style.fontSize = fontSize[policeSize];
+      newTitre.style.color = itemCouleur;
+      newTitre.style.fontWeight = fontWeight[isBoldSelected ? 1 : 0];
+      newTitre.style.fontStyle = fontStyle[isItalicSelected ? 1 : 0];
+      newTitre.style.textDecoration = textDecoration[isUnderlineSelected ? 1 : 0];
+      newTitre.style.display = "inline";
+      newTitre.appendChild(document.createTextNode(recupererLibelleTypeDonneeAjoute()));
+    break;
+
+    //Si l'item à ajouter est une "Donnée Calculée"
+    case "itemDonneeCalculee":
+      var newTitre = document.createElement('calculated_data');
+      newTitre.id = '¤¤' + recupererIdTypeDonneeAjoute() + '¤¤';
       newTitre.name = 'item'+numItem;
       newTitre.style.fontSize = fontSize[policeSize];
       newTitre.style.color = itemCouleur;

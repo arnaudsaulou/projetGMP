@@ -55,7 +55,7 @@
 
 
                             <!-- TODO Remplacer par post_en_url -->
-                            <td><a href="index.php?page=15&idSujet=5"><button class="button">Répondre</button></a></td>
+                            <td><a href="index.php?page=15&idSujet=3"><button class="button">Répondre</button></a></td>
                             <!-- <td><button onclick="post_en_url('index.php?page=15', {idSujet: <?php //echo $controle->idSujet ;?>})" class="button">Répondre</button></td> -->
 
                         </tr>

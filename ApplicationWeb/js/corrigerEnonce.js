@@ -1,24 +1,3 @@
-// $(document).ready(function() {
-//
-// 	var btnNumX;
-//
-//   //Gestion si click
-//   $('.btnAdParams').click(function(event){
-// 			idBtn = event.target.id;
-// 			idBtn = idBtn.substr(11,1);
-// 			ajouterParametres(idBtn);
-// 	});
-//
-// });
-
-/*function handleClickAjouterParametres(event){
-	console.log(event);
-	idBtn = event.target.id;
-	idBtn = idBtn.substr(11,1);
-	ajouterParametres(idBtn);
-}*/
-
-
 function handleClickAjouterParametres(e){
   e = e || window.event;
   var src = e.target || e.srcElement;
