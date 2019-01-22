@@ -46,7 +46,7 @@ if( empty($_POST['choix_promotion'])){
         foreach ($listSujets as $sujet){
           echo $sujet->getIdEnonce();
           ?>
-          <option value="<?php echo $sujet->getIdEnonce();?>">Contrôle n° <?php echo $sujet->getIdEnonce(); ?> de Mécanique</option>
+          <option value="<?php echo $sujet->getIdEnonce();?>"><?php echo $enonceManager->recupererEnonceViaIdEnonce($sujet->getIdEnonce())->getNomEnonce(); ?></option>
           <?php
         }
         ?>
