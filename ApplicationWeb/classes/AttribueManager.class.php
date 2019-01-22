@@ -148,10 +148,11 @@ class AttribueManager
      * @param integer $idEtudiant, l'ID de l'étudiant
      * @return integer Le nombre de sujet attribué à un étudiant enregistrés dans la base de données.
      */
-    public function countNombreDeSujetAttribuerAUnEtudiant($idEtudiant)
+    public function countNombreDeSujetAttribuerAUnEtudiant($idEtudiant, $idEnonce)
     {
-        $req = $this->db->prepare("SELECT count(idSujet) AS total FROM attribue WHERE idUtilisateur = :idEtudiant");
+        $req = $this->db->prepare("SELECT count(a.idSujet) AS total FROM attribue a JOIN sujet s ON a.idSujet=s.idSujet JOIN enonce e ON s.idEnonce=e.idEnonce  WHERE idUtilisateur = :idEtudiant AND s.idEnonce = :idEnonce");
         $req->bindValue(':idEtudiant', $idEtudiant, PDO::PARAM_STR);
+        $req->bindValue(':idEnonce', $idEnonce, PDO::PARAM_STR);
         $req->execute();
         $res = $req->fetch(PDO::FETCH_OBJ);
         $nbSujet = $res->total;

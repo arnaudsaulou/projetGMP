@@ -74,6 +74,7 @@ else if(isset($_POST['choix_promotion'])){
 
     $table = $attribueManager->getUniqueIdSujet($anneeChoisi);
 
+
     $idSujetAlea = (int) rand($idMinSujet ,$idMaxSujet);
 
     while(in_array($idSujetAlea, $table)){
@@ -87,7 +88,7 @@ else if(isset($_POST['choix_promotion'])){
     'cooldown' => $_POST["choix_cooldown"],
   ));
 
-  if($attribueManager->countNombreDeSujetAttribuerAUnEtudiant($etudiant->getIdUtilisateur()) < 1){
+  if($attribueManager->countNombreDeSujetAttribuerAUnEtudiant($etudiant->getIdUtilisateur(), $enonceChoisi) < 1){
     $attribueManager->addAttribue($attribuerSujet);
   }
 
