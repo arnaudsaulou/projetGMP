@@ -165,6 +165,83 @@
         </div>
       </div>
 
+      <!-- Donnée Calculée -->
+      <div id="blockParametrageDonneeCalculee">
+        <div class="dropdown">
+
+          <?php $listTypeDonneeCalculee = $typeDonneeManager->getListOfTypeDonneeDeDonneesCalculee(); ?>
+          <select id="selectTypeDonneeCalculee">
+            <?php foreach ($listTypeDonneeCalculee as $typeDonneeCalculee) { ?>
+              <option value="<?php echo $typeDonnee->getIdType(); ?>"><?php echo $typeDonnee->getLibelle(); ?></option>
+            <?php } ?>
+          </select>
+
+          <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-cog"></i>
+          </button>
+
+            <div class="menu_parametrage dropdown-menu"  aria-labelledby="dropdownMenu2">
+              <div class="dropdown-header">
+
+                <div class="titre_parametrage">
+                  <label>Paramètres : </label>
+                  <label class="titreParametrage"></label>
+                </div>
+
+                <form class="px-4 py-3" >
+                  <div class="form-group">
+                    <label>Nouvelle donnée calculée :</label>
+                    <input class="form-control" id="newDonneeCalculee" type="text" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Formule de calcule : </label>
+                    <select id="formuleCalcul" class="form-control">
+
+                      <?php
+                        //on récupère la liste des formule de correction disponible
+                        $dirname = "./formules/calcul";
+                        $listeFormules = $fichierManager->getListeFormules($dirname);
+
+                        foreach ($listeFormules as $formules) {
+                      ?>
+                          <option value="<?php echo $formules ?>"> <?php echo $formules ?> </option>
+                      <?php } ?>
+
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Paramètres : </label>
+
+                    <select class="form-control" id="paramCalcul0">
+                      <?php
+                        //on récupère la liste des données variable de l'énoncé
+                        $listeTypeDonnee = $typeDonneeManager->getListTypeDonnee();
+
+                        foreach ($listeTypeDonnee as $typeDonnee) { ?>
+                          <option value="<?php echo $typeDonnee->getIdType(); ?>"> <?php echo $typeDonnee->getLibelle(); ?> </option>
+                      <?php } ?>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                      <input onclick="ajouterParametresCalculeDonnee();" class="btn btn-secondary col-12" value="Ajouter un paramètre">
+                  </div>
+
+                  <div class="row"></div>
+
+                  <div class="form-group">
+                    <input onclick="validerCalcul()" class="btn btn-primary col-12" value="Enregistrer">
+                  </div>
+
+                </form>
+              </div>
+            </div>
+
+        </div>
+      </div>
+
       <!-- Image -->
       <div id="blockParametrageImage">
         <div class="dropdown">

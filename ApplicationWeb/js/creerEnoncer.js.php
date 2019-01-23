@@ -16,6 +16,7 @@ var policeSize = 3;
 
 var itemASuppr = [];
 var numItem = 0;
+var tableauNumParams = new Array(); //Création du tableau mémorisant les id des paramètres de chaque questions
 
 //Attendre que le document soit compvarement chargé
 $(document).ready(function() {
@@ -23,6 +24,7 @@ $(document).ready(function() {
   //Récupérer les éléments de l'ihm nécessaire
   var blockParametrageText = document.getElementById("blockParametrageText");
   var blockParametrageDonneeVariable = document.getElementById("blockParametrageDonneeVariable");
+  var blockParametrageDonneeCalculee = document.getElementById("blockParametrageDonneeCalculee");
   var blockParametrageImage = document.getElementById("blockParametrageImage");
   var boutonAjouterDonneeVariable = document.getElementById("boutonAjouterDonneeVariable");
   var boutonAjouter = document.getElementById("boutonAjouter");
@@ -39,6 +41,7 @@ $(document).ready(function() {
   //chargement de la zone par défaut
   itemEnCoursDeCration.classList.add("active");
   blockParametrageDonneeVariable.style.display  = "none";
+  blockParametrageDonneeCalculee.style.display  = "none";
   blockParametrageImage.style.display  = "none";
   blockParametrageText.style.display  = "block";
 
@@ -57,6 +60,7 @@ $(document).ready(function() {
     event.target.getAttribute("id") == "itemZoneTexte" ||
     event.target.getAttribute("id") == "itemQuestion"){
       blockParametrageDonneeVariable.style.display  = "none";
+      blockParametrageDonneeCalculee.style.display  = "none";
       blockParametrageImage.style.display  = "none";
       blockParametrageText.style.display  = "block";
     }
@@ -66,16 +70,26 @@ $(document).ready(function() {
       blockParametrageText.style.display  = "none";
       blockParametrageImage.style.display  = "none";
       blockParametrageDonneeVariable.style.display  = "block";
+      blockParametrageDonneeCalculee.style.display  = "none";
 
       //Déterminer quel block de paramétrage de donnée variable afficher
       typeDonnerClick();
 
     }
 
+    //Si l'item nécessite le block de paramétrage "Donnée Calculee"
+    if(event.target.getAttribute("id") == "itemDonneeCalculee"){
+      blockParametrageText.style.display  = "none";
+      blockParametrageImage.style.display  = "none";
+      blockParametrageDonneeVariable.style.display  = "none";
+      blockParametrageDonneeCalculee.style.display  = "block";
+    }
+
     //Si l'item nécessite le block de paramétrage "Image"
     if(event.target.getAttribute("id") == "itemImage"){
       blockParametrageText.style.display  = "none";
       blockParametrageDonneeVariable.style.display  = "none";
+      blockParametrageDonneeCalculee.style.display  = "none";
       blockParametrageImage.style.display  = "block";
     }
   });
@@ -537,6 +551,10 @@ function ajouterNouvelleQuestion(libelle){
 
 }
 
+
+
+
+
 //Retourne un id pour la question/réponse autoincrémenté a chaque fois
 function recupererNumQuestionReponse(){
 
@@ -544,4 +562,99 @@ function recupererNumQuestionReponse(){
   if( typeof numQR == 'undefined' ) { numQR = 0; } else { numQR++; }
 
   return numQR;
+}
+
+//Déclanché si click sur un boutton d'ajout de paramètres
+function ajouterParametresCalculeDonnee() {
+
+  if( typeof newId == 'undefined' ) { newId = 1; } else { newId++; }
+
+  //Création et paramétrage d'une nouvelle liste déroulante
+	var newParam = document.createElement('select');
+	newParam.id = "paramCalcul" + newId;
+  newParam.classList.add("form-control");
+
+  //Ajout de la nouvelle liste déroulante
+	var referenceNode = document.getElementById("paramCalcul" + (newId-1));
+	referenceNode.parentNode.insertBefore(newParam, referenceNode.nextSibling);
+
+  //Appel de la fonction d'appel ajax
+	ajouterNouveauParams(newParam);
+
+  //Ajout de l'id ajouter au tableau des id
+  tableauNumParams.push(newId);
+
+  console.log(tableauNumParams);
+
+}
+
+//Appel du fichier AJAX afin d'ajouter une nouvelle collonne de paramètre
+function ajouterNouveauParams(newParam) {
+
+			$.ajax({
+        type: "POST",
+        url: './ajax/ajoutPamametresCorrection.ajax.php',
+        dataType: "json",
+        success: function(array) {
+            //Appel à la fonction d'ajout d'option
+            populateSelect(array,newParam);
+        }
+    });
+
+}
+
+//Permet d'ajouter des option à la liste déroulante à partir d'un tableau JSON
+function populateSelect(array, newParam){
+
+	for (var i = 0; i < array.length; i++) {
+
+      //Création des différentes option de la liste déroulante selon le tableau
+			var option = document.createElement("option");
+			option.value = array[i].idTypeDonnee;
+			option.text = array[i].libelleTypeDonnee;
+
+      //Ajout des option à la liste déroulante
+			newParam.appendChild(option);
+	}
+}
+
+//Appeler pour enregistrer les élémennts de calcul de donnée
+function validerCalcul(){
+
+    //Récupérer le libellé de la donnée calculée
+    var newDonneeCalculee = document.getElementById("newDonneeCalculee").value;
+
+    //Récupérer le nom de la fonction de correction
+    var nomFormuleCalcul = document.getElementById("formuleCalcul");
+    nomFormuleCalcul = nomFormuleCalcul.options[nomFormuleCalcul.selectedIndex].value;
+
+    //Récupérer les paramètres à passer à la fonction de correction
+    var tableauIdParams = Array();
+    var listeElementsParams = document.getElementsByClassName('paramSection');
+
+    //Pour chaque paramètres
+    for (var i = 0; i < listeElementsParams.length; i++) {
+      //Récupérer l'id de la donnée variable à utiliser
+      var idDonneCalculeeParamsTemp = document.getElementById(listeElementsParams[i].id);
+      idDonneCalculeeParamsTemp = idDonneCalculeeParamsTemp.options[idDonneCalculeeParamsTemp.selectedIndex].value;
+
+      //Ajouter cette id au tableau des paramètres de correction de la question
+      tableauIdParams.push(idDonneCalculeeParamsTemp);
+    }
+
+    console.log(tableauIdParams);
+
+    //ajouterCorrection(newDonneeCalculee,nomFormule,tableauIdParams);
+
+}
+
+//TODO
+//Appel du fichier AJAX afin d'ajouter une nouvelle correction
+function ajouterCorrection(idQuestion,nomFormule,tableauIdParams) {
+
+  $.post(
+    "./ajax/ajouterCorrection.ajax.php",
+    {idQuestion: idQuestion, nomFormule: nomFormule, tableauIdParams: tableauIdParams}
+  );
+
 }

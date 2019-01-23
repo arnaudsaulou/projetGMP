@@ -42,17 +42,8 @@
       $listeQuestions = $questionManager->recupererListeQuestionEnonce($_GET['idEnonce']);
 
       //on récupère la liste des formule de correction disponible
-      $dirname = "./formules";
-      $dir = opendir($dirname);
-
-      while ($file = readdir($dir)) {
-        if($file != '.' && $file != '..' && !is_dir($dirname.$file)){
-          $file = str_replace(".php", "", $file);
-          $listeFormules[] = $file;
-        }
-      }
-
-      closedir($dir);
+      $dirname = "./formules/correction";
+      $listeFormules = $fichierManager->getListeFormules($dirname);
 
       //on récupère la liste des données variable de l'énoncé
       $listeTypeDonnee = $typeDonneeManager->getListTypeDonnee();

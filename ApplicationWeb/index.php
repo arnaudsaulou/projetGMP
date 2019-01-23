@@ -18,6 +18,7 @@ $attribueManager = new AttribueManager($db);
 $questionManager = new QuestionManager($db);
 $solutionManager = new SolutionManager($db);
 $submissionManager = new SubmissionManager($db);
+$fichierManager = new FichierManager();
 
 require_once("include/header.inc.php");
 require_once("include/menu.inc.php");
