@@ -16,6 +16,10 @@ var policeSize = 3;
 
 var itemASuppr = [];
 var numItem = 0;
+var contientQuestion = false;
+var contientDonneeVariable = false;
+var contientText = false;
+
 var tableauNumParams = new Array(); //Création du tableau mémorisant les id des paramètres de chaque questions
 
 //Attendre que le document soit compvarement chargé
@@ -243,6 +247,7 @@ function ajouterElement(typeItem) {
       newTitre.style.textDecoration = textDecoration[isUnderlineSelected ? 1 : 0];
       newTitre.style.display = "inline";
       newTitre.appendChild(document.createTextNode(itemValeur));
+      contientText = true;
     break;
 
     //Si l'item à ajouter est une "Donnée Variable"
@@ -257,6 +262,7 @@ function ajouterElement(typeItem) {
       newTitre.style.textDecoration = textDecoration[isUnderlineSelected ? 1 : 0];
       newTitre.style.display = "inline";
       newTitre.appendChild(document.createTextNode(recupererLibelleTypeDonneeAjoute("selectTypeDonnee")));
+      contientDonneeVariable = true;
     break;
 
     //Si l'item à ajouter est une "Donnée Calculée"
@@ -305,6 +311,8 @@ function ajouterElement(typeItem) {
 
       newTitre.appendChild(question);
       newTitre.appendChild(reponse);
+
+      contientQuestion = true;
     break;
 
     //Si l'item à ajouter est une "Image"
@@ -382,10 +390,36 @@ function ajouterBlockDonneeVariable(){
 
 //Récupère le code HTML de la page de création et l'insère comme valeur de champ "hidden pour la méthode POST
 function validerEnonce(){
-  var enonceCreer = document.getElementById('page_creation').innerHTML;
-  var inputEnonceCreer = document.getElementById('enonceCreer');
-  inputEnonceCreer.value = enonceCreer;
-  return true;
+  var retour;
+  if(numItem > 0){
+    if(contientText){
+      if(contientDonneeVariable){
+        if(contientQuestion){
+
+          var enonceCreer = document.getElementById('page_creation').innerHTML;
+          var inputEnonceCreer = document.getElementById('enonceCreer');
+          inputEnonceCreer.value = enonceCreer;
+
+          retour = true;
+
+        } else {
+          alert("Création de l'énoncé impossible : ajoutez au moins une question !");
+          retour = false;
+        }
+      } else {
+        alert("Création de l'énoncé impossible : ajoutez au moins une donné variable !");
+        retour = false;
+      }
+    } else {
+      alert("Création de l'énoncé impossible : ajoutez au moins un texte explicatif !");
+      retour = false;
+    }
+  } else {
+    alert("Création de l'énoncé impossible : ajoutez au moins un élément !");
+    retour = false;
+  }
+
+  return retour;
 }
 
 //Appel du fichier AJAX afin d'ajouter un nouveau type de donnée dans la base

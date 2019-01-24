@@ -34,9 +34,9 @@
           <button name="Elementprecedent" class="btn btn-danger col-sm-12" id="boutonSupprimer">Supprimer</button>
         </div>
         <div class="form-group">
-          <form action="#" method="post">
+          <form action="#" method="post" onsubmit="return validerEnonce();">
             <input type="hidden" name="enonceCreer" id="enonceCreer" >
-            <button type="submit" class="btn btn-primary col-sm-12" onclick="validerEnonce()">Terminer Enonce</button>
+            <button type="submit" class="btn btn-primary col-sm-12">Terminer Enonce</button>
           </form>
         </div>
       </div>
@@ -44,16 +44,16 @@
     </div>
 
     <!-- Partie de création de l'énoncé a proprement parler -->
-    <div class="page_creation col-xs-12 col-md-9 border  border-dark">
+    <div class="page_creation col-xs-12 col-md-9 border border-grey rounded">
 
-      <div id="page_creation">
+      <div id="page_creation" class="p-2">
 
       </div>
 
       <!-- Titre + Zone de text -->
       <div id="blockParametrageText">
         <div class="dropdown">
-          <input id="itemValeur" type="text" placeholder="Entrez votre texte ici">
+          <input id="itemValeur" type="text" class="border-bottom" placeholder="Entrez votre texte ici" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';">
           <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-cog"></i>
           </button>
