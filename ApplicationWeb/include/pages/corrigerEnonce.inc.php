@@ -1,16 +1,7 @@
-<!-- Breadcrumbs-->
-<ol class="breadcrumb">
-  <li class="breadcrumb-item">
-    <a>Corriger un énoncé</a>
-  </li>
-
-  <li class="breadcrumb-item active">Corriger l'énoncé n°<?php echo $_GET['idEnonce']; ?></li>
-</ol>
-
 <div class="card mb-3">
   <div class="card-header">
     <i class="fas fa-table"></i>
-    Corriger l'énoncé n°<?php echo $_GET['idEnonce']; ?>
+    Corriger l'énoncé n°<?php echo $_SESSION['lastInsertIdEnonce']; ?>
   </div>
 
 <div class="card-body">
@@ -39,20 +30,11 @@
       <?php
 
       //on récupère la liste des questions de l'énoncé
-      $listeQuestions = $questionManager->recupererListeQuestionEnonce($_GET['idEnonce']);
+      $listeQuestions = $questionManager->recupererListeQuestionEnonce($_SESSION['lastInsertIdEnonce']);
 
       //on récupère la liste des formule de correction disponible
-      $dirname = "./formules";
-      $dir = opendir($dirname);
-
-      while ($file = readdir($dir)) {
-        if($file != '.' && $file != '..' && !is_dir($dirname.$file)){
-          $file = str_replace(".php", "", $file);
-          $listeFormules[] = $file;
-        }
-      }
-
-      closedir($dir);
+      $dirname = "./formules/correction";
+      $listeFormules = $fichierManager->getListeFormules($dirname);
 
       //on récupère la liste des données variable de l'énoncé
       $listeTypeDonnee = $typeDonneeManager->getListTypeDonnee();

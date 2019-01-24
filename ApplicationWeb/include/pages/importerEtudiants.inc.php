@@ -30,7 +30,8 @@ function creerUtilisateurAPartirDeLigne($ligne, $delimiteur) {
     "nom" => $elements[0],
     "prenom" => $elements[1],
     "nomUtilisateur" => $elements[2],
-    "motDePasse" => $elements[3]
+    "motDePasse" => $elements[3],
+    "annee" => $elements[4]
   );
 
   $utilisateur = new Utilisateur($attributs);

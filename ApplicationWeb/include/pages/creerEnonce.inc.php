@@ -2,10 +2,8 @@
 <link href="packages/colorpicker/css/evol-colorpicker.css" rel="stylesheet" />
 
 <!-- Breadcrumbs-->
-<ol class="breadcrumb">
-  <li class="breadcrumb-item">
-    <a>Gestion des contrôle</a>
-  </li>
+<ol class="breadcrumb" id="breadcrumb">
+  <li class="breadcrumb-item"><a>Gestion des contrôle</a></li>
   <li class="breadcrumb-item active">Créer un énoncé</li>
 </ol>
 
@@ -34,9 +32,9 @@
           <button name="Elementprecedent" class="btn btn-danger col-sm-12" id="boutonSupprimer">Supprimer</button>
         </div>
         <div class="form-group">
-          <form action="#" method="post">
+          <form action="#" method="post" onsubmit="return validerEnonce();">
             <input type="hidden" name="enonceCreer" id="enonceCreer" >
-            <button type="submit" class="btn btn-primary col-sm-12" onclick="validerEnonce()">Terminer Enonce</button>
+            <button type="submit" class="btn btn-primary col-sm-12">Terminer Enonce</button>
           </form>
         </div>
       </div>
@@ -44,16 +42,16 @@
     </div>
 
     <!-- Partie de création de l'énoncé a proprement parler -->
-    <div class="page_creation col-xs-12 col-md-9 border  border-dark">
+    <div class="page_creation col-xs-12 col-md-9 border border-grey rounded">
 
-      <div id="page_creation">
+      <div id="page_creation" class="p-2">
 
       </div>
 
       <!-- Titre + Zone de text -->
       <div id="blockParametrageText">
         <div class="dropdown">
-          <input id="itemValeur" type="text" placeholder="Entrez votre texte ici">
+          <input id="itemValeur" type="text" class="border-bottom" placeholder="Entrez votre texte ici" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';">
           <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-cog"></i>
           </button>
@@ -96,7 +94,7 @@
       <div id="blockParametrageDonneeVariable">
         <div class="dropdown">
 
-          <?php $listTypeDonnee = $typeDonneeManager->getListTypeDonnee(); ?>
+          <?php $listTypeDonnee = $typeDonneeManager->getListTypeDonnee();?>
           <select id="selectTypeDonnee">
             <?php foreach ($listTypeDonnee as $typeDonnee) { ?>
               <option value="<?php echo $typeDonnee->getIdType(); ?>"><?php echo $typeDonnee->getLibelle(); ?></option>
@@ -159,6 +157,83 @@
                   </div>
 
           		  </form>
+              </div>
+            </div>
+
+        </div>
+      </div>
+
+      <!-- Donnée Calculée -->
+      <div id="blockParametrageDonneeCalculee">
+        <div class="dropdown">
+
+          <?php $listTypeDonneeCalculee = $typeDonneeManager->getListOfTypeDonneeDeDonneesCalculee(); ?>
+          <select id="selectTypeDonneeCalculee">
+            <?php foreach ($listTypeDonneeCalculee as $typeDonneeCalculee) { ?>
+              <option value="<?php echo $typeDonneeCalculee->getIdType(); ?>"><?php echo $typeDonneeCalculee->getLibelle(); ?></option>
+            <?php } ?>
+          </select>
+
+          <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-cog"></i>
+          </button>
+
+            <div class="menu_parametrage dropdown-menu"  aria-labelledby="dropdownMenu2">
+              <div class="dropdown-header">
+
+                <div class="titre_parametrage">
+                  <label>Paramètres : </label>
+                  <label class="titreParametrage"></label>
+                </div>
+
+                <form action="#" method="post" class="px-4 py-3" >
+                  <div class="form-group">
+                    <label>Nouvelle donnée calculée :</label>
+                    <input class="form-control" id="libelleDonneeCalculee" type="text" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Formule de calcule : </label>
+                    <select id="formuleCalcul" class="form-control">
+
+                      <?php
+                        //on récupère la liste des formule de correction disponible
+                        $dirname = "./formules/calcul";
+                        $listeFormules = $fichierManager->getListeFormules($dirname);
+
+                        foreach ($listeFormules as $formules) {
+                      ?>
+                          <option value="<?php echo $formules ?>"> <?php echo $formules ?> </option>
+                      <?php } ?>
+
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Paramètres : </label>
+
+                    <select class="form-control paramCalcul" id="paramCalcul0">
+                      <?php
+                        //on récupère la liste des données variable de l'énoncé
+                        $listeTypeDonnee = $typeDonneeManager->getListTypeDonnee();
+
+                        foreach ($listeTypeDonnee as $typeDonnee) { ?>
+                          <option value="<?php echo $typeDonnee->getIdType(); ?>"> <?php echo $typeDonnee->getLibelle(); ?> </option>
+                      <?php } ?>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                      <input onclick="ajouterParametresCalculeDonnee();" class="btn btn-secondary col-12" value="Ajouter un paramètre">
+                  </div>
+
+                  <div class="row"></div>
+
+                  <div class="form-group">
+                    <input onclick="validerCalcul()" class="btn btn-primary col-12" value="Enregistrer">
+                  </div>
+
+                </form>
               </div>
             </div>
 
@@ -228,18 +303,30 @@
 
 } else if(isset($_SESSION['enonceCreer']) && isset($_POST['nomEnonce'])) {
 
-  ($_POST);
-
   $newEnonce = $enonceManager->createEnonceDepuisTableau( array('nomEnonce' => $_POST['nomEnonce'], 'enonce' => $_SESSION['enonceCreer'] ));
   $ajout = $enonceManager->ajouterEnonce($newEnonce);
 
-  //Appel du fichier contenant le code de génération des sujets
-  include('genererSujet.inc.php');
-
   if($ajout){
-    echo "L'énoncé à bien été créer !";
+?>
+
+<script type="text/javascript">
+  var breadcrumb = document.getElementById("breadcrumb");
+
+  var newbreadcrumb = document.createElement('li');
+  newbreadcrumb.classList.add("breadcrumb-item", "active");
+  newbreadcrumb.appendChild(document.createTextNode("Corriger l'énoncé n°" + <?php echo $_SESSION['lastInsertIdEnonce']; ?>));
+  breadcrumb.appendChild(newbreadcrumb);
+
+</script>
+
+<?php
+    include("corrigerEnonce.inc.php");
+
+    //Appel du fichier contenant le code de génération des sujets
+    include('genererSujet.inc.php');
+
   } else {
-    echo "Une erreur est survenue :/";
+    ?><script type="text/javascript"> alert("Une erreur est survenue :/"); </script><?php
   }
 }
 ?>

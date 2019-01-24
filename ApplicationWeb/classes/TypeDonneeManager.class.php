@@ -43,6 +43,24 @@ class TypeDonneeManager
     }
 
     /**
+     * Retourne la liste des TypeDonnee des DonneeCalculee enregistrées.
+     * @return array Un tableau contenant les instances de TypeDonnee.
+     */
+    public function getListOfTypeDonneeDeDonneesCalculee()
+    {
+        $listTypeDonnee = array();
+        $req = $this->db->prepare(
+            "SELECT td.`idType` , td.`libelle` FROM `donnee_calculee` dc JOIN `type_donnee` td ON dc.`idType` = td.`idType`"
+        );
+        $req->execute();
+        while ($typeDonnee= $req->fetch(PDO::FETCH_OBJ)) {
+            $listTypeDonnee[] = new TypeDonnee($typeDonnee);
+        }
+        $req->closeCursor();
+        return $listTypeDonnee;
+    }
+
+    /**
      * Récupère l'instance de TypeDonnee correspondant à l'ID passé en paramètre.
      * @param integer $idTypeDonnee L'ID de l'instance de TypeDonnee dont on veut récupérer les données.
      * @return TypeDonnee L'instance de TypeDonnee correspondant à l'ID fourni.

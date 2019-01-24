@@ -386,6 +386,13 @@ body.sidebar-toggled footer.sticky-footer {
   margin-top: 2%;
 }
 
+#itemValeur{
+  border : none;
+  outline: none;
+  width:150px;
+  min-width:150px;
+}
+
 .suppressionConfirme {
   text-align: center;
 }

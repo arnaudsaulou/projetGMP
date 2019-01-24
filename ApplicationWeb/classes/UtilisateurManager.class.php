@@ -20,13 +20,14 @@ class UtilisateurManager
     public function addUtilisateur($Utilisateur)
     {
         $req = $this->db->prepare
-        ('INSERT INTO utilisateur (estProf,nom,prenom,nomUtilisateur,motDePasse)
-    VALUES (:estProf,:nom,:prenom,:login,:pwd)');
+        ('INSERT INTO utilisateur (estProf,nom,prenom,nomUtilisateur,motDePasse, annee)
+        VALUES (:estProf,:nom,:prenom,:login,:pwd,:annee)');
         $req->bindValue(':estProf', $Utilisateur->getEstProf(), PDO::PARAM_STR);
         $req->bindValue(':nom', $Utilisateur->getNom(), PDO::PARAM_STR);
         $req->bindValue(':prenom', $Utilisateur->getPrenom(), PDO::PARAM_STR);
         $req->bindValue(':login', $Utilisateur->getNomUtilisateur(), PDO::PARAM_STR);
         $req->bindValue(':pwd', $Utilisateur->getMotDePasse(), PDO::PARAM_STR);
+        $req->bindValue(':annee', $Utilisateur->getAnnee(), PDO::PARAM_STR);
         $req->execute();
         $req->closeCursor();
     }

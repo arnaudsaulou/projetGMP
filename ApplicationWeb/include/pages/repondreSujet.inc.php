@@ -6,6 +6,7 @@ $idEtudiant = $utilisateurManager->getUtilisateurByLogin($_SESSION['log'])->getI
 $attribue = $attribueManager->getAttribuePourEtudiant($idEtudiant);
 
 if(count($attribue) > 0){
+  
   $idSujet = $attribue[0]->getIdSujet();
   $idEnonce = $sujetManager->getSujetAvecId($idSujet)->getIdEnonce();
   $enonce = $enonceManager->recupererEnonceViaIdEnonce($idEnonce);
