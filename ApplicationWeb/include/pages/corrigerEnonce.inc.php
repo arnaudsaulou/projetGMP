@@ -1,16 +1,7 @@
-<!-- Breadcrumbs-->
-<ol class="breadcrumb">
-  <li class="breadcrumb-item">
-    <a>Corriger un énoncé</a>
-  </li>
-
-  <li class="breadcrumb-item active">Corriger l'énoncé n°<?php echo $_GET['idEnonce']; ?></li>
-</ol>
-
 <div class="card mb-3">
   <div class="card-header">
     <i class="fas fa-table"></i>
-    Corriger l'énoncé n°<?php echo $_GET['idEnonce']; ?>
+    Corriger l'énoncé n°<?php echo $_SESSION['lastInsertIdEnonce']; ?>
   </div>
 
 <div class="card-body">
@@ -39,7 +30,7 @@
       <?php
 
       //on récupère la liste des questions de l'énoncé
-      $listeQuestions = $questionManager->recupererListeQuestionEnonce($_GET['idEnonce']);
+      $listeQuestions = $questionManager->recupererListeQuestionEnonce($_SESSION['lastInsertIdEnonce']);
 
       //on récupère la liste des formule de correction disponible
       $dirname = "./formules/correction";

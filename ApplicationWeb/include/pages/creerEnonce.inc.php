@@ -2,10 +2,8 @@
 <link href="packages/colorpicker/css/evol-colorpicker.css" rel="stylesheet" />
 
 <!-- Breadcrumbs-->
-<ol class="breadcrumb">
-  <li class="breadcrumb-item">
-    <a>Gestion des contrôle</a>
-  </li>
+<ol class="breadcrumb" id="breadcrumb">
+  <li class="breadcrumb-item"><a>Gestion des contrôle</a></li>
   <li class="breadcrumb-item active">Créer un énoncé</li>
 </ol>
 
@@ -305,18 +303,30 @@
 
 } else if(isset($_SESSION['enonceCreer']) && isset($_POST['nomEnonce'])) {
 
-  ($_POST);
-
   $newEnonce = $enonceManager->createEnonceDepuisTableau( array('nomEnonce' => $_POST['nomEnonce'], 'enonce' => $_SESSION['enonceCreer'] ));
   $ajout = $enonceManager->ajouterEnonce($newEnonce);
 
-  //Appel du fichier contenant le code de génération des sujets
-  include('genererSujet.inc.php');
-
   if($ajout){
-    echo "L'énoncé à bien été créer !";
+?>
+
+<script type="text/javascript">
+  var breadcrumb = document.getElementById("breadcrumb");
+
+  var newbreadcrumb = document.createElement('li');
+  newbreadcrumb.classList.add("breadcrumb-item", "active");
+  newbreadcrumb.appendChild(document.createTextNode("Corriger l'énoncé n°" + <?php echo $_SESSION['lastInsertIdEnonce']; ?>));
+  breadcrumb.appendChild(newbreadcrumb);
+
+</script>
+
+<?php
+    include("corrigerEnonce.inc.php");
+
+    //Appel du fichier contenant le code de génération des sujets
+    include('genererSujet.inc.php');
+
   } else {
-    echo "Une erreur est survenue :/";
+    ?><script type="text/javascript"> alert("Une erreur est survenue :/"); </script><?php
   }
 }
 ?>
