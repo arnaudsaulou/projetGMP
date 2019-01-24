@@ -96,7 +96,7 @@
       <div id="blockParametrageDonneeVariable">
         <div class="dropdown">
 
-          <?php $listTypeDonnee = $typeDonneeManager->getListTypeDonnee(); ?>
+          <?php $listTypeDonnee = $typeDonneeManager->getListTypeDonnee();?>
           <select id="selectTypeDonnee">
             <?php foreach ($listTypeDonnee as $typeDonnee) { ?>
               <option value="<?php echo $typeDonnee->getIdType(); ?>"><?php echo $typeDonnee->getLibelle(); ?></option>
@@ -172,7 +172,7 @@
           <?php $listTypeDonneeCalculee = $typeDonneeManager->getListOfTypeDonneeDeDonneesCalculee(); ?>
           <select id="selectTypeDonneeCalculee">
             <?php foreach ($listTypeDonneeCalculee as $typeDonneeCalculee) { ?>
-              <option value="<?php echo $typeDonnee->getIdType(); ?>"><?php echo $typeDonnee->getLibelle(); ?></option>
+              <option value="<?php echo $typeDonneeCalculee->getIdType(); ?>"><?php echo $typeDonneeCalculee->getLibelle(); ?></option>
             <?php } ?>
           </select>
 
@@ -188,10 +188,10 @@
                   <label class="titreParametrage"></label>
                 </div>
 
-                <form class="px-4 py-3" >
+                <form action="#" method="post" class="px-4 py-3" >
                   <div class="form-group">
                     <label>Nouvelle donnée calculée :</label>
-                    <input class="form-control" id="newDonneeCalculee" type="text" required>
+                    <input class="form-control" id="libelleDonneeCalculee" type="text" required>
                   </div>
 
                   <div class="form-group">
@@ -214,7 +214,7 @@
                   <div class="form-group">
                     <label>Paramètres : </label>
 
-                    <select class="form-control" id="paramCalcul0">
+                    <select class="form-control paramCalcul" id="paramCalcul0">
                       <?php
                         //on récupère la liste des données variable de l'énoncé
                         $listeTypeDonnee = $typeDonneeManager->getListTypeDonnee();

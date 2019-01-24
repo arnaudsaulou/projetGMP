@@ -96,6 +96,7 @@ $(document).ready(function() {
 
   //Au clique sur le bouton, ajouter l'item à la zone de création
   boutonAjouter.onclick = function() {
+    console.log(itemEnCoursDeCration);
     ajouterElement(itemEnCoursDeCration);
   };
 
@@ -255,7 +256,7 @@ function ajouterElement(typeItem) {
       newTitre.style.fontStyle = fontStyle[isItalicSelected ? 1 : 0];
       newTitre.style.textDecoration = textDecoration[isUnderlineSelected ? 1 : 0];
       newTitre.style.display = "inline";
-      newTitre.appendChild(document.createTextNode(recupererLibelleTypeDonneeAjoute()));
+      newTitre.appendChild(document.createTextNode(recupererLibelleTypeDonneeAjoute("selectTypeDonnee")));
     break;
 
     //Si l'item à ajouter est une "Donnée Calculée"
@@ -269,7 +270,7 @@ function ajouterElement(typeItem) {
       newTitre.style.fontStyle = fontStyle[isItalicSelected ? 1 : 0];
       newTitre.style.textDecoration = textDecoration[isUnderlineSelected ? 1 : 0];
       newTitre.style.display = "inline";
-      newTitre.appendChild(document.createTextNode(recupererLibelleTypeDonneeAjoute()));
+      newTitre.appendChild(document.createTextNode(recupererLibelleTypeDonneeAjoute("selectTypeDonneeCalculee")));
     break;
 
     //Si l'item à ajouter est une "Question"
@@ -412,7 +413,7 @@ function ajouterNouveauTypeDonnee(){
     success: function() {
       //Appel de la fonction d'ajout des donnée variables associé
       ajouterNouvelleDonneeVariable();
-      refreshSelectTypeDonnee(newTypeDonnee);
+      refreshSelectTypeDonnee(newTypeDonnee,"selectTypeDonnee");
     }
   });
   return true;
@@ -423,9 +424,9 @@ function ajouterNouveauTypeDonnee(){
 
 
 //Permet de mettre à jour le liste déroulante avec le nouveau type de donnée qui vient d'être ajouté
-function refreshSelectTypeDonnee(newTypeDonnee){
+function refreshSelectTypeDonnee(newTypeDonnee,target){
 
-  var selectTypeDonnee =  document.getElementById("selectTypeDonnee");
+  var selectTypeDonnee =  document.getElementById(target);
 
   var option = document.createElement("option");
   option.value = "<?php if( isset($_SESSION['newIdTypeDonne'])){ echo $_SESSION['newIdTypeDonne']; } ?>";
@@ -518,25 +519,17 @@ function recupererIdTypeDonneeAjoute(){
 
 
 //Retourne le libellé du type de donnée séléctionné
-function recupererLibelleTypeDonneeAjoute(){
+function recupererLibelleTypeDonneeAjoute(target){
 
   //Récupérer les éléments de l'ihm nécessaire
-  var typeDonnee = document.getElementById("selectTypeDonnee");
-  var newTypeDonnee = document.getElementById("newTypeDonnee").value;
+  var typeDonnee = document.getElementById(target);
 
   //Récupérer le libellé du type de donnée séléctionné / inséré
   typeDonneeValue = typeDonnee.options[typeDonnee.selectedIndex].value;
   typeDonneeText = typeDonnee.options[typeDonnee.selectedIndex].text;
 
-  //Si le typeDonneeValue est "Créer un nouveau type de donnée"
-  if(typeDonneeValue == 0){
-    //Retourne le nouveau type de donné saisi
-    return newTypeDonnee;
-  } else {
-    //Retourne le nouveau type de donné séléctionné
-    return typeDonneeText;
-  }
-
+  //Retourne le type de donné séléctionné
+  return typeDonneeText;
 }
 
 //Appel du fichier AJAX afin d'ajouter une nouvelle question dans la base de donnée
@@ -551,10 +544,6 @@ function ajouterNouvelleQuestion(libelle){
 
 }
 
-
-
-
-
 //Retourne un id pour la question/réponse autoincrémenté a chaque fois
 function recupererNumQuestionReponse(){
 
@@ -567,12 +556,12 @@ function recupererNumQuestionReponse(){
 //Déclanché si click sur un boutton d'ajout de paramètres
 function ajouterParametresCalculeDonnee() {
 
-  if( typeof newId == 'undefined' ) { newId = 1; } else { newId++; }
+  if( typeof newId == 'undefined' ) { tableauNumParams.push(0); newId = 1; } else { newId++; }
 
   //Création et paramétrage d'une nouvelle liste déroulante
 	var newParam = document.createElement('select');
 	newParam.id = "paramCalcul" + newId;
-  newParam.classList.add("form-control");
+  newParam.classList.add("form-control", "paramCalcul");
 
   //Ajout de la nouvelle liste déroulante
 	var referenceNode = document.getElementById("paramCalcul" + (newId-1));
@@ -583,9 +572,6 @@ function ajouterParametresCalculeDonnee() {
 
   //Ajout de l'id ajouter au tableau des id
   tableauNumParams.push(newId);
-
-  console.log(tableauNumParams);
-
 }
 
 //Appel du fichier AJAX afin d'ajouter une nouvelle collonne de paramètre
@@ -622,7 +608,7 @@ function populateSelect(array, newParam){
 function validerCalcul(){
 
     //Récupérer le libellé de la donnée calculée
-    var newDonneeCalculee = document.getElementById("newDonneeCalculee").value;
+    var libelleDonneeCalculee = document.getElementById("libelleDonneeCalculee").value;
 
     //Récupérer le nom de la fonction de correction
     var nomFormuleCalcul = document.getElementById("formuleCalcul");
@@ -630,7 +616,7 @@ function validerCalcul(){
 
     //Récupérer les paramètres à passer à la fonction de correction
     var tableauIdParams = Array();
-    var listeElementsParams = document.getElementsByClassName('paramSection');
+    var listeElementsParams = document.getElementsByClassName('paramCalcul');
 
     //Pour chaque paramètres
     for (var i = 0; i < listeElementsParams.length; i++) {
@@ -642,19 +628,25 @@ function validerCalcul(){
       tableauIdParams.push(idDonneCalculeeParamsTemp);
     }
 
-    console.log(tableauIdParams);
-
-    //ajouterCorrection(newDonneeCalculee,nomFormule,tableauIdParams);
+    return ajoutDonneeCalculee(libelleDonneeCalculee,nomFormuleCalcul,tableauIdParams);
 
 }
 
-//TODO
-//Appel du fichier AJAX afin d'ajouter une nouvelle correction
-function ajouterCorrection(idQuestion,nomFormule,tableauIdParams) {
+//Appel du fichier AJAX afin d'ajouter une nouvelle DonneeCalculee
+function ajoutDonneeCalculee(libelleDonneeCalculee,nomFormuleCalcul,tableauIdParams) {
 
-  $.post(
-    "./ajax/ajouterCorrection.ajax.php",
-    {idQuestion: idQuestion, nomFormule: nomFormule, tableauIdParams: tableauIdParams}
-  );
+  $.ajax({
+    type: "POST",
+    url: './ajax/ajoutDonneeCalculee.ajax.php',
+    data :
+      {
+        libelleDonneeCalculee: libelleDonneeCalculee,
+        nomFormuleCalcul: nomFormuleCalcul,
+        tableauIdParams: tableauIdParams
+      },
+    success: function() {
+      refreshSelectTypeDonnee(libelleDonneeCalculee,"selectTypeDonneeCalculee");
+    }
+  });
 
 }

@@ -42,7 +42,6 @@ function ajouterParametres(idBtn) {
 
   //Ajout de l'id ajouter au tableau des id
   tableauNumParams[idBtn].push(newId);
-
 }
 
 //Appel du fichier AJAX afin d'ajouter une nouvelle collonne de paramètre

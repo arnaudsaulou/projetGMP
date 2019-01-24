@@ -12,6 +12,4 @@ $typeDonneeManager = new TypeDonneeManager($db);
 $newTypeDonnee = $typeDonneeManager->createTypeDonneeDepuisTableau(array('libelle' => $_POST['newTypeDonnee']));
 $typeDonneeManager->ajouterTypeDonne($newTypeDonnee);
 
-echo "test";
-
 ?>
