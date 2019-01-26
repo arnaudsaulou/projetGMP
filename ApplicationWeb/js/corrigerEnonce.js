@@ -101,21 +101,30 @@ function validerCorrection(){
       tableauIdParams.push(idDonneVariableParamsTemp);
     }
 
-    ajouterCorrection(idQuestion,nomFormule,tableauIdParams);
+    //Récupérer du bareme de la question
+    var bareme = document.getElementById("bareme"+numQuestion).value;
+
+    ajouterCorrection(idQuestion,nomFormule,tableauIdParams,bareme);
 
   }
-
-  alert("La correction à cet énoncé à bien été enregistrée !");
-  window.location.replace("../ApplicationWeb/index.php?page=7");
 
 }
 
 //Appel du fichier AJAX afin d'ajouter une nouvelle correction
-function ajouterCorrection(idQuestion,nomFormule,tableauIdParams) {
+function ajouterCorrection(idQuestion,nomFormule,tableauIdParams,bareme) {
 
-  $.post(
-    "./ajax/ajouterCorrection.ajax.php",
-    {idQuestion: idQuestion, nomFormule: nomFormule, tableauIdParams: tableauIdParams}
-  );
+  $.ajax({
+    type: "POST",
+    url: './ajax/ajouterCorrection.ajax.php',
+    data : {idQuestion: idQuestion, nomFormule: nomFormule, tableauIdParams: tableauIdParams, bareme:bareme},
+    dataType: "json",
+    success: function(data) {
+      alert("La correction à cet énoncé à bien été enregistrée !");
+      window.location.replace("../ApplicationWeb/index.php?page=7");
+    },
+    error: function(){
+      alert("Une erreur est survenue");
+    }
+  });
 
 }

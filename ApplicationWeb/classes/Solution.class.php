@@ -4,6 +4,7 @@ class Solution {
     private $idQuestion;
     private $nomFormule;
     private $tableauIdParams;
+    private $bareme;
 
     /**
      * Génère une nouvelle instance de Solution.
@@ -32,6 +33,9 @@ class Solution {
                     break;
                 case 'tableauIdParams':
                     $this->setTableauIdParams($valeur);
+                    break;
+                case 'bareme':
+                    $this->setBareme($valeur);
                     break;
             }
         }
@@ -65,6 +69,15 @@ class Solution {
     }
 
     /**
+     * Modifie la valeur du bareme de cette instance de Solution.
+     * @param string $new_bareme La nouvelle valeur de cette instance de Solution.
+     */
+    public function setBareme($new_bareme)
+    {
+        $this->bareme = $new_bareme;
+    }
+
+    /**
      * Retourne l'ID de l'instance de Question associé à cette instance de Solution.
      * @return integer L'ID de l'instance de Question associé à cette instance de Solution.
      */
@@ -89,5 +102,14 @@ class Solution {
     public function getTableauIdParams()
     {
         return $this->tableauIdParams;
+    }
+
+    /**
+     * Retourne le bareme de cette instance de Solution.
+     * @return string Le bareme de cette instance de Solution.
+     */
+    public function getBareme()
+    {
+        return $this->bareme;
     }
 }

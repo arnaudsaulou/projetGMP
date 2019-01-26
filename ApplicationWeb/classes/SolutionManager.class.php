@@ -32,11 +32,12 @@ class SolutionManager {
     public function ajouterSolution($newSolution)
     {
         $req = $this->db->prepare(
-            "INSERT INTO solutions(idQuestion, nomFormule, tableauIdParams) VALUES (:idQuestion , :nomFormule , :tableauIdParams)"
+            "INSERT INTO solutions(idQuestion, nomFormule, tableauIdParams, bareme) VALUES (:idQuestion , :nomFormule , :tableauIdParams, :bareme)"
         );
         $req->bindValue(':idQuestion', $newSolution->getIdQuestion(), PDO::PARAM_INT);
         $req->bindValue(':nomFormule', $newSolution->getNomFormule(), PDO::PARAM_STR);
         $req->bindValue(':tableauIdParams', $newSolution->getTableauIdParams(), PDO::PARAM_STR);
+        $req->bindValue(':bareme', $newSolution->getBareme(), PDO::PARAM_INT);
         $result = $req->execute();
         $req->closeCursor();
         return $result;
