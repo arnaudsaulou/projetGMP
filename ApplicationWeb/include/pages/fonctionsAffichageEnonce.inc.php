@@ -68,6 +68,8 @@ function comparerValeurs(SolutionManager $solutionManager, DonneeVariableManager
 
     $params = $donneeVariableManager->recupererValeurDonneVariableViaTableauIdDonneeVariable($arrayResult);
 
+    include("./formules/correction/".$nomFormule.".php");
+
     //Appel des fonction prédéfinies en fonction du nom extrait juste avant et passage des paramètres
     $solution = Formule::$nomFormule($arrayResult);
 
