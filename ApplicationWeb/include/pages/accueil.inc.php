@@ -4,7 +4,12 @@
     <a>Tableau de bord</a>
   </li>
 </ol>
+<?php
 
+$test = $reponseManager->getNbReponses(13);
+var_dump($test);
+
+ ?>
 <!-- Icon Cards-->
 <div class="row">
   <div class="col-xl-3 col-sm-6 mb-3">
@@ -72,3 +77,19 @@
     </div>
   </div>
 </div>
+
+
+<!-- Area Chart Example-->
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fas fa-chart-area"></i>
+    Nombre de réponses reçues (tout sujets confondus)</div>
+    <div class="card-body">
+      <canvas id="myAreaChart" width="100%" height="30"></canvas>
+    </div>
+    <div class="card-footer small text-muted">Mise à jour le : <?php echo date("d/m/Y");?></div>
+  </div>
+
+
+  <script src="packages/charts/Chart.js" type="text/javascript"></script>
+  <script src="js/chart.js" type="text/javascript"></script>

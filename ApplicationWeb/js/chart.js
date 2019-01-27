@@ -9,7 +9,7 @@ var myLineChart = new Chart(ctx, {
   data: {
     labels: ["", "", "", "Il y a une semaine", "", "", "", "", "", "", "Avant-Hier", "Hier", "Aujourd'hui"],
     datasets: [{
-      label: "Sessions",
+      label: "Nombre de réponses",
       lineTension: 0.3,
       backgroundColor: "rgba(2,117,216,0.2)",
       borderColor: "rgba(2,117,216,1)",
