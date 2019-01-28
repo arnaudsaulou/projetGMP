@@ -8,7 +8,7 @@
 </ol>
 
 
-<?php if(!isset($_POST['enonceCreer']) && !isset($_POST['nomEnonce'])) { ?>
+<?php if((!isset($_POST['enonceCreer']) || empty($_POST['enonceCreer'])) && !isset($_POST['nomEnonce'])) { ?>
 
   <div class="row">
     <!-- Menu de gauche (séléction des items à insérer) -->
@@ -32,10 +32,12 @@
           <button name="Elementprecedent" class="btn btn-danger col-sm-12" id="boutonSupprimer">Supprimer</button>
         </div>
         <div class="form-group">
-          <form action="#" method="post" onsubmit="return validerEnonce();">
+          <form action="#" method="post" id="formCreationEnonce" onsubmit="return ">
             <input type="hidden" name="enonceCreer" id="enonceCreer" >
-            <button type="submit" class="btn btn-primary col-sm-12">Terminer Enonce</button>
+            <button type="submit" class="btn btn-primary col-sm-12" >Terminer Enonce</button>
           </form>
+
+
         </div>
       </div>
 
@@ -285,9 +287,7 @@
     </div>
   </div>
 
-<?php } else if(isset($_POST['enonceCreer']) && !isset($_POST['nomEnonce'])) {
-
-  ($_POST);
+<?php } else if(isset($_POST['enonceCreer']) && !empty($_POST['enonceCreer']) && !isset($_POST['nomEnonce'])) {
 
   $_SESSION['enonceCreer'] = $_POST['enonceCreer'];
 

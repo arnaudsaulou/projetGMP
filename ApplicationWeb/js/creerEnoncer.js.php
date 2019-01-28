@@ -16,10 +16,13 @@ var policeSize = 3;
 
 var itemASuppr = [];
 var numItem = 0;
+var numQR = recupererNumQuestionReponseAjax();
 var contientQuestion = false;
 var contientDonneeVariable = false;
 var contientText = false;
+var creationEnonceReady = false;
 
+var tableauQuestions = new Array(); //Création du tableau mémorisant les questions de l'énoncé
 var tableauNumParams = new Array(); //Création du tableau mémorisant les id des paramètres de chaque questions
 
 //Attendre que le document soit compvarement chargé
@@ -100,7 +103,6 @@ $(document).ready(function() {
 
   //Au clique sur le bouton, ajouter l'item à la zone de création
   boutonAjouter.onclick = function() {
-    console.log(itemEnCoursDeCration);
     ajouterElement(itemEnCoursDeCration);
   };
 
@@ -165,8 +167,23 @@ $(document).ready(function() {
     $('#html_btn').click();
   });
 
-});
+  $('#formCreationEnonce').submit(function(event){
+    event.preventDefault();
 
+    enregistrerQuestions(this, handleEnregistrerQuestions);
+
+    // enregistrerQuestions(handleEnregistrerQuestions, function(data){
+    //   console.log(data);
+    //   console.log("enregistrerQuestionsAfter");
+    //   // if(validerEnonce()){
+    //   //   console.log("validerEnonce");
+    //   //   this.submit();
+    //   // }
+    // });
+
+  });
+
+});
 
 function resetMenuSelectedItem(){
   document.getElementById("itemTitre").classList.remove("active");
@@ -281,7 +298,7 @@ function ajouterElement(typeItem) {
 
     //Si l'item à ajouter est une "Question"
     case "itemQuestion":
-      var numQR = recupererNumQuestionReponse();
+      numQR++;
 
       var newTitre = document.createElement('div');
 
@@ -350,6 +367,12 @@ function ajouterElement(typeItem) {
 
 //Supprimer le dernier élément ajouté à la zone de text
 function supprimerElement(typeItem){
+
+  //Supression du tableau des question si l'item a supprimer est une question
+  if(typeItem.getAttribute("id") == "itemQuestion"){
+    tableauQuestions.pop();
+  }
+
   var page_creation = document.getElementById("page_creation");
   page_creation.removeChild(itemASuppr[itemASuppr.length - 1]);
   itemASuppr.pop();
@@ -422,6 +445,31 @@ function validerEnonce(){
   return retour;
 }
 
+//Récupère le code HTML de la page de création et l'insère comme valeur de champ "hidden pour la méthode POST
+function enregistrerQuestions(form , callback){
+
+  $.ajax({
+    type: "POST",
+    url: './ajax/ajoutQuestion.ajax.php',
+    data : {tableauQuestions: JSON.stringify(tableauQuestions)},
+    success: function(data){
+      creationEnonceReady = validerEnonce();
+      callback(form);
+    },
+    error: function(data){
+      console.log(data);
+      alert("Une erreur s'est produite :/");
+      creationEnonceReady = false;
+      callback();
+    }
+  });
+
+}
+
+function handleEnregistrerQuestions(form){
+  form.submit();
+}
+
 //Appel du fichier AJAX afin d'ajouter un nouveau type de donnée dans la base
 function ajouterNouveauTypeDonnee(){
 
@@ -443,6 +491,7 @@ function ajouterNouveauTypeDonnee(){
   $.ajax({
     type: "POST",
     url: './ajax/ajoutTypeDonnee.ajax.php',
+    dataType: "json",
     data : { newTypeDonnee: newTypeDonnee },
     success: function() {
       //Appel de la fonction d'ajout des donnée variables associé
@@ -450,6 +499,7 @@ function ajouterNouveauTypeDonnee(){
       refreshSelectTypeDonnee(newTypeDonnee,"selectTypeDonnee");
     }
   });
+
   return true;
 } else {
   return false;
@@ -571,20 +621,23 @@ function ajouterNouvelleQuestion(libelle){
 
   //Si le libellé de la question n'est pas vide
   if(libelle != ""){
-    $.post("./ajax/ajoutQuestion.ajax.php", { libelle: libelle }, function(data){
-      console.log(data);
-    });
+    tableauQuestions.push(libelle);
   }
 
 }
 
 //Retourne un id pour la question/réponse autoincrémenté a chaque fois
-function recupererNumQuestionReponse(){
+function recupererNumQuestionReponseAjax(){
 
-  //Simulation d'une variable globale
-  if( typeof numQR == 'undefined' ) { numQR = 0; } else { numQR++; }
+    $.ajax({
+      type: "POST",
+      url: './ajax/recupererNumQuestionReponse.ajax.php',
+      dataType: "json",
+      success: function(init_numQRLoc) {
+          numQR = init_numQRLoc;
+      }
+    });
 
-  return numQR;
 }
 
 //Déclanché si click sur un boutton d'ajout de paramètres
@@ -611,15 +664,15 @@ function ajouterParametresCalculeDonnee() {
 //Appel du fichier AJAX afin d'ajouter une nouvelle collonne de paramètre
 function ajouterNouveauParams(newParam) {
 
-			$.ajax({
-        type: "POST",
-        url: './ajax/ajoutPamametresCorrection.ajax.php',
-        dataType: "json",
-        success: function(array) {
-            //Appel à la fonction d'ajout d'option
-            populateSelect(array,newParam);
-        }
-    });
+  $.ajax({
+    type: "POST",
+    url: './ajax/ajoutPamametresCorrection.ajax.php',
+    dataType: "json",
+    success: function(array) {
+      //Appel à la fonction d'ajout d'option
+      populateSelect(array,newParam);
+    }
+  });
 
 }
 
@@ -672,6 +725,7 @@ function ajoutDonneeCalculee(libelleDonneeCalculee,nomFormuleCalcul,tableauIdPar
   $.ajax({
     type: "POST",
     url: './ajax/ajoutDonneeCalculee.ajax.php',
+    dataType: "json",
     data :
       {
         libelleDonneeCalculee: libelleDonneeCalculee,
