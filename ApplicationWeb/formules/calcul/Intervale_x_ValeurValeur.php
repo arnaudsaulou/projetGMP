@@ -2,16 +2,16 @@
 
 class Formule {
 
-  public static function formuleTest($prametres){
+  public static function Intervale_x_ValeurValeur($prametres){
     //Extraction des paramètres (ne pas modifier)
-    $poids = $prametres[0];
-    $vitesse = $prametres[1];
+    $intervale = $prametres[0];
+    $valeurValeur = $prametres[1];
 
     // ------------------------------------ //
     //  Coder ci-dessous la fonction voulu  //
     // ------------------------------------ //
 
-    return $poids * $vitesse;
+    return $intervale * $valeurValeur;
   }
 
 }

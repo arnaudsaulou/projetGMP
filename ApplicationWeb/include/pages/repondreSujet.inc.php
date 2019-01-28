@@ -40,6 +40,7 @@
 
   <?php } else {
     $tabReponseQuestion = array();
+    $noteFinale = 0;
 
     //Stocker les réponses.
     foreach($_POST as $key => $value) {
@@ -65,9 +66,14 @@
       $idQuestion = str_replace('reponse_', '', $idQuestion);
 
       $tauxErreur = comparerValeurs($solutionManager, $donneeVariableManager, $idSujet, $idQuestion, $reponse);
+      $noteFinale += calculNoteParQuestion($tauxErreur, $idQuestion, $solutionManager);
 
       echo "Réponse n°".($key+1).") <br> taux d'erreur = ".$tauxErreur." % <br><br>";
     }
+
+    echo "Note finale : ".$noteFinale. "/20";
+
+
 
   }
 ?>

@@ -95,4 +95,17 @@ class QuestionManager
         $req->closeCursor();
         return $listeQuestions;
     }
+
+    public function recupererDernierIdQuestion()
+    {
+        $req = $this->db->prepare(
+            "SELECT MAX(idQuestion) as lastIdQuestion FROM questions"
+        );
+
+        $req->execute();
+        $res = $req->fetch(PDO::FETCH_ASSOC);
+        $req->closeCursor();
+
+        return $res['lastIdQuestion'];
+      }
 }

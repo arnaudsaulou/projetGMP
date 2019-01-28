@@ -81,3 +81,11 @@ function comparerValeurs(SolutionManager $solutionManager, DonneeVariableManager
 
     return $difference;
 }
+
+function calculNoteParQuestion($tauxErreur, $idQuestion, $solutionManager){
+  echo $idQuestion;
+  $bareme = $solutionManager->recupererSolution($idQuestion)->getBareme();
+
+  $noteIntermediaire = $bareme - ( ($tauxErreur * $bareme) / 100);
+  return $noteIntermediaire;
+}
