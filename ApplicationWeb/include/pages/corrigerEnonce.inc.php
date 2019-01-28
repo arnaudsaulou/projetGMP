@@ -1,7 +1,17 @@
 <div class="card mb-3">
   <div class="card-header">
     <i class="fas fa-table"></i>
-    Corriger l'énoncé n°<?php echo $_SESSION['lastInsertIdEnonce']; ?>
+    <?php
+    if(empty($_SESSION['lastInsertIdEnonce'])){
+    ?>
+      Corriger l'énoncé n°<?php echo $_GET['idEnonce']; ?>
+    <?php
+    } else {
+    ?>
+      Corriger l'énoncé n°<?php echo $_SESSION['lastInsertIdEnonce']; ?>
+    <?php
+    }
+    ?>
   </div>
 
 <div class="card-body">
@@ -13,6 +23,7 @@
           <th>Question</th>
           <th>Formule</th>
           <th>Paramètre</th>
+          <th>Barème</th>
         </tr>
       </thead>
 
@@ -21,6 +32,7 @@
           <th>Question</th>
           <th>Formule</th>
           <th>Paramètre</th>
+          <th>Barème</th>
         </tr>
 
       </tfoot>
@@ -30,7 +42,11 @@
       <?php
 
       //on récupère la liste des questions de l'énoncé
-      $listeQuestions = $questionManager->recupererListeQuestionEnonce($_SESSION['lastInsertIdEnonce']);
+      if(empty($_SESSION['lastInsertIdEnonce'])){
+        $listeQuestions = $questionManager->recupererListeQuestionEnonce($_GET['idEnonce']);
+      } else {
+        $listeQuestions = $questionManager->recupererListeQuestionEnonce($_SESSION['lastInsertIdEnonce']);
+      }
 
       //on récupère la liste des formule de correction disponible
       $dirname = "./formules/correction";
@@ -69,6 +85,10 @@
             <button onclick="handleClickAddParams(event);" id="btnAdParams<?php echo $key ?>">+</button>
           </div>
         </td>
+
+        <td>
+          <input type="number" id="bareme<?php echo $key ?>">
+        </td>
       </tr>
 
       <?php } ?>
@@ -81,7 +101,7 @@
   </div>
 </div>
 
-<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+<div class="card-footer small text-muted">Mise à jour le : <?php echo date("d/m/Y");?></div>
 
 </div>
 

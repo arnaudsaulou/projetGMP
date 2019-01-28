@@ -397,11 +397,6 @@ body.sidebar-toggled footer.sticky-footer {
   text-align: center;
 }
 
-/* importerEtudiants.inc.php */
-.importEtudiant > label {
-  margin-left: 0.1%;
-}
-
 #frenchColor{
   display: none;
 }
@@ -409,11 +404,10 @@ body.sidebar-toggled footer.sticky-footer {
 .item{
    cursor: pointer;
 }
+#buttonFakeInputFile{
+  display: inline;
+}
 
 #html_btn{
   display: none;
-}
-
-#buttonFakeInputFile{
-  display: inline;
 }

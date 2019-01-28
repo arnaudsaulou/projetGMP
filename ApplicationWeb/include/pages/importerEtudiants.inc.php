@@ -5,12 +5,11 @@
   </li>
   <li class="breadcrumb-item active">Importer des étudiants</li>
 </ol>
-
 <form class="needs-validation" novalidate enctype="multipart/form-data" action="#" method="post">
-  <div class="form-row">
-    <div class="col-md-6 mb-3">
-      <label class="custom-file-label" for="customFileLang">Selectionner un fichier &agrave; importer (doit être un fichier CSV) </label>
-      <input type="file" name="fichier" accept=".csv" required class="custom-file-input" id="customFileLang" lang="fr">
+  <div class="input-group mb-3 form-row">
+    <div class="custom-file">
+      <input type="file" name="fichier" accept=".csv" class="custom-file-input" id="inputGroupFile02">
+      <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Selectionner un fichier à importer (doit être un fichier CSV) </label>
     </div>
   </div>
   <input class="btn btn-primary" type="submit" value="Importer le fichier" />
@@ -82,10 +81,47 @@ function detecterDelimiteur($file) {
 //Test de vérification: On vérifie ici si le fichier existe bien, et si on peut le lire
 //avant de le traiter.
 if (isset($_FILES['fichier'])) {
-  $file = file_get_contents($_FILES['fichier']['tmp_name']);
-  if ($file === FALSE) {
-    echo "<p>Une erreur est survenue. Veuillez reessayer.</p>";
+
+  if (0 === $_FILES['fichier']['error']) { //on test si une erreur est survenue durant l'import d'un fichier
+    if (stristr($_FILES['fichier']['name'],".csv")) {
+      $file = file_get_contents($_FILES['fichier']['tmp_name']);
+      if ($file === FALSE) {
+        ?>
+        <div class='row justify-content-center'>
+          <div class="col-4 align-self-center alert alert-danger" role="alert">
+            <p>Votre fichier semble être corrompu ! Pour proteger l'integrité de la base de données, il n'a pas été importé. !</p>
+          </div>
+        </div>
+        <?php
+      } else {
+        ?>
+        <div class='row justify-content-center'>
+          <div class="col-4 align-self-center alert alert-success" role="alert">
+            <p>Fichier chargé ! importation des élèves réussie</p>
+          </div>
+        </div>
+        <?php
+        traiterFichier($file,$utilisateurManager);
+      }
+    } else {
+      ?>
+      <div class='row justify-content-center'>
+        <div class="col-4 align-self-center alert alert-danger" role="alert">
+          <p>Votre fichier n'est pas un fichier csv ! Veuillez importer un fichier correct avant de réessayer !</p>
+        </div>
+      </div>
+      <?php
+    }
   } else {
-    traiterFichier($file,$utilisateurManager);
+    ?>
+    <div class='row justify-content-center'>
+      <div class="col-4 align-self-center alert alert-danger" role="alert">
+        <p>Il semblerait que vous n'ayez pas sélectionné de fichier ou que l'importation se soit mal passée. Veuillez réessayer !</p>
+      </div>
+    </div>
+    <?php
   }
 }
+
+?>
+<script src="js/importerEtudiants.js" type="text/javascript"></script>
