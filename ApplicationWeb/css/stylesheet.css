@@ -399,6 +399,14 @@ body.sidebar-toggled footer.sticky-footer {
   text-align: center;
 }
 
+.attributionConfirme {
+  text-align: center;
+}
+
+.attributionError {
+  text-align: center;
+}
+
 #frenchColor{
   display: none;
 }
