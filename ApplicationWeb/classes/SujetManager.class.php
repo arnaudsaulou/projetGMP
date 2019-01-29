@@ -38,15 +38,12 @@ class SujetManager {
               $numSujet++;
             }
 
-            echo "getSQLQueryFromListDonneeVariable : ".$this->getSQLQueryFromListDonneeVariable($listDonneeVariable);
-
             $req = $this->db->prepare(
                 $this->getSQLQueryFromListDonneeVariable($listDonneeVariable)
             );
             $req->execute();
 
             while ($possibilite = $req->fetch(PDO::FETCH_NUM)) {
-                var_dump($possibilite);
                 $this->addSujetPossible($numSujet, $possibilite);
                 $this->addSujet($numSujet);
                 $numSujet++;
@@ -88,9 +85,7 @@ class SujetManager {
     //Cette fonction permet d'ajouter un sujet possible à partir d'un numéro de sujet
     public function addSujetPossible($numSujet, $possibilite)
     {
-        echo "addSujetPossible";
         if (!empty($numSujet) && !empty($possibilite)) {
-          echo "getSQLQueryFromPossibilite : ".$this->getSQLQueryFromPossibilite($numSujet, $possibilite);
             $req = $this->db->prepare($this->getSQLQueryFromPossibilite($numSujet, $possibilite));
             $req->execute();
             $req->closeCursor();
@@ -107,10 +102,10 @@ class SujetManager {
         for ($i = 0; $i <= count($listDonneeVariable); $i++) {
             if ($i == count($listDonneeVariable) - 1) {
                 $selectOn .= 'd' . $i . '.`idDonneeVariable` AS `idDonneeVariableSujet' . $i . '`';
-                $join .= '(SELECT * FROM `donnee_variable` WHERE `idType` = ' . ($i + 1) . ') AS d' . $i;
+                $join .= '(SELECT * FROM `donnee_variable` WHERE `idType` = ' . $listDonneeVariable[$i] . ') AS d' . $i;
             } else if ($i < count($listDonneeVariable) - 1) {
                 $selectOn .= 'd' . $i . '.`idDonneeVariable` AS `idDonneeVariableSujet' . $i . '`, ';
-                $join .= '(SELECT * FROM `donnee_variable` WHERE `idType` = ' . ($i + 1) . ') AS d' . $i . ' , ';
+                $join .= '(SELECT * FROM `donnee_variable` WHERE `idType` = ' . $listDonneeVariable[$i] . ') AS d' . $i . ' , ';
             }
         }
 
