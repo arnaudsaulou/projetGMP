@@ -6,8 +6,7 @@
 </ol>
 <?php
 
-$test = $reponseManager->getNbReponses(13);
-var_dump($test);
+
 
  ?>
 <!-- Icon Cards-->

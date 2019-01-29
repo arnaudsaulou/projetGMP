@@ -149,13 +149,13 @@
                   </div>
 
                   <div class="form-group">
-                      <input id="boutonAjouterDonneeVariable" class="btn btn-secondary col-12" value="Ajouter une valeur">
+                      <input type="button" id="boutonAjouterDonneeVariable" class="btn btn-secondary col-12" value="Ajouter une valeur">
                   </div>
 
                   <div class="row"></div>
 
                   <div class="form-group">
-                    <input onclick="ajouterNouveauTypeDonnee()" class="btn btn-primary col-12" value="Enregistrer">
+                    <input onclick="ajouterNouveauTypeDonnee()" type="button" class="btn btn-primary col-12" value="Enregistrer">
                   </div>
 
           		  </form>
@@ -226,13 +226,13 @@
                   </div>
 
                   <div class="form-group">
-                      <input onclick="ajouterParametresCalculeDonnee();" class="btn btn-secondary col-12" value="Ajouter un paramètre">
+                      <input onclick="ajouterParametresCalculeDonnee();" type="button" class="btn btn-secondary col-12" value="Ajouter un paramètre">
                   </div>
 
                   <div class="row"></div>
 
                   <div class="form-group">
-                    <input onclick="validerCalcul()" class="btn btn-primary col-12" value="Enregistrer">
+                    <input onclick="validerCalcul()" type="button" class="btn btn-primary col-12" value="Enregistrer">
                   </div>
 
                 </form>
