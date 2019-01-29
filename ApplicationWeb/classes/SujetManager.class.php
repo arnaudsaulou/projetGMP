@@ -38,12 +38,15 @@ class SujetManager {
               $numSujet++;
             }
 
+            echo "getSQLQueryFromListDonneeVariable : ".$this->getSQLQueryFromListDonneeVariable($listDonneeVariable);
+
             $req = $this->db->prepare(
                 $this->getSQLQueryFromListDonneeVariable($listDonneeVariable)
             );
             $req->execute();
 
             while ($possibilite = $req->fetch(PDO::FETCH_NUM)) {
+                var_dump($possibilite);
                 $this->addSujetPossible($numSujet, $possibilite);
                 $this->addSujet($numSujet);
                 $numSujet++;
@@ -85,7 +88,9 @@ class SujetManager {
     //Cette fonction permet d'ajouter un sujet possible à partir d'un numéro de sujet
     public function addSujetPossible($numSujet, $possibilite)
     {
+        echo "addSujetPossible";
         if (!empty($numSujet) && !empty($possibilite)) {
+          echo "getSQLQueryFromPossibilite : ".$this->getSQLQueryFromPossibilite($numSujet, $possibilite);
             $req = $this->db->prepare($this->getSQLQueryFromPossibilite($numSujet, $possibilite));
             $req->execute();
             $req->closeCursor();

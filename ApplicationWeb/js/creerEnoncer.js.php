@@ -169,18 +169,25 @@ $(document).ready(function() {
 
   $('#formCreationEnonce').submit(function(event){
     event.preventDefault();
-
     enregistrerQuestions(this, handleEnregistrerQuestions);
+  });
 
-    // enregistrerQuestions(handleEnregistrerQuestions, function(data){
-    //   console.log(data);
-    //   console.log("enregistrerQuestionsAfter");
-    //   // if(validerEnonce()){
-    //   //   console.log("validerEnonce");
-    //   //   this.submit();
-    //   // }
-    // });
+  //Détécter les touche de clavier pressé
+  $("#itemValeur").on('keyup', function (e) {
 
+    //Si le touche "entrer" est pressée
+    if (e.keyCode == 13) {
+        var height =  $('#itemValeur').height();
+        height = height + 25;
+        $('#itemValeur').height(height);
+    }
+
+    //Si le touche "suppr" est pressée
+    if(e.keyCode == 46) {
+      var height =  $('#itemValeur').height();
+      height = height - 25;
+      $('#itemValeur').height(height);
+    }
   });
 
 });
@@ -254,7 +261,7 @@ function ajouterElement(typeItem) {
 
     //Si l'item à ajouter est une "Zone de texte"
     case "itemZoneTexte":
-      var newTitre = document.createElement('p');
+      var newTitre = document.createElement('pre');
       newTitre.id = 'zonedetext'+numItem;
       newTitre.name = 'item'+numItem;
       newTitre.style.fontSize = fontSize[policeSize];

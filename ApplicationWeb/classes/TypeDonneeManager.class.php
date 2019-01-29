@@ -30,10 +30,12 @@ class TypeDonneeManager
      * @return array Un tableau contenant toutes les instances de TypeDonnee stockées dans la base de données, triées
      * par libellé.
      */
-    public function getListTypeDonnee()
+    public function getListOfTypeDonneeDeDonneesVariable()
     {
         $listTypeDonnee = array();
-        $req = $this->db->prepare("SELECT idType , libelle FROM type_donnee ORDER BY libelle");
+        $req = $this->db->prepare(
+          "SELECT DISTINCT td.`idType` , td.`libelle` FROM `donnee_variable` dv INNER JOIN `type_donnee` td ON dv.`idType` = td.`idType` ORDER BY libelle"
+        );
         $req->execute();
         while ($typeDonnee = $req->fetch(PDO::FETCH_OBJ)) {
             $listTypeDonnee[] = new TypeDonnee($typeDonnee);
@@ -50,7 +52,7 @@ class TypeDonneeManager
     {
         $listTypeDonnee = array();
         $req = $this->db->prepare(
-            "SELECT td.`idType` , td.`libelle` FROM `donnee_calculee` dc JOIN `type_donnee` td ON dc.`idType` = td.`idType`"
+            "SELECT DISTINCT td.`idType` , td.`libelle` FROM `donnee_calculee` dc INNER JOIN `type_donnee` td ON dc.`idType` = td.`idType` ORDER BY libelle"
         );
         $req->execute();
         while ($typeDonnee= $req->fetch(PDO::FETCH_OBJ)) {

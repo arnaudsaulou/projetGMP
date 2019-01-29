@@ -389,6 +389,8 @@ body.sidebar-toggled footer.sticky-footer {
 #itemValeur{
   border : none;
   outline: none;
+  height: 30px;
+  min-height:30px;
   width:150px;
   min-width:150px;
 }

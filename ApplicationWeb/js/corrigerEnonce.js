@@ -104,14 +104,14 @@ function validerCorrection(){
     //Récupérer du bareme de la question
     var bareme = document.getElementById("bareme"+numQuestion).value;
 
-    ajouterCorrection(idQuestion,nomFormule,tableauIdParams,bareme);
+    ajouterCorrection(idQuestion,nomFormule,tableauIdParams,bareme,showAlerte);
 
   }
 
 }
 
 //Appel du fichier AJAX afin d'ajouter une nouvelle correction
-function ajouterCorrection(idQuestion,nomFormule,tableauIdParams,bareme) {
+function ajouterCorrection(idQuestion,nomFormule,tableauIdParams,bareme,callback) {
 
   $.ajax({
     type: "POST",
@@ -119,12 +119,20 @@ function ajouterCorrection(idQuestion,nomFormule,tableauIdParams,bareme) {
     data : {idQuestion: idQuestion, nomFormule: nomFormule, tableauIdParams: tableauIdParams, bareme:bareme},
     dataType: "json",
     success: function(data) {
-      alert("La correction à cet énoncé à bien été enregistrée !");
-      window.location.replace("../ApplicationWeb/index.php?page=7");
+      callback(true);
     },
     error: function(){
-      alert("Une erreur est survenue");
+      callback(false);
     }
   });
 
+}
+
+function showAlerte(status){
+  if(status){
+    alert("La correction à cet énoncé à bien été enregistrée !");
+    window.location.replace("../ApplicationWeb/index.php?page=7");
+  } else {
+    alert("Une erreur est survenue");
+  }
 }

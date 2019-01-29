@@ -53,7 +53,7 @@
       $listeFormules = $fichierManager->getListeFormules($dirname);
 
       //on récupère la liste des données variable de l'énoncé
-      $listeTypeDonnee = $typeDonneeManager->getListTypeDonnee();
+      $listeTypeDonnee = $typeDonneeManager->getListOfTypeDonneeDeDonneesVariable();
 
       foreach ($listeQuestions as $key => $question) {
 
@@ -87,7 +87,7 @@
         </td>
 
         <td>
-          <input type="number" id="bareme<?php echo $key ?>">
+          <input type="number" id="bareme<?php echo $key ?>" required>
         </td>
       </tr>
 

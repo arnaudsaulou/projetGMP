@@ -53,7 +53,7 @@
       <!-- Titre + Zone de text -->
       <div id="blockParametrageText">
         <div class="dropdown">
-          <input id="itemValeur" type="text" class="border-bottom" placeholder="Entrez votre texte ici" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';">
+          <textarea id="itemValeur" type="text" class="border-bottom" placeholder="Entrez votre texte ici" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';"></textarea>
           <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-cog"></i>
           </button>
@@ -96,7 +96,7 @@
       <div id="blockParametrageDonneeVariable">
         <div class="dropdown">
 
-          <?php $listTypeDonnee = $typeDonneeManager->getListTypeDonnee();?>
+          <?php $listTypeDonnee = $typeDonneeManager->getListOfTypeDonneeDeDonneesVariable();?>
           <select id="selectTypeDonnee">
             <?php foreach ($listTypeDonnee as $typeDonnee) { ?>
               <option value="<?php echo $typeDonnee->getIdType(); ?>"><?php echo $typeDonnee->getLibelle(); ?></option>
@@ -217,7 +217,7 @@
                     <select class="form-control paramCalcul" id="paramCalcul0">
                       <?php
                         //on récupère la liste des données variable de l'énoncé
-                        $listeTypeDonnee = $typeDonneeManager->getListTypeDonnee();
+                        $listeTypeDonnee = $typeDonneeManager->getListOfTypeDonneeDeDonneesVariable();
 
                         foreach ($listeTypeDonnee as $typeDonnee) { ?>
                           <option value="<?php echo $typeDonnee->getIdType(); ?>"> <?php echo $typeDonnee->getLibelle(); ?> </option>
@@ -334,6 +334,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
 <script src="packages/colorpicker/js/evol-colorpicker.js" type="text/javascript"></script>
-<?php if(!isset($_POST['enonceCreer']) && !isset($_POST['nomEnonce'])) { ?>
+<?php //if((!isset($_POST['enonceCreer']) || empty($_POST['enonceCreer'])) && !isset($_POST['nomEnonce'])) { ?>
   <script type="text/javascript" src="js/creerEnoncer.js.php"></script>
-<?php } ?>
+<?php //} ?>

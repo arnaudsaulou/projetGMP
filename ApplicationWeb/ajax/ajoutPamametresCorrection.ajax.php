@@ -7,7 +7,7 @@
 	$typeDonneeManager = new TypeDonneeManager($db);
 
 	//on récupère la liste des données variable de l'énoncé
-	$listeTypeDonnee = $typeDonneeManager->getListTypeDonnee();
+	$listeTypeDonnee = $typeDonneeManager->getListOfTypeDonneeDeDonneesVariable();
 
 	$listeParams = array();
 
