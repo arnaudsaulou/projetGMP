@@ -116,7 +116,7 @@ class UtilisateurManager
      */
     public function getListeAnnees()
     {
-        $req = $this->db->prepare("SELECT DISTINCT annee FROM utilisateur");
+        $req = $this->db->prepare("SELECT DISTINCT annee FROM utilisateur WHERE annee!=0");
         $req->execute();
         $listeAnnee = array();
         while ($annee = $req->fetch()) {
