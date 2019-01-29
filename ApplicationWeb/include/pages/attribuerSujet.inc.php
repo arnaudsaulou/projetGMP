@@ -10,7 +10,6 @@
 if( empty($_POST['choix_promotion'])){
   ?>
   <form class="form-row"  action="#" method="POST">
-
     <div class="col-md-4 mb-3">
       <label for="choixPromo">Promotion :</label>
       <select class="form-control" id="choixPromo" name="choix_promotion">
@@ -70,62 +69,71 @@ else if(isset($_POST['choix_promotion'])){
   $idMinSujet = $attribueManager->getIdSujetMinimumByIdEnonce($enonceChoisi);
 
   $listEtudiant = $utilisateurManager->recupererPromotionEtudiante($anneeChoisi);
-  foreach ($listEtudiant as $etudiant) {
+  $nbEtudiants = $utilisateurManager->recupererNbEtudiantsPromotion($anneeChoisi);
+  $nbSujets = $idMaxSujet - $idMinSujet;
+  $count = 0;
 
-    $table = $attribueManager->getUniqueIdSujet($anneeChoisi);
+  if(intval($nbEtudiants) < $nbSujets) {
+    foreach ($listEtudiant as $etudiant) {
 
+      $table = $attribueManager->getUniqueIdSujet($anneeChoisi);
+      $idSujetAlea = (int) rand($idMinSujet ,$idMaxSujet);
 
-    $idSujetAlea = (int) rand($idMinSujet ,$idMaxSujet);
+      while(in_array($idSujetAlea, $table)){
+        $idSujetAlea = rand($idMinSujet ,$idMaxSujet );
+      }
 
-    while(in_array($idSujetAlea, $table)){
-      $idSujetAlea = rand($idMinSujet ,$idMaxSujet );
+      $attribuerSujet = new Attribue(array('idUtilisateur' => $etudiant->getIdUtilisateur(),
+      'idSujet' => $idSujetAlea,
+      'dateAttribution' => date("Y-m-d"),
+      'dateLimite' => $_POST["date_limite"],
+      'cooldown' => $_POST["choix_cooldown"],
+    ));
+
+    if($attribueManager->countNombreDeFoisQuunSujetAEteAttribueAUnEtudiant($etudiant->getIdUtilisateur(), $enonceChoisi) < 1){
+      $attribueManager->addAttribue($attribuerSujet);
     }
-
-    $attribuerSujet = new Attribue(array('idUtilisateur' => $etudiant->getIdUtilisateur(),
-    'idSujet' => $idSujetAlea,
-    'dateAttribution' => date("Y-m-d"),
-    'dateLimite' => $_POST["date_limite"],
-    'cooldown' => $_POST["choix_cooldown"],
-  ));
-
-  if($attribueManager->countNombreDeSujetAttribuerAUnEtudiant($etudiant->getIdUtilisateur(), $enonceChoisi) < 1){
-    $attribueManager->addAttribue($attribuerSujet);
+    else{
+      $count = $count+ 1;
+    }
   }
-
+  if($count >0){
+    ?>
+    <div class="attributionError">
+      <div class='row justify-content-center'>
+        <div class="col-4 align-self-center alert alert-warning" role="alert">
+          <p>L'attribution s'est déroulée sans erreur mais <?php echo $count ?> étudiants avaient déjà reçu le sujet.</p>
+        </div>
+      </div>
+      <a class="btn btn-link" href="index.php?page=6"><p>Retour</p></a>
+    </div>
+    <?php
+  } else {
+    ?>
+    <div class="attributionConfirme">
+      <div class='row justify-content-center'>
+        <div class="col-4 align-self-center alert alert-success" role="alert">
+          <p>Les sujets ont été attribués avec succès !</p>
+        </div>
+      </div>
+      <a class="btn btn-link" href="index.php?page=6"><p>Retour</p></a>
+    </div>
+    <?php
+  }
+}else{
+  ?>
+  <div class="attributionError">
+    <div class='row justify-content-center'>
+      <div class="col-4 align-self-center alert alert-danger" role="alert">
+        <p>Les sujets n'ont pas pu être attribués à la promotion car il y a plus d'étudiants que de sujets disponibles !</p>
+      </div>
+    </div>
+    <a class="btn btn-link" href="index.php?page=6"><p>Retour</p></a>
+  </div>
+  <?php
 }
 ?>
-
-<script type="text/javascript">
-$(document).ready(function() {
-  $('#confirmerModal').modal('show');
-});
-
-document.getElementById("myButton").onclick = function(){
-  location.href="index.php?page=6";
-};
-</script>
-
-
 
 <?php
 }
 ?>
-
-<div class="modal fade" id="confirmerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Un sujet aléatoire a été ou  est déjà attribué à tout les étudiants ! </h5>
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body">Appuyer sur "Continuer" pour attribuer d'autres sujets.</div>
-      <div class="modal-footer">
-        <form id="formConfirmAttribution" name="formConfirmAttribution" method="post" action="#">
-          <button id="myButton" onclick="location.href = 'index.php?page=6';" class="btn btn-secondary" type="button" data-dismiss="modal">Continuer</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
