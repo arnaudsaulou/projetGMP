@@ -29,15 +29,6 @@ function insererReponseDansChamp(string &$enonce, string $texte, int $position)
     $enonce = substr_replace($enonce, $texte, $position, 0);
 }
 
-//Sert à insérer les valeurs dans à la place des libellés.
-function insererValeurs(array $listeDonneeVariable, TypeDonneeManager $typeDonneeManager, string &$enonce)
-{
-    foreach ($listeDonneeVariable as $donneeVariable) {
-        $typeDonnee = $typeDonneeManager->getTypeDonneeById($donneeVariable->getIdType());
-        $enonce = str_replace($typeDonnee->getLibelle(), $donneeVariable->getValeur(), $enonce);
-    }
-}
-
 //Sert à desactiver tous les <input>
 function desactiverTousLesInputs(string &$enonce)
 {

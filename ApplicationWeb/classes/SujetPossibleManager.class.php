@@ -44,24 +44,4 @@ class SujetPossibleManager {
         $req->closeCursor();
         return $listeDonneeVariable;
     }
-
-
-    //fonction permettant de lister tous les donnée variable via l'id du sujet
-    public function recuperListeValeurDonneeVariableViaIdSujet($listeIdTypeDonnee, $idSujet)
-    {
-        $listeDonneeVariable = $this->recuperListeDonneeVariableViaIdSujet($idSujet);
-        $listeValeur = array();
-        foreach ($listeIdTypeDonnee as $idTypeDonnee) {
-            $compteur = 0;
-            $trouve = FALSE;
-            while ($compteur < count($listeDonneeVariable) - 1 && !$trouve) {
-                if ($idTypeDonnee == $listeDonneeVariable[$compteur]->getIdType()) {
-                    $listeValeur[] = $listeDonneeVariable[$compteur]->getValeur();
-                    $trouve = TRUE;
-                }
-                $compteur++;
-            }
-        }
-        return $listeValeur;
-    }
 }
