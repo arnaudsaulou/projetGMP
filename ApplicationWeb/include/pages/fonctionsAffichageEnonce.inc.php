@@ -46,7 +46,7 @@ function desactiverTousLesInputs(string &$enonce)
 function comparerValeurs(SolutionManager $solutionManager, DonneeVariableManager $donneeVariableManager, int $idSujet, int $idQuestion, $reponse) {
 
     //Récupérer la solution avec l'id de la question
-    $solution = $solutionManager->recupererSolution($idQuestion+1);
+    $solution = $solutionManager->recupererSolution($idQuestion);
 
     //Récupérer le nom de la formule
     $nomFormule = $solution->getNomFormule();
@@ -74,7 +74,6 @@ function comparerValeurs(SolutionManager $solutionManager, DonneeVariableManager
 }
 
 function calculNoteParQuestion($tauxErreur, $idQuestion, $solutionManager){
-  echo $idQuestion;
   $bareme = $solutionManager->recupererSolution($idQuestion)->getBareme();
 
   $noteIntermediaire = $bareme - ( ($tauxErreur * $bareme) / 100);
