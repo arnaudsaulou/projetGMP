@@ -3,6 +3,8 @@
 class SujetManager {
     private $db;
     private $donneeVariableManager;
+    private $insertIntoSujetPossible = '';
+    private $insertIntoSujet = '';
 
     /**
      * SujetManager constructor.
@@ -41,14 +43,36 @@ class SujetManager {
             $req = $this->db->prepare(
                 $this->getSQLQueryFromListDonneeVariable($listDonneeVariable)
             );
+
             $req->execute();
 
+            $this->insertIntoSujetPossible = "";
+            $this->insertIntoSujet = "";
+
+            ini_set('memory_limit', '1024M');
+
             while ($possibilite = $req->fetch(PDO::FETCH_NUM)) {
-                $this->addSujetPossible($numSujet, $possibilite);
-                $this->addSujet($numSujet);
+
+                for ($i = 0; $i < count($possibilite); $i++) {
+                  $this->insertIntoSujetPossible .= '(' . $numSujet . ', ' . $possibilite[$i] . '),';
+                }
+
+                $this->insertIntoSujet .= '(' . $numSujet . ', ' . $_SESSION['lastInsertIdEnonce'] . '),';
+
                 $numSujet++;
             }
+
             $req->closeCursor();
+
+            $this->insertIntoSujetPossible = rtrim($this->insertIntoSujetPossible, ',');
+
+            $this->insertIntoSujetPossible =
+              ' START TRANSACTION;
+                INSERT INTO sujet_possible (idSujet, idDonneeVariable) VALUES ' . $this->insertIntoSujetPossible . ';
+                COMMIT;';
+
+            $this->addSujetPossible();
+            $this->addSujet();
         }
 
         unset($_SESSION['lastInsertIdEnonce']);
@@ -65,51 +89,33 @@ class SujetManager {
         return new Sujet($req->fetch(PDO::FETCH_OBJ));
     }
 
-    //Cette fonction permet de ???
-    public function getSQLQueryFromPossibilite($numSujet, $possibilite)
-    {
-        $selectOn = ' START TRANSACTION;
-                      INSERT INTO sujet_possible (idSujet, idDonneeVariable) VALUES';
-        for ($i = 0; $i < count($possibilite); $i++) {
-            if ($i < count($possibilite) - 1) {
-                $selectOn .= '(' . $numSujet . ', ' . $possibilite[$i] . '), ';
-            } else {
-                $selectOn .= '(' . $numSujet . ', ' . $possibilite[$i] . '); COMMIT;';
-            }
-        }
-
-        return $selectOn;
-
-    }
 
     //Cette fonction permet d'ajouter un sujet possible à partir d'un numéro de sujet
-    public function addSujetPossible($numSujet, $possibilite)
+    public function addSujetPossible()
     {
-        if (!empty($numSujet) && !empty($possibilite)) {
-            $req = $this->db->prepare($this->getSQLQueryFromPossibilite($numSujet, $possibilite));
-            $req->execute();
-            $req->closeCursor();
-        }
+        $req = $this->db->prepare($this->insertIntoSujetPossible);
+        $req->execute();
+        $req->closeCursor();
     }
 
     //TODO: AAAAAAAARGH!
     //Cette fonction permet ???
     public function getSQLQueryFromListDonneeVariable($listDonneeVariable)
     {
-        $selectOn = '';
+        $insertIntoSujetPossible = '';
         $join = '';
 
         for ($i = 0; $i <= count($listDonneeVariable); $i++) {
             if ($i == count($listDonneeVariable) - 1) {
-                $selectOn .= 'd' . $i . '.`idDonneeVariable` AS `idDonneeVariableSujet' . $i . '`';
+                $insertIntoSujetPossible .= 'd' . $i . '.`idDonneeVariable` AS `idDonneeVariableSujet' . $i . '`';
                 $join .= '(SELECT * FROM `donnee_variable` WHERE `idType` = ' . $listDonneeVariable[$i] . ') AS d' . $i;
             } else if ($i < count($listDonneeVariable) - 1) {
-                $selectOn .= 'd' . $i . '.`idDonneeVariable` AS `idDonneeVariableSujet' . $i . '`, ';
+                $insertIntoSujetPossible .= 'd' . $i . '.`idDonneeVariable` AS `idDonneeVariableSujet' . $i . '`, ';
                 $join .= '(SELECT * FROM `donnee_variable` WHERE `idType` = ' . $listDonneeVariable[$i] . ') AS d' . $i . ' , ';
             }
         }
 
-        $query = 'SELECT ' . $selectOn . ' FROM ' . $join;
+        $query = 'SELECT ' . $insertIntoSujetPossible . ' FROM ' . $join;
         return $query;
     }
 
@@ -163,15 +169,17 @@ class SujetManager {
     return $lastIdSujet['idSujet'];
   }
 
-  public function addSujet($numSujet)
+  public function addSujet()
   {
 
+    $this->insertIntoSujet = rtrim($this->insertIntoSujet, ',');
+
     $req = $this->db->prepare(
-        "INSERT INTO sujet(idSujet, idEnonce) VALUES (:idSujet , :idEnonce)"
+        " START TRANSACTION;
+          INSERT INTO sujet(idSujet, idEnonce) VALUES ".$this->insertIntoSujet.";
+          COMMIT;"
     );
 
-    $req->bindValue(':idSujet', $numSujet, PDO::PARAM_INT);
-    $req->bindValue(':idEnonce', $_SESSION['lastInsertIdEnonce'], PDO::PARAM_INT);
     $result = $req->execute();
     $req->closeCursor();
   }

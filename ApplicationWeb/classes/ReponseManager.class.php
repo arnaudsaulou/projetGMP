@@ -84,20 +84,20 @@ class ReponseManager
   * @return array Le tableau des controles disponible pour un étudiant.
   */
   public function getListControleDisponible($idEtudiant) {
-    $req = $this->db->prepare(
-      'SELECT idSujet, nomEnonce, nbReponses, derniereRep, cooldown, ADDDATE(derniereRep, INTERVAL cooldown DAY) as tempsAttente, meilleureNote
-      FROM (
-        SELECT distinct s.idSujet, nomEnonce, COUNT( DISTINCT r.dateReponse) as nbReponses, cooldown, MAX(r.dateReponse) as derniereRep, MAX(note) as meilleureNote
-        FROM enonce e
-        JOIN sujet s ON e.idEnonce=s.idEnonce
-        JOIN note n ON s.idSujet=n.idSujet
-        JOIN attribue a ON n.idSujet=a.idSujet
-        JOIN utilisateur u ON a.idUtilisateur=u.idUtilisateur
-        JOIN reponses r ON u.idUtilisateur=r.idUtilisateur
-        WHERE u.idUtilisateur = :idEtudiant
-      ) t1
+      $req = $this->db->prepare(
+      'SELECT s.idSujet,
+        nomEnonce,
+        cooldown,
+        (SELECT MAX(note) FROM note WHERE idUtilisateur = :idUtilisateur AND idSujet=s.idSujet) as meilleureNote,
+        (SELECT COUNT(DISTINCT dateReponse) FROM reponses WHERE idUtilisateur = :idUtilisateur AND idSujet=s.idSujet) as nbReponses,
+        (SELECT MAX(dateReponse) FROM reponses WHERE idUtilisateur = :idUtilisateur AND idSujet=s.idSujet) as derniereRep,
+        ADDDATE((SELECT MAX(dateReponse) FROM reponses WHERE idUtilisateur = :idUtilisateur AND idSujet=s.idSujet), INTERVAL cooldown DAY) as tempsAttente
+                                FROM enonce e
+                                JOIN sujet s ON e.idEnonce=s.idEnonce
+                                JOIN attribue a ON s.idSujet=a.idSujet
+                                WHERE a.idUtilisateur = :idUtilisateur
       ');
-      $req->bindValue(":idEtudiant", $idEtudiant, PDO::PARAM_INT);
+      $req->bindValue(":idUtilisateur", $idEtudiant, PDO::PARAM_INT);
       $req->execute();
       $listeControleDispo = array();
       while ($controle = $req->fetch(PDO::FETCH_OBJ)) {
@@ -106,6 +106,7 @@ class ReponseManager
       $req->closeCursor();
       return $listeControleDispo;
     }
+
 
     /**
     * Récupère le nombre de réponse recues sur tout les controles confondus sur les x derniers jours.
