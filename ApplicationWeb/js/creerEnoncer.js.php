@@ -7,7 +7,7 @@ if(!isset($_SESSION)){
 var fontWeight = ["normal" , "bold"];
 var fontStyle = ["normal" , "italic"];
 var textDecoration = ["none" , "underline"];
-var fontSize = ["60%", "80%", "100%", "150%", "200%", "300%", "400%", "500%"];
+var fontSize = ["60%", "80%", "100%", "150%", "200%", "300%", "400%", "450%"];
 
 var isBoldSelected = false;
 var isItalicSelected = false;
@@ -156,11 +156,22 @@ $(document).ready(function() {
   policeUpButton.onclick = function(){
     if(policeSize < fontSize.length)
       policeSize++;
+      tooltip.show(policeSize, 28, "policeUpButton", function(){
+        setTimeout( function(){
+          tooltip.hide();
+        }, 1000 );
+      });
+
   };
 
   policeDownButton.onclick = function(){
     if(policeSize > 0)
       policeSize--;
+      tooltip.show(policeSize, 28, "policeDownButton",function(){
+        setTimeout( function(){
+          tooltip.hide();
+        }, 1000 );
+      });
   };
 
   $('#buttonFakeInputFile').bind("click" , function () {
@@ -251,7 +262,7 @@ function ajouterElement(typeItem) {
       var newTitre = document.createElement('h1');
       newTitre.id = 'titre'+numItem;
       newTitre.name = 'item'+numItem;
-      newTitre.style.fontSize = fontSize[policeSize];
+      newTitre.style.fontSize = fontSize[policeSize-1];
       newTitre.style.color = itemCouleur;
       newTitre.style.fontWeight = fontWeight[isBoldSelected ? 1 : 0];
       newTitre.style.fontStyle = fontStyle[isItalicSelected ? 1 : 0];
@@ -264,7 +275,7 @@ function ajouterElement(typeItem) {
       var newTitre = document.createElement('pre');
       newTitre.id = 'zonedetext'+numItem;
       newTitre.name = 'item'+numItem;
-      newTitre.style.fontSize = fontSize[policeSize];
+      newTitre.style.fontSize = fontSize[policeSize-1];
       newTitre.style.color = itemCouleur;
       newTitre.style.fontWeight = fontWeight[isBoldSelected ? 1 : 0];
       newTitre.style.fontStyle = fontStyle[isItalicSelected ? 1 : 0];
@@ -745,3 +756,68 @@ function ajoutDonneeCalculee(libelleDonneeCalculee,nomFormuleCalcul,tableauIdPar
   });
 
 }
+
+var tooltip=function(){
+ var id = 'tt';
+ var top = 3;
+ var left = 3;
+ var maxw = 300;
+ var speed = 10;
+ var timer = 30;
+ var endalpha = 95;
+ var alpha = 0;
+ var tt,c,h;
+
+
+ return{
+  show:function(v,w,target,callback){
+    var target = document.getElementById(target);
+
+   if(tt == null){
+    tt = document.createElement('div');
+    tt.setAttribute('id',id);
+     c = document.createElement('div');
+     c.setAttribute('id',id + 'cont');
+     tt.appendChild(c);
+    target.appendChild(tt);
+    tt.style.opacity = 0;
+    tt.style.filter = 'alpha(opacity=0)';
+   }
+
+   tt.style.top = (target.offsetTop - 15) + 'px';
+   tt.style.left = (target.offsetLeft - 15) + 'px';
+
+   tt.style.display = 'block';
+   c.innerHTML = v;
+   tt.style.zIndex=10000;
+   tt.style.width = w ? w + 'px' : 'auto';
+
+    if(tt.offsetWidth > maxw){tt.style.width = maxw + 'px'}
+    h = parseInt(tt.offsetHeight) + top;
+    clearInterval(tt.timer);
+    tt.timer = setInterval(function(){tooltip.fade(1)},timer);
+    callback();
+  },
+  fade:function(d){
+   var a = alpha;
+   if((a != endalpha && d == 1) || (a != 0 && d == -1)){
+    var i = speed;
+   if(endalpha - a < speed && d == 1){
+    i = endalpha - a;
+   }else if(alpha < speed && d == -1){
+     i = a;
+   }
+   alpha = a + (i * d);
+   tt.style.opacity = alpha * .01;
+   tt.style.filter = 'alpha(opacity=' + alpha + ')';
+  }else{
+    clearInterval(tt.timer);
+     if(d == -1){tt.style.display = 'none'}
+  }
+ },
+ hide:function(){
+  clearInterval(tt.timer);
+   tt.timer = setInterval(function(){tooltip.fade(-1)},timer);
+  }
+ };
+}();

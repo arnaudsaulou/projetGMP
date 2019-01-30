@@ -47,7 +47,7 @@
     <div class="page_creation col-xs-12 col-md-9 border border-grey rounded">
 
       <div id="page_creation" class="p-2">
-        
+
       </div>
 
       <!-- Titre + Zone de text -->
@@ -59,7 +59,7 @@
           </button>
 
           <form>
-            <div class="menu_parametrage dropdown-menu"  aria-labelledby="dropdownMenu1">
+            <div id="menu_parametrage" class="menu_parametrage dropdown-menu"  aria-labelledby="dropdownMenu1">
               <div class="dropdown-header">
                 <div class="titre_parametrage">
                   <label>Paramètres : </label>

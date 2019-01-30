@@ -421,3 +421,21 @@ body.sidebar-toggled footer.sticky-footer {
 #html_btn{
   display: none;
 }
+
+#tt {
+   position:absolute;
+   display:block;
+}
+
+#ttcont {
+  display:block;
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  font-size: 10pt;
+  margin-left:5px;
+  background:#007bff;
+  color: white;
+ }
