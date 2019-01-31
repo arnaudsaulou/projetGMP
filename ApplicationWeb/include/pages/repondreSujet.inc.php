@@ -99,12 +99,12 @@ if (isset($_POST['idSujet'])) {
         <?php
         $noteFinale = round($noteFinale,2);
         echo "Note finale : ".$noteFinale. "%";
-
+        $numNote = $reponseManager->countNombreDeReponse($idEtudiant,$_SESSION['idSujet']);
         //Création d'un tableau de la structure Note
         $noteArray = array(
           'idUtilisateur' => $idEtudiant,
           'idSujet' => $_SESSION['idSujet'],
-          'numNote' =>  date('Ymd'), //TODO : remplacer cete ligne car pour l'instant : 1 entrée par jour
+          'numNote' => $numNote[0],
           'note' => $noteFinale,
           'dateReponse' => date('Y-m-d')
         );

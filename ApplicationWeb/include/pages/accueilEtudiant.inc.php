@@ -8,64 +8,63 @@
 <h2>Bonjour <?php echo $_SESSION['co'] ?></h2>
 
 <div class="card mb-3">
-    <div class="card-header">
-        <i class="fas fa-table"></i>
-        Contrôle disponible
+  <div class="card-header">
+    <i class="fas fa-table"></i>
+    Contrôle disponible
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Titre énoncé</th>
+            <th>Nombre de réponse</th>
+            <th>Dernière réponse le :</th>
+            <th>Prochaine réponse disponible le :</th>
+            <th>Temps entre chaque réponse</th>
+            <th>Meilleur note</th>
+            <th>Répondre</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>Titre énoncé</th>
+            <th>Nombre de réponse</th>
+            <th>Dernière réponse le :</th>
+            <th>Prochaine réponse disponible le :</th>
+            <th>Temps entre chaque réponse</th>
+            <th>Meilleur note</th>
+            <th>Répondre</th>
+          </tr>
+        </tfoot>
+        <tbody>
+          <?php
+          $idUtilisateur = $_SESSION['id'];
+          $listeControle = $reponseManager->getListControleDisponible($idUtilisateur);
+          foreach ($listeControle as $controle) {
+            ?>
+            <tr>
+              <td><?php echo $controle->nomEnonce ;?></td>
+              <td><?php echo $controle->nbReponses ;?></td>
+              <td><?php echo $controle->derniereRep ;?></td>
+              <td><?php echo $controle->tempsAttente ;?></td>
+              <td><?php echo $controle->cooldown ;?> jour(s)</td>
+              <td><?php echo round($controle->meilleureNote,2) ;?> %</td>
+              <td><button  <?php
+              if(new DateTime($controle->tempsAttente) > new DateTime()){
+                echo 'class="btn btn-secondary" disabled';
+              }else{
+                echo 'class="btn btn-primary"';
+              }
+              ?> onclick="post_en_url('index.php?page=15', {idSujet: <?php echo $controle->idSujet ;?>})" class="button">Répondre</button></td>
+            </tr>
+            <?php
+          }
+          ?>
+        </tbody>
+      </table>
     </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                  <tr>
-                      <th>Titre énoncé</th>
-                      <th>Nombre de réponse</th>
-                      <th>Dernière réponse le :</th>
-                      <th>Prochaine réponse disponible le :</th>
-                      <th>Temps entre chaque réponse</th>
-                      <th>Meilleur note</th>
-                      <th>Répondre</th>
-                  </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                      <th>Titre énoncé</th>
-                      <th>Nombre de réponse</th>
-                      <th>Dernière réponse le :</th>
-                      <th>Prochaine réponse disponible le :</th>
-                      <th>Temps entre chaque réponse</th>
-                      <th>Meilleur note</th>
-                      <th>Répondre</th>
-
-                    </tr>
-                </tfoot>
-                <tbody>
-                    <?php
-                    $idUtilisateur = $_SESSION['id'];
-                    $listeControle = $reponseManager->getListControleDisponible($idUtilisateur);
-                    foreach ($listeControle as $controle) {
-
-                        ?>
-                        <tr>
-                            <td><?php echo $controle->nomEnonce ;?></td>
-                            <td><?php echo $controle->nbReponses ;?></td>
-                            <td><?php echo $controle->derniereRep ;?></td>
-                            <td><?php echo $controle->tempsAttente ;?></td>
-                            <td><?php echo $controle->cooldown ;?> jour(s)</td>
-                            <td><?php echo $controle->meilleureNote ;?></td>
-
-
-                            <td><button class="btn btn-primary" onclick="post_en_url('index.php?page=15', {idSujet: <?php echo $controle->idSujet ;?>})" class="button">Répondre</button></td>
-
-                        </tr>
-                        <?php
-                    }
-
-                    ?>
-
-                </tbody>
-            </table>
-        </div>
-    </div>
+  </div>
 </div>
 
 <!--Javascript / récupérer l'id du controle avec une méthode POST et un URL -->
