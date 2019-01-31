@@ -10,7 +10,7 @@
     <div class="card text-white bg-primary o-hidden h-100">
       <div class="card-body">
         <div class="card-body-icon">
-          <i class="fas fa-fw fa-comments"></i>
+          <i class="fas fa-fw fa-edit"></i>
         </div>
         <div class="mr-5">Création de contrôles</div>
       </div>
@@ -26,7 +26,7 @@
     <div class="card text-white bg-warning o-hidden h-100">
       <div class="card-body">
         <div class="card-body-icon">
-          <i class="fas fa-fw fa-list"></i>
+          <i class="fas fa-fw fa-user-edit"></i>
         </div>
         <div class="mr-5">Gestion des étudiants</div>
       </div>
@@ -42,7 +42,7 @@
     <div class="card text-white bg-success o-hidden h-100">
       <div class="card-body">
         <div class="card-body-icon">
-          <i class="fas fa-fw fa-shopping-cart"></i>
+          <i class="fas fa-fw fa-tasks"></i>
         </div>
         <div class="mr-5">Gestions des réponses des étudiants</div>
       </div>
@@ -58,7 +58,7 @@
     <div class="card text-white bg-danger o-hidden h-100">
       <div class="card-body">
         <div class="card-body-icon">
-          <i class="fas fa-fw fa-life-ring"></i>
+          <i class="fas fa-fw fa-database"></i>
         </div>
         <div class="mr-5">Gestion des énoncés</div>
       </div>
