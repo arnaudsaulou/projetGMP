@@ -108,9 +108,7 @@ if (isset($_POST['idSujet'])) {
           'note' => $noteFinale,
           'dateReponse' => date('Y-m-d')
         );
-        var_dump($noteArray);
         $note = $noteManager->createNoteDepuisTableau($noteArray);
-        var_dump($note);
         //enregistrement de la note de l'étudiant
         $noteManager->addNote($note);
         ?>
