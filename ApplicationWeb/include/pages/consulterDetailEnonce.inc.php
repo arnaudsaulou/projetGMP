@@ -17,11 +17,24 @@ $enonce = $enonceManager->recupererEnonceViaIdEnonce($_GET['idEnonce']);
   <input type="button" value="Corriger" onclick="window.location.href='index.php?page=9&idEnonce=<?php echo $_GET['idEnonce']?>'" />
 </form>
 
+<button onclick="genererPDF()">Télécharger au format PDF</button>
 <button href="">Tester</button>
 
 </div>
-<div class="col-md-12">
-	<?php
-	echo $enonce->getEnonce();
-	?>
+
+<div id="pdfwrapper">
+    <div class="col-md-12">
+        <?php
+        echo $enonce->getEnonce();
+        ?>
+    </div>
 </div>
+
+<script src="js/jspdf.min.js"></script>
+<script>
+    let genererPDF = function() {
+        let pdf = new jsPDF('p', 'pt', 'a4');
+        pdf.fromHTML(document.getElementById('pdfwrapper'), 15, 15, { 'width' : 170});
+        pdf.save('enonce-' + <?php echo $_GET['idEnonce'] ?> + '.pdf');
+    }
+</script>

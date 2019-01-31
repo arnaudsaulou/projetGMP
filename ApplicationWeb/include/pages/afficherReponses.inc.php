@@ -24,6 +24,7 @@
             <th>Date d'attribution</th>
             <th>Date de réponse</th>
             <th>Note</th>
+            <th>Date Limite</th>
           </tr>
         </thead>
         <tfoot>
@@ -36,6 +37,7 @@
             <th>Date d'attribution</th>
             <th>Date de réponse</th>
             <th>Note</th>
+            <th>Date Limite</th>
           </tr>
         </tfoot>
         <tbody>
@@ -53,6 +55,7 @@
               <td><?php echo $Submission->getDateAttribution()?></td>
               <td><?php echo $Submission->getDateSubmission()?></td>
               <td><?php echo $Submission->getNote()?></td>
+              <td><?php echo $Submission->getDateLimite()?></td>
             </tr>
             <?php
           }

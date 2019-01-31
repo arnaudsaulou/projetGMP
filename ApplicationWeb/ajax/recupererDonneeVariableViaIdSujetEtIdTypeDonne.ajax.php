@@ -10,11 +10,13 @@ if(!isset($_SESSION)){
   session_start();
 }
 
-$listeValeur = $sujetPossibleManager->recuperListeValeurDonneeVariableViaIdSujet(
-                                                                                  $_POST['listeIdTypeDonne'],
-                                                                                  $_POST['idSujet']
-                                                                                 );
+$listeValeur = $sujetPossibleManager->recuperListeDonneeVariableViaIdSujet($_POST['idSujet']);
+$donneeVaiable = array();
 
-echo json_encode($listeValeur);
+foreach ($listeValeur as $valeur) {
+  $donneeVaiable[] = $valeur->getValeur();
+}
+
+echo json_encode($donneeVaiable);
 
 ?>

@@ -54,7 +54,7 @@
                             <td><?php echo $controle->meilleureNote ;?></td>
 
 
-                            <td><button onclick="post_en_url('index.php?page=15', {idSujet: <?php echo $controle->idSujet ;?>})" class="button">Répondre</button></td>
+                            <td><button class="btn btn-primary" onclick="post_en_url('index.php?page=15', {idSujet: <?php echo $controle->idSujet ;?>})" class="button">Répondre</button></td>
 
                         </tr>
                         <?php

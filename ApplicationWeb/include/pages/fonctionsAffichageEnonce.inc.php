@@ -29,15 +29,6 @@ function insererReponseDansChamp(string &$enonce, string $texte, int $position)
     $enonce = substr_replace($enonce, $texte, $position, 0);
 }
 
-//Sert à insérer les valeurs dans à la place des libellés.
-function insererValeurs(array $listeDonneeVariable, TypeDonneeManager $typeDonneeManager, string &$enonce)
-{
-    foreach ($listeDonneeVariable as $donneeVariable) {
-        $typeDonnee = $typeDonneeManager->getTypeDonneeById($donneeVariable->getIdType());
-        $enonce = str_replace($typeDonnee->getLibelle(), $donneeVariable->getValeur(), $enonce);
-    }
-}
-
 //Sert à desactiver tous les <input>
 function desactiverTousLesInputs(string &$enonce)
 {
@@ -55,7 +46,7 @@ function desactiverTousLesInputs(string &$enonce)
 function comparerValeurs(SolutionManager $solutionManager, DonneeVariableManager $donneeVariableManager, int $idSujet, int $idQuestion, $reponse) {
 
     //Récupérer la solution avec l'id de la question
-    $solution = $solutionManager->recupererSolution($idQuestion+1);
+    $solution = $solutionManager->recupererSolution($idQuestion);
 
     //Récupérer le nom de la formule
     $nomFormule = $solution->getNomFormule();
@@ -83,7 +74,6 @@ function comparerValeurs(SolutionManager $solutionManager, DonneeVariableManager
 }
 
 function calculNoteParQuestion($tauxErreur, $idQuestion, $solutionManager){
-  echo $idQuestion;
   $bareme = $solutionManager->recupererSolution($idQuestion)->getBareme();
 
   $noteIntermediaire = $bareme - ( ($tauxErreur * $bareme) / 100);
