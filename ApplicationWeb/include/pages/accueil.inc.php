@@ -4,10 +4,6 @@
     <a>Tableau de bord</a>
   </li>
 </ol>
-<?php
-$test = $reponseManager->getNbReponses(13);
-
- ?>
 <!-- Icon Cards-->
 <div class="row">
   <div class="col-xl-3 col-sm-6 mb-3">
