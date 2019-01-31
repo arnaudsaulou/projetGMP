@@ -14,7 +14,7 @@
         </div>
         <div class="mr-5">Création de contrôles</div>
       </div>
-      <a class="card-footer text-white clearfix small z-1" href="#">
+      <a class="card-footer text-white clearfix small z-1" href="index.php?page=5">
         <span class="float-left">Créer un énoncé</span>
         <span class="float-right">
           <i class="fas fa-angle-right"></i>
@@ -30,7 +30,7 @@
         </div>
         <div class="mr-5">Gestion des étudiants</div>
       </div>
-      <a class="card-footer text-white clearfix small z-1" href="#">
+      <a class="card-footer text-white clearfix small z-1" href="index.php?page=1">
         <span class="float-left">Afficher les étudiants enregistrés</span>
         <span class="float-right">
           <i class="fas fa-angle-right"></i>
@@ -46,7 +46,7 @@
         </div>
         <div class="mr-5">Gestions des réponses des étudiants</div>
       </div>
-      <a class="card-footer text-white clearfix small z-1" href="#">
+      <a class="card-footer text-white clearfix small z-1" href="index.php?page=8">
         <span class="float-left">Afficher les réponses reçues</span>
         <span class="float-right">
           <i class="fas fa-angle-right"></i>
@@ -62,7 +62,7 @@
         </div>
         <div class="mr-5">Gestion des énoncés</div>
       </div>
-      <a class="card-footer text-white clearfix small z-1" href="#">
+      <a class="card-footer text-white clearfix small z-1" href="index.php?page=7">
         <span class="float-left">Afficher la liste des énoncés déjà créés</span>
         <span class="float-right">
           <i class="fas fa-angle-right"></i>
