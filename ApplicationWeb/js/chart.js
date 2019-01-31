@@ -4,51 +4,71 @@ Chart.defaults.global.defaultFontColor = '#292b2c';
 
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
-var myLineChart = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: ["", "", "", "Il y a une semaine", "", "", "", "", "", "", "Avant-Hier", "Hier", "Aujourd'hui"],
-    datasets: [{
-      label: "Nombre de réponses",
-      lineTension: 0.3,
-      backgroundColor: "rgba(2,117,216,0.2)",
-      borderColor: "rgba(2,117,216,1)",
-      pointRadius: 5,
-      pointBackgroundColor: "rgba(2,117,216,1)",
-      pointBorderColor: "rgba(255,255,255,0.8)",
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: "rgba(2,117,216,1)",
-      pointHitRadius: 50,
-      pointBorderWidth: 2,
-      data: [2, 0, 0, 3, 4, 0, 2, 12, 3, 7, 0, 16, 2],
-    }],
-  },
-  options: {
-    scales: {
-      xAxes: [{
-        time: {
-          unit: 'date'
-        },
-        gridLines: {
-          display: false
-        },
-        ticks: {
-          maxTicksLimit: 7
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          min: 0,
-          max: 20,
-          maxTicksLimit: 5
-        },
-        gridLines: {
-          color: "rgba(0, 0, 0, .125)",
-        }
+var nbNotes = 0;
+recupererNombreDeNotes();
+
+
+//Retourne le nombre de notes recues
+function recupererNombreDeNotes(){
+  $.ajax({
+    type: "POST",
+    url: './ajax/recupererNombreDeSubmission.ajax.php',
+    dataType: "json",
+    success: function(init_nbNotes) {
+      afficherChart(init_nbNotes)
+    }
+  });
+}
+
+function afficherChart(tab){
+  max = Math.max.apply(null, tab);
+  console.log(max);
+  var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ["", "", "", "", "", "Il y a une semaine", "", "", "", "", "Avant-Hier", "Hier", "Aujourd'hui"],
+      datasets: [{
+        label: "Nombre de réponses",
+        lineTension: 0.3,
+        backgroundColor: "rgba(2,117,216,0.2)",
+        borderColor: "rgba(2,117,216,1)",
+        pointRadius: 5,
+        pointBackgroundColor: "rgba(2,117,216,1)",
+        pointBorderColor: "rgba(255,255,255,0.8)",
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: "rgba(2,117,216,1)",
+        pointHitRadius: 50,
+        pointBorderWidth: 2,
+        data: [tab[0],tab[1],tab[2],tab[3],tab[4],tab[5],tab[7],tab[8],tab[9],tab[10],tab[11],tab[12],tab[13]],
       }],
     },
-    legend: {
-      display: false
+    options: {
+      scales: {
+        xAxes: [{
+          time: {
+            unit: 'date'
+          },
+          gridLines: {
+            display: false
+          },
+          ticks: {
+            maxTicksLimit: 7
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            min: 0,
+            max: max,
+            maxTicksLimit: 5
+          },
+          gridLines: {
+            color: "rgba(0, 0, 0, .125)",
+          }
+        }],
+      },
+      legend: {
+        display: false
+      }
     }
-  }
-});
+  });
+}
