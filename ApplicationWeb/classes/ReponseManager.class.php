@@ -18,10 +18,10 @@ class ReponseManager
   * @return bool Si l'insertion s'est bien déroulée.
   */
   public function enregistrerReponse($reponse) {
-    $sql = $this->db->prepare("INSERT INTO reponses VALUES(0, :idUtilisateur, :idSujet, :numReponse, :valeur, :dateReponse)");
+    $sql = $this->db->prepare("INSERT INTO reponses VALUES(0, :idUtilisateur, :idSujet, :idQuestion, :valeur, :dateReponse)");
     $sql->bindValue(":idUtilisateur", $reponse->getIdUtilisateur(), PDO::PARAM_INT);
     $sql->bindValue(":idSujet", $reponse->getIdSujet(), PDO::PARAM_INT);
-    $sql->bindValue(":numReponse", $reponse->getIdQuestion(), PDO::PARAM_INT);
+    $sql->bindValue(":idQuestion", $reponse->getIdQuestion(), PDO::PARAM_INT);
     $sql->bindValue(":valeur", $reponse->getValeur(), PDO::PARAM_STR);
     $sql->bindValue(":dateReponse", $reponse->getDateReponse(), PDO::PARAM_STR);
     $resultat = $sql->execute();
@@ -84,18 +84,18 @@ class ReponseManager
   * @return array Le tableau des controles disponible pour un étudiant.
   */
   public function getListControleDisponible($idEtudiant) {
-      $req = $this->db->prepare(
+    $req = $this->db->prepare(
       'SELECT s.idSujet,
-        nomEnonce,
-        cooldown,
-        (SELECT MAX(note) FROM note WHERE idUtilisateur = :idUtilisateur AND idSujet=s.idSujet) as meilleureNote,
-        (SELECT COUNT(DISTINCT dateReponse) FROM reponses WHERE idUtilisateur = :idUtilisateur AND idSujet=s.idSujet) as nbReponses,
-        (SELECT MAX(dateReponse) FROM reponses WHERE idUtilisateur = :idUtilisateur AND idSujet=s.idSujet) as derniereRep,
-        ADDDATE((SELECT MAX(dateReponse) FROM reponses WHERE idUtilisateur = :idUtilisateur AND idSujet=s.idSujet), INTERVAL cooldown DAY) as tempsAttente
-                                FROM enonce e
-                                JOIN sujet s ON e.idEnonce=s.idEnonce
-                                JOIN attribue a ON s.idSujet=a.idSujet
-                                WHERE a.idUtilisateur = :idUtilisateur
+      nomEnonce,
+      cooldown,
+      (SELECT MAX(note) FROM note WHERE idUtilisateur = :idUtilisateur AND idSujet=s.idSujet) as meilleureNote,
+      (SELECT COUNT(DISTINCT dateReponse) FROM reponses WHERE idUtilisateur = :idUtilisateur AND idSujet=s.idSujet) as nbReponses,
+      (SELECT MAX(dateReponse) FROM reponses WHERE idUtilisateur = :idUtilisateur AND idSujet=s.idSujet) as derniereRep,
+      ADDDATE((SELECT MAX(dateReponse) FROM reponses WHERE idUtilisateur = :idUtilisateur AND idSujet=s.idSujet), INTERVAL cooldown DAY) as tempsAttente
+      FROM enonce e
+      JOIN sujet s ON e.idEnonce=s.idEnonce
+      JOIN attribue a ON s.idSujet=a.idSujet
+      WHERE a.idUtilisateur = :idUtilisateur
       ');
       $req->bindValue(":idUtilisateur", $idEtudiant, PDO::PARAM_INT);
       $req->execute();
@@ -107,9 +107,27 @@ class ReponseManager
       return $listeControleDispo;
     }
 
+    /**
+    * Compte le nombre de réponses envoyées par un utilisateur sur un sujet en particulier
+    * @param integer $idUtilisateur L'identifiant unique de l'Utilisateur concerné.
+    * @param integer $idSujet L'identifiant unique du sujet concerné.
+    * @return integer le nombre de réponses envoyées par l'utilisateur
+    */
+    public function countNombreDeReponse($idUtilisateur,$idSujet) {
+      $sql = $this->db->prepare("SELECT COUNT(DISTINCT dateReponse) FROM enonce e JOIN sujet s ON e.idEnonce=s.idEnonce JOIN reponses r ON r.idSujet=s.idSujet WHERE idUtilisateur = :idUtilisateur and  s.idSujet = :idSujet");
+      $sql->bindValue(":idUtilisateur", $idUtilisateur, PDO::PARAM_INT);
+      $sql->bindValue(":idSujet", $idSujet, PDO::PARAM_INT);
+      $sql->execute();
+      $resultat = $sql->fetch();
+      $sql->closeCursor();
+      return $resultat;
+    }
+
+
+
 
     /**
-    * Récupère le nombre de réponse recues sur tout les controles confondus sur les x derniers jours.
+    * Récupère le nombre de réponse recues sur tout les controles confondus et sur tout les étudiants confondus sur les x derniers jours.
     * @param integer $nbJours Le nombre de jours dans le passé sur lesquels on doit chercher les réponses
     * @return array Un tableau contenant le nombre de réponses par jour
     */
