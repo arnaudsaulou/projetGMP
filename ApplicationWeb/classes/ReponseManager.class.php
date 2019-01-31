@@ -124,23 +124,22 @@ class ReponseManager
     }
 
 
-
-
     /**
     * Récupère le nombre de réponse recues sur tout les controles confondus et sur tout les étudiants confondus sur les x derniers jours.
     * @param integer $nbJours Le nombre de jours dans le passé sur lesquels on doit chercher les réponses
     * @return array Un tableau contenant le nombre de réponses par jour
     */
-    public function getNbReponses($nbJours) { //PROBABLEMENT BUG MAIS JE PEUX PAS TEST CAR LA BD EST FULL CASSEEEEEEE
-      $dateDuJour = date("y-m-d");
+    public function getNbReponses($nbJours) {
+      $dateDuJour = date("Y-m-d");
       $listeNbRep = array();
-      while($nbJours > 0){
-        $dateVoulue = strftime("%Y-%m-%d", mktime(0, 0, 0, date('m'), date('d')-$nbJours, date('y')));
+      while($nbJours >= 0){
+        $dateVoulue = new DateTime('-'.$nbJours.' day');
+        $dateVoulue = $dateVoulue -> format('Y-m-d');
         $nbJours--;
-        $req = $this->db->prepare('SELECT COUNT(DISTINCT idUtilisateur) FROM reponses WHERE dateReponse = :dateVoulue');
-        $req->bindValue(":dateVoulue", $dateVoulue, PDO::PARAM_INT);
+        $req = $this->db->prepare('SELECT COUNT( note) as nombre FROM note WHERE dateReponse = :dateVoulue');
+        $req->bindValue(":dateVoulue", $dateVoulue, PDO::PARAM_STR);
         $req->execute();
-        $resultatRequete[] = $req->fetch(PDO::FETCH_OBJ);
+        $listeNbRep[] = $req->fetch(PDO::FETCH_OBJ)->nombre;
       }
       $req->closeCursor();
       return $listeNbRep;

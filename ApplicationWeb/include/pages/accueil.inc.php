@@ -5,8 +5,7 @@
   </li>
 </ol>
 <?php
-
-
+$test = $reponseManager->getNbReponses(13);
 
  ?>
 <!-- Icon Cards-->
