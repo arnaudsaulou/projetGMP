@@ -165,7 +165,7 @@ $(document).ready(function() {
   };
 
   policeDownButton.onclick = function(){
-    if(policeSize > 0)
+    if(policeSize > 1)
       policeSize--;
       tooltip.show(policeSize, 28, "policeDownButton",function(){
         setTimeout( function(){
