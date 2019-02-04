@@ -44,4 +44,12 @@ class SujetPossibleManager {
         $req->closeCursor();
         return $listeDonneeVariable;
     }
+
+    public function getLastIdSujet(){
+      $req = $this->db->prepare('SELECT idSujet FROM sujet_possible ORDER BY idSujet DESC LIMIT 1');
+      $req->execute();
+      $lastIdSujet = $req->fetch(PDO::FETCH_ASSOC);
+      $req->closeCursor();
+      return $lastIdSujet['idSujet'];
+    }
 }

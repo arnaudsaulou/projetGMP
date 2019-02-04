@@ -41,11 +41,17 @@
 
       <?php
 
+      if(empty($_SESSION['lastInsertIdEnonce'])){
+        $idEnonce  = $_GET['idEnonce'];
+      } else {
+        $idEnonce = $_SESSION['lastInsertIdEnonce'];
+      }
+
       //on récupère la liste des questions de l'énoncé
       if(empty($_SESSION['lastInsertIdEnonce'])){
-        $listeQuestions = $questionManager->recupererListeQuestionEnonce($_GET['idEnonce']);
+        $listeQuestions = $questionManager->recupererListeQuestionEnonce($idEnonce);
       } else {
-        $listeQuestions = $questionManager->recupererListeQuestionEnonce($_SESSION['lastInsertIdEnonce']);
+        $listeQuestions = $questionManager->recupererListeQuestionEnonce($idEnonce);
       }
 
       //on récupère la liste des formule de correction disponible
@@ -53,7 +59,9 @@
       $listeFormules = $fichierManager->getListeFormules($dirname);
 
       //on récupère la liste des données variable de l'énoncé
-      $listeTypeDonnee = $enonceManager->getTypeDonneVariablePresentDansEnonce($_GET['idEnonce']);
+      $listeTypeDonnee = $enonceManager->getTypeDonneVariablePresentDansEnonce($idEnonce);
+
+      //$lastIdQR = $questionManager->recupererDernierIdQuestion();
 
       foreach ($listeQuestions as $key => $question) {
 
@@ -61,7 +69,7 @@
 
       <tr class="ligneQuestion">
         <td>
-          <p id="question<?php echo $key; ?>" value="<?php echo $question->getIdQuestion(); ?>">
+          <p id="question<?php echo $question->getIdQuestion(); ?>">
             <?php echo ($key+1).')'.' '.$question->getLibelle(); ?>
           </p>
         </td>

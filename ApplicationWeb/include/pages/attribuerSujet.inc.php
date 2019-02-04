@@ -38,14 +38,14 @@ if( empty($_POST['choix_promotion'])){
   </div>
   <div class="form-row">
     <div class="col-md-12 mb-3">
-      <label for="choixSujet">Liste des sujets : <?php echo $sujetManager->countSujet();?> sujet(s) a/ont été trouvé :</label>
+      <label for="choixSujet">Liste des énoncé : <?php echo $enonceManager->compterEnonce();?> énoncé(s) a/ont été trouvé :</label>
       <select class="form-control" id="choixSujet" name="choix_sujet">
         <?php
-        $listSujets = $sujetManager->getListEnonces();
-        foreach ($listSujets as $sujet){
-          echo $sujet->getIdEnonce();
+        $listEnonce = $enonceManager->recupererListEnonce();
+        foreach ($listEnonce as $enonce){
+          echo $enonce->getIdEnonce();
           ?>
-          <option value="<?php echo $sujet->getIdEnonce();?>"><?php echo $enonceManager->recupererEnonceViaIdEnonce($sujet->getIdEnonce())->getNomEnonce(); ?></option>
+          <option value="<?php echo $enonce->getIdEnonce();?>"><?php echo $enonceManager->recupererEnonceViaIdEnonce($enonce->getIdEnonce())->getNomEnonce(); ?></option>
           <?php
         }
         ?>

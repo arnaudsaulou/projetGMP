@@ -3,6 +3,7 @@
 class SujetManager {
     private $db;
     private $donneeVariableManager;
+    private $sujetPossibleManager;
     private $insertIntoSujetPossible = '';
     private $insertIntoSujet = '';
 
@@ -14,6 +15,7 @@ class SujetManager {
     {
         $this->db = $db;
         $this->donneeVariableManager = new DonneeVariableManager($db);
+        $this->sujetPossibleManager = new SujetPossibleManager($db);
     }
 
     /**
@@ -29,10 +31,12 @@ class SujetManager {
     //Cette fonction permet de générer un sujet à partir d'une liste de données variable
     public function generateSujet($listDonneeVariable)
     {
+      var_dump($listDonneeVariable);
+
         ini_set('max_execution_time', 0);
         if (!empty($listDonneeVariable)) {
 
-            $numSujet = $this->getLastIdSujet();
+            $numSujet = $this->sujetPossibleManager->getLastIdSujet();
 
             if($numSujet == ''){
               $numSujet = 1;
@@ -119,35 +123,6 @@ class SujetManager {
         return $query;
     }
 
-    /**
-     * Retourne le nombre d'Enonces stockés dans la base de données.
-     * @return integer Le nombre d'Enonces stockés dans la base de données.
-     */
-    public function countSujet()
-    {
-        $req = $this->db->prepare("SELECT count(idEnonce) AS total FROM enonce");
-        $req->execute();
-        $res = $req->fetch(PDO::FETCH_OBJ);
-        $nbSujet = $res->total;
-        $req->closeCursor();
-        return $nbSujet;
-    }
-
-    /**
-     * Récupère tous les Enonces disponibles dans la base de données.
-     * @return array Un tableau contenant toutes les instances d'Enonce disponibles dans la base de données.
-     */
-    public function getListEnonces()
-    {
-        $req = $this->db->prepare('SELECT idEnonce, enonce FROM enonce ORDER BY idEnonce');
-        $req->execute();
-        $listeSujet = array();
-        while ($sujet = $req->fetch(PDO::FETCH_OBJ)) {
-            $listeSujet[] = new Enonce($sujet);
-        }
-        $req->closeCursor();
-        return $listeSujet;
-    }
 
 	public function getSujetById($id){
 		$req=$this->db->prepare(
@@ -159,15 +134,6 @@ class SujetManager {
 		$req->closeCursor();
 		return new Sujet($res);
 	}
-
-
-  public function getLastIdSujet(){
-    $req = $this->db->prepare('SELECT idSujet FROM sujet_possible ORDER BY idSujet DESC LIMIT 1');
-    $req->execute();
-    $lastIdSujet = $req->fetch(PDO::FETCH_ASSOC);
-    $req->closeCursor();
-    return $lastIdSujet['idSujet'];
-  }
 
   public function addSujet()
   {
