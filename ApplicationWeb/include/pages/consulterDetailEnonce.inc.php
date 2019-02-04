@@ -34,7 +34,7 @@ $enonce = $enonceManager->recupererEnonceViaIdEnonce($_GET['idEnonce']);
 <script>
     let genererPDF = function() {
         let pdf = new jsPDF('p', 'pt', 'a4');
-        pdf.fromHTML(document.getElementById('pdfwrapper'), 15, 15, { 'width' : 170});
+        pdf.fromHTML(document.getElementById('pdfwrapper'), 15, 15, { 'width' : 570 });
         pdf.save('enonce-' + <?php echo $_GET['idEnonce'] ?> + '.pdf');
     }
 </script>
