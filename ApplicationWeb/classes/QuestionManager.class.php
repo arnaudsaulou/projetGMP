@@ -108,4 +108,20 @@ class QuestionManager
 
         return $res['lastIdQuestion'];
       }
+
+
+      public function recupererListeQuestionEnonceNonCorrige($idEnonce)
+      {
+          $req = $this->db->prepare(
+              "SELECT idQuestion, idEnonce, libelle FROM questions WHERE idEnonce = :idEnonce AND idQuestion NOT IN (SELECT `idQuestion` FROM `solutions`) "
+          );
+          $req->bindValue(':idEnonce', $idEnonce, PDO::PARAM_INT);
+          $req->execute();
+          $listeQuestions = array();
+          while ($question = $req->fetch(PDO::FETCH_OBJ)) {
+              $listeQuestions[] = $this->createQuestionDepuisTableau($question);
+          }
+          $req->closeCursor();
+          return $listeQuestions;
+      }
 }

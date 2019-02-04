@@ -13,7 +13,7 @@ var isBoldSelected = false;
 var isItalicSelected = false;
 var isUnderlineSelected = false;
 var policeSize = 3;
-
+var indexItemDonnee = 0;
 var itemASuppr = [];
 var numItem = 0;
 var numQR = recupererNumQuestionReponseAjax();
@@ -23,7 +23,7 @@ var contientText = false;
 var creationEnonceReady = false;
 
 var tableauQuestions = new Array(); //Création du tableau mémorisant les questions de l'énoncé
-var tableauNumParams = new Array(); //Création du tableau mémorisant les id des paramètres de chaque questions
+var tableauNumParams = new Array(); //Création du tableau mémorisant les id des paramètres de chaque donnée calculée
 
 //Attendre que le document soit compvarement chargé
 $(document).ready(function() {
@@ -288,7 +288,7 @@ function ajouterElement(typeItem) {
     //Si l'item à ajouter est une "Donnée Variable"
     case "itemDonneeVariable":
       var newTitre = document.createElement('data');
-      newTitre.id = '##' + recupererIdTypeDonneeAjoute() + '##';
+      newTitre.id = '##' + recupererIdTypeDonneeAjoute() + '##' + indexItemDonnee;
       newTitre.name = 'item'+numItem;
       newTitre.style.fontSize = fontSize[policeSize];
       newTitre.style.color = itemCouleur;
@@ -296,14 +296,16 @@ function ajouterElement(typeItem) {
       newTitre.style.fontStyle = fontStyle[isItalicSelected ? 1 : 0];
       newTitre.style.textDecoration = textDecoration[isUnderlineSelected ? 1 : 0];
       newTitre.style.display = "inline";
-      newTitre.appendChild(document.createTextNode(recupererLibelleTypeDonneeAjoute("selectTypeDonnee")));
+      newTitre.appendChild(document.createTextNode(recupererTypeDonneeAjoute("selectTypeDonnee")[1]));
       contientDonneeVariable = true;
+      indexItemDonnee = indexItemDonnee + 1;
     break;
 
     //Si l'item à ajouter est une "Donnée Calculée"
     case "itemDonneeCalculee":
+      var typeDonne = recupererTypeDonneeAjoute("selectTypeDonneeCalculee");
       var newTitre = document.createElement('calculated_data');
-      newTitre.id = '¤¤' + recupererIdTypeDonneeAjoute() + '¤¤';
+      newTitre.id = '¤¤' + typeDonne[0] + '¤¤' + indexItemDonnee;
       newTitre.name = 'item'+numItem;
       newTitre.style.fontSize = fontSize[policeSize];
       newTitre.style.color = itemCouleur;
@@ -311,7 +313,8 @@ function ajouterElement(typeItem) {
       newTitre.style.fontStyle = fontStyle[isItalicSelected ? 1 : 0];
       newTitre.style.textDecoration = textDecoration[isUnderlineSelected ? 1 : 0];
       newTitre.style.display = "inline";
-      newTitre.appendChild(document.createTextNode(recupererLibelleTypeDonneeAjoute("selectTypeDonneeCalculee")));
+      newTitre.appendChild(document.createTextNode(typeDonne[1]));
+      indexItemDonnee = indexItemDonnee + 1;
     break;
 
     //Si l'item à ajouter est une "Question"
@@ -394,6 +397,8 @@ function supprimerElement(typeItem){
   var page_creation = document.getElementById("page_creation");
   page_creation.removeChild(itemASuppr[itemASuppr.length - 1]);
   itemASuppr.pop();
+
+  indexItemDonnee = indexItemDonnee - 1;
 
 }
 
@@ -621,7 +626,7 @@ function recupererIdTypeDonneeAjoute(){
 
 
 //Retourne le libellé du type de donnée séléctionné
-function recupererLibelleTypeDonneeAjoute(target){
+function recupererTypeDonneeAjoute(target){
 
   //Récupérer les éléments de l'ihm nécessaire
   var typeDonnee = document.getElementById(target);
@@ -631,7 +636,7 @@ function recupererLibelleTypeDonneeAjoute(target){
   typeDonneeText = typeDonnee.options[typeDonnee.selectedIndex].text;
 
   //Retourne le type de donné séléctionné
-  return typeDonneeText;
+  return [typeDonneeValue,typeDonneeText];
 }
 
 //Appel du fichier AJAX afin d'ajouter une nouvelle question dans la base de donnée
@@ -701,8 +706,8 @@ function populateSelect(array, newParam){
 
       //Création des différentes option de la liste déroulante selon le tableau
 			var option = document.createElement("option");
-			option.value = array[i].idTypeDonnee;
-			option.text = array[i].libelleTypeDonnee;
+			option.value = array[i].idType;
+			option.text = array[i].libelle;
 
       //Ajout des option à la liste déroulante
 			newParam.appendChild(option);

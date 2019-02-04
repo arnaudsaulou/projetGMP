@@ -16,4 +16,9 @@ class Formule {
 
 }
 
- ?>
+//////////////////////////////////////////
+//     Utilitaire (ne pas modifier)    //
+/////////////////////////////////////////
+$formule = new Formule;
+echo json_encode($formule->Intervale_x_ValeurValeur($_POST['listeValeurDonneeVariable']));
+?>

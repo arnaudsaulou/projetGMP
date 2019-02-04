@@ -305,6 +305,7 @@
 
   $newEnonce = $enonceManager->createEnonceDepuisTableau( array('nomEnonce' => $_POST['nomEnonce'], 'enonce' => $_SESSION['enonceCreer'] ));
   $ajout = $enonceManager->ajouterEnonce($newEnonce);
+  unset($_SESSION['enonceCreer']);
 
   if($ajout){
 ?>

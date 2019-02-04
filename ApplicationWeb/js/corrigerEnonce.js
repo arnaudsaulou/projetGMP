@@ -1,6 +1,8 @@
 //Calcul du nombre de question de l'énoncé
 let nbLigne = document.getElementsByClassName('ligneQuestion').length;
 
+let globalNumQR = getNumQR();
+
 //Création du tableau mémorisant les id des paramètres de chaque questions
 var tableauNumParams = new Array(nbLigne);
 for (var i = 0; i < tableauNumParams.length; i++) {
@@ -21,9 +23,6 @@ function handleClickAddParams(event) {
 
 //Ajouter un item séléctionné et paramétré à la page de création (énoncé)
 function ajouterParametres(idBtn) {
-
-	//Récupérer les éléments de l'ihm nécessaire
-	//ar paramSection = document.getElementById("paramSection"+idBtn);
 
   //Récupère le nombre de paramètres déjà existant pour cette question
   let newId = tableauNumParams[idBtn].length;
@@ -60,6 +59,19 @@ function ajouterNouveauParams(newParam) {
 
 }
 
+
+function getNumQR(callback) {
+
+			$.ajax({
+        url: './ajax/recupererNumQuestionReponse.ajax.php',
+        dataType: "json",
+        success: function(numQR) {
+            globalNumQR = numQR;
+        }
+    });
+
+}
+
 //Permet d'ajouter des option à la liste déroulante à partir d'un tableau JSON
 function populateSelect(array, newParam){
 
@@ -82,7 +94,8 @@ function validerCorrection(){
   for (var numQuestion = 0; numQuestion < nbLigne; numQuestion++) {
 
     //Récupérer le numero de question
-    var idQuestion = document.getElementById("question"+numQuestion).value;
+    var idQuestion = document.getElementById("question"+(parseInt(globalNumQR)+parseInt(numQuestion))).id;
+    idQuestion = idQuestion.substring(8,idQuestion.length);
 
     //Récupérer le nom de la fonction de correction
     var nomFormule = document.getElementById("formuleCorrection"+numQuestion);
@@ -120,9 +133,11 @@ function ajouterCorrection(idQuestion,nomFormule,tableauIdParams,bareme,callback
     data : {idQuestion: idQuestion, nomFormule: nomFormule, tableauIdParams: tableauIdParams, bareme:bareme},
     dataType: "json",
     success: function(data) {
+      console.log(data);
       callback(true);
     },
-    error: function(){
+    error: function(data){
+      console.log(data);
       callback(false);
     }
   });
