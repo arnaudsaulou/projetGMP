@@ -53,7 +53,7 @@
       $listeFormules = $fichierManager->getListeFormules($dirname);
 
       //on récupère la liste des données variable de l'énoncé
-      $listeTypeDonnee = $typeDonneeManager->getListOfTypeDonneeDeDonneesVariable();
+      $listeTypeDonnee = $enonceManager->getTypeDonneVariablePresentDansEnonce($_GET['idEnonce']);
 
       foreach ($listeQuestions as $key => $question) {
 
@@ -61,9 +61,9 @@
 
       <tr class="ligneQuestion">
         <td>
-          <data id="question<?php echo $key; ?>" value="<?php echo $question->getIdQuestion(); ?>">
+          <p id="question<?php echo $key; ?>" value="<?php echo $question->getIdQuestion(); ?>">
             <?php echo ($key+1).')'.' '.$question->getLibelle(); ?>
-          </data>
+          </p>
         </td>
 
         <td>

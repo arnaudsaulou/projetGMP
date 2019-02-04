@@ -49,6 +49,7 @@ function ajouterNouveauParams(newParam) {
 
 			$.ajax({
         type: "POST",
+        data: {idEnonce : $_GET('idEnonce')},
         url: './ajax/ajoutPamametresCorrection.ajax.php',
         dataType: "json",
         success: function(array) {
@@ -66,8 +67,8 @@ function populateSelect(array, newParam){
 
       //Création des différentes option de la liste déroulante selon le tableau
 			var option = document.createElement("option");
-			option.value = array[i].idTypeDonnee;
-			option.text = array[i].libelleTypeDonnee;
+			option.value = array[i].idType;
+			option.text = array[i].libelle;
 
       //Ajout des option à la liste déroulante
 			newParam.appendChild(option);
@@ -135,4 +136,19 @@ function showAlerte(status){
   } else {
     alert("Une erreur est survenue");
   }
+}
+
+function $_GET(param) {
+	var vars = {};
+	window.location.href.replace( location.hash, '' ).replace(
+		/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+		function( m, key, value ) { // callback
+			vars[key] = value !== undefined ? value : '';
+		}
+	);
+
+	if ( param ) {
+		return vars[param] ? vars[param] : null;
+	}
+	return vars;
 }
