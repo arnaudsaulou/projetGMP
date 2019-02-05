@@ -119,11 +119,8 @@ class EnonceManager {
     $req->execute();
     $nbCorrections = $req->fetch(PDO::FETCH_ASSOC);
     $req->closeCursor();
-    $req = $this->db->prepare(" SELECT count(DISTINCT idEnonce) as nb from enonce");
-    $req->execute();
-    $nbEnonce = $req->fetch(PDO::FETCH_ASSOC);
-    $req->closeCursor();
-    return $nbCorrections['nb'] != $nbEnonce['nb'];
+    $nbEnonce = compterEnonce();
+    return $nbCorrections['nb'] != $nbEnonce;
   }
 
 }
