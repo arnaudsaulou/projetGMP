@@ -41,9 +41,9 @@
 					</a>
 					<div class="dropdown-menu" aria-labelledby="pagesDropdown">
 						<h6 class="dropdown-header">Gestion des contrôles:</h6>
-						<a class="dropdown-item" href="index.php?page=5">Créer un énoncé   <?php if($notFinished == true){ ?>
-							<span class="badge badge-danger">!</span>	<?php } ?></a>
-							<a class="dropdown-item" href="index.php?page=7">Lister les énoncés</a>
+						<a class="dropdown-item" href="index.php?page=5">Créer un énoncé</a>
+							<a class="dropdown-item" href="index.php?page=7">Lister les énoncés<?php if($notFinished == true){ ?>
+								<span class="badge badge-danger">!</span>	<?php } ?></a>
 							<a class="dropdown-item" href="index.php?page=6">Attribuer les sujets</a>
 
 							<a class="dropdown-item" href="index.php?page=8">Lister les réponses</a>

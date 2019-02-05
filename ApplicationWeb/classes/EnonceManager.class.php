@@ -119,7 +119,7 @@ class EnonceManager {
     $req->execute();
     $nbCorrections = $req->fetch(PDO::FETCH_ASSOC);
     $req->closeCursor();
-    $nbEnonce = compterEnonce();
+    $nbEnonce = $this->compterEnonce();
     return $nbCorrections['nb'] != $nbEnonce;
   }
 
