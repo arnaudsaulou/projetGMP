@@ -12,8 +12,8 @@ th{
 }
 
 .card-text{
-    margin-top: 0;
-    margin-bottom: 50px;
+  margin-top: 0;
+  margin-bottom: 50px;
 }
 
 #wrapper {
@@ -407,12 +407,18 @@ body.sidebar-toggled footer.sticky-footer {
   text-align: center;
 }
 
+.btn-xs {
+  padding: 3px 7px;
+  font-size: 12px;
+  border-radius: 3px;
+}
+
 #frenchColor{
   display: none;
 }
 
 .item{
-   cursor: pointer;
+  cursor: pointer;
 }
 #buttonFakeInputFile{
   display: inline;
@@ -423,8 +429,8 @@ body.sidebar-toggled footer.sticky-footer {
 }
 
 #tt {
-   position:absolute;
-   display:block;
+  position:absolute;
+  display:block;
 }
 
 #ttcont {
@@ -438,4 +444,4 @@ body.sidebar-toggled footer.sticky-footer {
   margin-left:5px;
   background:#007bff;
   color: white;
- }
+}
