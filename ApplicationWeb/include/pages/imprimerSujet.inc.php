@@ -21,8 +21,9 @@ if (isset($_POST['idSujet'])) {
 ?>
 
 <script type="text/javascript">
-    var header = '<h5 style="text-decoration: underline;">Nom: <?php echo $eleve->getNom()?> - Prénom: <?php echo $eleve->getPrenom()?> - ID Sujet: <?php echo $idSujet ?></h5>';
-    var enonce = header + '<?php echo $enonce ?>';
+    var header = '<div class="border col-md-11 mx-auto mt-3"><h5 style="text-decoration: underline;">Nom: <?php echo $eleve->getNom()?> - Prénom: <?php echo $eleve->getPrenom()?> - ID Sujet: <?php echo $idSujet ?></h5>';
+    var footer = '<div class="row fixed-row-bottom mx-auto"></div>';
+    var enonce = header + '<?php echo $enonce ?>' + footer + '</div>';
     var nom = "Sujet" + "<?php echo $eleve->getNom()?>" + "<?php echo $eleve->getPrenom()?>" + "<?php echo $idSujet ?>";
     genererPDFAvecHTML(supprimerInputs(enonce), nom);
 </script>
