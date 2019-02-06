@@ -1,14 +1,12 @@
 <?php
 
-class Attribue {
-    private $idUtilisateur;
+class ImageVariable {
+    private $idImage;
     private $idSujet;
-    private $dateAttribution;
-    private $dateLimite;
-    private $cooldown;
+    private $nomImage;
 
     /**
-     * Retourne une nouvelle instance d'Attribue.
+     * Retourne une nouvelle instance d'ImageVariable.
      * @param array $valeurs Un tableau associatif contenant les données à associer à cette instance.
      */
     public function __construct($valeurs = array())
@@ -19,119 +17,56 @@ class Attribue {
     }
 
     /**
-     * Associe les données d'un tableau associatif à cette instance de Attribue.
+     * Associe les données d'un tableau associatif à cette instance de ImageVariable.
      * @param array $donnees Un tableau associatif contenant des données à associer à cette instance.
      */
     public function affect($donnees)
     {
         foreach ((array)$donnees as $attribut => $valeur) {
             switch ($attribut) {
-                case 'idUtilisateur':
-                    $this->setIdUtilisateur($valeur);
+                case 'idImage':
+                    $this->setIdImage($valeur);
                     break;
                 case 'idSujet':
                     $this->setIdSujet($valeur);
                     break;
-                case 'dateAttribution':
-                    $this->setDateAttribution($valeur);
-                    break;
-                case 'dateLimite':
-                    $this->setDateLimite($valeur);
-                    break;
-                case 'cooldown':
-                    $this->setCooldown($valeur);
+                case 'nomImage':
+                    $this->setNomImage($valeur);
                     break;
             }
         }
     }
 
-    /**
-     * Retourne l'ID de l'Utilisateur attribué à cette instance.
-     * @return integer L'ID de l'Utilisateur attribué à cette instance.
-     */
-    public function getIdUtilisateur()
+
+    public function getIdImage()
     {
-        return $this->idUtilisateur;
+        return $this->idImage;
     }
 
-    /**
-     * Retourne l'ID du Sujet attribué à cette instance.
-     * @return integer L'ID du Sujet attribué à cette instance.
-     */
     public function getIdSujet()
     {
         return $this->idSujet;
     }
 
-    /**
-     * Retourne la date d'attribution du sujet au sujet de cette instance.
-     * @return string La date d'attribution du sujet au sujet de cette instance.
-     */
-    public function getDateAttribution()
+    public function getNomImage()
     {
-        return $this->dateAttribution;
+        return $this->nomImage;
     }
 
-    /**
-     * Retourne la date limite de réponse au sujet de cette instance.
-     * @return string La date limite de réponse au sujet de cette instance.
-     */
-    public function getDateLimite()
+
+    public function setIdImage($new_idImage)
     {
-        return $this->dateLimite;
+        $this->idImage = $new_idImage;
     }
 
-    /**
-     * Retourne le cooldown de réponse au sujet de cette instance.
-     * @return string Le cooldown de réponse au sujet de cette instance.
-     */
-    public function getCooldown()
+    public function setIdSujet($new_idSujet)
     {
-      return $this->cooldown;
+        $this->idSujet = $new_idSujet;
     }
 
-    /**
-     * Modifie l'ID de l'Utilisateur attribué à cette instance.
-     * @param integer $valeur Le nouvel ID de l'Utilisateur attribué à cette instance.
-     */
-    public function setIdUtilisateur($valeur)
+    public function setNomImage($new_nomImage)
     {
-        $this->idUtilisateur = $valeur;
+        $this->nomImage = $new_nomImage;
     }
 
-    /**
-     * Modifie l'ID du Sujet attribué à cette instance.
-     * @param integer $valeur Le nouvel ID du Sujet attribué à cette instance.
-     */
-    public function setIdSujet($valeur)
-    {
-        $this->idSujet = $valeur;
-    }
-
-    /**
-     * Modifie la date d'attribution du sujet de cette instance.
-     * @param string $valeur La nouvelle date d'attribution du sujet de cette instance.
-     */
-    public function setDateAttribution($valeur)
-    {
-        $this->dateAttribution = $valeur;
-    }
-
-    /**
-     * Modifie la date limite de réponse au sujet de cette instance.
-     * @param string $valeur La nouvelle date limite de réponse au sujet de cette instance.
-     */
-    public function setDateLimite($valeur)
-    {
-        $this->dateLimite = $valeur;
-    }
-
-    /**
-     * Modifie lecooldown de réponse au sujet de cette instance.
-     * @param string $valeur Le nouveau cooldown de réponse au sujet de cette instance.
-     */
-    public function setCooldown($valeur)
-    {
-        $this->cooldown = $valeur;
-    }
 }
