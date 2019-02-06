@@ -30,7 +30,18 @@
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="pagesDropdown_controle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<i class="fa fa-edit"></i>
-						<span>Contrôles</span>
+						<span>Création</span>
+					</a>
+					<div class="dropdown-menu" aria-labelledby="pagesDropdown">
+						<h6 class="dropdown-header">Espace création:</h6>
+						<a class="dropdown-item" href="index.php?page=5">Créer un énoncé</a>
+						<a class="dropdown-item" href="index.php?page=6">Attribuer les sujets</a>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="pagesDropdown_controle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-print"></i>
+						<span>Gestion</span>
 						<?php
 						$notFinished = $enonceManager->checkUnfinishedCorrection();
 						if($notFinished == true){ ?>
@@ -40,14 +51,12 @@
 						<?php } ?>
 					</a>
 					<div class="dropdown-menu" aria-labelledby="pagesDropdown">
-						<h6 class="dropdown-header">Gestion des contrôles:</h6>
-						<a class="dropdown-item" href="index.php?page=5">Créer un énoncé</a>
-							<a class="dropdown-item" href="index.php?page=7">Lister les énoncés<?php if($notFinished == true){ ?>
-								<span class="badge badge-danger">!</span>	<?php } ?></a>
-							<a class="dropdown-item" href="index.php?page=6">Attribuer les sujets</a>
-
-							<a class="dropdown-item" href="index.php?page=8">Lister les réponses</a>
+						<h6 class="dropdown-header">Espace gestion:</h6>
+						<a class="dropdown-item" href="index.php?page=7">Lister les énoncés<?php if($notFinished == true){ ?>
+							<span class="badge badge-danger">!</span>	<?php } ?></a>
 							<a class="dropdown-item" href="index.php?page=11">Lister les attributions</a>
+							<a class="dropdown-item" href="index.php?page=8">Lister les réponses</a>
+							<a class="dropdown-item" href="index.php?page=18">Imprimer un sujet</a>
 						</div>
 					</li>
 				</ul>

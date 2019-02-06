@@ -51,6 +51,24 @@ class AttribueManager
     }
 
     /**
+     * Retourne l'instance de Attribue liée à l'idSujet passé en argument.
+     * @param $idSujet
+     * @return Attribue
+     */
+    public function getAttribueByIdSujet($idSujet)
+    {
+        $req = $this->db->prepare(
+            'SELECT idUtilisateur,idSujet,dateAttribution, dateLimite, cooldown
+						FROM attribue WHERE idSujet= :idSujet'
+        );
+        $req->bindValue(':idSujet', $idSujet, PDO::PARAM_STR);
+        $req->execute();
+        $attribue = new Attribue($req->fetch(PDO::FETCH_OBJ));
+        $req->closeCursor();
+        return $attribue;
+    }
+
+    /**
      * @param $idEtudiant
      * @return array
      */
