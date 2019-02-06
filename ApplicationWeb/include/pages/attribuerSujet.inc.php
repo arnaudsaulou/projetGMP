@@ -5,60 +5,72 @@
   </li>
   <li class="breadcrumb-item active">Attribution des sujets</li>
 </ol>
-
 <?php
-if( empty($_POST['choix_promotion'])){
+if($enonceManager->checkUnfinishedCorrection()){
   ?>
-  <form class="form-row"  action="#" method="POST">
-    <div class="col-md-4 mb-3">
-      <label for="choixPromo">Promotion :</label>
-      <select class="form-control" id="choixPromo" name="choix_promotion">
-        <option value="1"> Année 1</option>
-        <option value="2"> Année 2</option>
-      </select>
+  <div class="attributionError">
+    <div class='row justify-content-center'>
+      <div class="col-4 align-self-center alert alert-danger" role="alert">
+        <p>Il est impossible d'attribuer des sujets aux élèves tant qu'un énoncé est dépourvu de correction.</p>
+      </div>
     </div>
-    <div class="col-md-4 mb-3">
-      <label for="choixDateLimite">Date limite de réponse :</label>
-      <input class="form-control" id="choixDateLimite" required type="date" name="date_limite" value="<?php echo date("Y-m-d"); ?>">
-    </div>
-
-    <div class="col-md-4 mb-3">
-      <label for="choixCooldown">Temps d'attente entre chaque réponse :</label>
-      <select class="form-control" id="choixCooldown" name="choix_cooldown">
-        <option value="1"> 1 jour</option>
-        <option value="2"> 2 jours</option>
-        <option value="3"> 3 jours</option>
-        <option value="4"> 4 jours</option>
-        <option value="5"> 5 jours</option>
-        <option value="6"> 6 jours</option>
-        <option value="7"> 1 semaine </option>
-        <option value="14"> 2 semaines </option>
-      </select>
-    </div>
+    <a class="btn btn-link" href="index.php?page=6"><p>Retour</p></a>
   </div>
-  <div class="form-row">
-    <div class="col-md-12 mb-3">
-      <label for="choixSujet">Liste des énoncé : <?php echo $enonceManager->compterEnonce();?> énoncé(s) a/ont été trouvé :</label>
-      <select class="form-control" id="choixSujet" name="choix_sujet">
-        <?php
-        $listEnonce = $enonceManager->recupererListEnonce();
-        foreach ($listEnonce as $enonce){
-          echo $enonce->getIdEnonce();
-          ?>
-          <option value="<?php echo $enonce->getIdEnonce();?>"><?php echo $enonceManager->recupererEnonceViaIdEnonce($enonce->getIdEnonce())->getNomEnonce(); ?></option>
+  <?php
+}
+else {
+  if( empty($_POST['choix_promotion'])){
+    ?>
+    <form class="form-row"  action="#" method="POST">
+      <div class="col-md-4 mb-3">
+        <label for="choixPromo">Promotion :</label>
+        <select class="form-control" id="choixPromo" name="choix_promotion">
+          <option value="1"> Année 1</option>
+          <option value="2"> Année 2</option>
+        </select>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="choixDateLimite">Date limite de réponse :</label>
+        <input class="form-control" id="choixDateLimite" required type="date" name="date_limite" value="<?php echo date("Y-m-d"); ?>">
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label for="choixCooldown">Temps d'attente entre chaque réponse :</label>
+        <select class="form-control" id="choixCooldown" name="choix_cooldown">
+          <option value="1"> 1 jour</option>
+          <option value="2"> 2 jours</option>
+          <option value="3"> 3 jours</option>
+          <option value="4"> 4 jours</option>
+          <option value="5"> 5 jours</option>
+          <option value="6"> 6 jours</option>
+          <option value="7"> 1 semaine </option>
+          <option value="14"> 2 semaines </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-12 mb-3">
+        <label for="choixSujet">Liste des énoncé : <?php echo $enonceManager->compterEnonce();?> énoncé(s) a/ont été trouvé :</label>
+        <select class="form-control" id="choixSujet" name="choix_sujet">
           <?php
-        }
-        ?>
-      </select>
+          $listEnonce = $enonceManager->recupererListEnonce();
+          foreach ($listEnonce as $enonce){
+            echo $enonce->getIdEnonce();
+            ?>
+            <option value="<?php echo $enonce->getIdEnonce();?>"><?php echo $enonceManager->recupererEnonceViaIdEnonce($enonce->getIdEnonce())->getNomEnonce(); ?></option>
+            <?php
+          }
+          ?>
+        </select>
+      </div>
     </div>
-  </div>
-  <div class="col-md-3 mb-3">
-    <button class="btn btn-primary" type="submit">Confirmer</button>
-  </div>
-</form>
+    <div class="col-md-3 mb-3">
+      <button class="btn btn-primary" type="submit">Confirmer</button>
+    </div>
+  </form>
 
 
-<?php
+  <?php
 }
 else if(isset($_POST['choix_promotion'])){
 
@@ -135,5 +147,6 @@ else if(isset($_POST['choix_promotion'])){
 ?>
 
 <?php
+}
 }
 ?>

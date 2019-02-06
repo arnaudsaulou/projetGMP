@@ -31,43 +31,51 @@
 					<a class="nav-link dropdown-toggle" href="#" id="pagesDropdown_controle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<i class="fa fa-edit"></i>
 						<span>Contrôles</span>
+						<?php
+						$notFinished = $enonceManager->checkUnfinishedCorrection();
+						if($notFinished == true){ ?>
+							<button type="button" class="btn btn-danger btn-xs">
+								!
+							</button>
+						<?php } ?>
 					</a>
 					<div class="dropdown-menu" aria-labelledby="pagesDropdown">
 						<h6 class="dropdown-header">Gestion des contrôles:</h6>
 						<a class="dropdown-item" href="index.php?page=5">Créer un énoncé</a>
-						<a class="dropdown-item" href="index.php?page=7">Lister les énoncés</a>
-						<a class="dropdown-item" href="index.php?page=6">Attribuer les sujets</a>
+							<a class="dropdown-item" href="index.php?page=7">Lister les énoncés<?php if($notFinished == true){ ?>
+								<span class="badge badge-danger">!</span>	<?php } ?></a>
+							<a class="dropdown-item" href="index.php?page=6">Attribuer les sujets</a>
 
-						<a class="dropdown-item" href="index.php?page=8">Lister les réponses</a>
-						<a class="dropdown-item" href="index.php?page=11">Lister les attributions</a>
-					</div>
-				</li>
-			</ul>
-		<?php }
-		else{
-			if($_SESSION['droits'] == 0){
-				//partie élève
-				?>
-
-				<ul class="sidebar navbar-nav">
-					<li class="nav-item">
-						<a class="nav-link" href="index.php">
-							<i class="fas fa-fw fa-tachometer-alt"></i>
-							<span>Tableau de bord</span>
-						</a>
-					</li>
-
-					<li class="nav-item">
-						<a class="nav-link" href="index.php?page=10">
-							<i class="fa fa-eye"></i>
-							<span>Voir mes résultats</span>
-						</a>
+							<a class="dropdown-item" href="index.php?page=8">Lister les réponses</a>
+							<a class="dropdown-item" href="index.php?page=11">Lister les attributions</a>
+						</div>
 					</li>
 				</ul>
+			<?php }
+			else{
+				if($_SESSION['droits'] == 0){
+					//partie élève
+					?>
 
-				<?php
+					<ul class="sidebar navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link" href="index.php">
+								<i class="fas fa-fw fa-tachometer-alt"></i>
+								<span>Tableau de bord</span>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="index.php?page=10">
+								<i class="fa fa-eye"></i>
+								<span>Voir mes résultats</span>
+							</a>
+						</li>
+					</ul>
+
+					<?php
+				}
 			}
-		}
-	}?>
-	<div id="content-wrapper">
-		<div class="container-fluid">
+		}?>
+		<div id="content-wrapper">
+			<div class="container-fluid">
