@@ -53,7 +53,7 @@
       <!-- Titre + Zone de text -->
       <div id="blockParametrageText">
         <div class="dropdown">
-          <textarea id="itemValeur" type="text" class="border-bottom" placeholder="Entrez votre texte ici" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';"></textarea>
+          <textarea id="itemValeur" type="text" class="border-bottom" placeholder="Entrez votre texte ici" onkeypress="this.style.width = ((this.value.length + 1) * 8)  + 'px';"></textarea>
           <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-cog"></i>
           </button>
@@ -115,10 +115,12 @@
                   <label class="titreParametrage"></label>
                 </div>
 
-                <form action="#" class="px-4 py-3" method="post">
+                <form id="formAjoutDonneeVariable" class="px-4 py-3" method="post">
             			<div class="form-group">
                     <label>Nouveau type de donnée :</label>
-                    <input name="newTypeDonnee" class="form-control" id="newTypeDonnee" type="text" required>
+                    <input  name="newTypeDonnee" class="form-control" id="newTypeDonnee" type="text"
+                            oninvalid="this.setCustomValidity('Entrez un nom pour la donnée variable')"
+                            oninput="this.setCustomValidity('')" required>
             			</div>
 
             			<div class="form-group">
@@ -128,23 +130,31 @@
 
             			<div class="form-group" id="blockParametrageValeurAValeur">
             			  <label>Valeur : </label>
-            			  <input type="text" class="form-control" id="inputDonneeVariable0" required>
+            			  <input  type="text" class="form-control" id="inputDonneeVariable0"
+                            oninvalid="this.setCustomValidity('Entrez au moins une valeur')"
+                            oninput="this.setCustomValidity('')">
             			</div>
 
                   <div id="blockParametrageInterval">
                     <div class="form-group">
                       <label>Borne inférieure :</label>
-                      <input type="number" class="form-control" id="borneInferieurInterval" required>
+                      <input  type="number" class="form-control" id="borneInferieurInterval"
+                              oninvalid="this.setCustomValidity('Entrez la borne inférieure de l'interval')"
+                              oninput="this.setCustomValidity('')">
                     </div>
 
                     <div class="form-group">
                       <label>Borne supérieure :</label>
-                      <input type="number" class="form-control" id="borneSuperieurInterval" required>
+                      <input  type="number" class="form-control" id="borneSuperieurInterval"
+                              oninvalid="this.setCustomValidity('Entrez la borne supérieure de l'interval')"
+                              oninput="this.setCustomValidity('')">
                     </div>
 
                     <div class="form-group">
                       <label>Pas :</label>
-                      <input type="number" class="form-control" id="pasInterval" required>
+                      <input  type="number" class="form-control" id="pasInterval"
+                              oninvalid="this.setCustomValidity('Entrez le pas de l'interval')"
+                              oninput="this.setCustomValidity('')">
                     </div>
                   </div>
 
@@ -155,7 +165,7 @@
                   <div class="row"></div>
 
                   <div class="form-group">
-                    <input onclick="ajouterNouveauTypeDonnee()" type="button" class="btn btn-primary col-12" value="Enregistrer">
+                    <input type="submit" class="btn btn-primary col-12" value="Enregistrer">
                   </div>
 
           		  </form>

@@ -10,6 +10,8 @@ if(!isset($_SESSION)){
 $db = new MyPDO;
 $typeDonneeManager = new TypeDonneeManager($db);
 $newTypeDonnee = $typeDonneeManager->createTypeDonneeDepuisTableau(array('libelle' => $_POST['newTypeDonnee']));
-$typeDonneeManager->ajouterTypeDonne($newTypeDonnee);
+$ajout = $typeDonneeManager->ajouterTypeDonne($newTypeDonnee);
+
+echo json_encode($ajout);
 
 ?>

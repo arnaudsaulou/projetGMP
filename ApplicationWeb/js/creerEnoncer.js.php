@@ -64,8 +64,8 @@ $(document).ready(function() {
 
     //Si l'item nécessite le block de paramétrage "Text"
     if( event.target.getAttribute("id") == "itemTitre" ||
-    event.target.getAttribute("id") == "itemZoneTexte" ||
-    event.target.getAttribute("id") == "itemQuestion"){
+      event.target.getAttribute("id") == "itemZoneTexte" ||
+      event.target.getAttribute("id") == "itemQuestion"){
       blockParametrageDonneeVariable.style.display  = "none";
       blockParametrageDonneeCalculee.style.display  = "none";
       blockParametrageImage.style.display  = "none";
@@ -183,6 +183,11 @@ $(document).ready(function() {
     enregistrerQuestions(this, handleEnregistrerQuestions);
   });
 
+  $('#formAjoutDonneeVariable').submit(function(event){
+    event.preventDefault();
+    ajouterNouveauTypeDonnee(this);
+  });
+
   //Détécter les touche de clavier pressé
   $("#itemValeur").on('keyup', function (e) {
 
@@ -228,16 +233,33 @@ function typeDonnerClick() {
   //Récupérer les éléments de l'ihm nécessaire
   var blockParametrageValeurAValeur = document.getElementById("blockParametrageValeurAValeur");
   var blockParametrageInterval = document.getElementById("blockParametrageInterval");
+  var newTypeDonnee = document.getElementById("newTypeDonnee");
+  var inputDonneeVariable = document.getElementById("inputDonneeVariable0");
+  var borneInferieurInterval = document.getElementById("borneInferieurInterval");
+  var borneSuperieurInterval = document.getElementById("borneSuperieurInterval");
+  var pasInterval = document.getElementById("pasInterval");
 
   //Comportement à appliquer
   if(isRadioValeurParValeurChecked()){
     blockParametrageInterval.style.display  = "none";
     blockParametrageValeurAValeur.style.display  = "block";
     boutonAjouterDonneeVariable.style.display = "block"
+    inputDonneeVariable.setAttribute("required", "");
+    borneInferieurInterval.removeAttribute("required");
+    borneInferieurInterval.setCustomValidity('');
+    borneSuperieurInterval.removeAttribute("required");
+    borneSuperieurInterval.setCustomValidity('');
+    pasInterval.removeAttribute("required");
+    pasInterval.setCustomValidity('');
   } else if(isRadioIntervalChecked()){
     blockParametrageValeurAValeur.style.display  = "none";
     blockParametrageInterval.style.display  = "block";
     boutonAjouterDonneeVariable.style.display = "none"
+    inputDonneeVariable.removeAttribute("required");
+    inputDonneeVariable.setCustomValidity('');
+    borneInferieurInterval.setAttribute("required", "");
+    borneSuperieurInterval.setAttribute("required", "");
+    pasInterval.setAttribute("required", "");
   }
 }
 
@@ -480,7 +502,6 @@ function enregistrerQuestions(form , callback){
       callback(form);
     },
     error: function(data){
-      console.log(data);
       alert("Une erreur s'est produite :/");
       creationEnonceReady = false;
       callback();
@@ -494,39 +515,49 @@ function handleEnregistrerQuestions(form){
 }
 
 //Appel du fichier AJAX afin d'ajouter un nouveau type de donnée dans la base
-function ajouterNouveauTypeDonnee(){
+function ajouterNouveauTypeDonnee(form){
 
   //Récupérer les éléments de l'ihm nécessaire
   var newTypeDonnee = document.getElementById("newTypeDonnee").value;
-  var inputDonneeVariable = document.getElementById("inputDonneeVariable0").value;
-  var borneInferieurInterval = document.getElementById("borneInferieurInterval").value;
-  var borneSuperieurInterval = document.getElementById("borneSuperieurInterval").value;
-  var pasInterval = document.getElementById("pasInterval").value;
+  var inputDonneeVariable = document.getElementById("inputDonneeVariable0");
+  var borneInferieurInterval = document.getElementById("borneInferieurInterval");
+  var borneSuperieurInterval = document.getElementById("borneSuperieurInterval");
+  var pasInterval = document.getElementById("pasInterval");
 
-  //Si le libellé donné pour le type de donnée n'est pas vide
-  if( newTypeDonnee != "" &&
-  inputDonneeVariable != "" ||
-  (
-    borneInferieurInterval = "" && borneSuperieurInterval != "" && pasInterval != ""
-  )
-){
+  if(parseInt(borneInferieurInterval.value) > parseInt(borneSuperieurInterval.value)){
+    borneSuperieurInterval.setCustomValidity("La borne supérieur est inférieure à la borne inférieure");
+  } else if(parseInt(pasInterval.value) > (parseInt(borneSuperieurInterval.value) - parseInt(borneInferieurInterval.value))){
 
+    pasInterval.setCustomValidity("Le pas est invalid pour l'interval donné");
+  } else {
+
+    ajouterTypeDonneAjax(newTypeDonnee, function(err , res){
+
+      if(res != null){
+        form.submit();
+      }
+
+    })
+
+  }
+}
+
+function ajouterTypeDonneAjax(newTypeDonnee, callback){
   $.ajax({
     type: "POST",
-    url: './ajax/ajoutTypeDonnee.ajax.php',
     dataType: "json",
-    data : { newTypeDonnee: newTypeDonnee },
-    success: function() {
+    url: './ajax/ajoutTypeDonnee.ajax.php',
+    data: { newTypeDonnee: newTypeDonnee },
+    success: function(data){
       //Appel de la fonction d'ajout des donnée variables associé
       ajouterNouvelleDonneeVariable();
-      refreshSelectTypeDonnee(newTypeDonnee,"selectTypeDonnee");
+      refreshSelectTypeDonnee(newTypeDonnee.value,"selectTypeDonnee");
+      callback(null, data);
+    },
+    error: function(data){
+      callback(data, null);
     }
   });
-
-  return true;
-} else {
-  return false;
-}
 }
 
 
@@ -582,6 +613,7 @@ function ajouterNouvelleDonneeVariableValeurAValeur(){
 
   //Récupérer les éléments de l'ihm nécessaire
   var tab = document.getElementsByTagName('input');
+
   var liste = [];
 
   for(var i=0; i<tab.length; i++) {
