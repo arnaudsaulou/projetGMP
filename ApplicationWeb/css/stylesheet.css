@@ -408,6 +408,7 @@ body.sidebar-toggled footer.sticky-footer {
 }
 
 .btn-xs {
+  margin-left: 10px;
   padding: 3px 7px;
   font-size: 12px;
   border-radius: 3px;

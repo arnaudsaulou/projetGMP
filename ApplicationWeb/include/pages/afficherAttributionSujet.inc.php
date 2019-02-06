@@ -1,7 +1,7 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a>Gestion des attributions des sujets</a>
+        <a>Espace gestion</a>
     </li>
     <li class="breadcrumb-item active">Lister les attributions</li>
 </ol>
@@ -21,7 +21,7 @@
                       <th>Date attribution</th>
                       <th>Date limite</th>
                       <th>Temps entre chaque réponse</th>
-                      <th>Détail de la promotion</th>
+                      <th>Afficher les réponses reçues</th>
                   </tr>
                 </thead>
                 <tfoot>
@@ -31,7 +31,7 @@
                       <th>Date attribution</th>
                       <th>Date limite</th>
                       <th>Temps entre chaque réponse</th>
-                      <th>Détail de la promotion</th>
+                      <th>Afficher les réponses reçues</th>
                     </tr>
                 </tfoot>
                 <tbody>
