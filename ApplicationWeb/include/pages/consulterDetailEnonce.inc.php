@@ -14,11 +14,5 @@ $enonce = $enonceManager->recupererEnonceViaIdEnonce($_GET['idEnonce']);
     ?>
     </p>
 </div>
-<script src="packages/pdf/jspdf.min.js"></script>
-<script>
-let genererPDF = function(idEnonce) {
-  let pdf = new jsPDF('p', 'pt', 'a4');
-  pdf.fromHTML(document.getElementById('pdfwrapper'), 15, 15, { 'width' : 570 });
-  pdf.save('enonce-' + idEnonce + '.pdf');
-}
-</script>
+<script src="packages/pdf/html2pdf.js"></script>
+<script src="js/genererPdf.js"></script>
