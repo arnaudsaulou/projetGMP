@@ -4,9 +4,9 @@ $annee = $_GET["annee"];
 $idEnonce = $_GET["idEnonce"]; ?>
 <ol class="breadcrumb">
   <li class="breadcrumb-item">
-    <a>Gestion des réponses des élèves</a>
+    <a>Espace gestion</a>
   </li>
-  <li class="breadcrumb-item">Lister les réponses</li>
+  <li class="breadcrumb-item">Lister les réponses des élèves</li>
   <li class="breadcrumb-item active">Réponses reçues sur l'énoncé : <b><?php echo $enonceManager->recupererEnonceViaIdEnonce($idEnonce)->getNomEnonce() ?></b> par les élèves de l'année : <b><?php echo $annee; ?></b></li>
 </ol>
 

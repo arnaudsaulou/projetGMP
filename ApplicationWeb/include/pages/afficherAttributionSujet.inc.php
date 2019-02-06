@@ -1,7 +1,7 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a>Gestion des attributions des sujets</a>
+        <a>Espace gestion</a>
     </li>
     <li class="breadcrumb-item active">Lister les attributions</li>
 </ol>

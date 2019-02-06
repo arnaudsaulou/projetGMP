@@ -130,6 +130,12 @@
     }
     break;
 
+    case 18:
+    if ($_SESSION['droits'] == 1) {
+      include_once('pages/imprimerSujet.inc.php');
+    }
+    break;
+
     default :
     include_once('pages/accueil.inc.php');
   }
