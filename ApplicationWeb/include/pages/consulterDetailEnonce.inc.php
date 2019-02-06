@@ -17,7 +17,7 @@ $enonce = $enonceManager->recupererEnonceViaIdEnonce($_GET['idEnonce']);
   <input type="button" value="Corriger" onclick="window.location.href='index.php?page=9&idEnonce=<?php echo $_GET['idEnonce']?>'" />
 </form>
 
-<button onclick="genererPDF(<?php echo $_GET['idEnonce']?>)">Télécharger au format PDF</button>
+<button onclick="genererPDFAvecHTML(document.getElementById('pdfwrapper'), 'enonce' + <?php echo $_GET['idEnonce']?>)">Télécharger au format PDF</button>
 <button href="">Tester</button>
 
 </div>
@@ -30,11 +30,5 @@ $enonce = $enonceManager->recupererEnonceViaIdEnonce($_GET['idEnonce']);
     </div>
 </div>
 
-<script src="packages/pdf/jspdf.min.js"></script>
-<script>
-let genererPDF = function(idEnonce) {
-  let pdf = new jsPDF('p', 'pt', 'a4');
-  pdf.fromHTML(document.getElementById('pdfwrapper'), 15, 15, { 'width' : 570 });
-  pdf.save('enonce-' + idEnonce + '.pdf');
-}
-</script>
+<script src="packages/pdf/html2pdf.js"></script>
+<script src="js/genererPdf.js"></script>
