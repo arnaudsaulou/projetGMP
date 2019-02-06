@@ -115,12 +115,27 @@ class EnonceManager {
   * @return boolean true si le nombre d'énoncés corrigés diffère du nombre total d'énoncé
   */
   public function checkUnfinishedCorrection(){
-    $req = $this->db->prepare(" SELECT count(DISTINCT q.idEnonce) as nb from enonce e join questions q on q.idEnonce = e.idEnonce join solutions s on s.idQuestion = q.idQuestion");
+    $req = $this->db->prepare(" SELECT count(DISTINCT q.idEnonce) AS nb FROM enonce e JOIN questions q ON q.idEnonce = e.idEnonce JOIN solutions s ON s.idQuestion = q.idQuestion");
     $req->execute();
     $nbCorrections = $req->fetch(PDO::FETCH_ASSOC);
     $req->closeCursor();
     $nbEnonce = $this->compterEnonce();
     return $nbCorrections['nb'] != $nbEnonce;
+  }
+
+
+  /**
+  * Retourne true si l'enonce dont l'id est passée en parametre n'a pas de correction
+  * @param integer - l'id de l'énoncé à verifier
+  * @return boolean - true si l'enonce dont l'id est passée en parametre n'a pas de correction
+  */
+  public function checkUnfinishedCorrectionById($idEnonce){
+    $req = $this->db->prepare(" SELECT count(DISTINCT q.idEnonce) AS nb FROM enonce e JOIN questions q ON q.idEnonce = e.idEnonce JOIN solutions s ON s.idQuestion = q.idQuestion WHERE e.idEnonce = :idEnonce ");
+    $req->bindValue(':idEnonce', $idEnonce, PDO::PARAM_STR);
+    $req->execute();
+    $nbCorrections = $req->fetch(PDO::FETCH_ASSOC);
+    $req->closeCursor();
+    return $nbCorrections['nb'] != 1;
   }
 
 }
