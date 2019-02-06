@@ -115,7 +115,7 @@
                   <label class="titreParametrage"></label>
                 </div>
 
-                <form id="formAjoutDonneeVariable" class="px-4 py-3" method="post">
+                <form class="px-4 py-3">
             			<div class="form-group">
                     <label>Nouveau type de donnée :</label>
                     <input  name="newTypeDonnee" class="form-control" id="newTypeDonnee" type="text"
@@ -130,7 +130,7 @@
 
             			<div class="form-group" id="blockParametrageValeurAValeur">
             			  <label>Valeur : </label>
-            			  <input  type="text" class="form-control" id="inputDonneeVariable0"
+            			  <input  type="text" class="form-control inputDonneeVariable" id="inputDonneeVariable0"
                             oninvalid="this.setCustomValidity('Entrez au moins une valeur')"
                             oninput="this.setCustomValidity('')">
             			</div>
@@ -165,7 +165,7 @@
                   <div class="row"></div>
 
                   <div class="form-group">
-                    <input type="submit" class="btn btn-primary col-12" value="Enregistrer">
+                    <input class="btn btn-primary col-12" value="Enregistrer" onclick="ajouterNouveauTypeDonnee();">
                   </div>
 
           		  </form>

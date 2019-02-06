@@ -183,10 +183,10 @@ $(document).ready(function() {
     enregistrerQuestions(this, handleEnregistrerQuestions);
   });
 
-  $('#formAjoutDonneeVariable').submit(function(event){
-    event.preventDefault();
-    ajouterNouveauTypeDonnee(this);
-  });
+  // $('#formAjoutDonneeVariable').submit(function(event){
+  //   event.preventDefault();
+  //   ajouterNouveauTypeDonnee(this);
+  // });
 
   //Détécter les touche de clavier pressé
   $("#itemValeur").on('keyup', function (e) {
@@ -399,7 +399,7 @@ function ajouterElement(typeItem) {
 
     //Comportement par defaut
     default:
-    console.log("Une erreur est survenue");
+      console.log("Une erreur est survenue");
   }
 
   page_creation.appendChild(newTitre);
@@ -445,8 +445,7 @@ function ajouterBlockDonneeVariable(){
 
   //Ajout de l'input
   newInputDonneeVariable.id = 'inputDonneeVariable'+idInput;
-  //newInputDonneeVariable.appendChild(document.createTextNode(""));
-  newInputDonneeVariable.classList.add("form-control");
+  newInputDonneeVariable.classList.add("form-control","inputDonneeVariable");
 
 
   //Ajout des éléments au block de paramétrage des items
@@ -515,7 +514,7 @@ function handleEnregistrerQuestions(form){
 }
 
 //Appel du fichier AJAX afin d'ajouter un nouveau type de donnée dans la base
-function ajouterNouveauTypeDonnee(form){
+function ajouterNouveauTypeDonnee(){
 
   //Récupérer les éléments de l'ihm nécessaire
   var newTypeDonnee = document.getElementById("newTypeDonnee").value;
@@ -530,19 +529,12 @@ function ajouterNouveauTypeDonnee(form){
 
     pasInterval.setCustomValidity("Le pas est invalid pour l'interval donné");
   } else {
-
-    ajouterTypeDonneAjax(newTypeDonnee, function(err , res){
-
-      if(res != null){
-        form.submit();
-      }
-
-    })
-
+    ajouterTypeDonneAjax(newTypeDonnee);
   }
 }
 
-function ajouterTypeDonneAjax(newTypeDonnee, callback){
+function ajouterTypeDonneAjax(newTypeDonnee){
+
   $.ajax({
     type: "POST",
     dataType: "json",
@@ -551,11 +543,7 @@ function ajouterTypeDonneAjax(newTypeDonnee, callback){
     success: function(data){
       //Appel de la fonction d'ajout des donnée variables associé
       ajouterNouvelleDonneeVariable();
-      refreshSelectTypeDonnee(newTypeDonnee.value,"selectTypeDonnee");
-      callback(null, data);
-    },
-    error: function(data){
-      callback(data, null);
+      refreshSelectTypeDonnee(newTypeDonnee,"selectTypeDonnee");
     }
   });
 }
@@ -611,18 +599,14 @@ function ajouterNouvelleDonneeVariableViaInterval(){
 //Appel du fichier AJAX afin d'ajouter les nouvelles donnée variable associé au nouveau type de donnée valeur après valeur
 function ajouterNouvelleDonneeVariableValeurAValeur(){
 
-  //Récupérer les éléments de l'ihm nécessaire
-  var tab = document.getElementsByTagName('input');
-
+//Récupérer les éléments de l'ihm nécessaire
   var liste = [];
+  var elementValeurPossible = document.getElementsByClassName("inputDonneeVariable");
 
-  for(var i=0; i<tab.length; i++) {
-
-    //Récupérer toutes les valeurs possible de la donnée variable
-    if ( tab[i].id.substring(0, 19) == 'inputDonneeVariable' ) {
-      liste.push(document.getElementById(tab[i].id).value);
-    }
-
+  for(let i = 0; i < elementValeurPossible.length; i++){
+      if(!liste.includes(elementValeurPossible[i].value)){
+        liste.push(elementValeurPossible[i].value);
+      }
   }
 
   //Si la liste des donnée variable à ajouter n'est pas vide
