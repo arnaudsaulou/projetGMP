@@ -82,6 +82,15 @@ class SujetManager {
         unset($_SESSION['lastInsertIdEnonce']);
     }
 
+    public function sujetExiste($idSujet) {
+        $req  = $this->db->prepare('SELECT COUNT(*) as sujetExiste FROM sujet WHERE idSujet = :idSujet');
+        $req->bindValue(':idSujet', $idSujet, PDO::PARAM_STR);
+        $req->execute();
+        $res = $req->fetchColumn();
+        $req->closeCursor();
+        return $res;
+    }
+
     /**
      * @param $idSujet
      * @return Sujet
