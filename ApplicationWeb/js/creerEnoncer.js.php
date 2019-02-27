@@ -24,6 +24,7 @@ var creationEnonceReady = false;
 
 var tableauQuestions = new Array(); //Création du tableau mémorisant les questions de l'énoncé
 var tableauNumParams = new Array(); //Création du tableau mémorisant les id des paramètres de chaque donnée calculée
+var tableauDonneeVariable =new Array();
 
 //Attendre que le document soit compvarement chargé
 $(document).ready(function() {
@@ -321,6 +322,7 @@ function ajouterElement(typeItem) {
       newTitre.appendChild(document.createTextNode(recupererTypeDonneeAjoute("selectTypeDonnee")[1]));
       contientDonneeVariable = true;
       indexItemDonnee = indexItemDonnee + 1;
+      tableauDonneeVariable.push(recupererIdTypeDonneeAjoute());
     break;
 
     //Si l'item à ajouter est une "Donnée Calculée"
@@ -534,7 +536,6 @@ function ajouterNouveauTypeDonnee(){
 }
 
 function ajouterTypeDonneAjax(newTypeDonnee){
-
   $.ajax({
     type: "POST",
     dataType: "json",
@@ -707,7 +708,9 @@ function ajouterNouveauParams(newParam) {
     type: "POST",
     url: './ajax/ajoutPamametresCorrection.ajax.php',
     dataType: "json",
+    data: {tableauDonneeVariable : tableauDonneeVariable},
     success: function(array) {
+      console.log(array);
       //Appel à la fonction d'ajout d'option
       populateSelect(array,newParam);
     }

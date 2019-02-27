@@ -95,12 +95,13 @@ class EnonceManager {
 
   public function getTypeDonneVariablePresentDansEnonce($idEnonce)
   {
+    $listeTypeDonnee = array();
     $req = $this->db->prepare(
       "  SELECT DISTINCT t.idType , t.libelle FROM type_donnee t INNER JOIN donnee_variable dv ON t.idType = dv.idType
       INNER JOIN sujet_possible sp ON sp.idDonneeVariable = dv.idDonneeVariable WHERE sp.idSujet IN
       (SELECT s.idSujet FROM sujet s WHERE s.idEnonce = :idEnonce)"
     );
-    $req->bindValue(':idEnonce', $idEnonce, PDO::PARAM_STR);
+    $req->bindValue(':idEnonce', $idEnonce, PDO::PARAM_INT);
     $req->execute();
     while ($typeDonnee = $req->fetch(PDO::FETCH_OBJ)) {
       $listeTypeDonnee[] = new TypeDonnee($typeDonnee);

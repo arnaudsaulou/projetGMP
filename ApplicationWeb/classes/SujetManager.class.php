@@ -31,7 +31,6 @@ class SujetManager {
     //Cette fonction permet de générer un sujet à partir d'une liste de données variable
     public function generateSujet($listDonneeVariable)
     {
-      var_dump($listDonneeVariable);
 
         ini_set('max_execution_time', 0);
         if (!empty($listDonneeVariable)) {
@@ -78,8 +77,6 @@ class SujetManager {
             $this->addSujetPossible();
             $this->addSujet();
         }
-
-        unset($_SESSION['lastInsertIdEnonce']);
     }
 
     /**

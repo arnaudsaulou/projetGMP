@@ -5,8 +5,11 @@
 
 	$db = new MyPDO;
 	$enonceManager = new EnonceManager($db);
+	$typeDonneeManager = new TypeDonneeManager($db);
 
+if(!empty($_POST['idEnonce'])){
 	//on récupère la liste des données variable de l'énoncé
+
 	$listeTypeDonnee = $enonceManager->getTypeDonneVariablePresentDansEnonce($_POST['idEnonce']);
 
 	$listeParams = array();
@@ -14,6 +17,16 @@
 	foreach ($listeTypeDonnee as $key => $typeDonnee) {
 		$listeParams[] = array("idType" => $typeDonnee->getIdType(), "libelle" => $typeDonnee->getLibelle());
 	}
+
+} else if(!empty($_POST['tableauDonneeVariable'])){
+
+	foreach ($_POST['tableauDonneeVariable'] as $idypeDonnee) {
+		$listeParams[] = $typeDonneeManager->getTypeDonneeById($idypeDonnee);
+	}
+
+} else {
+	$listeParams = "error";
+}
 
 	echo json_encode($listeParams);
 
