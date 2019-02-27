@@ -1,7 +1,6 @@
 let genererPDFAvecHTML = function(html, nom) {
     let opt = {
-        margin:       0.2,
-        filename:     nom,
+        filename:     nom + '.pdf',
         image:        { type: 'png' },
         html2canvas:  { scale: 2 },
         jsPDF:        { unit: 'cm', format: 'a4', orientation: 'portrait' }
