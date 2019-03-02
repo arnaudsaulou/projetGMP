@@ -53,6 +53,15 @@ if (isset($_POST['idSujet'])) {
         </div>
         <div class="form-group col-5">
             <input class="col-12 col-form-input btn btn-primary" type="submit" value="Générer PDF">
+            <a id="boutonPrevisualiser" class="col-12 col-form-input btn btn-primary">Prévisualiser PDF</a>
         </div>
     </div>
 </form>
+
+<script type="text/javascript">
+    let boutonPrevisualiser = document.getElementById('boutonPrevisualiser');
+    let champIdSujet =  document.getElementById('idSujet');
+    champIdSujet.onchange = function() {
+        boutonPrevisualiser.href = "index.php?page=19&idSujet=" + champIdSujet.value;
+    }
+</script>
