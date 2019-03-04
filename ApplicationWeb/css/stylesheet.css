@@ -446,3 +446,30 @@ body.sidebar-toggled footer.sticky-footer {
   background:#007bff;
   color: white;
 }
+
+#imageBrowser{
+  display: none;
+  position:fixed;
+  top: 40%;
+  left: 40%;
+  width:50%;
+  height: 50%;
+  background-color: #000000;
+  padding: 1%;
+  margin: 10px solid #FFFFFF;
+}
+
+#imageBrowser > a {
+  color : #FFFFFF;
+  margin: 2% 0% 10% 0%;
+}
+
+#imageBrowser hr {
+  color: #FFFFFF;
+  background-color: #FFFFFF;
+  margin: 1% 0% 1% 0%;
+}
+
+#imageBlockChoisi{
+  display: none;
+}

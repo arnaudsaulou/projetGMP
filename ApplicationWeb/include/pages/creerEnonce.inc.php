@@ -1,5 +1,7 @@
 <!-- A special css is needed for the color picker-->
+<link href="packages/jquery.fileTree-1.01/jqueryFileTree.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="packages/colorpicker/css/evol-colorpicker.css" rel="stylesheet" />
+
 
 <!-- Breadcrumbs-->
 <ol class="breadcrumb" id="breadcrumb">
@@ -256,10 +258,24 @@
       <div id="blockParametrageImage">
         <div class="dropdown">
 
+          <div id="container_id"></div>
+
+
           <div id="buttonFakeInputFile">
             <img alt="logo ajouter image" src="Ressources/no-image.png">
           </div>
-          <input id="html_btn" type="file" />
+
+          <!-- Chargement d'une image coté serveur -->
+          <div id="imageBrowser">
+            <a onmouseover="this.style.cursor = 'pointer';" onclick="closeImageBrowser()">X</a>
+            <hr>
+            <div id="loadFolderTree"></div>
+          </div>
+
+          <div id="imageBlockChoisi">
+            <label>Image choisi :</label>
+            <input type="text" id="imageChoisi" readonly="readonly"></input>
+          </div>
 
           <button class="btn dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-cog"></i>
@@ -345,6 +361,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
 <script src="packages/colorpicker/js/evol-colorpicker.js" type="text/javascript"></script>
+<script src="packages/jquery.fileTree-1.01/jqueryFileTree.js" type="text/javascript"></script>
 <?php //if((!isset($_POST['enonceCreer']) || empty($_POST['enonceCreer'])) && !isset($_POST['nomEnonce'])) { ?>
   <script type="text/javascript" src="js/creerEnoncer.js.php"></script>
 <?php //} ?>

@@ -43,6 +43,11 @@ $(document).ready(function() {
   var policeUpButton = document.getElementById("policeUpButton");
   var policeDownButton = document.getElementById("policeDownButton");
 
+  var buttonFakeInputFile = document.getElementById("buttonFakeInputFile");
+  var imageBrowser = document.getElementById("imageBrowser");
+  var imageChoisi = document.getElementById("imageChoisi");
+  var imageBlockChoisi = document.getElementById("imageBlockChoisi");
+
   //Stocker le type d'item en cours de création
   var itemEnCoursDeCration = document.getElementById("itemTitre");
 
@@ -175,6 +180,21 @@ $(document).ready(function() {
       });
   };
 
+  buttonFakeInputFile.onclick = function(){
+    imageBrowser.style.display  = "block";
+  }
+
+  $('#loadFolderTree').fileTree({
+        root: './Projets/ProjetGMP/ApplicationWeb/images/fixes/',
+        script:  'ajax/jqueryFileTree.ajax.php',
+        multiFolder: false,
+    }, function(file) {
+        var image = file.replace("./Projets/ProjetGMP/ApplicationWeb/images/fixes/", "");
+        imageChoisi.value = image;
+        imageBlockChoisi.style.display  = "inline";
+    });
+
+
   $('#buttonFakeInputFile').bind("click" , function () {
     $('#html_btn').click();
   });
@@ -209,6 +229,11 @@ $(document).ready(function() {
 
 });
 
+function closeImageBrowser(){
+  var imageBrowser = document.getElementById("imageBrowser");
+  imageBrowser.style.display  = "none";
+}
+
 function resetMenuSelectedItem(){
   document.getElementById("itemTitre").classList.remove("active");
   document.getElementById("itemZoneTexte").classList.remove("active");
@@ -239,6 +264,7 @@ function typeDonnerClick() {
   var borneInferieurInterval = document.getElementById("borneInferieurInterval");
   var borneSuperieurInterval = document.getElementById("borneSuperieurInterval");
   var pasInterval = document.getElementById("pasInterval");
+  var imageChoisi = document.getElementById("imageChoisi");
 
   //Comportement à appliquer
   if(isRadioValeurParValeurChecked()){
@@ -383,25 +409,14 @@ function ajouterElement(typeItem) {
       newTitre.id = 'image'+numItem;
       newTitre.name = 'item'+numItem;
       newTitre.alt = itemDescription.value;
+      newTitre.src = "./images/fixes/" + imageChoisi.value;
 
-    //Attendre que l'immage soit chargée pour l'afficher
-    var reader = new FileReader();
-    reader.addEventListener('load', function () {
-      newTitre.src = reader.result;
+      if(itemLargeur.value != '')
+        newTitre.width = itemLargeur.value;
 
-      if(!empty(itemLargeur.value))
-      newTitre.width = itemLargeur.value;
+      if(itemHauteur.value != '')
+        newTitre.height = itemHauteur.value;
 
-      if(!empty(itemHauteur.value))
-      newTitre.height = itemHauteur.value;
-    });
-
-    reader.readAsDataURL(itemSource.files[0]);
-    break;
-
-    //Comportement par defaut
-    default:
-      console.log("Une erreur est survenue");
   }
 
   page_creation.appendChild(newTitre);
