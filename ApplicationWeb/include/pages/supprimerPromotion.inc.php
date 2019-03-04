@@ -11,14 +11,14 @@
   <div class="card mb-3">
     <div class="card-header">
       <i class="fas fa-table"></i>
-      S&eacute;lectionnez la promotion &agrave; supprimer
+      Sélectionnez la promotion &agrave; supprimer
     </div>
     <div class="card-body">
       <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>Ann&eacute;e</th>
+              <th>Année</th>
               <th>Nb. &Eacute;tudiants</th>
               <th>Supprimer ?</th>
             </tr>
@@ -84,7 +84,7 @@
   <div class="suppressionConfirme">
     <div class='row justify-content-center'>
       <div class="col-4 align-self-center alert alert-success" role="alert">
-        <p>La promotion a bien &eacute;t&eacute; supprim&eacute;e !</p>
+        <p>La promotion a bien été supprimée !</p>
       </div>
     </div>
     <a class="btn btn-link" href="index.php?page=13"><p>Retour</p></a>
