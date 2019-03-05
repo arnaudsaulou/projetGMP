@@ -41,7 +41,7 @@ $listeNoteEtudiant=$noteManager->getNoteByIdEtudiant($idEtudiant);
 
 								<td><?php echo $enonce->getNomEnonce(); ?> </td>
 								<td><?php echo $note->getDateReponse(); ?></td>
-								<td><?php echo $note->getNote(); ?></td>
+								<td><?php echo $note->getNote();?></td>
 
 							</tr>
 
