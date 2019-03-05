@@ -21,6 +21,7 @@ var contientQuestion = false;
 var contientDonneeVariable = false;
 var contientText = false;
 var creationEnonceReady = false;
+var numImageVariable = 1;
 
 var tableauQuestions = new Array(); //Création du tableau mémorisant les questions de l'énoncé
 var tableauNumParams = new Array(); //Création du tableau mémorisant les id des paramètres de chaque donnée calculée
@@ -34,6 +35,7 @@ $(document).ready(function() {
   var blockParametrageDonneeVariable = document.getElementById("blockParametrageDonneeVariable");
   var blockParametrageDonneeCalculee = document.getElementById("blockParametrageDonneeCalculee");
   var blockParametrageImage = document.getElementById("blockParametrageImage");
+  var blockParametrageImageVariable = document.getElementById("blockParametrageImageVariable");
   var boutonAjouterDonneeVariable = document.getElementById("boutonAjouterDonneeVariable");
   var boutonAjouter = document.getElementById("boutonAjouter");
   var boutonSupprimer = document.getElementById("boutonSupprimer");
@@ -56,6 +58,7 @@ $(document).ready(function() {
   blockParametrageDonneeVariable.style.display  = "none";
   blockParametrageDonneeCalculee.style.display  = "none";
   blockParametrageImage.style.display  = "none";
+  blockParametrageImageVariable.style.display  = "none";
   blockParametrageText.style.display  = "block";
 
 
@@ -75,6 +78,7 @@ $(document).ready(function() {
       blockParametrageDonneeVariable.style.display  = "none";
       blockParametrageDonneeCalculee.style.display  = "none";
       blockParametrageImage.style.display  = "none";
+      blockParametrageImageVariable.style.display  = "none";
       blockParametrageText.style.display  = "block";
     }
 
@@ -82,6 +86,7 @@ $(document).ready(function() {
     if(event.target.getAttribute("id") == "itemDonneeVariable"){
       blockParametrageText.style.display  = "none";
       blockParametrageImage.style.display  = "none";
+      blockParametrageImageVariable.style.display  = "none";
       blockParametrageDonneeVariable.style.display  = "block";
       blockParametrageDonneeCalculee.style.display  = "none";
 
@@ -94,6 +99,7 @@ $(document).ready(function() {
     if(event.target.getAttribute("id") == "itemDonneeCalculee"){
       blockParametrageText.style.display  = "none";
       blockParametrageImage.style.display  = "none";
+      blockParametrageImageVariable.style.display  = "none";
       blockParametrageDonneeVariable.style.display  = "none";
       blockParametrageDonneeCalculee.style.display  = "block";
     }
@@ -104,6 +110,16 @@ $(document).ready(function() {
       blockParametrageDonneeVariable.style.display  = "none";
       blockParametrageDonneeCalculee.style.display  = "none";
       blockParametrageImage.style.display  = "block";
+      blockParametrageImageVariable.style.display  = "none";
+    }
+
+    //Si l'item nécessite le block de paramétrage "Image"
+    if(event.target.getAttribute("id") == "itemImageVariable"){
+      blockParametrageText.style.display  = "none";
+      blockParametrageDonneeVariable.style.display  = "none";
+      blockParametrageDonneeCalculee.style.display  = "none";
+      blockParametrageImage.style.display  = "none";
+      blockParametrageImageVariable.style.display  = "block";
     }
   });
 
@@ -194,11 +210,6 @@ $(document).ready(function() {
         imageBlockChoisi.style.display  = "inline";
     });
 
-
-  $('#buttonFakeInputFile').bind("click" , function () {
-    $('#html_btn').click();
-  });
-
   $('#formCreationEnonce').submit(function(event){
     event.preventDefault();
     enregistrerQuestions(this, handleEnregistrerQuestions);
@@ -240,7 +251,10 @@ function resetMenuSelectedItem(){
   document.getElementById("itemDonneeVariable").classList.remove("active");
   document.getElementById("itemDonneeCalculee").classList.remove("active");
   document.getElementById("itemQuestion").classList.remove("active");
-  document.getElementById("itemImage").classList.remove("active")
+  document.getElementById("itemImage").classList.remove("active");
+  document.getElementById("itemImageVariable").classList.remove("active");
+  var itemDescriptionVariable = document.getElementById("itemDescriptionVariable");
+  itemDescriptionVariable.style.borderColor = "#ced4da";
 }
 
 //Renvoie TRUE si le bouton radio "Valeur a valeur" est coché
@@ -300,6 +314,7 @@ function ajouterElement(typeItem) {
   var itemCouleur = document.getElementById("frenchColor").value;
   var itemSource = document.getElementById("html_btn");
   var itemDescription = document.getElementById("itemDescription");
+  var itemDescriptionVariable = document.getElementById("itemDescriptionVariable");
   var itemLargeur = document.getElementById("itemLargeur");
   var itemHauteur = document.getElementById("itemHauteur");
 
@@ -417,6 +432,32 @@ function ajouterElement(typeItem) {
       if(itemHauteur.value != '')
         newTitre.height = itemHauteur.value;
 
+    break;
+
+    //Si l'item à ajouter est une "Image Variable"
+    case "itemImageVariable":
+      if(itemDescriptionVariable.value != ""){
+        var newTitre = document.createElement('img');
+        newTitre.id = 'imageVariable_'+ numImageVariable;
+        newTitre.classList.add("imageVariable");
+        newTitre.name = 'item'+numItem;
+        newTitre.alt = itemDescriptionVariable.value;
+
+        if(itemLargeur.value != '')
+          newTitre.width = itemLargeur.value;
+
+        if(itemHauteur.value != '')
+          newTitre.height = itemHauteur.value;
+
+        numImageVariable++;
+      }
+
+    break;
+
+  }
+
+  if(itemDescriptionVariable.value == ""){
+    itemDescriptionVariable.style.borderColor = "red";
   }
 
   page_creation.appendChild(newTitre);
@@ -433,12 +474,16 @@ function supprimerElement(typeItem){
     tableauQuestions.pop();
   }
 
+  if(typeItem.getAttribute("id") == "itemImageVariable" && numImageVariable > 1){
+    numImageVariable--;
+  }
+
+
   var page_creation = document.getElementById("page_creation");
   page_creation.removeChild(itemASuppr[itemASuppr.length - 1]);
   itemASuppr.pop();
 
   indexItemDonnee = indexItemDonnee - 1;
-
 }
 
 //Ajoute un block d'insertion de donnée "Valeur à valeur"

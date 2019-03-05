@@ -22,6 +22,7 @@
         <li class="list-group-item item" id="itemDonneeCalculee">Donnée Calculée</li>
         <li class="list-group-item item" id="itemQuestion">Question</li>
         <li class="list-group-item item" id="itemImage">Image</li>
+        <li class="list-group-item item" id="itemImageVariable">Image Variable</li>
       </ul>
 
       <hr class="half-rule"/>
@@ -254,7 +255,7 @@
         </div>
       </div>
 
-      <!-- Image -->
+      <!-- Image Fixe -->
       <div id="blockParametrageImage">
         <div class="dropdown">
 
@@ -309,6 +310,28 @@
 
           </form>
         </div>
+      </div>
+
+      <!-- Image Variable -->
+      <div id="blockParametrageImageVariable">
+          <form>
+
+            <div class="form-group">
+              <label>Description :</label>
+              <input type="text" class="form-control" id="itemDescriptionVariable">
+            </div>
+
+            <div class="form-group">
+              <label>Largeur :</label>
+              <input type="number" class="form-control" id="itemLargeur">
+            </div>
+
+            <div class="form-group">
+              <label>Hauteur :</label>
+              <input type="number" class="form-control" id="itemHauteur">
+            </div>
+
+          </form>
       </div>
     </div>
   </div>

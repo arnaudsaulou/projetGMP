@@ -1,4 +1,5 @@
 let sujet = new Sujet();
+let globalIdSujet;
 
 function Sujet(){
 
@@ -70,7 +71,17 @@ function DonneeCalculee(idType, nomFormule, tableauIdParams){
   }
 }
 
+function countProps(obj) {
+    var count = 0;
+    for (var p in obj) {
+      obj.hasOwnProperty(p) && count++;
+    }
+    return count;
+}
+
 function recupererTypeDonneeVariableDansEnonce(idSujet){
+
+  globalIdSujet = idSujet;
 
   //Récupérer les éléments de l'ihm nécessaire
   var tab = document.getElementsByTagName('data');
@@ -144,7 +155,6 @@ function recupererTypeDonneeCalculeDansEnonce(){
   recupererDonneeCalculeViaIdSujetEtIdTypeDonne(listeIdPure);
 }
 
-
 //Appel du fichier AJAX
 function recupererDonneeCalculeViaIdSujetEtIdTypeDonne(listeIdTypeDonne){
 
@@ -171,11 +181,11 @@ function recupererDonneeCalculeViaIdSujetEtIdTypeDonne(listeIdTypeDonne){
 
         sujet.setDonneeCalcule(listeValeur);
 
-        remplacerTagParDonneeCalculeeDuSujet();
       }
   });
 
   }
+  remplacerTagParDonneeCalculeeDuSujet();
 }
 
 function remplacerTagParDonneeCalculeeDuSujet(){
@@ -187,12 +197,21 @@ function remplacerTagParDonneeCalculeeDuSujet(){
       document.getElementById(id).innerHTML = resultat;
     });
   }
+  recupererImageVariableDansEnonce();
 }
 
-function countProps(obj) {
-    var count = 0;
-    for (var p in obj) {
-      obj.hasOwnProperty(p) && count++;
-    }
-    return count;
+function recupererImageVariableDansEnonce(){
+
+  //Récupérer les éléments de l'ihm nécessaire
+  var tab = document.getElementsByClassName("imageVariable");
+  console.log(tab);
+  var valeur;
+
+  for(var i=0; i<tab.length; i++) {
+    valeur = tab[i].id.substring(14, 15);
+    console.log(tab[i].id);
+    console.log(valeur);
+    console.log("./images/variables/" + globalIdSujet + "_" + valeur);
+     tab[i].src = "./images/variables/" + globalIdSujet + "_" + valeur;
+  }
 }
