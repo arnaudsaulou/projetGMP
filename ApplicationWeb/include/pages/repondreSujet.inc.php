@@ -116,6 +116,18 @@ if (isset($_POST['idSujet'])) {
       <a href="index.php?page=0">
         <button class="btn btn-primary" type="button" name="button">Revenir sur le tableau de bord</button>
       </a>
+    </br></br>
       <?php
+      $nb = rand(1,3);
+      if($noteFinale < 50){
+        ?>
+        <img src="/projetGMP/ApplicationWeb/images/Gif/pouce_rouge_<?php echo $nb;?>.gif" alt="">
+        <?php
+      }
+      else{
+        ?>
+        <img src="/projetGMP/ApplicationWeb/images/Gif/pouce_bleu_<?php echo $nb;?>.gif" alt="">
+        <?php
+      }
     }
     ?>
