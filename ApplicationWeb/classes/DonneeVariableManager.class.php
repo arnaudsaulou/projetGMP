@@ -86,34 +86,4 @@ class DonneeVariableManager {
         }
         return $listeDonneesVariables;
     }
-
-
-    /**
-     * Retourne un objet DonneeVariable à partir de son ID.
-     * @param integer $idDonneeVariable L'ID de la DonneeVariable dont on veut le ID du type.
-     * @return integer Un objet DonneeVariable associé à l'id passée en paramètre.
-     */
-    function recupererDonneeVariableViaIdDonneeVariable($idDonneeVariable)
-    {
-        $req = $this->db->prepare(
-            "SELECT idTyp FROM donnee_variable WHERE idDonneeVariable = :idDonneeVariable"
-        );
-        $req->bindValue(':idDonneeVariable', $idDonneeVariable, PDO::PARAM_INT);
-        $donneeVariable = new DonneeVariable($req->fetch(PDO::FETCH_OBJ));
-        $req->closeCursor();
-
-        return $donneeVariable;
-    }
-
-
-    function recupererValeurDonneVariableViaTableauIdDonneeVariable($tableauIdDonneeVariable){
-
-      $tableauValeurDonneVariable = array();
-      foreach ($tableauIdDonneeVariable as $idDonneeVariable) {
-        $donneeVariable = $this->recupererDonneeVariableViaIdDonneeVariable($idDonneeVariable);
-        $tableauValeurDonneVariable[] = $donneeVariable->getValeur();
-      }
-
-      return $tableauValeurDonneVariable;
-    }
 }

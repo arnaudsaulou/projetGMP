@@ -68,7 +68,7 @@ if (isset($_POST['idSujet'])) {
     $idQuestion = $reponse->getIdQuestion();
     $idQuestion = str_replace('reponse_', '', $idQuestion);
 
-    $tauxErreur = comparerValeurs($solutionManager, $donneeVariableManager, $_SESSION['idSujet'], $idQuestion, $reponse);
+    $tauxErreur = comparerValeurs($solutionManager, $sujetPossibleManager, $_SESSION['idSujet'], $idQuestion, $reponse);
     $noteFinale += calculNoteParQuestion($tauxErreur, $idQuestion, $solutionManager);
     $noteMaximale += calculNoteParQuestion(0, $idQuestion, $solutionManager);
     $noteFinale = ($noteFinale/$noteMaximale)*100;

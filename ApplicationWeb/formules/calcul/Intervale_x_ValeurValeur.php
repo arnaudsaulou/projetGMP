@@ -11,8 +11,6 @@ class Formule {
     //  Coder ci-dessous la fonction voulu  //
     // ------------------------------------
 
-    var_dump($prametres);
-
     return $intervale * $valeurValeur;
   }
 
