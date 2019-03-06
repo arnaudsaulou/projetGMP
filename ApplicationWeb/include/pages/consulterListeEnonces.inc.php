@@ -35,15 +35,15 @@
                 <span class="badge badge-danger">Correction manquante</span> <?php
               }?></td>
               <td>
-                  <input class="btn <?php if($enonceManager->checkUnfinishedCorrectionById($enonce->getIdEnonce())){
-                    echo "btn-danger";
-                  }else {
-                    echo "btn-secondary";
-                  }?>" value="Corriger" type="button" name="options" id="option1" autocomplete="off" onclick="window.location.href='index.php?page=9&idEnonce=<?php echo $enonce->getIdEnonce()?>'">
-                  <input class="btn btn-secondary" type="button" value="Télécharger au format PDF" onclick="genererPDF(<?php echo $enonce->getIdEnonce()?>)">
-                  <input class="btn btn-secondary" type="button" value="Tester" >
-                  <input class="btn btn-secondary" type="button" value="Afficher" onclick="window.location.href='index.php?page=17&idEnonce=<?php echo $enonce->getIdEnonce(); ?>'">
-                  <input class="btn btn-secondary" type="button" value="Attribuer" onclick="window.location.href='index.php?page=6'">
+                <input class="btn <?php if($enonceManager->checkUnfinishedCorrectionById($enonce->getIdEnonce())){
+                  echo "btn-danger";
+                }else {
+                  echo "btn-secondary";
+                }?>" value="Corriger" type="button" name="options" id="option1" autocomplete="off" onclick="window.location.href='index.php?page=9&idEnonce=<?php echo $enonce->getIdEnonce()?>'">
+                <input class="btn btn-secondary" type="button" value="Télécharger au format PDF" onclick="genererPDF(<?php echo $enonce->getIdEnonce()?>)">
+                <input class="btn btn-secondary" type="button" value="Tester" >
+                <input class="btn btn-secondary" type="button" value="Afficher" onclick="window.location.href='index.php?page=17&idEnonce=<?php echo $enonce->getIdEnonce(); ?>'">
+                <input class="btn btn-secondary" type="button" value="Attribuer" onclick="window.location.href='index.php?page=6'">
               </td>
 
             </tr>
@@ -51,6 +51,13 @@
           }
           ?>
         </tbody>
+        <tfoot>
+          <tr >
+            <th>Numéro</th>
+            <th>Titre</th>
+            <th>Actions</th>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </div>

@@ -14,6 +14,10 @@
 
   switch ($page) { //pour chaque cas on test si la personne a les droits d'acceder à la page
 
+    //droits = 1 = prof only
+    //droits = 0 = eleve only
+    //pas de test = libre accès pour tous
+
     case 0:
     // Page d'accueil
     if ($_SESSION['droits'] == 1) {
