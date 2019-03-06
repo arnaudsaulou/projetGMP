@@ -83,6 +83,7 @@ function calculNoteParQuestion($tauxErreur, $idQuestion, $solutionManager){
     }else{
       $bareme = $solutionManager->recupererSolution($idQuestion)->getBareme();
       $noteIntermediaire = $bareme;
+      echo $noteIntermediaire;
     }
   }
   return $noteIntermediaire;
