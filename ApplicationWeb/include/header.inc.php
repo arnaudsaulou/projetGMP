@@ -11,7 +11,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <!--Title / favicon-->
     <title>Projet GMP</title>
+    <link href="Ressources/favicon.ico" rel="icon" type="image/x-icon" />
 
     <!--Reset CSS-->
     <link rel="stylesheet" type="text/css" href="css/resetStyle.css"/>
