@@ -3,6 +3,12 @@ include_once('fonctionsAffichageEnonce.inc.php');
 
 //Récupération de l'Attribue.
 $idEtudiant = $_SESSION['id'];
+
+if(isset($_SESSION['dejaRepondu'])){
+  header("location:./index.php");
+  exit;
+} else {
+
 $attribue = $attribueManager->getAttribuePourEtudiant($idEtudiant);
 
 if (isset($_POST['idSujet'])) {
@@ -121,13 +127,16 @@ if (isset($_POST['idSujet'])) {
       $nb = rand(1,3);
       if($noteFinale < 50){
         ?>
-        <img src="/projetGMP/ApplicationWeb/images/Gif/pouce_rouge_<?php echo $nb;?>.gif" alt="">
+        <img src="./images/Gif/pouce_rouge_<?php echo $nb;?>.gif" alt="">
         <?php
       }
       else{
         ?>
-        <img src="/projetGMP/ApplicationWeb/images/Gif/pouce_bleu_<?php echo $nb;?>.gif" alt="">
+        <img src="./images/Gif/pouce_bleu_<?php echo $nb;?>.gif" alt="">
         <?php
+        $_SESSION['dejaRepondu'] = True;
+
       }
     }
-    ?>
+  }
+?>

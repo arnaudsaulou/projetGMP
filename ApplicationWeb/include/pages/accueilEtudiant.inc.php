@@ -40,6 +40,12 @@
         <tbody>
           <?php
           $idUtilisateur = $_SESSION['id'];
+
+          //Empecher de resend un sujet qui vient d'être répondu
+          if(isset($_SESSION['idSujet'])){
+            unset($_SESSION['idSujet']);
+          }
+          
           $listeControle = $reponseManager->getListControleDisponible($idUtilisateur);
           foreach ($listeControle as $controle) {
             ?>
