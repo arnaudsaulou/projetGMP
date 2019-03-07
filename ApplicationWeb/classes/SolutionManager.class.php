@@ -57,4 +57,15 @@ class SolutionManager {
         return $solution;
     }
 
+    /**
+     * @param $idQuestion
+     * @return bool
+     */
+    public function supprimerSolutionViaIdQuestion($idQuestion) {
+        $req = $this->db->prepare("DELETE FROM solutions WHERE idQuestion = :idQuestion");
+        $req->bindValue(':idQuestion', $idQuestion, PDO::PARAM_STR);
+        $result = $req->execute();
+        $req->closeCursor();
+        return $result;
+    }
 }

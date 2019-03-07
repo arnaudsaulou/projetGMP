@@ -107,5 +107,17 @@ class QuestionManager
         $req->closeCursor();
 
         return $res['lastIdQuestion'];
-      }
+    }
+
+    /**
+     * @param $idEnonce
+     * @return bool
+     */
+    public function supprimerQuestionsViaIdEnonce($idEnonce) {
+        $req = $this->db->prepare("DELETE FROM questions WHERE idEnonce = :idEnonce");
+        $req->bindValue(':idEnonce', $idEnonce, PDO::PARAM_STR);
+        $result = $req->execute();
+        $req->closeCursor();
+        return $result;
+    }
 }

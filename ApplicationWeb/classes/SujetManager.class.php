@@ -1,6 +1,7 @@
 <?php
 
-class SujetManager {
+class SujetManager
+{
     private $db;
     private $donneeVariableManager;
     private $sujetPossibleManager;
@@ -37,10 +38,10 @@ class SujetManager {
 
             $numSujet = $this->sujetPossibleManager->getLastIdSujet();
 
-            if($numSujet == ''){
-              $numSujet = 1;
+            if ($numSujet == '') {
+                $numSujet = 1;
             } else {
-              $numSujet++;
+                $numSujet++;
             }
 
             $req = $this->db->prepare(
@@ -57,7 +58,7 @@ class SujetManager {
             while ($possibilite = $req->fetch(PDO::FETCH_NUM)) {
 
                 for ($i = 0; $i < count($possibilite); $i++) {
-                  $this->insertIntoSujetPossible .= '(' . $numSujet . ', ' . $possibilite[$i] . '),';
+                    $this->insertIntoSujetPossible .= '(' . $numSujet . ', ' . $possibilite[$i] . '),';
                 }
 
                 $this->insertIntoSujet .= '(' . $numSujet . ', ' . $_SESSION['lastInsertIdEnonce'] . '),';
@@ -70,7 +71,7 @@ class SujetManager {
             $this->insertIntoSujetPossible = rtrim($this->insertIntoSujetPossible, ',');
 
             $this->insertIntoSujetPossible =
-              ' START TRANSACTION;
+                ' START TRANSACTION;
                 INSERT INTO sujet_possible (idSujet, idDonneeVariable) VALUES ' . $this->insertIntoSujetPossible . ';
                 COMMIT;';
 
@@ -79,8 +80,9 @@ class SujetManager {
         }
     }
 
-    public function sujetExiste($idSujet) {
-        $req  = $this->db->prepare('SELECT COUNT(*) as sujetExiste FROM sujet WHERE idSujet = :idSujet');
+    public function sujetExiste($idSujet)
+    {
+        $req = $this->db->prepare('SELECT COUNT(*) as sujetExiste FROM sujet WHERE idSujet = :idSujet');
         $req->bindValue(':idSujet', $idSujet, PDO::PARAM_STR);
         $req->execute();
         $res = $req->fetchColumn();
@@ -92,7 +94,8 @@ class SujetManager {
      * @param $idSujet
      * @return Sujet
      */
-    public function getSujetAvecId($idSujet) {
+    public function getSujetAvecId($idSujet)
+    {
         $req = $this->db->prepare('SELECT * FROM sujet WHERE idSujet = :idSujet');
         $req->bindValue(':idSujet', $idSujet, PDO::PARAM_STR);
         $req->execute();
@@ -129,30 +132,55 @@ class SujetManager {
         return $query;
     }
 
+    public function getIdSujetsByIdEnonce($idEnonce) {
+        $req = $this->db->prepare('SELECT idSujet FROM sujet WHERE idEnonce = :idEnonce');
+        $req->bindValue(':idEnonce', $idEnonce, PDO::PARAM_STR);
+        $req->execute();
+        $listeSujets = array();
+        while ($sujet = $req->fetch(PDO::FETCH_OBJ)) {
+            $listeSujets[] = new Sujet($sujet);
+        }
+        $req->closeCursor();
+        return $listeSujets;
+    }
 
-	public function getSujetById($id){
-		$req=$this->db->prepare(
-			'SELECT idSujet, idEnonce FROM sujet WHERE idSujet=:id'
-		);
-		$req->bindValue(':id',$id,PDO::PARAM_INT);
-		$req->execute();
-		$res=$req->fetch(PDO::FETCH_OBJ);
-		$req->closeCursor();
-		return new Sujet($res);
-	}
 
-  public function addSujet()
-  {
+    public function getSujetById($id)
+    {
+        $req = $this->db->prepare(
+            'SELECT idSujet, idEnonce FROM sujet WHERE idSujet=:id'
+        );
+        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->execute();
+        $res = $req->fetch(PDO::FETCH_OBJ);
+        $req->closeCursor();
+        return new Sujet($res);
+    }
 
-    $this->insertIntoSujet = rtrim($this->insertIntoSujet, ',');
+    public function addSujet()
+    {
 
-    $req = $this->db->prepare(
-        " START TRANSACTION;
-          INSERT INTO sujet(idSujet, idEnonce) VALUES ".$this->insertIntoSujet.";
+        $this->insertIntoSujet = rtrim($this->insertIntoSujet, ',');
+
+        $req = $this->db->prepare(
+            " START TRANSACTION;
+          INSERT INTO sujet(idSujet, idEnonce) VALUES " . $this->insertIntoSujet . ";
           COMMIT;"
-    );
+        );
 
-    $result = $req->execute();
-    $req->closeCursor();
-  }
+        $result = $req->execute();
+        $req->closeCursor();
+    }
+
+    /**
+     * @param $idSujet
+     * @return bool
+     */
+    public function supprimerSujet($idSujet) {
+        $req = $this->db->prepare("DELETE FROM sujet WHERE idSujet = :idSujet");
+        $req->bindValue(':idSujet', $idSujet, PDO::PARAM_STR);
+        $result = $req->execute();
+        $req->closeCursor();
+        return $result;
+    }
 }
