@@ -67,4 +67,16 @@ class NoteManager{
 	{
 		return new Note($params);
 	}
+
+    /**
+     * @param $idSujet
+     * @return bool
+     */
+    public function supprimerNotesViaIdSujet($idSujet) {
+        $req = $this->db->prepare("DELETE FROM note WHERE idSujet = :idSujet");
+        $req->bindValue(':idSujet', $idSujet, PDO::PARAM_STR);
+        $result = $req->execute();
+        $req->closeCursor();
+        return $result;
+    }
 }
