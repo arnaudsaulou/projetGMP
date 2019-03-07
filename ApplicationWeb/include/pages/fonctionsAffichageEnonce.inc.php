@@ -43,7 +43,7 @@ function desactiverTousLesInputs(string &$enonce)
 }
 
 //Compare les valeurs et retourne un nombre représentant le pourcentage de différence.
-function comparerValeurs(SolutionManager $solutionManager, DonneeVariableManager $donneeVariableManager, int $idSujet, int $idQuestion, $reponse) {
+function comparerValeurs(SolutionManager $solutionManager, SujetPossibleManager $sujetPossibleManager, int $idSujet, int $idQuestion, $reponse) {
 
   //Récupérer la solution avec l'id de la question
   $solution = $solutionManager->recupererSolution($idQuestion);
@@ -51,18 +51,16 @@ function comparerValeurs(SolutionManager $solutionManager, DonneeVariableManager
   //Récupérer le nom de la formule
   $nomFormule = $solution->getNomFormule();
 
-  //Récupérer les id des paramètres à appliquer à cette fonction
-  $params = $solution->getTableauIdParams();
+  $listeDonneVariable = $sujetPossibleManager->recuperListeDonneeVariableViaIdSujet($idSujet);
 
-  //Split le string des idParamètres obtenu en un tableau
-  $arrayResult = preg_split('/,/',$params);
-
-  $params = $donneeVariableManager->recupererValeurDonneVariableViaTableauIdDonneeVariable($arrayResult);
+  foreach ($listeDonneVariable as $donneeVariable) {
+    $params[] = $donneeVariable->getValeur();
+  }
 
   include("./formules/correction/".$nomFormule.".php");
 
   //Appel des fonction prédéfinies en fonction du nom extrait juste avant et passage des paramètres
-  $solution = Formule::$nomFormule($arrayResult);
+  $solution = Formule::$nomFormule($params);
 
   //Récupérer la valeur de la réponse
   $reponse = $reponse->getValeur();

@@ -3,6 +3,12 @@ include_once('fonctionsAffichageEnonce.inc.php');
 
 //Récupération de l'Attribue.
 $idEtudiant = $_SESSION['id'];
+
+if(isset($_SESSION['dejaRepondu'])){
+  header("location:./index.php");
+  exit;
+} else {
+
 $attribue = $attribueManager->getAttribuePourEtudiant($idEtudiant);
 
 if (isset($_POST['idSujet'])) {
@@ -68,7 +74,7 @@ if (isset($_POST['idSujet'])) {
     $idQuestion = $reponse->getIdQuestion();
     $idQuestion = str_replace('reponse_', '', $idQuestion);
 
-    $tauxErreur = comparerValeurs($solutionManager, $donneeVariableManager, $_SESSION['idSujet'], $idQuestion, $reponse);
+    $tauxErreur = comparerValeurs($solutionManager, $sujetPossibleManager, $_SESSION['idSujet'], $idQuestion, $reponse);
     $noteFinale += calculNoteParQuestion($tauxErreur, $idQuestion, $solutionManager);
     $noteMaximale += calculNoteParQuestion(0, $idQuestion, $solutionManager);
     $noteFinale = ($noteFinale/$noteMaximale)*100;
@@ -116,6 +122,21 @@ if (isset($_POST['idSujet'])) {
       <a href="index.php?page=0">
         <button class="btn btn-primary" type="button" name="button">Revenir sur le tableau de bord</button>
       </a>
+    </br></br>
       <?php
+      $nb = rand(1,3);
+      if($noteFinale < 50){
+        ?>
+        <img src="./images/Gif/pouce_rouge_<?php echo $nb;?>.gif" alt="">
+        <?php
+      }
+      else{
+        ?>
+        <img src="./images/Gif/pouce_bleu_<?php echo $nb;?>.gif" alt="">
+        <?php
+        $_SESSION['dejaRepondu'] = True;
+
+      }
     }
-    ?>
+  }
+?>

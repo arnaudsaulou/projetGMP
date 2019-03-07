@@ -52,4 +52,16 @@ class SujetPossibleManager {
       $req->closeCursor();
       return $lastIdSujet['idSujet'];
     }
+
+    /**
+     * @param $idSujet
+     * @return bool
+     */
+    public function supprimerSujetPossibleViaIdSujet($idSujet) {
+        $req = $this->db->prepare("DELETE FROM sujet_possible WHERE idSujet = :idSujet");
+        $req->bindValue(':idSujet', $idSujet, PDO::PARAM_STR);
+        $result = $req->execute();
+        $req->closeCursor();
+        return $result;
+    }
 }

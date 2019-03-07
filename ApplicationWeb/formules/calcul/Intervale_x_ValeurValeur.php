@@ -9,7 +9,7 @@ class Formule {
 
     // ------------------------------------ //
     //  Coder ci-dessous la fonction voulu  //
-    // ------------------------------------ //
+    // ------------------------------------
 
     return $intervale * $valeurValeur;
   }
