@@ -57,6 +57,7 @@
 							<a class="dropdown-item" href="index.php?page=11">Lister les attributions</a>
 							<a class="dropdown-item" href="index.php?page=8">Lister les réponses</a>
 							<a class="dropdown-item" href="index.php?page=18">Imprimer un sujet</a>
+							<a class="dropdown-item" href="index.php?page=20">Supprimer un énoncé</a>
 						</div>
 					</li>
 				</ul>

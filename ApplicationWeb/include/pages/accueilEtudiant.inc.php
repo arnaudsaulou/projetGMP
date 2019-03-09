@@ -45,7 +45,7 @@
           if(isset($_SESSION['idSujet'])){
             unset($_SESSION['idSujet']);
           }
-          
+
           $listeControle = $reponseManager->getListControleDisponible($idUtilisateur);
           foreach ($listeControle as $controle) {
             ?>
