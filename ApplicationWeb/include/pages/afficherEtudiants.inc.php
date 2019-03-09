@@ -1,59 +1,59 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
-    <li class="breadcrumb-item">
-        <a>Gestion des étudiants</a>
-    </li>
-    <li class="breadcrumb-item active">Lister les étudiants</li>
+  <li class="breadcrumb-item">
+    <a>Gestion des étudiants</a>
+  </li>
+  <li class="breadcrumb-item active">Lister les étudiants</li>
 </ol>
 
 <div class="card mb-3">
-    <div class="card-header">
-        <i class="fas fa-table"></i>
-        Liste des étudiants enregistrés
+  <div class="card-header">
+    <i class="fas fa-table"></i>
+    Liste des étudiants enregistrés
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Numéro</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Année</th>
+            <th>Moyenne</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>Numéro</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Année</th>
+            <th>Moyenne</th>
+          </tr>
+        </tfoot>
+        <tbody>
+          <?php
+          //on récupère la liste des étudiants enregistrés
+          $listeEtudiants = $utilisateurManager->getListEtudiants();
+          foreach ($listeEtudiants as $etudiant) {
+            
+            ?>
+            <tr>
+              <td><?php echo $etudiant->getIdUtilisateur(); ?></td>
+              <td><?php echo $etudiant->getNom(); ?></td>
+              <td><?php echo $etudiant->getPrenom(); ?></td>
+              <td><?php echo $etudiant->getAnnee() ;?></td>
+              <td><?php echo $utilisateurManager->calculerMoyenne($etudiant); ?></td>
+            </tr>
+            <?php
+          }
+          ?>
+        </tbody>
+      </table>
     </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                <tr>
-                    <th>Numéro</th>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-					<th>Année</th>
-                    <th>Moyenne</th>
-                </tr>
-                </thead>
-                <tfoot>
-                <tr>
-                    <th>Numéro</th>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-					<th>Année</th>
-                    <th>Moyenne</th>
-                </tr>
-                </tfoot>
-                <tbody>
-                <?php
-                //on récupère la liste des étudiants enregistrés
-                $listeEtudiants = $utilisateurManager->getListEtudiants();
-                foreach ($listeEtudiants as $etudiant) {
-
-                    ?>
-                    <tr>
-                        <td><?php echo $etudiant->getIdUtilisateur(); ?></td>
-                        <td><?php echo $etudiant->getNom(); ?></td>
-                        <td><?php echo $etudiant->getPrenom(); ?></td>
-                        <td><?php echo $etudiant->getAnnee() ;?></td>
-                        <td><?php echo $utilisateurManager->calculerMoyenne($etudiant); ?></td>
-                    </tr>
-                    <?php
-                }
-                ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="card-footer small text-muted">Mise à jour le : <?php echo date("d/m/Y");?></div>
+  </div>
+  <div class="card-footer small text-muted">Mise à jour le : <?php echo date("d/m/Y");?></div>
 </div>
 
 <!-- Page level plugin CSS-->

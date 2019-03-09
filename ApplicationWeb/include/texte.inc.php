@@ -150,6 +150,12 @@
         }
         break;
 
+        case 21:
+        if ($_SESSION['droits'] == 1) {
+            include_once('pages/exporterDonnees.inc.php');
+        }
+        break;
+
         default :
             include_once('pages/accueil.inc.php');
     }

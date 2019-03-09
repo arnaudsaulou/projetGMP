@@ -48,7 +48,7 @@
               <td><?php echo $attribu->cooldown;?></td>
               <th>
                 <input class="btn btn-primary" type="button" value="Afficher les réponses reçues" onclick="window.location.href='index.php?page=16&annee=<?php echo $attribu->annee ;?>&idEnonce=<?php echo $attribu->idEnonce ;?>'">
-                <input class="btn btn-secondary" type="button" value="Exporter les données pour Catia" onclick="window.location.href='index.php?page=17&idEnonce=<?php ?>'">
+                <input class="btn btn-secondary" type="button" value="Exporter les données pour Catia" onclick="window.location.href='index.php?page=21&annee=<?php echo $attribu->annee ;?>&idEnonce=<?php echo $attribu->idEnonce ;?>'">
                </th>
               </tr>
               <?php
