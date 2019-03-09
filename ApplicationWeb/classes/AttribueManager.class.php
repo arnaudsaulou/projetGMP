@@ -200,6 +200,7 @@ class AttribueManager
     /**
      * Retourne un tableau contenant toutes les instances d'Attributions.
      * @return array Un tableau contenant toutes les instances d'Attributions.
+     * /!\ ce ne sont pas des objets attribue !
      */
     public function getListAttribution()
     {
