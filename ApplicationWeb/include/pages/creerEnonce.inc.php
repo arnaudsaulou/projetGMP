@@ -118,7 +118,7 @@
                   <label class="titreParametrage"></label>
                 </div>
 
-                <form class="px-4 py-3">
+                <form class="px-4 py-3" id="formAjoutDonneeVariable">
             			<div class="form-group">
                     <label>Nouveau type de donnée :</label>
                     <input  name="newTypeDonnee" class="form-control" id="newTypeDonnee" type="text"
@@ -136,7 +136,9 @@
             			  <input  type="text" class="form-control inputDonneeVariable" id="inputDonneeVariable0"
                             oninvalid="this.setCustomValidity('Entrez au moins une valeur')"
                             oninput="this.setCustomValidity('')">
+                    <div id="parametrageValeurAValeurSuplementaire"></div>
             			</div>
+
 
                   <div id="blockParametrageInterval">
                     <div class="form-group">
@@ -227,15 +229,9 @@
                   <div class="form-group">
                     <label>Paramètres : </label>
 
-                    <select class="form-control paramCalcul" id="paramCalcul0">
-                      <?php
-                        //on récupère la liste des données variable de l'énoncé
-                        $listeTypeDonnee = $typeDonneeManager->getListOfTypeDonneeDeDonneesVariable();
+                    <select class="form-control paramCalcul" id="paramCalcul0"></select>
+                    <div id="paramSuplementaires"></div>
 
-                        foreach ($listeTypeDonnee as $typeDonnee) { ?>
-                          <option value="<?php echo $typeDonnee->getIdType(); ?>"> <?php echo $typeDonnee->getLibelle(); ?> </option>
-                      <?php } ?>
-                    </select>
                   </div>
 
                   <div class="form-group">
@@ -359,22 +355,19 @@
   if($ajout){
 ?>
 
-<script type="text/javascript">
-  var breadcrumb = document.getElementById("breadcrumb");
-
-  var newbreadcrumb = document.createElement('li');
-  newbreadcrumb.classList.add("breadcrumb-item", "active");
-  newbreadcrumb.appendChild(document.createTextNode("Corriger l'énoncé n°" + <?php echo $_SESSION['lastInsertIdEnonce']; ?>));
-  breadcrumb.appendChild(newbreadcrumb);
-
-</script>
+  <script type="text/javascript">
+    var breadcrumb = document.getElementById("breadcrumb");
+    var newbreadcrumb = document.createElement('li');
+    newbreadcrumb.classList.add("breadcrumb-item", "active");
+    newbreadcrumb.appendChild(document.createTextNode("Corriger l'énoncé n°" + <?php echo $_SESSION['lastInsertIdEnonce']; ?>));
+    breadcrumb.appendChild(newbreadcrumb);
+  </script>
 
 <?php
-    include("corrigerEnonce.inc.php");
-
     //Appel du fichier contenant le code de génération des sujets
     include('genererSujet.inc.php');
 
+    include("corrigerEnonce.inc.php");
   } else {
     ?><script type="text/javascript"> alert("Une erreur est survenue :/"); </script><?php
   }
@@ -385,6 +378,4 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
 <script src="packages/colorpicker/js/evol-colorpicker.js" type="text/javascript"></script>
 <script src="packages/jquery.fileTree-1.01/jqueryFileTree.js" type="text/javascript"></script>
-<?php //if((!isset($_POST['enonceCreer']) || empty($_POST['enonceCreer'])) && !isset($_POST['nomEnonce'])) { ?>
-  <script type="text/javascript" src="js/creerEnoncer.js.php"></script>
-<?php //} ?>
+<script type="text/javascript" src="js/creerEnoncer.js.php"></script>

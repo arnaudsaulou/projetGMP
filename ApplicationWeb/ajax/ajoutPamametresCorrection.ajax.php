@@ -18,16 +18,10 @@ if(!empty($_POST['idEnonce'])){
 		$listeParams[] = array("idType" => $typeDonnee->getIdType(), "libelle" => $typeDonnee->getLibelle());
 	}
 
-} else if(!empty($_POST['tableauDonneeVariable'])){
-
-	foreach ($_POST['tableauDonneeVariable'] as $idypeDonnee) {
-		$listeParams[] = $typeDonneeManager->getTypeDonneeById($idypeDonnee);
-	}
-
 } else {
 	$listeParams = "error";
 }
 
-	echo json_encode($listeParams);
+echo json_encode($listeParams);
 
 ?>

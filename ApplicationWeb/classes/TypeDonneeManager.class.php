@@ -87,8 +87,9 @@ class TypeDonneeManager
         $req = $this->db->prepare("INSERT INTO type_donnee(libelle) VALUES (:libelle)");
         $req->bindValue(':libelle', $newTypeDonnee->getLibelle(), PDO::PARAM_STR);
         $result = $req->execute();
-        $_SESSION['newIdTypeDonne'] = $this->db->lastInsertId();
         $req->closeCursor();
+        $_SESSION['newIdTypeDonne'] = $this->db->lastInsertId();
+        echo "newIdTypeDonne : ".$_SESSION['newIdTypeDonne'];
         return $result;
     }
 }

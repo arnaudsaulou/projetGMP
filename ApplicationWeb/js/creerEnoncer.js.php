@@ -22,10 +22,28 @@ var contientDonneeVariable = false;
 var contientText = false;
 var creationEnonceReady = false;
 var numImageVariable = 1;
+var dejaPresent = false;
+var debutTableauDonneeVariable = 0;
 
 var tableauQuestions = new Array(); //Création du tableau mémorisant les questions de l'énoncé
 var tableauNumParams = new Array(); //Création du tableau mémorisant les id des paramètres de chaque donnée calculée
-var tableauDonneeVariable =new Array();
+var tableauDonneeVariable = new Array();
+
+//Objet Donnee Variable
+function DonneeVariable(idType, libelle){
+
+  this.idType = idType;
+  this.libelle = libelle;
+
+  this.getIdType = function(){
+    return this.idType;
+  }
+
+  this.getLibelle = function(){
+    return this.libelle;
+  }
+
+}
 
 //Attendre que le document soit compvarement chargé
 $(document).ready(function() {
@@ -50,6 +68,8 @@ $(document).ready(function() {
   var imageChoisi = document.getElementById("imageChoisi");
   var imageBlockChoisi = document.getElementById("imageBlockChoisi");
 
+  var selectParamCalcul0 = document.getElementById("paramCalcul0");
+
   //Stocker le type d'item en cours de création
   var itemEnCoursDeCration = document.getElementById("itemTitre");
 
@@ -71,8 +91,23 @@ $(document).ready(function() {
     resetMenuSelectedItem();
     event.target.classList.add("active");
 
+    if(event.target.getAttribute("id") != "itemDonneeCalculee"){
+      let paramSuplementaires = document.getElementById("paramSuplementaires");
+      while (paramSuplementaires.firstChild) {
+        paramSuplementaires.removeChild(paramSuplementaires.firstChild);
+      }
+    }
+
+
+    if(event.target.getAttribute("id") != "itemDonneeVariable"){
+      let paramSuplementaires = document.getElementById("parametrageValeurAValeurSuplementaire");
+      while (paramSuplementaires.firstChild) {
+        paramSuplementaires.removeChild(paramSuplementaires.firstChild);
+      }
+    }
+
     //Si l'item nécessite le block de paramétrage "Text"
-    if( event.target.getAttribute("id") == "itemTitre" ||
+    if(event.target.getAttribute("id") == "itemTitre" ||
       event.target.getAttribute("id") == "itemZoneTexte" ||
       event.target.getAttribute("id") == "itemQuestion"){
       blockParametrageDonneeVariable.style.display  = "none";
@@ -97,11 +132,32 @@ $(document).ready(function() {
 
     //Si l'item nécessite le block de paramétrage "Donnée Calculee"
     if(event.target.getAttribute("id") == "itemDonneeCalculee"){
-      blockParametrageText.style.display  = "none";
-      blockParametrageImage.style.display  = "none";
-      blockParametrageImageVariable.style.display  = "none";
-      blockParametrageDonneeVariable.style.display  = "none";
-      blockParametrageDonneeCalculee.style.display  = "block";
+
+      if(tableauDonneeVariable.length > 0){
+        blockParametrageText.style.display  = "none";
+        blockParametrageImage.style.display  = "none";
+        blockParametrageImageVariable.style.display  = "none";
+        blockParametrageDonneeVariable.style.display  = "none";
+        blockParametrageDonneeCalculee.style.display  = "block";
+
+        //Si une nouvelle donnée variable a été ajouté , mettre a jour le select
+        if(!dejaPresent){
+
+          for (let i = debutTableauDonneeVariable; i < tableauDonneeVariable.length; i++) {
+            var option = document.createElement("option");
+            option.value = tableauDonneeVariable[i].idType;
+            option.text =  tableauDonneeVariable[i].libelle;
+            selectParamCalcul0.appendChild(option);
+          }
+
+          //Pout ne pas ajouter la même donnée au select au prochain passage
+          debutTableauDonneeVariable++;
+        }
+
+      } else {
+        alert("Aucune donnée variable ajouté à l'énoncé");
+        resetMenuSelectedItem();
+      }
     }
 
     //Si l'item nécessite le block de paramétrage "Image"
@@ -363,7 +419,42 @@ function ajouterElement(typeItem) {
       newTitre.appendChild(document.createTextNode(recupererTypeDonneeAjoute("selectTypeDonnee")[1]));
       contientDonneeVariable = true;
       indexItemDonnee = indexItemDonnee + 1;
-      tableauDonneeVariable.push(recupererIdTypeDonneeAjoute());
+
+      let idTypeDonne = recupererIdTypeDonneeAjoute();
+      let index = 0;
+      dejaPresent = false;
+
+      //Recherche si idTypeDonne déjà présent dans tableau des donneVariable ajouté
+      while (index < tableauDonneeVariable.length && !dejaPresent) {
+
+        if(tableauDonneeVariable[index].getIdType() == idTypeDonne){
+          dejaPresent = true;
+        }
+
+        index++;
+      }
+
+      if(!dejaPresent){
+
+        $.ajax({
+          type: "POST",
+          url: './ajax/recupererTypeDonneById.ajax.php',
+          data : {idType: idTypeDonne},
+          success: function(typeDonnee){
+
+            typeDonnee = JSON.parse(typeDonnee);
+
+            tableauDonneeVariable.push(
+              new DonneeVariable(
+                typeDonnee.idType,
+                typeDonnee.libelle
+              ));
+
+          }
+        });
+
+      }
+
     break;
 
     //Si l'item à ajouter est une "Donnée Calculée"
@@ -478,12 +569,14 @@ function supprimerElement(typeItem){
     numImageVariable--;
   }
 
-
   var page_creation = document.getElementById("page_creation");
   page_creation.removeChild(itemASuppr[itemASuppr.length - 1]);
   itemASuppr.pop();
 
-  indexItemDonnee = indexItemDonnee - 1;
+  if(indexItemDonnee > 0){
+    indexItemDonnee = indexItemDonnee - 1;
+  }
+
 }
 
 //Ajoute un block d'insertion de donnée "Valeur à valeur"
@@ -494,7 +587,7 @@ function ajouterBlockDonneeVariable(){
   idInput++;
 
   //Récupérer les éléments de l'ihm nécessaire
-  var blockParametrageValeurAValeur = document.getElementById("blockParametrageValeurAValeur");
+  var parametrageValeurAValeurSuplementaire = document.getElementById("parametrageValeurAValeurSuplementaire");
   var newDivDonneeVariable = document.createElement('div');
   var newLabelDonneeVariable = document.createElement('label');
   var newInputDonneeVariable = document.createElement('input');
@@ -513,7 +606,7 @@ function ajouterBlockDonneeVariable(){
   //Ajout des éléments au block de paramétrage des items
   newDivDonneeVariable.appendChild(newLabelDonneeVariable);
   newDivDonneeVariable.appendChild(newInputDonneeVariable);
-  blockParametrageValeurAValeur.appendChild(newDivDonneeVariable);
+  parametrageValeurAValeurSuplementaire.appendChild(newDivDonneeVariable);
 
 }
 
@@ -575,7 +668,6 @@ function handleEnregistrerQuestions(form){
   form.submit();
 }
 
-//Appel du fichier AJAX afin d'ajouter un nouveau type de donnée dans la base
 function ajouterNouveauTypeDonnee(){
 
   //Récupérer les éléments de l'ihm nécessaire
@@ -595,6 +687,7 @@ function ajouterNouveauTypeDonnee(){
   }
 }
 
+//Appel du fichier AJAX afin d'ajouter un nouveau type de donnée dans la base
 function ajouterTypeDonneAjax(newTypeDonnee){
   $.ajax({
     type: "POST",
@@ -743,39 +836,22 @@ function recupererNumQuestionReponseAjax(){
 //Déclanché si click sur un boutton d'ajout de paramètres
 function ajouterParametresCalculeDonnee() {
 
-  if( typeof newId == 'undefined' ) { tableauNumParams.push(0); newId = 1; } else { newId++; }
+    if( typeof newId == 'undefined' ) { tableauNumParams.push(0); newId = 1; } else { newId++; }
 
-  //Création et paramétrage d'une nouvelle liste déroulante
-	var newParam = document.createElement('select');
-	newParam.id = "paramCalcul" + newId;
-  newParam.classList.add("form-control", "paramCalcul");
+    //Création et paramétrage d'une nouvelle liste déroulante
+  	var newParam = document.createElement('select');
+  	newParam.id = "paramCalcul" + newId;
+    newParam.classList.add("form-control", "paramCalcul");
 
-  //Ajout de la nouvelle liste déroulante
-	var referenceNode = document.getElementById("paramCalcul" + (newId-1));
-	referenceNode.parentNode.insertBefore(newParam, referenceNode.nextSibling);
+    let paramSuplementaires = document.getElementById("paramSuplementaires");
 
-  //Appel de la fonction d'appel ajax
-	ajouterNouveauParams(newParam);
+    //Ajout de la nouvelle liste déroulante
+    paramSuplementaires.appendChild(newParam);
 
-  //Ajout de l'id ajouter au tableau des id
-  tableauNumParams.push(newId);
-}
+    populateSelect(tableauDonneeVariable,newParam);
 
-//Appel du fichier AJAX afin d'ajouter une nouvelle collonne de paramètre
-function ajouterNouveauParams(newParam) {
-
-  $.ajax({
-    type: "POST",
-    url: './ajax/ajoutPamametresCorrection.ajax.php',
-    dataType: "json",
-    data: {tableauDonneeVariable : tableauDonneeVariable},
-    success: function(array) {
-      console.log(array);
-      //Appel à la fonction d'ajout d'option
-      populateSelect(array,newParam);
-    }
-  });
-
+    //Ajout de l'id ajouter au tableau des id
+    tableauNumParams.push(newId);
 }
 
 //Permet d'ajouter des option à la liste déroulante à partir d'un tableau JSON
@@ -785,8 +861,8 @@ function populateSelect(array, newParam){
 
       //Création des différentes option de la liste déroulante selon le tableau
 			var option = document.createElement("option");
-			option.value = array[i].idType;
-			option.text = array[i].libelle;
+			option.value = array[i].getIdType();
+			option.text = array[i].getLibelle();
 
       //Ajout des option à la liste déroulante
 			newParam.appendChild(option);
