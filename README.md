@@ -19,7 +19,7 @@ Les sujets peuvent ensuite être attribués aux élèves inscrits
 dans la base de données pour les évaluer. Ceux-ci peuvent
 passer le contrôle en ligne et s'exercer sur celui-ci.
 
-#Packages utilisés :
+# Packages utilisés :
 
 Cette application est un projet scolaire open-source. Cependant, des packages exterieurs necessaires au fonctionnement de l'application ont été ajoutés.
 
@@ -42,13 +42,14 @@ L'application a été concue et testée pour fonctionner au minimum avec l'envir
 * [Mysql 5.0.12]
 
 Une fois l'application téléchargée ou clonée vous devrez utiliser le Script_Creation_BD.sql pour générer la base de données.
+* [https://github.com/arnaudsaulou/projetGMP/blob/master/Script_Creation_BD.sql]
 
+Décompressez le fichier packages.zip de manière à activer les packages chargés en local.
+* [https://github.com/arnaudsaulou/projetGMP/blob/master/ApplicationWeb/packages.zip]
 
-
-
-
-
-
+Renomez le fichier CONFIG.php en config.inc.php en complétant les champs requis.
+Ce fichier se situe dans /ApplicationWeb/includes
+* [https://github.com/arnaudsaulou/projetGMP/blob/master/ApplicationWeb/include/CONFIG.php]
 
 # Liens
 * [Trello](https://trello.com/b/4u5Oewn9/projet-gmp-todolist)
