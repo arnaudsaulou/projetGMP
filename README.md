@@ -11,7 +11,6 @@ Ce site internet est un projet scolaire mené par [@arnaudsaulou](https://github
 <br>
 
 # Présentation générale
-
 Application web permettant aux professeurs de créer des
 évaluations et de générer des sujets aléatoires cohérents
 à partir de celle-ci.
@@ -20,23 +19,45 @@ Les sujets peuvent ensuite être attribués aux élèves inscrits
 dans la base de données pour les évaluer. Ceux-ci peuvent
 passer le contrôle en ligne et s'exercer sur celui-ci.
 
+#Packages utilisés :
+
+Cette application est un projet scolaire open-source. Cependant, des packages exterieurs necessaires au fonctionnement de l'application ont été ajoutés.
+
+Chargés en local :
+* chartjs [http://chartjs.org/]
+* dataTable [https://datatables.net/]
+* colorpicker [https://github.com/evoluteur/colorpicker]
+* fontawesome-free [https://github.com/FortAwesome/Font-Awesome]
+* Génération de pdf : html2pdf & jspdf [https://github.com/MrRio/jsPDF] & [https://github.com/eKoopmans/html2pdf.js]
+
+Chargés en ligne (Voir header.inc.php)
+* [Bootstrap 4.2.1]
+* [Jquery 3.3.1]
+* [Popper.js 1.14.6]
+
 # Installation
+L'application a été concue et testée pour fonctionner au minimum avec l'environnement suivant :
+* [Apache 2.4.25]
+* [PHP 7.0.30-0]
+* [Mysql 5.0.12]
 
-L'application est en cours de développement, elle n'est donc
-pas encore utilisable. Quand elle le sera, cette section sera
-mise à jour avec les informations sur comment installer cette
-application.
+Une fois l'application téléchargée ou clonée vous devrez utiliser le Script_Creation_BD.sql pour générer la base de données.
 
-Les packages necessaires au fonctionnement de l'application sont
-contenus dans l'archive package.zip qu'il faut donc dézipé dans
-le repertoire ou elle se trouve pour faire fonctionner le site.
-Le dossier package sera alors créé Attention il est sous gitignore
-(pour éviter d'avoir des commits avec 70000 lignes ajoutés)
+
+
+
+
+
+
 
 # Liens
 * [Trello](https://trello.com/b/4u5Oewn9/projet-gmp-todolist)
 
 # Credits
+* [http://chartjs.org/]
+* [https://github.com/eKoopmans/html2pdf.js]
+* [https://github.com/MrRio/jsPDF]
 * [https://github.com/BlackrockDigital/startbootstrap-sb-admin]
 * [https://github.com/evoluteur/colorpicker]
 * [https://github.com/FortAwesome/Font-Awesome]
+* [http://www.elroubio.net/]
