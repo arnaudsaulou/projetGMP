@@ -23,7 +23,6 @@
                     <th>Numéro</th>
                     <th>Titre</th>
                     <th>Actions</th>
-                    <th>Supprimer ?</th>
                 </tr>
                 </thead>
                 <tbody>
