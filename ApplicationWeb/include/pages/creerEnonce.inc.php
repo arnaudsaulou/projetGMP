@@ -206,7 +206,9 @@
                 <form action="#" method="post" class="px-4 py-3" >
                   <div class="form-group">
                     <label>Nouvelle donnée calculée :</label>
-                    <input class="form-control" id="libelleDonneeCalculee" type="text" required>
+                    <input    class="form-control" id="libelleDonneeCalculee" type="text"
+                              oninvalid="this.setCustomValidity('Entrez un nom pour la donnée calculée')"
+                              oninput="this.setCustomValidity('')" required>
                   </div>
 
                   <div class="form-group">
@@ -241,7 +243,7 @@
                   <div class="row"></div>
 
                   <div class="form-group">
-                    <input onclick="validerCalcul()" type="button" class="btn btn-primary col-12" value="Enregistrer">
+                    <input onclick="validerCalcul()" class="btn btn-primary col-12" value="Enregistrer">
                   </div>
 
                 </form>
@@ -378,4 +380,4 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
 <script src="packages/colorpicker/js/evol-colorpicker.js" type="text/javascript"></script>
 <script src="packages/jquery.fileTree-1.01/jqueryFileTree.js" type="text/javascript"></script>
-<script type="text/javascript" src="js/creerEnoncer.js.php"></script>
+<script type="text/javascript" src="js/creerEnoncer.js"></script>

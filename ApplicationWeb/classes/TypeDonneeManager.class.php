@@ -89,7 +89,6 @@ class TypeDonneeManager
         $result = $req->execute();
         $req->closeCursor();
         $_SESSION['newIdTypeDonne'] = $this->db->lastInsertId();
-        echo "newIdTypeDonne : ".$_SESSION['newIdTypeDonne'];
         return $result;
     }
 }

@@ -1,9 +1,3 @@
-<?php
-if(!isset($_SESSION)){
-  session_start();
-}
-?>
-
 var fontWeight = ["normal" , "bold"];
 var fontStyle = ["normal" , "italic"];
 var textDecoration = ["none" , "underline"];
@@ -270,11 +264,6 @@ $(document).ready(function() {
     event.preventDefault();
     enregistrerQuestions(this, handleEnregistrerQuestions);
   });
-
-  // $('#formAjoutDonneeVariable').submit(function(event){
-  //   event.preventDefault();
-  //   ajouterNouveauTypeDonnee(this);
-  // });
 
   //Détécter les touche de clavier pressé
   $("#itemValeur").on('keyup', function (e) {
@@ -689,15 +678,20 @@ function ajouterNouveauTypeDonnee(){
 
 //Appel du fichier AJAX afin d'ajouter un nouveau type de donnée dans la base
 function ajouterTypeDonneAjax(newTypeDonnee){
+
   $.ajax({
     type: "POST",
     dataType: "json",
     url: './ajax/ajoutTypeDonnee.ajax.php',
     data: { newTypeDonnee: newTypeDonnee },
     success: function(data){
+      console.log(data);
       //Appel de la fonction d'ajout des donnée variables associé
       ajouterNouvelleDonneeVariable();
       refreshSelectTypeDonnee(newTypeDonnee,"selectTypeDonnee");
+    },
+    error:function(errorData){
+      console.error(errorData);
     }
   });
 }
@@ -706,14 +700,16 @@ function ajouterTypeDonneAjax(newTypeDonnee){
 //Permet de mettre à jour le liste déroulante avec le nouveau type de donnée qui vient d'être ajouté
 function refreshSelectTypeDonnee(newTypeDonnee,target){
 
-  var selectTypeDonnee =  document.getElementById(target);
+  recupererIdTypeDonneeAjouteAjaxa(function(newIdTypeDonne){
 
-  var option = document.createElement("option");
-  option.value = "<?php if( isset($_SESSION['newIdTypeDonne'])){ echo $_SESSION['newIdTypeDonne']; } ?>";
-  option.text = newTypeDonnee;
-  selectTypeDonnee.appendChild(option);
+    var selectTypeDonnee =  document.getElementById(target);
+    var option = document.createElement("option");
+    option.value = newIdTypeDonne;
+    option.text = newTypeDonnee;
+    selectTypeDonnee.appendChild(option);
 
-  alert("Un nouveau type de donnée à été ajouté à la liste !");
+    alert("Un nouveau type de donnée à été ajouté à la liste !");
+  });
 }
 
 //Descide du comportement à appliquer en fonction du type de donnée à ajouter
@@ -783,14 +779,24 @@ function recupererIdTypeDonneeAjoute(){
   //Récupérer la valeur de l'item séléctionné dans la liste déroulante
   typeDonnee = typeDonnee.options[typeDonnee.selectedIndex].value;
 
-  //Si l'item séléctionné dans la liste est le 1er ("Créer un nouveau type")
-  if(typeDonnee == "0"){
-    //Retourner le dernier idType inséré dans la table TypeDonnee de la base de donnée (via la variable de session venant du TypeDonneeManager)
-    return "<?php if(isset($_SESSION['newIdTypeDonne'])){ echo $_SESSION['newIdTypeDonne']; } else { echo '0'; }?>";
-  } else {
-    //Retourner l'id du type séléctionné dans la liste déroulante
-    return typeDonnee;
-  }
+  //Retourner l'id du type séléctionné dans la liste déroulante
+  return typeDonnee;
+}
+
+function recupererIdTypeDonneeAjouteAjaxa(callback){
+
+  $.ajax({
+    type: "POST",
+    url: './ajax/recupererIdTypeDonneAjoute.ajax.php',
+    dataType: "json",
+    success: function(newIdTypeDonneResult) {
+      console.log(newIdTypeDonneResult);
+      callback(newIdTypeDonneResult);
+    },
+    error: function(data) {
+      console.log(data);
+    }
+  });
 
 }
 
@@ -873,48 +879,67 @@ function populateSelect(array, newParam){
 function validerCalcul(){
 
     //Récupérer le libellé de la donnée calculée
-    var libelleDonneeCalculee = document.getElementById("libelleDonneeCalculee").value;
+    var libelleDonneeCalculee = document.getElementById("libelleDonneeCalculee");
 
-    //Récupérer le nom de la fonction de correction
-    var nomFormuleCalcul = document.getElementById("formuleCalcul");
-    nomFormuleCalcul = nomFormuleCalcul.options[nomFormuleCalcul.selectedIndex].value;
+    if(libelleDonneeCalculee.value != ""){
 
-    //Récupérer les paramètres à passer à la fonction de correction
-    var tableauIdParams = Array();
-    var listeElementsParams = document.getElementsByClassName('paramCalcul');
+      //Récupérer le nom de la fonction de correction
+      var nomFormuleCalcul = document.getElementById("formuleCalcul");
+      nomFormuleCalcul = nomFormuleCalcul.options[nomFormuleCalcul.selectedIndex].value;
 
-    //Pour chaque paramètres
-    for (var i = 0; i < listeElementsParams.length; i++) {
-      //Récupérer l'id de la donnée variable à utiliser
-      var idDonneCalculeeParamsTemp = document.getElementById(listeElementsParams[i].id);
-      idDonneCalculeeParamsTemp = idDonneCalculeeParamsTemp.options[idDonneCalculeeParamsTemp.selectedIndex].value;
+      //Récupérer les paramètres à passer à la fonction de correction
+      var tableauIdParams = Array();
+      var listeElementsParams = document.getElementsByClassName('paramCalcul');
 
-      //Ajouter cette id au tableau des paramètres de correction de la question
-      tableauIdParams.push(idDonneCalculeeParamsTemp);
+      //Pour chaque paramètres
+      for (var i = 0; i < listeElementsParams.length; i++) {
+        //Récupérer l'id de la donnée variable à utiliser
+        var idDonneCalculeeParamsTemp = document.getElementById(listeElementsParams[i].id);
+        idDonneCalculeeParamsTemp = idDonneCalculeeParamsTemp.options[idDonneCalculeeParamsTemp.selectedIndex].value;
+
+        //Ajouter cette id au tableau des paramètres de correction de la question
+        tableauIdParams.push(idDonneCalculeeParamsTemp);
+      }
+
+      ajoutDonneeCalculee(libelleDonneeCalculee.value,nomFormuleCalcul,tableauIdParams);
+
+      return true;
+    } else {
+      libelleDonneeCalculee.setCustomValidity("Entrez un nom pour la donnée calculée");
+      return false;
     }
-
-    return ajoutDonneeCalculee(libelleDonneeCalculee,nomFormuleCalcul,tableauIdParams);
 
 }
 
 //Appel du fichier AJAX afin d'ajouter une nouvelle DonneeCalculee
 function ajoutDonneeCalculee(libelleDonneeCalculee,nomFormuleCalcul,tableauIdParams) {
 
+  //Ajouter le nouveau type de donnée
   $.ajax({
     type: "POST",
-    url: './ajax/ajoutDonneeCalculee.ajax.php',
     dataType: "json",
-    data :
-      {
-        libelleDonneeCalculee: libelleDonneeCalculee,
-        nomFormuleCalcul: nomFormuleCalcul,
-        tableauIdParams: tableauIdParams
-      },
-    success: function() {
-      refreshSelectTypeDonnee(libelleDonneeCalculee,"selectTypeDonneeCalculee");
+    url: './ajax/ajoutTypeDonnee.ajax.php',
+    data: { newTypeDonnee: libelleDonneeCalculee },
+    success: function(data){
+
+      //Ajouter les valeur associé à la nouvelle donnée calculé
+      $.ajax({
+        type: "POST",
+        url: './ajax/ajoutDonneeCalculee.ajax.php',
+        dataType: "json",
+        data :
+          {
+            libelleDonneeCalculee: libelleDonneeCalculee,
+            nomFormuleCalcul: nomFormuleCalcul,
+            tableauIdParams: tableauIdParams
+          },
+        success: function(data) {
+          refreshSelectTypeDonnee(libelleDonneeCalculee,"selectTypeDonneeCalculee");
+        }
+      });
+
     }
   });
-
 }
 
 var tooltip=function(){

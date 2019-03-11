@@ -3,12 +3,13 @@
 require('../include/config.inc.php');
 require('../include/autoLoad.inc.php');
 
+if(!isset($_SESSION)){
+  session_start();
+}
+
 $db = new MyPDO;
 $donneeCalculeeManager = new DonneeCalculeeManager($db);
 $typeDonneeManager = new TypeDonneeManager($db);
-
-$newTypeDonnee = $typeDonneeManager->createTypeDonneeDepuisTableau(array('libelle' => $_POST['libelleDonneeCalculee']));
-$typeDonneeManager->ajouterTypeDonne($newTypeDonnee);
 
 $tableauIdParams = json_encode($_POST['tableauIdParams']);
 
@@ -25,6 +26,7 @@ $donneeCalculeTab = array(
 );
 
 $newDonneeCalculee = $donneeCalculeeManager->createDonneeCalculeeDepuisTableau($donneeCalculeTab);
-$donneeCalculeeManager->ajouterDonneeCalculee($newDonneeCalculee);
+$sucess = $donneeCalculeeManager->ajouterDonneeCalculee($newDonneeCalculee);
 
+echo json_encode($sucess);
 ?>

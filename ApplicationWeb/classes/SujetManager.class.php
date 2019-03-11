@@ -49,6 +49,7 @@ class SujetManager
       ini_set('memory_limit', '1024M');
       while ($possibilite = $req->fetch(PDO::FETCH_NUM)) {
         for ($i = 0; $i < count($possibilite); $i++) {
+          var_dump($possibilite);
           $this->insertIntoSujetPossible .= '(' . $numSujet . ', ' . $possibilite[$i] . '),';
         }
         $this->insertIntoSujet .= '(' . $numSujet . ', ' . $_SESSION['lastInsertIdEnonce'] . '),';
