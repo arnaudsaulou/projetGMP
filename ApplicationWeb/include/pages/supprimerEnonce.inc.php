@@ -99,7 +99,7 @@
                 <p>L'énoncé a bien été supprimé !</p>
             </div>
         </div>
-        <a class="btn btn-link" href="index.php?page=20"><p>Retour</p></a>
+        <a class="btn btn-link" href="index.php?page=7"><p>Retour</p></a>
     </div>
 <?php } ?>
 
