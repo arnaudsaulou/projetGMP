@@ -218,7 +218,7 @@
                       <?php
                         //on récupère la liste des formule de correction disponible
                         $dirname = "./formules/calcul";
-                        $listeFormules = $fichierManager->getListeFormules($dirname);
+                        $listeFormules = $fichierManager->getFichiersPhp($dirname);
 
                         foreach ($listeFormules as $formules) {
                       ?>
@@ -338,12 +338,25 @@
 
   $_SESSION['enonceCreer'] = $_POST['enonceCreer'];
 
+
+  //on récupère la liste des formule de correction disponible
+  $dirname = "./formules/coheranceSujets";
+  $listeCsv = $fichierManager->getFichiersCsv($dirname);
+
   ?>
 
   <form action="#" method="POST">
     <label>Entrez un nom pour cet énoncé :</label>
     <input type="text" name="nomEnonce" >
-    <button type="submit" class="boutonValiderSujet" type="submit">Valider</button>
+    <br><br>
+    <label>Entrez un fichier de suppression des sujets incohérent</label>
+    <select name="coheranceSujet">
+      <?php foreach ($listeCsv as $csv) { ?>
+        <option value="<?php echo $csv ?>"> <?php echo $csv ?> </option>
+      <?php } ?>
+    </select>
+    <br><br>
+    <button type="submit" type="submit" class="btn btn-primary col-3">Valider</button>
   </form>
 
   <?php

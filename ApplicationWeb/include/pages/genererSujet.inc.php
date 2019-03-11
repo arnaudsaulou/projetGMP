@@ -9,6 +9,4 @@ for ($i = 1; $i < count($ligneExploded); $i = $i + 2) {
     $listIdTypesDonnees[] = $ligneExploded[$i];
 }
 
-$sujetManager->generateSujet($listIdTypesDonnees);
-
-
+$sujetManager->generateSujet($listIdTypesDonnees,$_POST["coheranceSujet"]);

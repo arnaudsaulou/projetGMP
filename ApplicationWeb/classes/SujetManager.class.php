@@ -30,7 +30,7 @@ class SujetManager
   }
 
   //Cette fonction permet de générer un sujet à partir d'une liste de données variable
-  public function generateSujet($listDonneeVariable)
+  public function generateSujet($listDonneeVariable, $coheranceSujet)
   {
     ini_set('max_execution_time', 0);
     if (!empty($listDonneeVariable)) {
@@ -41,14 +41,12 @@ class SujetManager
         $numSujet++;
       }
 
-      echo $this->getSQLQueryFromListDonneeVariable($listDonneeVariable);
-
       $req = $this->db->prepare(
         $this->getSQLQueryFromListDonneeVariable($listDonneeVariable)
       );
       $req->execute();
 
-      $tabSujetIncoherants = $this->getSujetsIncoherant();
+      $tabSujetIncoherants = $this->getSujetsIncoherant($coheranceSujet);
 
       $this->insertIntoSujetPossible = "";
       $this->insertIntoSujet = "";
@@ -85,9 +83,9 @@ class SujetManager
     }
   }
 
-  public function getSujetsIncoherant(){
+  public function getSujetsIncoherant($coheranceSujet){
     $ligne = 0; // compteur de ligne
-    $fic = fopen("./formules/coheranceSujets/test.csv", "a+");
+    $fic = fopen("./formules/coheranceSujets/".$coheranceSujet.".csv", "a+");
     $tabSujetIncoherants = array();
     while($tab = fgetcsv($fic,0,';')){
       $champs = count($tab);//nombre de champ dans la ligne en question
