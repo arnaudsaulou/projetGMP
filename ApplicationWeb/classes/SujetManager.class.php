@@ -57,11 +57,11 @@ class SujetManager
         $y = 0;
 
         for ($i=0; $i < count($possibilite); $i++) {
-          $possibilite[$i] = $this->donneeVariableManager->getDonneesVariableById($possibilite[$i])->getValeur();
+          $possibiliteValeur[$i] = $this->donneeVariableManager->getDonneesVariableById($possibilite[$i])->getValeur();
         }
 
         while ($y < count($tabSujetIncoherants) && !$containsAllValues) {
-          $containsAllValues = !array_diff_assoc($possibilite, $tabSujetIncoherants[$y]);
+          $containsAllValues = !array_diff_assoc($possibiliteValeur, $tabSujetIncoherants[$y]);
           $y++;
         }
 

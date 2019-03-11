@@ -1,28 +1,46 @@
-//Calcul du nombre de question de l'énoncé
-let nbLigne = document.getElementsByClassName('ligneQuestion').length;
+var globalNumQR;
+var tableauNumParams;
 
-let globalNumQR = getNumQR();
+function init() {
+  //Calcul du nombre de question de l'énoncé
+  let nbLigne = document.getElementsByClassName('ligneQuestion').length;
 
-//Création du tableau mémorisant les id des paramètres de chaque questions
-var tableauNumParams = new Array(nbLigne);
-for (var i = 0; i < tableauNumParams.length; i++) {
-  tableauNumParams[i] = new Array(1);
-  tableauNumParams[i][0] = 0;
+  globalNumQR = getNumQR();
+
+  //Création du tableau mémorisant les id des paramètres de chaque questions
+  tableauNumParams = new Array(nbLigne);
+  for (var i = 0; i < tableauNumParams.length; i++) {
+    tableauNumParams[i] = new Array(1);
+    tableauNumParams[i][0] = 0;
+  }
+
+  console.log("tableauNumParams : " + tableauNumParams);
+
+  return tableauNumParams;
 }
+
 
 //Déclanché si click sur un boutton d'ajout de paramètres
 function handleClickAddParams(event) {
+
+  console.log("preinit");
+
+  let tableauNumParams = init();
+
+  console.log("postinit");
 
   //Extraction de l'id
   var idBtn = event.target.id;
   idBtn = idBtn.substr(11,1);
 
   //Appel de la fonction gérant l'ajout de paramètres
-  ajouterParametres(idBtn);
+  ajouterParametres(idBtn, tableauNumParams);
 }
 
 //Ajouter un item séléctionné et paramétré à la page de création (énoncé)
-function ajouterParametres(idBtn) {
+function ajouterParametres(idBtn, tableauNumParams) {
+
+  console.log("ajouterParametres");
 
   //Récupère le nombre de paramètres déjà existant pour cette question
   let newId = tableauNumParams[idBtn].length;
@@ -58,7 +76,6 @@ function ajouterNouveauParams(newParam) {
     });
 
 }
-
 
 function getNumQR(callback) {
 

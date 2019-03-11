@@ -60,7 +60,6 @@
 
       //on récupère la liste des données variable de l'énoncé
       $listeTypeDonnee = $enonceManager->getTypeDonneVariablePresentDansEnonce($idEnonce);
-      //$lastIdQR = $questionManager->recupererDernierIdQuestion();
 
       foreach ($listeQuestions as $key => $question) {
 

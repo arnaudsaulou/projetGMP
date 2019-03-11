@@ -2,7 +2,6 @@
 <link href="packages/jquery.fileTree-1.01/jqueryFileTree.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="packages/colorpicker/css/evol-colorpicker.css" rel="stylesheet" />
 
-
 <!-- Breadcrumbs-->
 <ol class="breadcrumb" id="breadcrumb">
   <li class="breadcrumb-item"><a>Espace création</a></li>
@@ -393,4 +392,4 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
 <script src="packages/colorpicker/js/evol-colorpicker.js" type="text/javascript"></script>
 <script src="packages/jquery.fileTree-1.01/jqueryFileTree.js" type="text/javascript"></script>
-<script type="text/javascript" src="js/creerEnoncer.js"></script>
+<?php if(!isset($_POST['enonceCreer']) && !isset($_POST['nomEnonce'])){ ?> <script type="text/javascript" src="js/creerEnoncer.js"></script> <?php } ?>
