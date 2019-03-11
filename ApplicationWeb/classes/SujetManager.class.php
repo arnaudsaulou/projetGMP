@@ -40,20 +40,40 @@ class SujetManager
       } else {
         $numSujet++;
       }
+
+      echo $this->getSQLQueryFromListDonneeVariable($listDonneeVariable);
+
       $req = $this->db->prepare(
         $this->getSQLQueryFromListDonneeVariable($listDonneeVariable)
       );
       $req->execute();
+
+      $tabSujetIncoherants = $this->getSujetsIncoherant();
+
       $this->insertIntoSujetPossible = "";
       $this->insertIntoSujet = "";
       ini_set('memory_limit', '1024M');
       while ($possibilite = $req->fetch(PDO::FETCH_NUM)) {
-        for ($i = 0; $i < count($possibilite); $i++) {
-          var_dump($possibilite);
-          $this->insertIntoSujetPossible .= '(' . $numSujet . ', ' . $possibilite[$i] . '),';
+
+        $containsAllValues = false;
+        $y = 0;
+
+        for ($i=0; $i < count($possibilite); $i++) {
+          $possibilite[$i] = $this->donneeVariableManager->getDonneesVariableById($possibilite[$i])->getValeur();
         }
-        $this->insertIntoSujet .= '(' . $numSujet . ', ' . $_SESSION['lastInsertIdEnonce'] . '),';
-        $numSujet++;
+
+        while ($y < count($tabSujetIncoherants) && !$containsAllValues) {
+          $containsAllValues = !array_diff_assoc($possibilite, $tabSujetIncoherants[$y]);
+          $y++;
+        }
+
+        if(!$containsAllValues){
+          for ($i = 0; $i < count($possibilite); $i++) {
+            $this->insertIntoSujetPossible .= '(' . $numSujet . ', ' . $possibilite[$i] . '),';
+          }
+          $this->insertIntoSujet .= '(' . $numSujet . ', ' . $_SESSION['lastInsertIdEnonce'] . '),';
+          $numSujet++;
+        }
       }
       $req->closeCursor();
       $this->insertIntoSujetPossible = rtrim($this->insertIntoSujetPossible, ',');
@@ -63,6 +83,25 @@ class SujetManager
       $this->addSujetPossible();
       $this->addSujet();
     }
+  }
+
+  public function getSujetsIncoherant(){
+    $ligne = 0; // compteur de ligne
+    $fic = fopen("./formules/coheranceSujets/test.csv", "a+");
+    $tabSujetIncoherants = array();
+    while($tab = fgetcsv($fic,0,';')){
+      $champs = count($tab);//nombre de champ dans la ligne en question
+
+      if($ligne == 0){
+        $ligne ++;
+      } else {
+        //affichage de chaque champ de la ligne en question
+        $tabSujetIncoherants[] = $tab;
+        $ligne ++;
+      }
+    }
+
+    return $tabSujetIncoherants;
   }
 
   public function sujetExiste($idSujet)

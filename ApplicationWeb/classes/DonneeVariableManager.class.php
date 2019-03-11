@@ -42,6 +42,19 @@ class DonneeVariableManager {
         return $listDonneeVariable;
     }
 
+
+    public function getDonneesVariableById($idDonneeVariable)
+    {
+        $req = $this->db->prepare(
+            "SELECT * FROM donnee_variable WHERE idDonneeVariable = :idDonneeVariable"
+        );
+        $req->bindValue(':idDonneeVariable', $idDonneeVariable, PDO::PARAM_INT);
+        $req->execute();
+        $donneeVariable = new DonneeVariable($req->fetch(PDO::FETCH_OBJ));
+        $req->closeCursor();
+        return $donneeVariable;
+    }
+
     /**
      * Permet d'enregistrer une DonneeVariable dans la base de données.
      * @param DonneeVariable $newDonneeVariable La DonneeVariable à enregistrer.
