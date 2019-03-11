@@ -146,12 +146,6 @@
 
         case 20:
         if ($_SESSION['droits'] == 1) {
-            include_once('pages/supprimerEnonce.inc.php');
-        }
-        break;
-
-        case 21:
-        if ($_SESSION['droits'] == 1) {
             include_once('pages/exporterDonnees.inc.php');
         }
         break;

@@ -2,7 +2,7 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
   <li class="breadcrumb-item">
-    <a >Parametre</a>
+    <a>Paramètres</a>
   </li>
 </ol>
 <?php
@@ -44,7 +44,7 @@ if (empty($_POST)){
       ?>
       <div class='row justify-content-center'>
         <div class="col-4 align-self-center alert alert-success" role="alert">
-          <p>Votre mot de passe a bien été changé</p>
+          <p>Votre mot de passe a bien été changé!</p>
         </div>
       </div>
       <?php

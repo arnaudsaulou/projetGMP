@@ -42,7 +42,7 @@ if(isset($_GET["annee"]) && isset($_GET["idEnonce"])){?>
 
   ?>
   <div class="alert alert-primary">
-    Les données ont été chargés, le téléchargement va débuter automatiquement.
+    Les données ont été chargées, le téléchargement va débuter automatiquement.
   </div>
   <div class="card mb-3">
     <div class="card-header">
@@ -123,7 +123,7 @@ if(isset($_GET["annee"]) && isset($_GET["idEnonce"])){?>
   </ol>
 
   <div class="alert alert-danger" role="alert">
-    Hum... Il semblerait que vous ayez atteint cette page par erreur ! Les données n'ont pas pu être chargés.
+    Hum... Il semblerait que vous ayez atteint cette page par erreur ! Les données n'ont pas pu être chargées.
   </div>
   <?php
 

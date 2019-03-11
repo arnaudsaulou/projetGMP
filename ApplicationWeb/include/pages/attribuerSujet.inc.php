@@ -14,7 +14,7 @@ if ($enonceManager->checkUnfinishedCorrection()) {
                 <p>Il est impossible d'attribuer des sujets aux élèves tant qu'un énoncé est dépourvu de correction.</p>
             </div>
         </div>
-        <a class="btn btn-link" href="index.php?page=6"><p>Retour</p></a>
+        <a class="btn btn-link" href="index.php?page=7"><p>Retour</p></a>
     </div>
     <?php
 } else {
@@ -23,7 +23,7 @@ if ($enonceManager->checkUnfinishedCorrection()) {
         <form class="form-row" action="#" method="POST">
             <div class="col-md-4 mb-3">
                 <label for="choixPromo">Promotion :</label>
-                <select class="form-control" id="choixPromo" name="choix_promotion">
+                <select class="form-control" id="choixPromo" name="choix_promotion" required>
                     <option value="1"> Année 1</option>
                     <option value="2"> Année 2</option>
                 </select>
@@ -36,7 +36,7 @@ if ($enonceManager->checkUnfinishedCorrection()) {
 
             <div class="col-md-4 mb-3">
                 <label for="choixCooldown">Temps d'attente entre chaque réponse :</label>
-                <select class="form-control" id="choixCooldown" name="choix_cooldown">
+                <select class="form-control" id="choixCooldown" name="choix_cooldown" required>
                     <option value="1"> 1 jour</option>
                     <option value="2"> 2 jours</option>
                     <option value="3"> 3 jours</option>
@@ -52,7 +52,7 @@ if ($enonceManager->checkUnfinishedCorrection()) {
                 <div class="col-md-12 mb-3">
                     <label for="choixSujet">Liste des énoncé : <?php echo $enonceManager->compterEnonce(); ?> énoncé(s)
                         a/ont été trouvé :</label>
-                    <select class="form-control" id="choixSujet" name="choix_sujet">
+                    <select class="form-control" id="choixSujet" name="choix_sujet" required>
                         <?php
                         $listEnonce = $enonceManager->recupererListEnonce();
                         foreach ($listEnonce as $enonce) {
