@@ -97,7 +97,7 @@ if (isset($_FILES['fichier'])) {
         ?>
         <div class='row justify-content-center'>
           <div class="col-4 align-self-center alert alert-success" role="alert">
-            <p>Fichier chargé ! importation des élèves réussie</p>
+            <p>Fichier chargé ! Importation des élèves réussie</p>
           </div>
         </div>
         <?php
