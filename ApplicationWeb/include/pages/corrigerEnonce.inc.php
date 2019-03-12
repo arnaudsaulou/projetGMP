@@ -113,7 +113,8 @@
 
 <!-- Page level plugin CSS-->
 <link href="packages/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-<script src="js/callDatatables.js"></script>
+
+<!-- scripts for this page-->
+<script type="text/javascript" src="js/corrigerEnonce.js"></script>
 <script src="packages/datatables/jquery.dataTables.js"></script>
 <script src="packages/datatables/dataTables.bootstrap4.js"></script>
-<script type="text/javascript" src="js/corrigerEnonce.js"></script>

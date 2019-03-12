@@ -1,11 +1,12 @@
-var globalNumQR;
 var tableauNumParams;
 
-function init() {
-  //Calcul du nombre de question de l'énoncé
-  let nbLigne = document.getElementsByClassName('ligneQuestion').length;
 
-  globalNumQR = getNumQR();
+var globalNumQR = getNumQR();
+
+//Calcul du nombre de question de l'énoncé
+var nbLigne = document.getElementsByClassName('ligneQuestion').length;
+
+function init() {
 
   //Création du tableau mémorisant les id des paramètres de chaque questions
   tableauNumParams = new Array(nbLigne);
@@ -14,33 +15,23 @@ function init() {
     tableauNumParams[i][0] = 0;
   }
 
-  console.log("tableauNumParams : " + tableauNumParams);
-
-  return tableauNumParams;
 }
-
 
 //Déclanché si click sur un boutton d'ajout de paramètres
 function handleClickAddParams(event) {
 
-  console.log("preinit");
-
   let tableauNumParams = init();
-
-  console.log("postinit");
 
   //Extraction de l'id
   var idBtn = event.target.id;
   idBtn = idBtn.substr(11,1);
 
   //Appel de la fonction gérant l'ajout de paramètres
-  ajouterParametres(idBtn, tableauNumParams);
+  ajouterParametres(idBtn);
 }
 
 //Ajouter un item séléctionné et paramétré à la page de création (énoncé)
-function ajouterParametres(idBtn, tableauNumParams) {
-
-  console.log("ajouterParametres");
+function ajouterParametres(idBtn) {
 
   //Récupère le nombre de paramètres déjà existant pour cette question
   let newId = tableauNumParams[idBtn].length;
@@ -64,18 +55,34 @@ function ajouterParametres(idBtn, tableauNumParams) {
 //Appel du fichier AJAX afin d'ajouter une nouvelle collonne de paramètre
 function ajouterNouveauParams(newParam) {
 
-			$.ajax({
-        type: "POST",
-        data: {idEnonce : $_GET('idEnonce')},
-        url: './ajax/ajoutPamametresCorrection.ajax.php',
-        dataType: "json",
-        success: function(array) {
-            //Appel à la fonction d'ajout d'option
-            populateSelect(array,newParam);
-        }
+  recupererLastInsertedIdEnonce(function(idEnonce){
+    $.ajax({
+      type: "POST",
+      data: {idEnonce : idEnonce},
+      url: './ajax/ajoutPamametresCorrection.ajax.php',
+      dataType: "json",
+      success: function(array) {
+          //Appel à la fonction d'ajout d'option
+          populateSelect(array,newParam);
+      }
     });
+  })
 
 }
+
+
+function recupererLastInsertedIdEnonce(callback){
+
+    $.ajax({
+      type: "POST",
+      url: './ajax/recupererLastInsertIdEnonce.ajax.php',
+      dataType: "json",
+      success: function(lastInsertIdEnonce) {
+        callback(lastInsertIdEnonce);
+      }
+    });
+
+  }
 
 function getNumQR(callback) {
 
@@ -83,7 +90,7 @@ function getNumQR(callback) {
         url: './ajax/recupererNumQuestionReponse.ajax.php',
         dataType: "json",
         success: function(numQR) {
-            globalNumQR = numQR;
+            globalNumQR = numQR - 1;
         }
     });
 
@@ -111,8 +118,7 @@ function validerCorrection(){
   for (var numQuestion = 0; numQuestion < nbLigne; numQuestion++) {
 
     //Récupérer le numero de question
-    var idQuestion = document.getElementById("question"+(parseInt(globalNumQR)+parseInt(numQuestion))).id;
-    idQuestion = idQuestion.substring(8,idQuestion.length);
+    idQuestion = parseInt(globalNumQR)+parseInt(numQuestion));
 
     //Récupérer le nom de la fonction de correction
     var nomFormule = document.getElementById("formuleCorrection"+numQuestion);
@@ -135,14 +141,17 @@ function validerCorrection(){
     //Récupérer du bareme de la question
     var bareme = document.getElementById("bareme"+numQuestion).value;
 
-    ajouterCorrection(idQuestion,nomFormule,tableauIdParams,bareme,showAlerte);
+    ajouterCorrection(idQuestion,nomFormule,tableauIdParams,bareme);
 
   }
 
+  showAlerte();
 }
 
 //Appel du fichier AJAX afin d'ajouter une nouvelle correction
 function ajouterCorrection(idQuestion,nomFormule,tableauIdParams,bareme,callback) {
+
+  console.log("ajouterCorrection");
 
   $.ajax({
     type: "POST",
@@ -151,36 +160,12 @@ function ajouterCorrection(idQuestion,nomFormule,tableauIdParams,bareme,callback
     dataType: "json",
     success: function(data) {
       console.log(data);
-      callback(true);
-    },
-    error: function(data){
-      console.log(data);
-      callback(false);
     }
   });
 
 }
 
-function showAlerte(status){
-  if(status){
+function showAlerte(){
     alert("La correction à cet énoncé à bien été enregistrée !");
     window.location.replace("../ApplicationWeb/index.php?page=7");
-  } else {
-    alert("Une erreur est survenue");
-  }
-}
-
-function $_GET(param) {
-	var vars = {};
-	window.location.href.replace( location.hash, '' ).replace(
-		/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-		function( m, key, value ) { // callback
-			vars[key] = value !== undefined ? value : '';
-		}
-	);
-
-	if ( param ) {
-		return vars[param] ? vars[param] : null;
-	}
-	return vars;
 }
