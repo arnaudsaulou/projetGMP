@@ -660,19 +660,42 @@ function handleEnregistrerQuestions(form){
 function ajouterNouveauTypeDonnee(){
 
   //Récupérer les éléments de l'ihm nécessaire
-  var newTypeDonnee = document.getElementById("newTypeDonnee").value;
-  var inputDonneeVariable = document.getElementById("inputDonneeVariable0");
-  var borneInferieurInterval = document.getElementById("borneInferieurInterval");
-  var borneSuperieurInterval = document.getElementById("borneSuperieurInterval");
-  var pasInterval = document.getElementById("pasInterval");
+  var newTypeDonnee = document.getElementById("newTypeDonnee");
 
-  if(parseInt(borneInferieurInterval.value) > parseInt(borneSuperieurInterval.value)){
-    borneSuperieurInterval.setCustomValidity("La borne supérieur est inférieure à la borne inférieure");
-  } else if(parseInt(pasInterval.value) > (parseInt(borneSuperieurInterval.value) - parseInt(borneInferieurInterval.value))){
+  if(newTypeDonnee.value != ""){
+    var inputDonneeVariable = document.getElementById("inputDonneeVariable0");
 
-    pasInterval.setCustomValidity("Le pas est invalid pour l'interval donné");
+    //Si on ajoute une donnée variable valeur a valeur
+    if(isRadioValeurParValeurChecked()){
+      //Si la première valeur est vide
+      if(inputDonneeVariable.value == ""){
+        inputDonneeVariable.setCustomValidity("Entrez au moins une valeur");
+      } else {
+        ajouterTypeDonneAjax(newTypeDonnee.value);
+      }
+    } else if(isRadioIntervalChecked()){
+      var borneInferieurInterval = document.getElementById("borneInferieurInterval");
+      var borneSuperieurInterval = document.getElementById("borneSuperieurInterval");
+      var pasInterval = document.getElementById("pasInterval");
+
+      if(borneInferieurInterval.value == ""){
+        borneInferieurInterval.setCustomValidity("Vous devez saisir une valeur");
+      } else if (borneSuperieurInterval.value == "") {
+        borneSuperieurInterval.setCustomValidity("Vous devez saisir une valeur");
+      } else if (pasInterval.value == ""){
+        pasInterval.setCustomValidity("Vous devez saisir une valeur");
+      } else {
+        if(parseInt(borneInferieurInterval.value) > parseInt(borneSuperieurInterval.value)){
+          borneSuperieurInterval.setCustomValidity("La borne supérieur est inférieure à la borne inférieure");
+        } else if(parseInt(pasInterval.value) > (parseInt(borneSuperieurInterval.value) - parseInt(borneInferieurInterval.value))){
+          pasInterval.setCustomValidity("Le pas est invalide pour l'interval donné");
+        } else {
+          ajouterTypeDonneAjax(newTypeDonnee.value);
+        }
+      }
+    }
   } else {
-    ajouterTypeDonneAjax(newTypeDonnee);
+    newTypeDonnee.setCustomValidity("Entrez un nom pour la donnée variable");
   }
 }
 
