@@ -127,12 +127,12 @@ if (isset($_POST['idSujet'])) {
       $nb = rand(1,3);
       if($noteFinale < 50){
         ?>
-        <img src="./images/Gif/pouce_rouge_<?php echo $nb;?>.gif" alt="">
+        <img src="./public/images/gif/pouce_rouge_<?php echo $nb;?>.gif" alt="">
         <?php
       }
       else{
         ?>
-        <img src="./images/Gif/pouce_bleu_<?php echo $nb;?>.gif" alt="">
+        <img src="./public/images/gif/pouce_bleu_<?php echo $nb;?>.gif" alt="">
         <?php
         $_SESSION['dejaRepondu'] = True;
 

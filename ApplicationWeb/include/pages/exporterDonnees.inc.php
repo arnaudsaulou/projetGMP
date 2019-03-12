@@ -90,7 +90,7 @@ if(isset($_GET["annee"]) && isset($_GET["idEnonce"])){?>
   <?php
 
   // Paramétrage de l'écriture du futur fichier CSV
-  $chemin = 'exportDonnees/GMP_DonneesExporte_Catia.csv';
+  $chemin = 'public/exportDonnees/GMP_DonneesExporte_Catia.csv';
   $delimiteur = ';'; // Pour une tabulation, utiliser $delimiteur = "t";
 
   // Création du fichier csv (le fichier est vide pour le moment)
@@ -108,7 +108,7 @@ if(isset($_GET["annee"]) && isset($_GET["idEnonce"])){?>
   // fermeture du fichier csv
   fclose($fichier_csv);
   ?>
-  <meta http-equiv="refresh" content="1; URL=exportDonnees/GMP_DonneesExporte_Catia.csv">
+  <meta http-equiv="refresh" content="1; URL=public/exportDonnees/GMP_DonneesExporte_Catia.csv">
   <?php
 }else{
   //la page a été obtenue via bidouille dans l'url

@@ -85,7 +85,7 @@ class SujetManager
 
   public function getSujetsIncoherant($coheranceSujet){
     $ligne = 0; // compteur de ligne
-    $fic = fopen("./formules/coheranceSujets/".$coheranceSujet.".csv", "a+");
+    $fic = fopen("./public/coheranceSujets/".$coheranceSujet.".csv", "a+");
     $tabSujetIncoherants = array();
     while($tab = fgetcsv($fic,0,';')){
       $champs = count($tab);//nombre de champ dans la ligne en question

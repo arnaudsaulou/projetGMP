@@ -57,7 +57,7 @@ function comparerValeurs(SolutionManager $solutionManager, SujetPossibleManager 
     $params[] = $donneeVariable->getValeur();
   }
 
-  include("./formules/correction/".$nomFormule.".php");
+  include("./public/formules/correction/".$nomFormule.".php");
 
   //Appel des fonction prédéfinies en fonction du nom extrait juste avant et passage des paramètres
   $solution = Formule::$nomFormule($params);

@@ -58,7 +58,7 @@ function DonneeCalculee(idType, nomFormule, tableauIdParams){
     $.ajax({
       type: "POST",
       data: {listeValeurDonneeVariable : listeValeurDonneeVariable},
-      url: "./formules/calcul/"+nomFormule+".php",
+      url: "./public/formules/calcul/"+nomFormule+".php",
       dataType: "json",
       success: function(resultat) {
         callback(id, resultat);
@@ -204,14 +204,10 @@ function recupererImageVariableDansEnonce(){
 
   //Récupérer les éléments de l'ihm nécessaire
   var tab = document.getElementsByClassName("imageVariable");
-  console.log(tab);
   var valeur;
 
   for(var i=0; i<tab.length; i++) {
     valeur = tab[i].id.substring(14, 15);
-    console.log(tab[i].id);
-    console.log(valeur);
-    console.log("./images/variables/" + globalIdSujet + "_" + valeur);
-     tab[i].src = "./images/variables/" + globalIdSujet + "_" + valeur;
+    tab[i].src = "./public/images/variables/" + globalIdSujet + "_" + valeur;
   }
 }

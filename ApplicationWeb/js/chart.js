@@ -22,7 +22,6 @@ function recupererNombreDeNotes(){
 
 function afficherChart(tab){
   max = Math.max.apply(null, tab);
-  console.log(max);
   var myLineChart = new Chart(ctx, {
     type: 'line',
     data: {

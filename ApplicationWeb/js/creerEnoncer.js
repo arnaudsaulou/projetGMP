@@ -251,11 +251,11 @@ $(document).ready(function() {
   }
 
   $('#loadFolderTree').fileTree({
-        root: './Projets/ProjetGMP/ApplicationWeb/images/fixes/',
+        root: './Projets/ProjetGMP/ApplicationWeb/public/images/fixes/',
         script:  'ajax/jqueryFileTree.ajax.php',
         multiFolder: false,
     }, function(file) {
-        var image = file.replace("./Projets/ProjetGMP/ApplicationWeb/images/fixes/", "");
+        var image = file.replace("./Projets/ProjetGMP/ApplicationWeb/public/images/fixes/", "");
         imageChoisi.value = image;
         imageBlockChoisi.style.display  = "inline";
     });
@@ -504,7 +504,7 @@ function ajouterElement(typeItem) {
       newTitre.id = 'image'+numItem;
       newTitre.name = 'item'+numItem;
       newTitre.alt = itemDescription.value;
-      newTitre.src = "./images/fixes/" + imageChoisi.value;
+      newTitre.src = "./public/images/fixes/" + imageChoisi.value;
 
       if(itemLargeur.value != '')
         newTitre.width = itemLargeur.value;
@@ -708,13 +708,9 @@ function ajouterTypeDonneAjax(newTypeDonnee){
     url: './ajax/ajoutTypeDonnee.ajax.php',
     data: { newTypeDonnee: newTypeDonnee },
     success: function(data){
-      console.log(data);
       //Appel de la fonction d'ajout des donnée variables associé
       ajouterNouvelleDonneeVariable();
       refreshSelectTypeDonnee(newTypeDonnee,"selectTypeDonnee");
-    },
-    error:function(errorData){
-      console.error(errorData);
     }
   });
 }
@@ -813,11 +809,7 @@ function recupererIdTypeDonneeAjouteAjaxa(callback){
     url: './ajax/recupererIdTypeDonneAjoute.ajax.php',
     dataType: "json",
     success: function(newIdTypeDonneResult) {
-      console.log(newIdTypeDonneResult);
       callback(newIdTypeDonneResult);
-    },
-    error: function(data) {
-      console.log(data);
     }
   });
 

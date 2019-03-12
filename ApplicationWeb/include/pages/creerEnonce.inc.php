@@ -216,7 +216,7 @@
 
                       <?php
                         //on récupère la liste des formule de correction disponible
-                        $dirname = "./formules/calcul";
+                        $dirname = "./public/formules/calcul";
                         $listeFormules = $fichierManager->getFichiersPhp($dirname);
 
                         foreach ($listeFormules as $formules) {
@@ -260,7 +260,7 @@
 
 
           <div id="buttonFakeInputFile">
-            <img alt="logo ajouter image" src="Ressources/no-image.png">
+            <img alt="logo ajouter image" src="ressources/no-image.png">
           </div>
 
           <!-- Chargement d'une image coté serveur -->
@@ -339,7 +339,7 @@
 
 
   //on récupère la liste des formule de correction disponible
-  $dirname = "./formules/coheranceSujets";
+  $dirname = "./public/coheranceSujets";
   $listeCsv = $fichierManager->getFichiersCsv($dirname);
 
   ?>

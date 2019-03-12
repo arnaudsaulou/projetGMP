@@ -141,7 +141,7 @@ function validerCorrection(){
   for (var numQuestion = 0; numQuestion < nbLigne; numQuestion++) {
 
     //Récupérer le numero de question
-    idQuestion = parseInt(globalNumQR) + parseInt(numQuestion);
+    idQuestion = parseInt(globalNumQR) + parseInt(numQuestion) + 1;
 
     //Récupérer le nom de la fonction de correction
     var nomFormule = document.getElementById("formuleCorrection"+numQuestion);
@@ -172,21 +172,13 @@ function validerCorrection(){
 }
 
 //Appel du fichier AJAX afin d'ajouter une nouvelle correction
-function ajouterCorrection(idQuestion,nomFormule,tableauIdParams,bareme,callback) {
-
-  console.log("ajouterCorrection");
+function ajouterCorrection(idQuestion,nomFormule,tableauIdParams,bareme) {
 
   $.ajax({
     type: "POST",
     url: './ajax/ajouterCorrection.ajax.php',
     data : {idQuestion: idQuestion, nomFormule: nomFormule, tableauIdParams: tableauIdParams, bareme:bareme},
-    dataType: "json",
-    success: function(data) {
-      console.log(data);
-    },
-    error: function(data){
-      console.log(data);
-    }
+    dataType: "json"
   });
 
 }

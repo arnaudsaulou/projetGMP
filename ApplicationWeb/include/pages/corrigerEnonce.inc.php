@@ -55,7 +55,7 @@
       }
 
       //on récupère la liste des formule de correction disponible
-      $dirname = "./formules/correction";
+      $dirname = "./public/formules/correction";
       $listeFormules = $fichierManager->getFichiersPhp($dirname);
 
       //on récupère la liste des données variable de l'énoncé
