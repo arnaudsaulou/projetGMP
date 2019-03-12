@@ -169,7 +169,7 @@
                   <div class="row"></div>
 
                   <div class="form-group">
-                    <input class="btn btn-primary col-12" value="Enregistrer" onclick="ajouterNouveauTypeDonnee();">
+                    <input class="btn btn-primary col-12" type="button" value="Enregistrer" onclick="ajouterNouveauTypeDonnee();">
                   </div>
 
           		  </form>
@@ -242,7 +242,7 @@
                   <div class="row"></div>
 
                   <div class="form-group">
-                    <input onclick="validerCalcul()" class="btn btn-primary col-12" value="Enregistrer">
+                    <input onclick="validerCalcul()" class="btn btn-primary col-12" type="button" value="Enregistrer">
                   </div>
 
                 </form>

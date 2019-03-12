@@ -6,21 +6,15 @@ var globalNumQR = getNumQR();
 //Calcul du nombre de question de l'énoncé
 var nbLigne = document.getElementsByClassName('ligneQuestion').length;
 
-function init() {
-
-  //Création du tableau mémorisant les id des paramètres de chaque questions
-  tableauNumParams = new Array(nbLigne);
-  for (var i = 0; i < tableauNumParams.length; i++) {
-    tableauNumParams[i] = new Array(1);
-    tableauNumParams[i][0] = 0;
-  }
-
+//Création du tableau mémorisant les id des paramètres de chaque questions
+tableauNumParams = new Array(nbLigne);
+for (var i = 0; i < tableauNumParams.length; i++) {
+  tableauNumParams[i] = new Array(1);
+  tableauNumParams[i][0] = 0;
 }
 
 //Déclanché si click sur un boutton d'ajout de paramètres
 function handleClickAddParams(event) {
-
-  let tableauNumParams = init();
 
   //Extraction de l'id
   var idBtn = event.target.id;
@@ -30,7 +24,19 @@ function handleClickAddParams(event) {
   ajouterParametres(idBtn);
 }
 
-//Ajouter un item séléctionné et paramétré à la page de création (énoncé)
+
+//Déclanché si click sur un boutton de suppression de paramètres
+function handleClickRemoveParams(event) {
+
+  //Extraction de l'id
+  var idBtn = event.target.id;
+  idBtn = idBtn.substr(11,1);
+
+  //Appel de la fonction gérant l'ajout de paramètres
+  supprimerParametres(idBtn);
+}
+
+//Ajouter un paramètre de calcul de solution
 function ajouterParametres(idBtn) {
 
   //Récupère le nombre de paramètres déjà existant pour cette question
@@ -51,6 +57,23 @@ function ajouterParametres(idBtn) {
   //Ajout de l'id ajouter au tableau des id
   tableauNumParams[idBtn].push(newId);
 }
+
+//Supprimer un paramètre de calcul de solution
+function supprimerParametres(idBtn) {
+
+  //Récupère le nombre de paramètres déjà existant pour cette question
+  let newId = tableauNumParams[idBtn].length;
+
+  if(newId > 1){
+    //Ajout de la nouvelle liste déroulante
+  	var lastParam = document.getElementById("param" + idBtn + "_" + (newId-1));
+    lastParam.parentElement.removeChild(lastParam);
+
+    //Ajout de l'id ajouter au tableau des id
+    tableauNumParams[idBtn].pop(newId);
+  }
+}
+
 
 //Appel du fichier AJAX afin d'ajouter une nouvelle collonne de paramètre
 function ajouterNouveauParams(newParam) {

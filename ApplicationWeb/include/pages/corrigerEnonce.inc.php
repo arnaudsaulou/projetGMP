@@ -88,7 +88,8 @@
           </select>
 
           <div>
-            <button onclick="handleClickAddParams(event);" id="btnAdParams<?php echo $key ?>">+</button>
+            <button onclick="handleClickAddParams(event);" class="btn btn-secondary" id="btnAdParams<?php echo $key ?>">+</button>
+            <button onclick="handleClickRemoveParams(event);" class="btn btn-danger" id="btnRmParams<?php echo $key ?>">-</button>
           </div>
         </td>
 
