@@ -21,6 +21,12 @@
 		'bareme' => $_POST['bareme']
 	);
 
+	//Récupéré la solution existente si présente
+	$oldSolution = $solutionManager->recupererSolution($_POST['idQuestion']);
+	if($oldSolution != null){
+		$solutionManager->supprimerSolutionViaIdQuestion($_POST['idQuestion']);
+	}
+
 	//Création d'un objet Solution
 	$solution = $solutionManager->createSolutionDepuisTableau($solutionTab);
 

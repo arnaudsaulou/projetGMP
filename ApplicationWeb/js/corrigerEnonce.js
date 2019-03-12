@@ -118,7 +118,7 @@ function validerCorrection(){
   for (var numQuestion = 0; numQuestion < nbLigne; numQuestion++) {
 
     //Récupérer le numero de question
-    idQuestion = parseInt(globalNumQR)+parseInt(numQuestion));
+    idQuestion = parseInt(globalNumQR) + parseInt(numQuestion);
 
     //Récupérer le nom de la fonction de correction
     var nomFormule = document.getElementById("formuleCorrection"+numQuestion);
@@ -159,6 +159,9 @@ function ajouterCorrection(idQuestion,nomFormule,tableauIdParams,bareme,callback
     data : {idQuestion: idQuestion, nomFormule: nomFormule, tableauIdParams: tableauIdParams, bareme:bareme},
     dataType: "json",
     success: function(data) {
+      console.log(data);
+    },
+    error: function(data){
       console.log(data);
     }
   });
