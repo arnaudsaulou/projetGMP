@@ -39,7 +39,7 @@ Chargés en ligne (Voir header.inc.php)
 L'application a été concue et testée pour fonctionner au minimum avec l'environnement suivant :
 * [Apache 2.4.25]
 * [PHP 7.0.30-0]
-* [Mysql 5.0.12]
+* [MariaDB 10.1.37]
 
 Une fois l'application téléchargée ou clonée vous devrez utiliser le Script_Creation_BD.sql pour générer la base de données.
 * [https://github.com/arnaudsaulou/projetGMP/blob/master/Script_Creation_BD.sql]
