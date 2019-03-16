@@ -46,8 +46,6 @@
                                 echo "btn-secondary";
                             } ?>" value="Corriger" type="button" name="options" id="option1" autocomplete="off"
                                    onclick="window.location.href='index.php?page=9&idEnonce=<?php echo $enonce->getIdEnonce() ?>'">
-                            <input class="btn btn-secondary" type="button" value="Télécharger au format PDF"
-                                   onclick="genererPDF(<?php echo $enonce->getIdEnonce() ?>)">
                             <input class="btn btn-secondary" type="button" value="Tester">
                             <input class="btn btn-secondary" type="button" value="Afficher"
                                    onclick="window.location.href='index.php?page=17&idEnonce=<?php echo $enonce->getIdEnonce(); ?>'">
@@ -105,7 +103,6 @@
 <script src="js/callDatatables.js"></script>
 <script src="packages/datatables/jquery.dataTables.js"></script>
 <script src="packages/datatables/dataTables.bootstrap4.js"></script>
-<script src="packages/pdf/jspdf.min.js"></script>
 
 <script type="text/javascript">
     function reglerValeur(valeur) {

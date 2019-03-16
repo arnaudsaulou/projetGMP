@@ -13,7 +13,7 @@ if (isset($_POST['idSujet'])) {
     $header = '<div class="mx-auto col-md-12 mt-3"><h5 style="text-decoration: underline;">Nom: ' . $eleve->getNom() . ' - Prénom: ' . $eleve->getPrenom() . ' - ID Sujet: ' . $idSujet . '</h5>';
 ?>
 
-<button class="btn btn-primary" value="Cliquez ici pour imprimer" onclick="window.print();"></button>
+<button class="btn btn-primary" onclick="window.print();">Cliquez ici pour imprimer</button>
 <div id="previewPdf">
     <?php echo $header.$enonce ?>
 </div>
@@ -71,7 +71,7 @@ function accederAuSujetPourImpression(idSujet) {
 <div class="attributionConfirme">
     <div class='row justify-content-center'>
         <div class="col-4 align-self-center alert alert-danger" role="alert">
-            <p>Vous n'avez aucun sujet d'attribué.</p>
+            <p>Aucun sujet ne vous a été attribué.</p>
         </div>
     </div>
     <a class="btn btn-link" href="index.php"><p>Retour au tableau de bord</p></a>

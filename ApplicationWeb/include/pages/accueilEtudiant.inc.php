@@ -62,7 +62,9 @@
               }else{
                 echo 'class="btn btn-primary"';
               }
-              ?> onclick="post_en_url('index.php?page=15', {idSujet: <?php echo $controle->idSujet ;?>})" class="button">Répondre</button></td>
+              ?> onclick="post_en_url('index.php?page=15', {idSujet: <?php echo $controle->idSujet ;?>})" class="button">Répondre</button>
+              <button onclick="post_en_url('index.php?page=18', {idSujet: <?php echo $controle->idSujet ;?>})" class="button">Imprimer</button>
+              </td>
             </tr>
             <?php
           }
