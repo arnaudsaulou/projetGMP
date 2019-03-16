@@ -13,7 +13,7 @@ if (isset($_POST['idSujet'])) {
     $header = '<div class="mx-auto col-md-12 mt-3"><h5 style="text-decoration: underline;">Nom: ' . $eleve->getNom() . ' - Prénom: ' . $eleve->getPrenom() . ' - ID Sujet: ' . $idSujet . '</h5>';
 ?>
 
-<button value="Cliquez ici pour imprimer" onclick="window.print();"></button>
+<button class="btn btn-primary" value="Cliquez ici pour imprimer" onclick="window.print();"></button>
 <div id="previewPdf">
     <?php echo $header.$enonce ?>
 </div>

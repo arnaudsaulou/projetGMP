@@ -138,12 +138,6 @@
             }
             break;
 
-        case 19:
-            if ($_SESSION['droits'] == 1) {
-                include_once('pages/previewFichierPdf.inc.php');
-            }
-            break;
-
         case 20:
             if ($_SESSION['droits'] == 1) {
                 include_once('pages/exporterDonnees.inc.php');
