@@ -100,21 +100,21 @@ class AttribueManager
     }
 
     /**
-     * Retourne un tableau avec la liste de tous les Utilisateurs n'ayant pas répondu au Sujet spécifié.
-     * @param integer $idSujet L'ID du Sujet dont on veut récupérer les élèves n'ayant pas répondu.
-     * @return array Un tableau avec toutes les instances d'Utilisateur n'ayant pas répondu au sujet.
+     * Retourne un tableau avec la liste de tous les Utilisateurs n'ayant pas répondu à l'Énoncé spécifié.
+     * @param integer $idEnonce L'ID de l'Énoncé dont on veut récupérer les élèves n'ayant pas répondu.
+     * @return array Un tableau avec toutes les instances d'Utilisateur n'ayant pas répondu au énoncé.
      */
-    public function getListeElevesNAyantPasRepondu($idSujet)
+    public function getListeElevesNAyantPasRepondu($idEnonce)
     {
         $req = $this->db->prepare(
-            'SELECT idUtilisateur FROM utilisateur WHERE estProf = 0 AND idUtilisateur NOT IN (
-            SELECT idUtilisateur FROM reponses WHERE idSujet = :idSujet
+            'SELECT idUtilisateur, nom, prenom, annee FROM utilisateur WHERE estProf = 0 AND idUtilisateur NOT IN (
+            SELECT idUtilisateur FROM reponses r, sujet s WHERE r.idSujet = s.idSujet AND s.idEnonce = :idEnonce
             HAVING COUNT(idUtilisateur) > 0
           ) AND idUtilisateur IN (
-            SELECT idUtilisateur FROM attribue WHERE idSujet = :idSujet
+            SELECT idUtilisateur FROM attribue a, sujet s WHERE a.idSujet = s.idSujet AND s.idEnonce = :idEnonce
           )
           ');
-        $req->bindValue(':idSujet', $idSujet, PDO::PARAM_STR);
+        $req->bindValue(':idEnonce', $idEnonce, PDO::PARAM_STR);
         $req->execute();
         $listeEleves = array();
         while ($eleve = $req->fetch(PDO::FETCH_OBJ)) {

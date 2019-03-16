@@ -24,6 +24,7 @@
 						<a class="dropdown-item" href="index.php?page=1">Lister</a>
 						<a class="dropdown-item" href="index.php?page=2">Importer</a>
 						<a class="dropdown-item" href="index.php?page=12">Gérer</a>
+						<a class="dropdown-item" href="index.php?page=21">Élèves sans réponses</a>
 						<a class="dropdown-item" href="index.php?page=13">Supprimer promotion</a>
 					</div>
 				</li>
