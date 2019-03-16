@@ -133,7 +133,7 @@
             break;
 
         case 18:
-            if ($_SESSION['droits'] == 1) {
+            if ($_SESSION['droits'] == 0) {
                 include_once('pages/imprimerSujet.inc.php');
             }
             break;

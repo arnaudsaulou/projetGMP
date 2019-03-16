@@ -57,7 +57,6 @@
 							<span class="badge badge-danger">!</span>	<?php } ?></a>
 							<a class="dropdown-item" href="index.php?page=11">Lister les attributions</a>
 							<a class="dropdown-item" href="index.php?page=8">Lister les réponses</a>
-							<a class="dropdown-item" href="index.php?page=18">Imprimer un sujet</a>
 						</div>
 					</li>
 				</ul>
@@ -80,6 +79,10 @@
 								<i class="fa fa-eye"></i>
 								<span>Voir mes résultats</span>
 							</a>
+                            <a class="nav-link" href="index.php?page=18">
+                                <i class="fa fa-print"></i>
+                                <span>Imprimer un sujet</span>
+                            </a>
 						</li>
 					</ul>
 
