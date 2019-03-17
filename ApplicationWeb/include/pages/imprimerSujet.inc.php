@@ -9,7 +9,7 @@ if (isset($_POST['idSujet'])) {
     $sujet = $sujetManager->getSujetAvecId($idSujet);
     $attribue = $attribueManager->getAttribueByIdSujet($idSujet);
     $eleve = $utilisateurManager->getUtilisateurById($attribue->getIdUtilisateur());
-    $enonce = str_replace("\n", "\\n", $enonceManager->recupererEnonceViaIdEnonce($sujet->getIdEnonce())->getEnonce());
+    $enonce = $enonceManager->recupererEnonceViaIdEnonce($sujet->getIdEnonce())->getEnonce(); //str_replace("\n", "\\n", );
     $header = '<div class="mx-auto col-md-12 mt-3"><h5 style="text-decoration: underline;">Nom: ' . $eleve->getNom() . ' - Prénom: ' . $eleve->getPrenom() . ' - ID Sujet: ' . $idSujet . '</h5>';
 ?>
 

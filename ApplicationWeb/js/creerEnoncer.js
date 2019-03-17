@@ -24,7 +24,7 @@ const tableauNumParams = []; //Création du tableau mémorisant les id des param
 const tableauDonneeVariable = [];
 
 /* Constantes */
-const EMPLACEMENT_IMAGES_FIXES = '/ApplicationWeb/public/images/fixes/';
+const EMPLACEMENT_IMAGES_FIXES = '/../public/images/fixes/';
 
 const TOUCHE_SUPPR = "Delete";
 const TOUCHE_ENTRER = "Enter";
