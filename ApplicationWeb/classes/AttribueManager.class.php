@@ -118,7 +118,7 @@ class AttribueManager
         $req->execute();
         $listeEleves = array();
         while ($eleve = $req->fetch(PDO::FETCH_OBJ)) {
-            $listeEleves[] = $eleve;
+            $listeEleves[] = new Utilisateur($eleve);
         }
         $req->closeCursor();
         return $listeEleves;
