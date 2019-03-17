@@ -79,10 +79,6 @@
 								<i class="fa fa-eye"></i>
 								<span>Voir mes résultats</span>
 							</a>
-                            <a class="nav-link" href="index.php?page=18">
-                                <i class="fa fa-print"></i>
-                                <span>Imprimer un sujet</span>
-                            </a>
 						</li>
 					</ul>
 

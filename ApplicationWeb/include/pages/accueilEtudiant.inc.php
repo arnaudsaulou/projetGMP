@@ -22,7 +22,7 @@
                     <th>Dernière réponse le :</th>
                     <th>Prochaine réponse disponible le :</th>
                     <th>Temps entre chaque réponse</th>
-                    <th>Meilleur note</th>
+                    <th>Meilleure note</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -33,7 +33,7 @@
                     <th>Dernière réponse le :</th>
                     <th>Prochaine réponse disponible le :</th>
                     <th>Temps entre chaque réponse</th>
-                    <th>Meilleur note</th>
+                    <th>Meilleure note</th>
                     <th>Actions</th>
                 </tr>
                 </tfoot>
@@ -65,6 +65,9 @@
                             }
                             ?> onclick="post_en_url('index.php?page=15', {idSujet: <?php echo $controle->idSujet; ?>})"
                                class="button">Répondre
+                            </button>
+                            <button onclick="post_en_url('index.php?page=18', {idSujet: <?php echo $controle->idSujet; ?>})"
+                               class="btn btn-secondary button">Imprimer
                             </button>
                         </td>
                     </tr>
