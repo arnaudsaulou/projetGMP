@@ -93,6 +93,12 @@
         </div>
     </div>
 </div>
+<!-- Page level plugin CSS-->
+<link href="packages/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+<!-- scripts for this page-->
+<script src="js/callDatatables.js"></script>
+<script src="packages/datatables/jquery.dataTables.js"></script>
+<script src="packages/datatables/dataTables.bootstrap4.js"></script>
 <?php } else { ?>
 <div class="attributionConfirme">
     <div class='row justify-content-center'>
