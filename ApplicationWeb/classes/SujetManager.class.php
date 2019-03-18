@@ -46,7 +46,9 @@ class SujetManager
       );
       $req->execute();
 
-      $tabSujetIncoherants = $this->getSujetsIncoherant($coheranceSujet);
+      if($coheranceSujet != null){
+        $tabSujetIncoherants = $this->getSujetsIncoherant($coheranceSujet);
+      }
 
       $this->insertIntoSujetPossible = "";
       $this->insertIntoSujet = "";
@@ -60,9 +62,11 @@ class SujetManager
           $possibiliteValeur[$i] = $this->donneeVariableManager->getDonneesVariableById($possibilite[$i])->getValeur();
         }
 
-        while ($y < count($tabSujetIncoherants) && !$containsAllValues) {
-          $containsAllValues = !array_diff_assoc($possibiliteValeur, $tabSujetIncoherants[$y]);
-          $y++;
+        if($coheranceSujet != null){
+          while ($y < count($tabSujetIncoherants) && !$containsAllValues) {
+            $containsAllValues = !array_diff_assoc($possibiliteValeur, $tabSujetIncoherants[$y]);
+            $y++;
+          }
         }
 
         if(!$containsAllValues){

@@ -348,17 +348,31 @@
     <label>Entrez un nom pour cet énoncé :</label>
     <input type="text" name="nomEnonce" >
     <br><br>
-    <label>Entrez un fichier de suppression des sujets incohérent</label>
-    <select name="coheranceSujet">
-      <?php foreach ($listeCsv as $csv) { ?>
-        <option value="<?php echo $csv ?>"> <?php echo $csv ?> </option>
-      <?php } ?>
-    </select>
+    <label>Il n'existe pas de sujets incohérent</label>
+    <input type="checkbox" name="pasBesoinCoheranceSujet" id="pasBesoinCoheranceSujet" onclick="displayBlockCoheranceSujet()" value="on" />
+    <div id="blockCoheranceSujet">
+      <label>Entrez un fichier de suppression des sujets incohérent</label>
+      <select name="coheranceSujet" >
+        <?php foreach ($listeCsv as $csv) { ?>
+          <option value="<?php echo $csv ?>"> <?php echo $csv ?> </option>
+        <?php } ?>
+      </select>
+    </div>
     <br><br>
     <button type="submit" type="submit" class="btn btn-primary col-3">Valider</button>
   </form>
 
-  <?php
+  <script type="text/javascript">
+    function displayBlockCoheranceSujet(){
+      if(document.getElementById("pasBesoinCoheranceSujet").checked){
+        document.getElementById('blockCoheranceSujet').style.display = "none";
+      } else {
+        document.getElementById('blockCoheranceSujet').style.display = "block";
+      }
+    }
+  </script>
+
+<?php
 
 } else if(isset($_SESSION['enonceCreer']) && isset($_POST['nomEnonce'])) {
 
