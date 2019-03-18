@@ -16,95 +16,95 @@
 
 <div class="card-body">
   <div class="table-responsive">
-    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <form>
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 
-      <thead>
-        <tr id="enteteTableau">
-          <th>Question</th>
-          <th>Formule</th>
-          <th>Paramètre</th>
-          <th>Barème</th>
+        <thead>
+          <tr id="enteteTableau">
+            <th>Question</th>
+            <th>Formule</th>
+            <th>Paramètre</th>
+            <th>Barème</th>
+          </tr>
+        </thead>
+
+        <tfoot>
+          <tr id="piedTableau">
+            <th>Question</th>
+            <th>Formule</th>
+            <th>Paramètre</th>
+            <th>Barème</th>
+          </tr>
+
+        </tfoot>
+
+        <tbody>
+
+        <?php
+
+        if(empty($_SESSION['lastInsertIdEnonce'])){
+          $_SESSION['lastInsertIdEnonce'] = $_GET['idEnonce'];
+        }
+
+        //on récupère la liste des questions de l'énoncé
+        if(empty($_SESSION['lastInsertIdEnonce'])){
+          $listeQuestions = $questionManager->recupererListeQuestionEnonce($_SESSION['lastInsertIdEnonce']);
+        } else {
+          $listeQuestions = $questionManager->recupererListeQuestionEnonce($_SESSION['lastInsertIdEnonce']);
+        }
+
+        //on récupère la liste des formule de correction disponible
+        $dirname = "./public/formules/correction";
+        $listeFormules = $fichierManager->getFichiersPhp($dirname);
+
+        //on récupère la liste des données variable de l'énoncé
+        $listeTypeDonnee = $enonceManager->getTypeDonneVariablePresentDansEnonce($_SESSION['lastInsertIdEnonce']);
+
+        foreach ($listeQuestions as $key => $question) {
+
+        ?>
+
+        <tr class="ligneQuestion">
+          <td>
+            <p id="question<?php echo $question->getIdQuestion(); ?>">
+              <?php echo ($key+1).')'.' '.$question->getLibelle(); ?>
+            </p>
+          </td>
+
+          <td>
+            <select id="formuleCorrection<?php echo $key; ?>">
+              <?php foreach ($listeFormules as $formules) { ?>
+                <option value="<?php echo $formules; ?>" > <?php echo $formules; ?> </option>
+              <?php } ?>
+            </select>
+          </td>
+
+          <td id="paramSection<?php echo $key ?>">
+            <select class="paramSection<?php echo $key ?>" id="param<?php echo $key ?>_0">
+              <?php foreach ($listeTypeDonnee as $typeDonnee) { ?>
+                <option value="<?php echo $typeDonnee->getIdType(); ?>"> <?php echo $typeDonnee->getLibelle(); ?> </option>
+              <?php } ?>
+            </select>
+
+            <div>
+              <button onclick="handleClickAddParams(event);" class="btn btn-secondary" id="btnAdParams<?php echo $key ?>">+</button>
+              <button onclick="handleClickRemoveParams(event);" class="btn btn-danger" id="btnRmParams<?php echo $key ?>">-</button>
+            </div>
+          </td>
+
+          <td>
+            <input type="number" id="bareme<?php echo $key ?>" required>
+          </td>
         </tr>
-      </thead>
 
-      <tfoot>
-        <tr id="piedTableau">
-          <th>Question</th>
-          <th>Formule</th>
-          <th>Paramètre</th>
-          <th>Barème</th>
-        </tr>
+        <?php } ?>
 
-      </tfoot>
-
-      <tbody>
-
-      <?php
-
-      if(empty($_SESSION['lastInsertIdEnonce'])){
-        $idEnonce  = $_GET['idEnonce'];
-      } else {
-        $idEnonce = $_SESSION['lastInsertIdEnonce'];
-      }
-
-      //on récupère la liste des questions de l'énoncé
-      if(empty($_SESSION['lastInsertIdEnonce'])){
-        $listeQuestions = $questionManager->recupererListeQuestionEnonce($idEnonce);
-      } else {
-        $listeQuestions = $questionManager->recupererListeQuestionEnonce($idEnonce);
-      }
-
-      //on récupère la liste des formule de correction disponible
-      $dirname = "./public/formules/correction";
-      $listeFormules = $fichierManager->getFichiersPhp($dirname);
-
-      //on récupère la liste des données variable de l'énoncé
-      $listeTypeDonnee = $enonceManager->getTypeDonneVariablePresentDansEnonce($idEnonce);
-
-      foreach ($listeQuestions as $key => $question) {
-
-      ?>
-
-      <tr class="ligneQuestion">
-        <td>
-          <p id="question<?php echo $question->getIdQuestion(); ?>">
-            <?php echo ($key+1).')'.' '.$question->getLibelle(); ?>
-          </p>
-        </td>
-
-        <td>
-          <select id="formuleCorrection<?php echo $key; ?>">
-            <?php foreach ($listeFormules as $formules) { ?>
-              <option value="<?php echo $formules; ?>" > <?php echo $formules; ?> </option>
-            <?php } ?>
-          </select>
-        </td>
-
-        <td id="paramSection<?php echo $key ?>">
-          <select class="paramSection<?php echo $key ?>" id="param<?php echo $key ?>_0">
-            <?php foreach ($listeTypeDonnee as $typeDonnee) { ?>
-              <option value="<?php echo $typeDonnee->getIdType(); ?>"> <?php echo $typeDonnee->getLibelle(); ?> </option>
-            <?php } ?>
-          </select>
-
-          <div>
-            <button onclick="handleClickAddParams(event);" class="btn btn-secondary" id="btnAdParams<?php echo $key ?>">+</button>
-            <button onclick="handleClickRemoveParams(event);" class="btn btn-danger" id="btnRmParams<?php echo $key ?>">-</button>
-          </div>
-        </td>
-
-        <td>
-          <input type="number" id="bareme<?php echo $key ?>" required>
-        </td>
-      </tr>
-
-      <?php } ?>
-
-      </tbody>
-    </table>
-    <div class="p-4">
-      <button onclick="validerCorrection();" class="btn btn-primary col-12">VALIDER</button>
-    </div>
+        </tbody>
+      </table>
+      <div class="p-4">
+        <button onclick="validerCorrection();" class="btn btn-primary col-12">VALIDER</button>
+      </div>
+    </form>
   </div>
 </div>
 

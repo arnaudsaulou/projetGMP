@@ -34,9 +34,9 @@
           <button name="Elementprecedent" class="btn btn-danger col-sm-12" id="boutonSupprimer">Supprimer</button>
         </div>
         <div class="form-group">
-          <form action="#" method="post" id="formCreationEnonce" onsubmit="return ">
+          <form action="#" method="post" id="formCreationEnonce" >
             <input type="hidden" name="enonceCreer" id="enonceCreer" >
-            <button type="submit" class="btn btn-primary col-sm-12" >Terminer Enonce</button>
+            <input type="submit" class="btn btn-primary col-sm-12" value="Terminer Enonce">
           </form>
 
 

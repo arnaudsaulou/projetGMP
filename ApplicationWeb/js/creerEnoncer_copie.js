@@ -14,7 +14,6 @@ var numQR = recupererNumQuestionReponseAjax();
 var contientQuestion = false;
 var contientDonneeVariable = false;
 var contientText = false;
-var creationEnonceReady = false;
 var numImageVariable = 1;
 var dejaPresent = false;
 var debutTableauDonneeVariable = 0;
@@ -262,8 +261,8 @@ $(document).ready(function() {
         imageBlockChoisi.style.display  = "inline";
     });
 
-  $('#formCreationEnonce').submit(function(event){
-    event.preventDefault();
+  $("#formCreationEnonce").submit(function(ev){
+    ev.preventDefault();
     enregistrerQuestions(this, handleEnregistrerQuestions);
   });
 
@@ -632,7 +631,11 @@ function validerEnonce(){
     retour = false;
   }
 
-  return retour;
+  if(retour){
+    return retour;
+  } else {
+
+  }
 }
 
 //Récupère le code HTML de la page de création et l'insère comme valeur de champ "hidden pour la méthode POST
@@ -643,20 +646,19 @@ function enregistrerQuestions(form , callback){
     url: './ajax/ajoutQuestion.ajax.php',
     data : {tableauQuestions: JSON.stringify(tableauQuestions)},
     success: function(data){
-      creationEnonceReady = validerEnonce();
       callback(form);
     },
     error: function(data){
       alert("Une erreur s'est produite :/");
-      creationEnonceReady = false;
-      callback();
     }
   });
 
 }
 
 function handleEnregistrerQuestions(form){
-  form.submit();
+  if(validerEnonce()){
+    form.submit();
+  }
 }
 
 function ajouterNouveauTypeDonnee(){

@@ -6,7 +6,10 @@
   <li class="breadcrumb-item active">Liste des énoncés enregistrés</li>
 </ol>
 
-<?php if (!isset($_POST['id_enonce'])) { ?>
+<?php
+  unset($_SESSION['lastInsertIdEnonce']);
+  if (!isset($_POST['id_enonce'])) {
+?>
 
   <!-- affichage du nombre d'énoncé présent dans la base de données -->
   <p> Il y a <?php echo $enonceManager->compterEnonce(); ?> énoncé(s) enregistré(s)</p>
@@ -112,7 +115,6 @@
     </script>
 
   <?php } else {
-
     $idEnonce = $_POST['id_enonce'];
     $tabSujets = $sujetManager->getIdSujetsByIdEnonce($idEnonce);
     foreach ($tabSujets as $sujet) {

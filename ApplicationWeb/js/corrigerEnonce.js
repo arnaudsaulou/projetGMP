@@ -85,8 +85,12 @@ function ajouterNouveauParams(newParam) {
       url: './ajax/ajoutPamametresCorrection.ajax.php',
       dataType: "json",
       success: function(array) {
+          console.log('array : ' +  array);
           //Appel à la fonction d'ajout d'option
           populateSelect(array,newParam);
+      },
+      error: function(data){
+        console.log('data : ' +  data);
       }
     });
   })
@@ -102,6 +106,9 @@ function recupererLastInsertedIdEnonce(callback){
       dataType: "json",
       success: function(lastInsertIdEnonce) {
         callback(lastInsertIdEnonce);
+      },
+      error: function(data){
+        console.log(data);
       }
     });
 
