@@ -11,7 +11,7 @@
   <div class="card mb-3">
     <div class="card-header">
       <i class="fas fa-table"></i>
-      Sélectionnez la promotion &agrave; supprimer
+      Sélectionnez la promotion à supprimer
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -19,10 +19,17 @@
           <thead>
             <tr>
               <th>Année</th>
-              <th>Nb. &Eacute;tudiants</th>
+              <th>Nombre d'étudiants dans la promotion</th>
               <th>Supprimer ?</th>
             </tr>
           </thead>
+          <tfoot>
+            <tr>
+              <th>Année</th>
+              <th>Nombre d'étudiants dans la promotion</th>
+              <th>Supprimer ?</th>
+            </tr>
+          </tfoot>
           <tbody>
             <?php
             $listePromotions = $utilisateurManager->getListeAnnees();

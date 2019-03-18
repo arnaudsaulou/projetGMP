@@ -24,7 +24,6 @@
 						<a class="dropdown-item" href="index.php?page=1">Lister</a>
 						<a class="dropdown-item" href="index.php?page=2">Importer</a>
 						<a class="dropdown-item" href="index.php?page=12">Gérer</a>
-						<a class="dropdown-item" href="index.php?page=21">Élèves sans réponses</a>
 						<a class="dropdown-item" href="index.php?page=13">Supprimer promotion</a>
 					</div>
 				</li>
@@ -57,6 +56,7 @@
 							<span class="badge badge-danger">!</span>	<?php } ?></a>
 							<a class="dropdown-item" href="index.php?page=11">Lister les attributions</a>
 							<a class="dropdown-item" href="index.php?page=8">Lister les réponses</a>
+							<a class="dropdown-item" href="index.php?page=21">Élèves sans réponse</a>
 						</div>
 					</li>
 				</ul>
