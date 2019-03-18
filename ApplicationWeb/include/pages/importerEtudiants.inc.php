@@ -29,13 +29,23 @@ function creerUtilisateurAPartirDeLigne($ligne, $delimiteur) {
     "nom" => $elements[0],
     "prenom" => $elements[1],
     "nomUtilisateur" => $elements[2],
-    "motDePasse" => $elements[3],
+    "motDePasse" => hashagerMotDePasse($elements[3]),
     "annee" => $elements[4]
   );
 
   $utilisateur = new Utilisateur($attributs);
 
   return $utilisateur;
+}
+
+
+/**
+* Hash et chiffre le mot de passe avec l'algorithme ARGON2I.
+* @param string $motDePasse - Le mot de passe en clair à chiffrer.
+* @return string Le mot de passe une fois hashé et chiffré.
+*/
+function hashagerMotDePasse($motDePasse){
+  return password_hash($motDePasse, PASSWORD_ARGON2I);
 }
 
 /**

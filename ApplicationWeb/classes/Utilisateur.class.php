@@ -188,6 +188,6 @@ class Utilisateur {
     public function checkPassword($mdpSaisi)
     {
         //TODO : Faire le hashage des mots de passe
-        return ($mdpSaisi == $this->getMotDePasse());
+        return password_verify($mdpSaisi, $this->getMotDePasse());
     }
 }

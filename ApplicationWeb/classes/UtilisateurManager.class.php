@@ -226,6 +226,15 @@ class UtilisateurManager
   }
 
   /**
+  * Hash et chiffre le mot de passe avec l'algorithme ARGON2I.
+  * @param string $motDePasse - Le mot de passe en clair à chiffrer.
+  * @return string Le mot de passe une fois hashé et chiffré.
+  */
+  function hashagerMotDePasse($motDePasse){
+    return password_hash($motDePasse, PASSWORD_ARGON2I);
+  }
+
+  /**
   * Permet de modifier le mot de passe d'un utilisateur
   * @param string $nouvMDP le nouveau mot de passe choisi
   * @param int $id L'ID de l'utilisateur dont le mot de passe doit être changé
@@ -234,7 +243,7 @@ class UtilisateurManager
     $req=$this->db->prepare(
       'UPDATE utilisateur SET motDePasse=:nouvMDP WHERE idUtilisateur=:id'
     );
-    $req->bindvalue(':nouvMDP',$nouvMDP,PDO::PARAM_STR);
+    $req->bindvalue(':nouvMDP',hashagerMotDePasse($nouvMDP),PDO::PARAM_STR);
     $req->bindValue(':id', $id, PDO::PARAM_STR);
     $req->execute();
     $req->closeCursor();
