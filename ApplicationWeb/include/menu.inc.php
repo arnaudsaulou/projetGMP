@@ -56,7 +56,7 @@
 							<span class="badge badge-danger">!</span>	<?php } ?></a>
 							<a class="dropdown-item" href="index.php?page=11">Lister les attributions</a>
 							<a class="dropdown-item" href="index.php?page=8">Lister les réponses</a>
-                            <a class="dropdown-item" href="index.php?page=21">Élèves sans réponses</a>
+							<a class="dropdown-item" href="index.php?page=21">Élèves sans réponse</a>
 						</div>
 					</li>
 				</ul>

@@ -100,7 +100,7 @@
 
         case 12:
             if ($_SESSION['droits'] == 1) {
-                include_once('pages/supprimerEtudiants.inc.php');
+                include_once('pages/gererEtudiants.inc.php');
             }
             break;
 

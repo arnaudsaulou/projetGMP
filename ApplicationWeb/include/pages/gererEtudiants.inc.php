@@ -3,7 +3,7 @@
   <li class="breadcrumb-item">
     <a>Gestion des étudiants</a>
   </li>
-  <li class="breadcrumb-item active">Supprimer un étudiant</li>
+  <li class="breadcrumb-item active">Gérer les étudiants</li>
 </ol>
 
 <?php if (!isset($_POST['id_etumdp']) && !isset($_POST['id_etusupr'])) { ?>
@@ -26,6 +26,16 @@
               <th>Supprimer ?</th>
             </tr>
           </thead>
+          <tfoot>
+            <tr>
+              <th>Numéro</th>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Année</th>
+              <th>Réinitialiser mot de passe ?</th>
+              <th>Supprimer ?</th>
+            </tr>
+          </tfoot>
           <tbody>
             <?php
             $listeEtudiants = $utilisateurManager->getListEtudiants();
