@@ -46,9 +46,11 @@ class SujetManager
       );
       $req->execute();
 
-      if($coheranceSujet != null){
-        $tabSujetIncoherants = $this->getSujetsIncoherant($coheranceSujet);
-      }
+      // $coheranceSujet = null;
+      //
+      // if($coheranceSujet != null){
+      //   $tabSujetIncoherants = $this->getSujetsIncoherant($coheranceSujet);
+      // }
 
       $this->insertIntoSujetPossible = "";
       $this->insertIntoSujet = "";
@@ -62,20 +64,20 @@ class SujetManager
           $possibiliteValeur[$i] = $this->donneeVariableManager->getDonneesVariableById($possibilite[$i])->getValeur();
         }
 
-        if($coheranceSujet != null){
-          while ($y < count($tabSujetIncoherants) && !$containsAllValues) {
-            $containsAllValues = !array_diff_assoc($possibiliteValeur, $tabSujetIncoherants[$y]);
-            $y++;
-          }
-        }
+        // if($coheranceSujet != null){
+        //   while ($y < count($tabSujetIncoherants) && !$containsAllValues) {
+        //     $containsAllValues = !array_diff_assoc($possibiliteValeur, $tabSujetIncoherants[$y]);
+        //     $y++;
+        //   }
+        // }
 
-        if(!$containsAllValues){
+        //if(!$containsAllValues){
           for ($i = 0; $i < count($possibilite); $i++) {
             $this->insertIntoSujetPossible .= '(' . $numSujet . ', ' . $possibilite[$i] . '),';
           }
           $this->insertIntoSujet .= '(' . $numSujet . ', ' . $_SESSION['lastInsertIdEnonce'] . '),';
           $numSujet++;
-        }
+        //}
       }
       $req->closeCursor();
       $this->insertIntoSujetPossible = rtrim($this->insertIntoSujetPossible, ',');
