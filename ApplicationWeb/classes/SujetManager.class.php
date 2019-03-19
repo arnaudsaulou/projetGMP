@@ -60,9 +60,9 @@ class SujetManager
         $containsAllValues = false;
         $y = 0;
 
-        for ($i=0; $i < count($possibilite); $i++) {
-          $possibiliteValeur[$i] = $this->donneeVariableManager->getDonneesVariableById($possibilite[$i])->getValeur();
-        }
+        // for ($i=0; $i < count($possibilite); $i++) {
+        //   $possibiliteValeur[$i] = $this->donneeVariableManager->getDonneesVariableById($possibilite[$i])->getValeur();
+        // }
 
         // if($coheranceSujet != null){
         //   while ($y < count($tabSujetIncoherants) && !$containsAllValues) {
