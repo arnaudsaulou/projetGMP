@@ -605,7 +605,6 @@ function ajouterElement(typeItem) {
             }
 
             break;
-
     }
 
     if (itemDescriptionVariable.value === "") {
@@ -1034,4 +1033,3 @@ function ajoutDonneeCalculee(libelleDonneeCalculee, nomFormuleCalcul, tableauIdP
         }
     });
 }
-

@@ -502,6 +502,13 @@ body.sidebar-toggled footer.sticky-footer {
   display: none;
 }
 
+.page_creation h1, pre, data, calculated_data, input, img  {
+  font-family: 'Roboto' !important;
+  font-size: 100%;
+  font-weight:normal;
+  text-decoration: none;
+}
+
 /* Impression PDF */
 @media print {
   body * {
