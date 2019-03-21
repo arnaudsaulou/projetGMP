@@ -1,3 +1,18 @@
-﻿"Numero de Sujet";"Nombre de moteurs";"Vitesse de la fusée";"nombre d'équipage";destination;"Distance avec la destination"
+﻿"Numero de Sujet";"Nombre de moteurs";"Vitesse de la fusée";"Nombre d'équipiers";Destination;"Distance avec la destination"
+16;3;3000;12;Mars;40000000
 17;3;4000;12;Mars;40000000
+31;3;7000;5;Mars;40000000
+46;3;5000;3;Jupiter;40000000
+51;4;7000;12;Venus;40000000
+52;4;3000;12;Mars;40000000
+54;4;5000;12;Mars;40000000
+65;4;4000;5;Mars;40000000
 73;4;4000;3;Venus;40000000
+80;4;3000;3;Jupiter;40000000
+89;5;4000;12;Mars;40000000
+90;5;5000;12;Mars;40000000
+99;5;7000;5;Venus;40000000
+100;5;3000;5;Mars;40000000
+101;5;4000;5;Mars;40000000
+103;5;7000;5;Mars;40000000
+116;5;3000;3;Jupiter;40000000
